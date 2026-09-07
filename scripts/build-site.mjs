@@ -16,6 +16,9 @@ import {
   socialLinks
 } from "./site-data.mjs";
 
+import { imageAssets } from "./image-assets.mjs";
+import { analyticsCopy, measurementId } from "./analytics-config.mjs";
+
 const root = process.cwd();
 const locales = Object.keys(localeConfig);
 
@@ -26,6 +29,12 @@ function escapeHtml(value = "") {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
+}
+
+function displayImage(url, sizes = "100vw") {
+  const asset = imageAssets[url];
+  if (!asset) return `src="${escapeHtml(url)}"`;
+  return `src="${asset.src}" srcset="${asset.srcset}" sizes="${sizes}" width="${asset.width}" height="${asset.height}" decoding="async"`;
 }
 
 function safeJson(value) {
@@ -94,7 +103,7 @@ function footer(locale) {
           <a href="mailto:info@tpkpark.com">info@tpkpark.com</a>${social}
         </nav></div>
       </div>
-      <div class="footer-bottom"><span>© 2026 ${escapeHtml(t.rights)}</span><span>Taman Perindustrian Kinrara · Puchong · Selangor</span></div>
+      <div class="footer-bottom"><span>© 2026 ${escapeHtml(t.rights)}</span><span>Taman Perindustrian Kinrara · Puchong · Selangor</span>${measurementId ? `<button type="button" class="analytics-settings" data-analytics-settings hidden>${escapeHtml(analyticsCopy[locale].settings)}</button>` : ""}</div>
     </div>
   </footer>`;
 }
@@ -114,7 +123,7 @@ function pageHero(locale, routeId, page) {
 function homeHero(locale, page) {
   const t = site[locale];
   return `<section class="hero" aria-labelledby="hero-title">
-    <img class="hero-media" src="${page.image}" alt="" fetchpriority="high" referrerpolicy="no-referrer">
+    <img class="hero-media" ${displayImage(page.image, "(max-width: 760px) 1000px, 100vw")} alt="" fetchpriority="high" referrerpolicy="no-referrer">
     <div class="hero-content"><p class="eyebrow">${escapeHtml(page.eyebrow)}</p><h1 id="hero-title">${escapeHtml(page.title)}</h1><p class="hero-lead">${escapeHtml(page.lead)}</p>
       <div class="hero-actions">
         <a class="button button-primary" href="${routePath(locale, "homeLiving")}">${escapeHtml(t.discover)} <span class="arrow" aria-hidden="true">→</span></a>
@@ -134,7 +143,7 @@ function renderCards(locale, block) {
     const href = item.route ? routePath(locale, item.route) : "";
     const more = href ? `<a class="text-link" href="${href}">${escapeHtml(item.linkLabel || t.readMore)} <span class="arrow" aria-hidden="true">→</span></a>` : "";
     if (item.image) {
-      return `<article class="card image-card"><img src="${item.image}" alt="" loading="lazy" referrerpolicy="no-referrer"><div class="image-card-content"><span class="number">${escapeHtml(item.number)}</span><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.text)}</p>${more}</div></article>`;
+      return `<article class="card image-card"><img ${displayImage(item.image, "(max-width: 760px) 960px, 1100px")} alt="" loading="lazy" referrerpolicy="no-referrer"><div class="image-card-content"><span class="number">${escapeHtml(item.number)}</span><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.text)}</p>${more}</div></article>`;
     }
     return `<article class="card"><span class="number">${escapeHtml(item.number)}</span><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.text)}</p>${more}</article>`;
   }).join("");
@@ -144,14 +153,15 @@ function renderCards(locale, block) {
 function renderSplit(locale, block, index) {
   const t = site[locale];
   const action = block.route ? `<a class="button button-dark" href="${routePath(locale, block.route)}">${escapeHtml(block.linkLabel || t.readMore)} <span class="arrow" aria-hidden="true">→</span></a>` : "";
-  const image = `<img class="split-media" src="${block.image}" alt="${escapeHtml(block.alt)}" loading="lazy" referrerpolicy="no-referrer">`;
+  const image = `<img class="split-media" ${displayImage(block.image, "(max-width: 760px) 960px, 1200px")} alt="${escapeHtml(block.alt)}" loading="lazy" referrerpolicy="no-referrer">`;
   const copy = `<div class="split-copy"><span class="section-number">${String(index + 1).padStart(2, "0")}</span><h2>${escapeHtml(block.title)}</h2><p>${escapeHtml(block.text)}</p>${action}</div>`;
   return `<section class="split section-sage">${index % 2 ? `${copy}${image}` : `${image}${copy}`}</section>`;
 }
 
-function renderStats(block) {
+function renderStats(locale, block) {
   const items = block.items.map((item) => `<div class="stat"><strong>${escapeHtml(item.value)}</strong><span>${escapeHtml(item.label)}</span></div>`).join("");
-  return `<section class="section-compact"><div class="shell"><div class="stats">${items}</div></div></section>`;
+  const more = block.route ? `<p class="stats-link">${link(locale, block.route, block.linkLabel, "text-link")}</p>` : "";
+  return `<section class="section-compact"><div class="shell"><div class="stats">${items}</div>${more}</div></section>`;
 }
 
 function renderDirectory(block) {
@@ -234,24 +244,36 @@ function renderUnitDetails(locale, block) {
   const t = site[locale];
   const ui = t.leasingUi;
   const unit = leasingInventory[block.inventory];
+  const leased = unit.status === "leased";
   const keys = ["availability", "address", "builtUp", "landArea", "askingRent", "format"];
   const facts = keys.filter((key) => unit.values[key]).map((key) => `<div class="unit-fact"><dt>${escapeHtml(ui.labels[key])}</dt><dd>${escapeHtml(unit.values[key][locale])}</dd></div>`).join("");
   const brochureUrl = unit.brochureUrls[locale];
   const brochureExternal = brochureUrl.startsWith("http");
   const brochureAttrs = brochureExternal ? ' target="_blank" rel="noopener noreferrer"' : " download";
-  const englishBrochure = locale === "en" ? "" : `<a class="text-link" href="${escapeHtml(unit.brochureUrls.en)}" type="application/pdf" hreflang="en-MY" download>${escapeHtml(ui.brochureEnglish)}</a>`;
+  const englishBrochure = leased || locale === "en" ? "" : `<a class="text-link" href="${escapeHtml(unit.brochureUrls.en)}" type="application/pdf" hreflang="en-MY" download>${escapeHtml(ui.brochureEnglish)}</a>`;
+  const brochure = leased ? "" : `<a class="button button-outline" href="${escapeHtml(brochureUrl)}" type="application/pdf" hreflang="${localeConfig[locale].hreflang}"${brochureAttrs}>${escapeHtml(ui.brochure)}</a>`;
   return `<section class="section unit-details"><div class="shell">
-    ${sectionHeader({ kicker: ui.factsKicker, title: ui.factsTitle, text: ui.factsText })}
-    <dl class="unit-facts">${facts}<div class="unit-fact"><dt>${escapeHtml(ui.labels.lastUpdated)}</dt><dd><time datetime="${routeLastModified[unit.routeId]}">${escapeHtml(ui.lastUpdated)}</time></dd></div></dl>
+    ${sectionHeader({ kicker: ui.factsKicker, title: leased ? ui.leasedTitle : ui.factsTitle, text: leased ? ui.leasedText : ui.factsText })}
+    <dl class="unit-facts">${facts}<div class="unit-fact"><dt>${escapeHtml(ui.labels.lastUpdated)}</dt><dd><time datetime="${routeLastModified[unit.routeId]}">${escapeHtml(formatDate(locale, routeLastModified[unit.routeId]))}</time></dd></div></dl>
     <div class="unit-actions">
-      <a class="button button-dark" href="${contactHref(locale, block.inventory)}">${escapeHtml(ui.enquire)} <span class="arrow" aria-hidden="true">→</span></a>
+      <a class="button button-dark" href="${contactHref(locale, block.inventory)}">${escapeHtml(leased ? ui.enquireAlternatives : ui.enquire)} <span class="arrow" aria-hidden="true">→</span></a>
       <a class="button button-outline" href="tel:+60380765200">${escapeHtml(ui.call)}</a>
-      <a class="button button-outline" href="${escapeHtml(brochureUrl)}" type="application/pdf" hreflang="${localeConfig[locale].hreflang}"${brochureAttrs}>${escapeHtml(ui.brochure)}</a>
+      ${brochure}
       ${englishBrochure}
       <a class="text-link" href="${escapeHtml(unit.mapUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(ui.location)} <span class="arrow" aria-hidden="true">↗</span></a>
     </div>
     <p class="unit-disclaimer">${escapeHtml(ui.disclaimer)}</p>
   </div></section>`;
+}
+
+function renderPlans(block) {
+  const plans = block.items.map((item) => `<figure class="floor-plan">
+    <h3>${escapeHtml(item.title)}</h3>
+    <a href="${escapeHtml(item.image)}" target="_blank" rel="noopener noreferrer" aria-label="${escapeHtml(`${block.openLabel}: ${item.title}`)}"><img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.alt)}" width="${item.width}" height="${item.height}" loading="lazy" decoding="async"></a>
+    <figcaption>${escapeHtml(block.openLabel)}</figcaption>
+    ${item.photo ? `<img class="plan-interior" src="${escapeHtml(item.photo)}" alt="${escapeHtml(item.photoAlt)}" width="467" height="${item.photo.includes("first-floor") ? 238 : 239}" loading="lazy" decoding="async">` : ""}
+  </figure>`).join("");
+  return `<section class="section"><div class="shell">${sectionHeader(block)}<details class="floor-plans"><summary>${escapeHtml(block.kicker)}</summary><div class="plan-grid">${plans}</div><p class="unit-disclaimer">${escapeHtml(block.note)}</p></details></div></section>`;
 }
 
 function renderProfile(page, block) {
@@ -326,7 +348,7 @@ function renderBlock(locale, routeId, page, block, index) {
   switch (block.type) {
     case "cards": return renderCards(locale, block);
     case "split": return renderSplit(locale, block, index);
-    case "stats": return renderStats(block);
+    case "stats": return renderStats(locale, block);
     case "directory": return renderDirectory(block);
     case "timeline": return renderTimeline(block);
     case "quote": return renderQuote(block);
@@ -336,6 +358,7 @@ function renderBlock(locale, routeId, page, block, index) {
     case "faq": return renderFaq(block);
     case "notice": return renderNotice(locale, block);
     case "unitDetails": return renderUnitDetails(locale, block);
+    case "plans": return renderPlans(block);
     case "profile": return renderProfile(page, block);
     case "profileSources": return renderProfileSources(locale, block);
     case "contact": return renderContact(locale, block);
@@ -367,6 +390,7 @@ function schemas(locale, routeId, page) {
       name: "TPK Park Sdn. Bhd.",
       alternateName: "TPK Park",
       url: `${origin}/`,
+      logo: { "@type": "ImageObject", url: `${origin}/assets/brand/tpk-park-logo.svg`, width: 567, height: 304 },
       description: "Manages and promotes selected properties and place-renewal initiatives at Taman Perindustrian Kinrara.",
       telephone: "+60 3 8076 5200",
       email: "info@tpkpark.com",
@@ -531,6 +555,16 @@ function scripts(locale) {
   </script>`;
 }
 
+function analytics(locale, routeId) {
+  if (!measurementId) return "";
+  const copy = analyticsCopy[locale];
+  return `<section class="analytics-consent" aria-labelledby="analytics-title" data-analytics-consent hidden>
+    <div><p id="analytics-title"><strong>${escapeHtml(copy.title)}</strong></p><p>${escapeHtml(copy.text)} <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">${escapeHtml(copy.privacy)}</a>.</p></div>
+    <div class="analytics-actions"><button type="button" class="button button-dark" data-analytics-allow>${escapeHtml(copy.allow)}</button><button type="button" class="button" data-analytics-decline>${escapeHtml(copy.decline)}</button></div>
+  </section>
+  <script defer src="/js/analytics.js" data-measurement-id="${escapeHtml(measurementId)}" data-locale="${locale}" data-route="${routeId}" data-canonical="${absolute(locale, routeId)}"></script>`;
+}
+
 function renderPage(locale, routeId) {
   const t = site[locale];
   const page = t.pages[routeId];
@@ -551,6 +585,7 @@ function renderPage(locale, routeId) {
   <meta name="description" content="${escapeHtml(page.description)}">
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
   <meta name="theme-color" content="#173e31">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any">
   <link rel="canonical" href="${canonical}">
   ${alternates}
   <link rel="alternate" hreflang="x-default" href="${absolute("en", routeId)}">
@@ -577,6 +612,7 @@ function renderPage(locale, routeId) {
   ${header(locale, routeId)}
   <main id="main">${body}</main>
   ${footer(locale)}
+  ${analytics(locale, routeId)}
   ${scripts(locale)}
 </body>
 </html>`;

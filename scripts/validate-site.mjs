@@ -164,11 +164,17 @@ for (const locale of locales) {
       if (!html.includes('class="unit-facts"')) fail(label, "unit facts are missing");
       if (!html.includes(`${routePath(locale, "contact")}?space=${unit.queryValue}`)) fail(label, "unit-specific enquiry link is missing");
       const brochureUrl = unit.brochureUrls[locale];
-      if (!html.includes(`href="${brochureUrl}" type="application/pdf" hreflang="${localeConfig[locale].hreflang}"`)) fail(label, "localized leasing information pack link is missing language metadata");
-      if (brochureUrl.startsWith("/") && !html.includes(`href="${brochureUrl}" type="application/pdf" hreflang="${localeConfig[locale].hreflang}" download`)) fail(label, "localized leasing information pack is not configured as a download");
-      if (locale !== "en") {
-        if (!html.includes(`href="${unit.brochureUrls.en}" type="application/pdf" hreflang="en-MY" download`)) fail(label, "English leasing information pack fallback is missing");
-        if (!html.includes(escapeHtml(site[locale].leasingUi.brochureEnglish))) fail(label, "English brochure link label is missing");
+      if (unit.status === "leased") {
+        if (/type="application\/pdf"/.test(html)) fail(label, "leased unit still offers an outdated brochure");
+        if (/RM25,000/.test(html) || unit.values.askingRent) fail(label, "leased unit still advertises rent");
+        if (!html.includes(escapeHtml(site[locale].leasingUi.enquireAlternatives))) fail(label, "leased unit has no alternative enquiry route");
+      } else {
+        if (!html.includes(`href="${brochureUrl}" type="application/pdf" hreflang="${localeConfig[locale].hreflang}"`)) fail(label, "localized leasing information pack link is missing language metadata");
+        if (brochureUrl.startsWith("/") && !html.includes(`href="${brochureUrl}" type="application/pdf" hreflang="${localeConfig[locale].hreflang}" download`)) fail(label, "localized leasing information pack is not configured as a download");
+        if (locale !== "en") {
+          if (!html.includes(`href="${unit.brochureUrls.en}" type="application/pdf" hreflang="en-MY" download`)) fail(label, "English leasing information pack fallback is missing");
+          if (!html.includes(escapeHtml(site[locale].leasingUi.brochureEnglish))) fail(label, "English brochure link label is missing");
+        }
       }
       if (!html.includes(`<time datetime="${routeLastModified[unit.routeId]}">`)) fail(label, "visible leasing update date is incorrect");
       for (const value of Object.values(unit.values)) {

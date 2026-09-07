@@ -27,7 +27,7 @@ export const localeConfig = {
 
 export const seoTitles = {
   en: {
-    home: "TPK Park Puchong | Home & Living, Automotive & Lifestyle",
+    home: "TPK Park | Taman Perindustrian Kinrara, Puchong",
     about: "About TPK Park | Taman Perindustrian Kinrara, Puchong",
     homeLiving: "Home & Living Showrooms in Puchong | TPK Park",
     automotive: "Automotive Sales & Services in Puchong | TPK Park",
@@ -35,15 +35,15 @@ export const seoTitles = {
     leasing: "Commercial & Industrial Property for Rent in Puchong | TPK Park",
     leasingShop: "Shop & Showroom for Rent in Puchong | TPK Park",
     leasingDetached: "Detached Building for Rent in Puchong | TPK Park",
-    leasingSemiDetached: "Semi-Detached Factory for Rent in Puchong | TPK Park",
+    leasingSemiDetached: "Semi-Detached Premises in Puchong | TPK Park",
     news: "TPK Park News, Updates & Media Coverage | Puchong",
-    milestones: "TPK Park Milestones | Home & Living Recognition",
+    milestones: "TPK Park | Malaysia Book of Records Recognition 2026",
     profile: "Wong Shung Yen 黄松延 | Managing Director, TPK Park",
     publicRecord: "Wong Shung Yen Media & Public Record | TPK Park",
     contact: "Contact TPK Park Puchong | Leasing & Enquiries"
   },
   ms: {
-    home: "TPK Park Puchong | Home & Living, Automotif & Lifestyle",
+    home: "TPK Park | Taman Perindustrian Kinrara, Puchong",
     about: "Tentang TPK Park | Taman Perindustrian Kinrara, Puchong",
     homeLiving: "Bilik Pameran Home & Living di Puchong | TPK Park",
     automotive: "Jualan & Servis Automotif di Puchong | TPK Park",
@@ -51,15 +51,15 @@ export const seoTitles = {
     leasing: "Premis Komersial & Industri untuk Disewa di Puchong | TPK Park",
     leasingShop: "Kedai & Bilik Pameran untuk Disewa di Puchong | TPK Park",
     leasingDetached: "Bangunan Sesebuah untuk Disewa di Puchong | TPK Park",
-    leasingSemiDetached: "Kilang Berkembar untuk Disewa di Puchong | TPK Park",
+    leasingSemiDetached: "Premis Berkembar di Puchong | TPK Park",
     news: "Berita, Kemas Kini & Liputan Media TPK Park | Puchong",
-    milestones: "Pencapaian TPK Park | Pengiktirafan Home & Living",
+    milestones: "TPK Park | Pengiktirafan Malaysia Book of Records 2026",
     profile: "Wong Shung Yen 黄松延 | Pengarah Urusan TPK Park",
     publicRecord: "Media & Rekod Awam Wong Shung Yen | TPK Park",
     contact: "Hubungi TPK Park Puchong | Penyewaan & Pertanyaan"
   },
   zh: {
-    home: "蒲种TPK Park | 家居生活、汽车服务与生活品味",
+    home: "蒲种金銮工业园 TPK Park | 家居生活、汽车服务与生活品味",
     about: "关于TPK Park | 蒲种Taman Perindustrian Kinrara",
     homeLiving: "蒲种家居生活展厅与装修品牌 | TPK Park",
     automotive: "蒲种汽车销售、维修与美容服务 | TPK Park",
@@ -67,16 +67,17 @@ export const seoTitles = {
     leasing: "蒲种商铺、展厅及工业单位出租 | TPK Park",
     leasingShop: "蒲种商铺及展厅出租 | TPK Park",
     leasingDetached: "蒲种独立式商业建筑出租 | TPK Park",
-    leasingSemiDetached: "蒲种半独立式厂房出租 | TPK Park",
+    leasingSemiDetached: "蒲种半独立式厂房与展厅 | TPK Park",
     news: "TPK Park新闻、动态与媒体报道 | 蒲种",
-    milestones: "TPK Park里程碑 | 家居生活集群认证",
+    milestones: "TPK Park家居生活集群 | 2026马来西亚纪录大全认证",
     profile: "黄松延 Wong Shung Yen | TPK Park董事经理",
     publicRecord: "黄松延媒体报道与公开记录 | Wong Shung Yen",
     contact: "联系蒲种TPK Park | 租赁与一般咨询"
   }
 };
 
-export const routeLastModified = Object.fromEntries(routeIds.map((routeId) => [routeId, ["news", "profile", "publicRecord"].includes(routeId) ? "2026-09-04" : "2026-09-03"]));
+const septemberSeoRoutes = new Set(["home", "homeLiving", "automotive", "lifestyle", "leasing", "leasingShop", "leasingDetached", "leasingSemiDetached", "news", "milestones"]);
+export const routeLastModified = Object.fromEntries(routeIds.map((routeId) => [routeId, septemberSeoRoutes.has(routeId) ? "2026-09-07" : ["profile", "publicRecord"].includes(routeId) ? "2026-09-04" : "2026-09-03"]));
 
 export function routePath(locale, routeId) {
   const prefix = localeConfig[locale].prefix;
@@ -113,10 +114,10 @@ export const leasingInventory = {
     values: {
       availability: { en: "Limited units — confirm current options", ms: "Unit terhad — sahkan pilihan semasa", zh: "少量单位 — 请确认当前选择" },
       address: { en: "Shoplots along Jalan TPK 2/8, Taman Perindustrian Kinrara, Puchong", ms: "Deretan kedai di sepanjang Jalan TPK 2/8, Taman Perindustrian Kinrara, Puchong", zh: "蒲种金銮工业园 Jalan TPK 2/8 沿线商铺" },
-      builtUp: { en: "Varies by selected unit", ms: "Berbeza mengikut unit yang dipilih", zh: "视所选单位而定" },
-      landArea: null,
-      askingRent: { en: "Available on enquiry", ms: "Diberikan semasa pertanyaan", zh: "租金请洽询" },
-      format: { en: "Customer-facing shop and showroom", ms: "Kedai dan bilik pameran berhadapan pelanggan", zh: "面向顾客的商铺与展厅" }
+      builtUp: { en: "Approx. 3,520 sq ft across two floors for a standard intermediate unit", ms: "Kira-kira 3,520 kaki persegi merentasi dua tingkat bagi unit tengah standard", zh: "标准中间单位两层建筑面积合计约3,520平方英尺" },
+      landArea: { en: "Standard lot: 22 ft × 80 ft (approx. 1,760 sq ft)", ms: "Lot standard: 22 kaki × 80 kaki (kira-kira 1,760 kaki persegi)", zh: "标准地段：22英尺 × 80英尺，约1,760平方英尺" },
+      askingRent: { en: "Indicative standard unit: ground floor RM8,300/month; first floor RM3,600/month", ms: "Unit standard indikatif: tingkat bawah RM8,300/bulan; tingkat satu RM3,600/bulan", zh: "标准单位参考叫租：底层每月RM8,300；一楼每月RM3,600" },
+      format: { en: "Two-storey shop and showroom; confirm floor or whole-unit availability", ms: "Kedai dan bilik pameran dua tingkat; sahkan ketersediaan mengikut tingkat atau seluruh unit", zh: "两层商铺与展厅；请确认个别楼层或整栋供应" }
     }
   },
   detached: {
@@ -139,6 +140,7 @@ export const leasingInventory = {
     }
   },
   semiDetached: {
+    status: "leased",
     routeId: "leasingSemiDetached",
     queryValue: "semi-detached",
     image: images.leasingSemiDetached,
@@ -149,11 +151,11 @@ export const leasingInventory = {
     },
     mapUrl: "https://www.google.com/maps/search/69+Jalan+TPK+2%2F8,+Taman+Perindustrian+Kinrara,+Puchong",
     values: {
-      availability: { en: "1 building — confirm current availability", ms: "1 bangunan — sahkan ketersediaan semasa", zh: "1栋 — 请确认当前供应" },
+      availability: { en: "Leased — enquire about other premises", ms: "Telah disewa — tanya tentang premis lain", zh: "已出租 — 欢迎查询其他物业" },
       address: { en: "69, Jalan TPK 2/8, Taman Perindustrian Kinrara, Puchong", ms: "69, Jalan TPK 2/8, Taman Perindustrian Kinrara, Puchong", zh: "蒲种金銮工业园 Jalan TPK 2/8 门牌69号" },
       builtUp: { en: "Approx. 6,446.88 sq ft", ms: "Kira-kira 6,446.88 kaki persegi", zh: "建筑面积约6,446.88平方英尺" },
       landArea: null,
-      askingRent: { en: "RM25,000 per month (indicative)", ms: "RM25,000 sebulan (indikatif)", zh: "每月RM25,000（参考叫租）" },
+      askingRent: null,
       format: { en: "Semi-detached whole-building format", ms: "Format keseluruhan bangunan berkembar", zh: "半独立式整栋单位" }
     }
   }
@@ -496,6 +498,9 @@ const common = {
       labels: { availability: "Availability", address: "Address", builtUp: "Built-up area", landArea: "Land area", askingRent: "Asking rent", format: "Property format", lastUpdated: "Last updated" },
       lastUpdated: "3 September 2026",
       enquire: "Enquire about this space",
+      enquireAlternatives: "Enquire about similar premises",
+      leasedTitle: "Property reference — Unit 69 is leased",
+      leasedText: "These details describe the property format. Contact the leasing team about other premises that may suit your business.",
       call: "Call leasing team",
       brochure: "Download leasing information pack (PDF)",
       brochureEnglish: null,
@@ -538,6 +543,9 @@ const common = {
       labels: { availability: "Ketersediaan", address: "Alamat", builtUp: "Keluasan binaan", landArea: "Keluasan tanah", askingRent: "Sewa diminta", format: "Format hartanah", lastUpdated: "Kemas kini terakhir" },
       lastUpdated: "3 September 2026",
       enquire: "Tanya tentang ruang ini",
+      enquireAlternatives: "Tanya tentang premis seumpamanya",
+      leasedTitle: "Rujukan hartanah — Unit 69 telah disewa",
+      leasedText: "Butiran ini menerangkan format hartanah. Hubungi pasukan penyewaan tentang premis lain yang mungkin sesuai untuk perniagaan anda.",
       call: "Hubungi pasukan penyewaan",
       brochure: "Muat turun pek maklumat penyewaan (PDF)",
       brochureEnglish: "Muat turun versi Bahasa Inggeris (PDF)",
@@ -580,6 +588,9 @@ const common = {
       labels: { availability: "供应情况", address: "地址", builtUp: "建筑面积", landArea: "土地面积", askingRent: "参考叫租", format: "物业形式", lastUpdated: "最后更新" },
       lastUpdated: "2026年9月3日",
       enquire: "查询此单位",
+      enquireAlternatives: "查询类似物业",
+      leasedTitle: "物业参考资料 — 69号已出租",
+      leasedText: "以下资料说明这类物业的特点。欢迎联系租赁团队，了解其他可能适合您业务的物业。",
       call: "致电租赁团队",
       brochure: "下载租赁资料包（PDF）",
       brochureEnglish: "下载英文版（PDF）",
@@ -596,7 +607,7 @@ const enPages = {
     eyebrow: "Puchong · Selangor",
     title: "A mature industrial place, renewed for everyday life.",
     description: "Explore Taman Perindustrian Kinrara, commonly known as TPK Park, in Puchong: Home & Living showrooms, automotive services, lifestyle amenities and leasing opportunities.",
-    lead: "TPK Park brings useful businesses together in an established, accessible setting—Home & Living, Automotive and Lifestyle, thoughtfully curated over time.",
+    lead: "TPK Park is the common name for Taman Perindustrian Kinrara in Puchong, where Home & Living, Automotive and Lifestyle businesses come together.",
     image: images.park,
     blocks: [
       { type: "cards", kicker: "Three connected clusters", title: "Plan one useful trip.", text: "Compare home ideas, arrange vehicle care, meet over a meal or discover a new activity—within one practical Puchong destination.", items: [
@@ -605,7 +616,7 @@ const enPages = {
         { number: "03", title: "Lifestyle", text: "Food, fitness, family activities, daily essentials and professional services.", route: "lifestyle", image: images.lifestyle }
       ] },
       { type: "split", title: "Renewal that keeps the place practical.", text: "TPK Park's management work focuses on selected properties and shared visitor experience: tenant curation, landscaping, façade lighting, coordinated signage, parking management, events and destination positioning.", image: images.park, alt: "Commercial and industrial premises at TPK Park in Puchong", route: "about" },
-      { type: "stats", items: [
+      { type: "stats", route: "milestones", linkLabel: "Explore the 2026 Home & Living recognition", items: [
         { value: "16", label: "businesses in the recognised Home & Living cluster" },
         { value: "96,728", label: "sq ft represented by the 2026 recognised cluster" },
         { value: "8", label: "Home & Living categories in the record assessment" }
@@ -645,8 +656,9 @@ const enPages = {
     title: "Ideas, materials and specialists—closer together.",
     description: "Discover TPK Park's Home & Living cluster in Puchong, with showrooms and specialists across furniture, kitchens, bathrooms, surfaces, décor and renovation.",
     lead: "A customer can compare more of a project in one trip, while businesses benefit from being part of a focused destination.",
+    cta: { title: "Bring your showroom to TPK Park.", text: "Explore shop and showroom formats for home, renovation and specialist retail businesses.", button: "View shops and showrooms", route: "leasingShop" },
     blocks: [
-      { type: "stats", items: [
+      { type: "stats", route: "milestones", linkLabel: "Explore the 2026 Home & Living recognition", items: [
         { value: "16", label: "businesses in the 2026 recognised cluster" },
         { value: "96,728", label: "sq ft across the recognised businesses" },
         { value: "8", label: "categories represented in the assessment" }
@@ -669,6 +681,7 @@ const enPages = {
     title: "Vehicle care, capability and choice.",
     description: "Explore automotive sales, servicing, detailing, specialist workshops and technical training at TPK Park in Puchong.",
     lead: "A growing automotive mix serves motorists, technicians and learners across sales, maintenance, detailing and specialist work.",
+    cta: { title: "Space for an automotive business.", text: "Explore the detached-building format for a showroom or customer-facing automotive operation. Confirm availability and suitability with the leasing team.", button: "View the detached building", route: "leasingDetached" },
     blocks: [
       { type: "directory", kicker: "Automotive mix", title: "Services for different stages of ownership", text: "Appointments, models and service availability are managed by each business.", items: [
         ["Sales & Service", "Perodua 3S Kinrara"], ["Sales & Service", "Mazda 3S"], ["Service", "Kia 4S Service"], ["Specialist Workshop", "Techtrics Auto"],
@@ -687,6 +700,7 @@ const enPages = {
     title: "Useful stops that make a place feel lived in.",
     description: "Find dining, fitness, swimming, gymnastics, optical services and daily essentials at TPK Park in Puchong.",
     lead: "Beyond showrooms and workshops, TPK Park supports the routines that bring colleagues, families and visitors back through the week.",
+    cta: { title: "Find space for your next concept.", text: "Explore shop formats for dining, wellness, studios and complementary customer-facing services.", button: "View shop space", route: "leasingShop" },
     blocks: [
       { type: "directory", kicker: "Around the park", title: "Eat, move, learn and get things done", text: "Individual businesses manage their own programmes, bookings and opening hours.", items: [
         ["Dining", "m.o.t.d"], ["Dining", "Jazmina Bistro"], ["Dining", "Nasi Lemak Daun Pisang Nuarina"], ["Dining", "Yummy Nyonya Kitchen"],
@@ -711,7 +725,7 @@ const enPages = {
       { type: "cards", kicker: "Available space formats", title: "Choose a property around how your business works", text: "Each permanent page provides the current reference details, location and a direct enquiry route.", items: [
         { number: "01", title: "Shop & showroom", text: "Customer-facing shoplots along Jalan TPK 2/8 for display, specialist retail, services and lifestyle uses.", route: "leasingShop", image: images.leasingShop, linkLabel: "View shops and showrooms" },
         { number: "02", title: "Detached building", text: "A standalone whole-building option for a flagship showroom, automotive centre or larger commercial operation.", route: "leasingDetached", image: images.leasingDetached, linkLabel: "View detached building" },
-        { number: "03", title: "Semi-detached building", text: "A flexible whole-building format for showroom, service, display, storage and operational needs.", route: "leasingSemiDetached", image: images.leasingSemiDetached, linkLabel: "View semi-detached building" }
+        { number: "03", title: "Semi-detached building", text: "No. 69 Jalan TPK 2/8 has been leased. Explore the property format and enquire about other premises.", route: "leasingSemiDetached", image: images.leasingSemiDetached, linkLabel: "View format and alternatives" }
       ] },
       { type: "split", title: "A visible address on the Puchong–Bukit Jalil corridor.", text: "At Taman Perindustrian Kinrara, commonly known as TPK Park, selected Home & Living, Automotive and Lifestyle businesses benefit from drive-up access, visitor parking and an established cluster.", image: images.leasing, alt: "Customer-facing commercial property at TPK Park in Puchong", route: "contact", linkLabel: "Discuss your space needs" },
       { type: "cards", kicker: "Preferred tenant fit", title: "Businesses that add to the destination", text: "The leasing strategy favours useful, customer-facing concepts that complement the existing business mix.", items: [
@@ -738,6 +752,23 @@ const enPages = {
     blocks: [
       { type: "notice", text: "Limited shop and showroom options may be available. Confirm the exact unit, floor area, asking rent, permitted use and viewing arrangements before making a decision." },
       { type: "unitDetails", inventory: "shopShowroom" },
+      {
+        "type": "plans",
+        "kicker": "Layout & access",
+        "title": "A practical two-storey shoplot",
+        "text": "The standard intermediate format is 22 ft × 80 ft, with ground-floor showroom or retail space and a first floor for display, office or consultation. Exact configuration and availability depend on the unit.",
+        "openLabel": "Open plan at full size",
+        "note": "Drawings and interior photographs reproduced from the 3 September 2026 leasing pack. Plans, dimensions and condition are for reference and must be verified.",
+        "items": [
+          {
+            "title": "Typical ground and first floor",
+            "image": "/assets/leasing/plans/section-2-typical-shoplot.jpg",
+            "width": 679,
+            "height": 635,
+            "alt": "Reference drawing of a typical two-storey shoplot on Jalan TPK 2/8"
+          }
+        ]
+      },
       { type: "split", title: "Designed for businesses customers need to see.", text: "The shoplots along Jalan TPK 2/8 suit furniture, kitchen, wardrobe, tile, sanitaryware, lighting, interior, café, wellness and specialist service concepts. Ground-level access and neighbouring destination businesses support planned visits and comparison shopping.", image: images.leasing, alt: "Shop and showroom frontage at TPK Park in Puchong" },
       { type: "cards", kicker: "Practical strengths", title: "A customer-facing commercial format", text: "Assess the exact unit against your operating and fit-out requirements.", items: [
         { number: "01", title: "Visibility", text: "Street-facing presence within an active commercial and industrial precinct." },
@@ -762,6 +793,34 @@ const enPages = {
     blocks: [
       { type: "notice", text: "The listed building, dimensions and RM58,000 monthly asking rent are indicative. Confirm current availability, permitted use, condition and all commercial terms with the leasing team." },
       { type: "unitDetails", inventory: "detached" },
+      {
+        "type": "plans",
+        "kicker": "Layout & access",
+        "title": "See how the detached building works",
+        "text": "No. 7 has two floors and a private external compound. The information pack identifies customer parking, a driveway and space for light loading or unloading. Confirm vehicle clearances, loading needs, utilities and permitted use during a viewing.",
+        "openLabel": "Open plan at full size",
+        "note": "Drawings and interior photographs reproduced from the 3 September 2026 leasing pack. Plans, dimensions and condition are for reference and must be verified.",
+        "items": [
+          {
+            "title": "Ground floor and compound",
+            "image": "/assets/leasing/plans/no-7-ground-floor.jpg",
+            "width": 915,
+            "height": 763,
+            "alt": "No. 7 Jalan TPK 2/4 ground-floor plan showing the building, driveway and compound",
+            "photo": "/assets/leasing/plans/no-7-ground-floor-interior.jpg",
+            "photoAlt": "Ground-floor interior at No. 7 from the September 2026 leasing pack"
+          },
+          {
+            "title": "First floor",
+            "image": "/assets/leasing/plans/no-7-first-floor.jpg",
+            "width": 915,
+            "height": 762,
+            "alt": "No. 7 Jalan TPK 2/4 first-floor plan showing office and meeting areas",
+            "photo": "/assets/leasing/plans/no-7-first-floor-interior.jpg",
+            "photoAlt": "First-floor interior at No. 7 from the September 2026 leasing pack"
+          }
+        ]
+      },
       { type: "split", title: "Whole-building control for a stronger brand presence.", text: "The detached format provides scale, a recognisable standalone address and a private compound. It may suit a corporate showroom, automotive centre, large-format retailer, experience centre or headquarters-style operation with customer-facing needs.", image: images.leasingDetached, alt: "Detached commercial building at Jalan TPK 2/4 in Puchong" },
       { type: "cards", kicker: "Property fit", title: "Space for a larger operating brief", text: "Confirm access, loading, utilities, approvals and fit-out requirements during the viewing.", items: [
         { number: "01", title: "Standalone identity", text: "A detached building supports clearer signage, arrival and customer recognition." },
@@ -779,22 +838,22 @@ const enPages = {
     parentRoute: "leasing",
     unitKey: "semiDetached",
     eyebrow: "Leasing · Semi-Detached Building",
-    title: "Semi-Detached Factory for Rent in Puchong",
-    description: "Semi-detached industrial-commercial building for rent at 69 Jalan TPK 2/8, Puchong, with approximately 6,446.88 sq ft built-up area.",
-    lead: "A whole-building format for brands that need a mix of showroom, service, display, storage and operational space.",
+    title: "Semi-Detached Premises in Puchong",
+    description: "No. 69 Jalan TPK 2/8 at TPK Park, Puchong has been leased. View the semi-detached property format and enquire about similar premises.",
+    lead: "No. 69 Jalan TPK 2/8 has been leased. These reference details explain the format for businesses considering similar showroom, service and operational space.",
     image: images.leasingSemiDetached,
     blocks: [
-      { type: "notice", text: "The listed building, dimensions and RM25,000 monthly asking rent are indicative. Confirm current availability, permitted use, condition and all commercial terms with the leasing team." },
+      { type: "notice", text: "Unit 69 has been leased and is no longer offered as an available unit. Contact the leasing team about alternative premises or future opportunities." },
       { type: "unitDetails", inventory: "semiDetached" },
       { type: "split", title: "A practical balance of frontage and operating space.", text: "The semi-detached format can support furniture galleries, interior design centres, home-improvement brands, automotive services and specialist operators that combine customer display with back-of-house functions.", image: images.leasingSemiDetached, alt: "Semi-detached industrial-commercial building at Jalan TPK 2/8 in Puchong" },
-      { type: "cards", kicker: "Property fit", title: "Flexible for display, service and operations", text: "Confirm the exact access, floor configuration, services and fit-out conditions during the viewing.", items: [
+      { type: "cards", kicker: "Property fit", title: "Flexible for display, service and operations", text: "Use these reference features to discuss similar space requirements with the leasing team.", items: [
         { number: "01", title: "Wider frontage", text: "A recognisable customer-facing presence for display-led businesses." },
         { number: "02", title: "Whole-building use", text: "Plan customer, office, service, storage and operational areas around one tenancy." },
         { number: "03", title: "TPK Park setting", text: "Operate near complementary Home & Living, Automotive and Lifestyle businesses." }
       ] },
       { type: "faq", kicker: "Semi-detached FAQ", title: "Key points to confirm", items: [
         { q: "What is the size of the semi-detached building?", a: "The reference information lists approximately 6,446.88 sq ft of built-up area. The exact measurement and configuration must be verified." },
-        { q: "What is the asking rent?", a: "The indicative asking rent is RM25,000 per month, subject to current availability, negotiation, landlord approval and contract." },
+        { q: "Is Unit 69 still available?", a: "No. Unit 69 has been leased. Contact management about other premises and future opportunities." },
         { q: "Can it be used as a showroom and operational space?", a: "That mixed format may be suitable, but the proposed use, fit-out, licensing, loading and other operational requirements must be reviewed before agreement." }
       ] }
     ]
@@ -807,7 +866,7 @@ const enPages = {
     image: images.leasing,
     cta: { title: "Looking for space at TPK Park?", text: "Review current shop, showroom and industrial property information, then confirm the latest availability with the leasing team.", button: "View available properties", route: "leasing" },
     blocks: [
-      { type: "newsFeature", kicker: "Latest update", category: "Leasing", date: "2026-09-03", title: "Leasing information in three languages.", text: "Prospective tenants can review current information packs for shop and showroom units, a detached building and a semi-detached property in English, Bahasa Melayu or Chinese. Availability and commercial terms remain subject to confirmation.", image: images.leasing, alt: "Commercial and industrial properties available for lease at TPK Park in Puchong", route: "leasing", linkLabel: "Explore available properties" },
+      { type: "newsFeature", kicker: "Latest update", category: "Leasing", date: "2026-09-07", title: "Updated leasing details and floor plans.", text: "Explore shop and showroom units and the detached building in English, Bahasa Melayu or Chinese, with floor plans from the leasing packs. No. 69 Jalan TPK 2/8 has been leased; the team can advise on alternatives. Confirm current availability and commercial terms.", image: images.leasing, alt: "Commercial and industrial properties available for lease at TPK Park in Puchong", route: "leasing", linkLabel: "Explore available properties" },
       { type: "newsUpdates", kicker: "From TPK Park", title: "Updates and useful context", text: "First-party information about the place, its business mix and ongoing management priorities.", items: [
         { category: "Park renewal", title: "Keeping a mature industrial address useful", text: "TPK Park's work across selected properties combines tenant curation with landscaping, façade lighting, signage coordination, parking management and destination activity.", image: images.park, alt: "Commercial and industrial surroundings at TPK Park in Puchong", route: "about", linkLabel: "How TPK Park approaches renewal" },
         { category: "Business mix", title: "Three complementary business pillars", text: "Home & Living, Automotive and Lifestyle businesses create a broader mix of showrooms, services, dining, fitness and everyday needs.", image: images.homeLiving, alt: "Home and Living businesses at TPK Park in Puchong", route: "home", linkLabel: "Explore the business mix" },
@@ -820,7 +879,7 @@ const enPages = {
     eyebrow: "Milestones Archive",
     title: "A record that belongs to one focused cluster.",
     description: "Archive of TPK Park's 2026 Home Carnival and Malaysia Book of Records recognition for its Home & Living retail cluster.",
-    lead: "In 2026, the Home & Living cluster—not the whole park—was recognised as the largest Home & Living retail cluster in an industrial park.",
+    lead: "On 5 July 2026, TPK Park’s Home & Living cluster received Malaysia Book of Records recognition as the “Largest Home & Living Retail Cluster in an Industrial Park”. The assessment covered 16 businesses across eight Home & Living categories.",
     blocks: [
       { type: "notice", text: "Archive: the 2026 Home Carnival has ended. This page preserves the milestone and does not advertise a current event." },
       { type: "stats", items: [
@@ -828,7 +887,7 @@ const enPages = {
         { value: "96,728", label: "sq ft across the recognised cluster" },
         { value: "8", label: "Home & Living categories represented" }
       ] },
-      { type: "split", title: "Recognition built on a working business cluster.", text: "The record marked the result of sustained tenant curation and property renewal. It was celebrated alongside the 2026 Home Carnival, bringing businesses and visitors together around the cluster.", image: images.carnival, alt: "TPK Park Home Carnival 2026 archive image" },
+      { type: "split", title: "Recognition built on a working business cluster.", text: "The record marked the result of sustained tenant curation and property renewal. It was celebrated alongside the 2026 Home Carnival, bringing businesses and visitors together around the cluster.", route: "homeLiving", linkLabel: "Explore the Home & Living cluster", image: images.carnival, alt: "TPK Park Home Carnival 2026 archive image" },
       { type: "timeline", kicker: "Archive", title: "From renewal to recognition", items: [
         { year: "Before", title: "A practical industrial base", text: "Mature premises and direct access provide the foundation for customer-facing businesses." },
         { year: "Over time", title: "A clearer tenant mix", text: "Home & Living businesses are curated into a more coherent destination." },
@@ -886,7 +945,7 @@ const msPages = {
     eyebrow: "Puchong · Selangor",
     title: "Kawasan perindustrian matang, diperbaharui untuk kehidupan seharian.",
     description: "Terokai Taman Perindustrian Kinrara, yang lazim dirujuk sebagai TPK Park, di Puchong: pameran Home & Living, perkhidmatan automotif, kemudahan gaya hidup dan peluang penyewaan.",
-    lead: "TPK Park menghimpunkan perniagaan yang berguna dalam persekitaran yang mudah diakses—Home & Living, Automotif dan Lifestyle, dibentuk dengan teliti dari semasa ke semasa.",
+    lead: "TPK Park ialah sebutan lazim bagi Taman Perindustrian Kinrara di Puchong, yang menghimpunkan perniagaan Home & Living, Automotif dan Lifestyle.",
     image: images.park,
     blocks: [
       { type: "cards", kicker: "Tiga kluster saling melengkapi", title: "Rancang satu perjalanan yang berguna.", text: "Bandingkan idea rumah, uruskan kenderaan, nikmati hidangan atau cuba aktiviti baharu—semuanya dalam satu destinasi praktikal di Puchong.", items: [
@@ -895,7 +954,7 @@ const msPages = {
         { number: "03", title: "Lifestyle", text: "Makanan, kecergasan, aktiviti keluarga, keperluan harian dan perkhidmatan profesional.", route: "lifestyle", image: images.lifestyle }
       ] },
       { type: "split", title: "Pembaharuan yang mengekalkan nilai praktikal.", text: "Pengurusan TPK Park memberi tumpuan kepada hartanah terpilih dan pengalaman bersama pengunjung: pemilihan penyewa, landskap, pencahayaan fasad, penyelarasan papan tanda, pengurusan parkir, acara dan penjenamaan destinasi.", image: images.park, alt: "Premis komersial dan perindustrian di TPK Park, Puchong", route: "about" },
-      { type: "stats", items: [
+      { type: "stats", route: "milestones", linkLabel: "Terokai pengiktirafan Home & Living 2026", items: [
         { value: "16", label: "perniagaan dalam kluster Home & Living yang diiktiraf" },
         { value: "96,728", label: "kaki persegi dalam kluster yang diiktiraf pada 2026" },
         { value: "8", label: "kategori Home & Living dalam penilaian rekod" }
@@ -935,8 +994,9 @@ const msPages = {
     title: "Idea, bahan dan pakar—lebih dekat antara satu sama lain.",
     description: "Terokai kluster Home & Living TPK Park di Puchong, merangkumi perabot, dapur, bilik mandi, permukaan, dekorasi dan renovasi.",
     lead: "Pelanggan boleh membandingkan lebih banyak pilihan dalam satu perjalanan, manakala perniagaan mendapat manfaat daripada destinasi yang berfokus.",
+    cta: { title: "Bawa bilik pameran anda ke TPK Park.", text: "Terokai format kedai dan bilik pameran untuk perniagaan rumah, renovasi dan runcit khusus.", button: "Lihat kedai dan bilik pameran", route: "leasingShop" },
     blocks: [
-      { type: "stats", items: [
+      { type: "stats", route: "milestones", linkLabel: "Terokai pengiktirafan Home & Living 2026", items: [
         { value: "16", label: "perniagaan dalam kluster yang diiktiraf pada 2026" }, { value: "96,728", label: "kaki persegi keseluruhan perniagaan yang diiktiraf" }, { value: "8", label: "kategori dalam penilaian" }
       ] },
       { type: "directory", kicker: "Campuran perniagaan", title: "Perjalanan renovasi yang praktikal", text: "Nama penyewa dan waktu operasi boleh berubah; hubungi setiap perniagaan sebelum berkunjung.", items: [
@@ -952,6 +1012,7 @@ const msPages = {
     title: "Penjagaan kenderaan, kepakaran dan pilihan.",
     description: "Terokai jualan, servis, detailing, bengkel khusus dan latihan teknikal automotif di TPK Park, Puchong.",
     lead: "Campuran automotif yang berkembang memenuhi keperluan pemandu, juruteknik dan pelajar dalam jualan, penyelenggaraan dan kerja khusus.",
+    cta: { title: "Ruang untuk perniagaan automotif.", text: "Terokai format bangunan sesebuah untuk bilik pameran atau operasi automotif berhadapan pelanggan. Sahkan ketersediaan dan kesesuaian dengan pasukan penyewaan.", button: "Lihat bangunan sesebuah", route: "leasingDetached" },
     blocks: [
       { type: "directory", kicker: "Campuran automotif", title: "Perkhidmatan untuk pelbagai peringkat pemilikan", text: "Janji temu, model dan ketersediaan servis diurus oleh setiap perniagaan.", items: [
         ["Jualan & Servis", "Perodua 3S Kinrara"], ["Jualan & Servis", "Mazda 3S"], ["Servis", "Kia 4S Service"], ["Bengkel Khusus", "Techtrics Auto"], ["Pendidikan Teknikal", "Techtra Automotive Academy"], ["Detailing", "Jon Detailing"], ["Servis", "Jaecoo Service Centre"], ["Bengkel Khusus", "Toyokar"]
@@ -967,6 +1028,7 @@ const msPages = {
     title: "Persinggahan berguna yang menghidupkan sesuatu tempat.",
     description: "Temui makanan, kecergasan, renang, gimnastik, optik dan keperluan harian di TPK Park, Puchong.",
     lead: "Di samping bilik pameran dan bengkel, TPK Park menyokong rutin yang membawa pekerja, keluarga dan pengunjung kembali sepanjang minggu.",
+    cta: { title: "Cari ruang untuk konsep baharu anda.", text: "Terokai format kedai untuk makanan, kesejahteraan, studio dan perkhidmatan berhadapan pelanggan.", button: "Lihat ruang kedai", route: "leasingShop" },
     blocks: [
       { type: "directory", kicker: "Sekitar taman", title: "Makan, bergerak, belajar dan selesaikan urusan", text: "Setiap perniagaan mengurus program, tempahan dan waktu operasinya sendiri.", items: [["Makanan", "m.o.t.d"], ["Makanan", "Jazmina Bistro"], ["Makanan", "Nasi Lemak Daun Pisang Nuarina"], ["Makanan", "Yummy Nyonya Kitchen"], ["Renang", "Optimum Swim School"], ["Gimnastik", "Aces Gymnastic Academy"], ["Optik", "Forsee Lens"], ["Kedai Serbaneka", "99 Speedmart"], ["Kesejahteraan", "Happivilles"]] },
       { type: "cards", kicker: "Rentak harian", title: "Lebih banyak sebab untuk kembali", text: "Destinasi bercampur berfungsi baik apabila menyokong kunjungan terancang dan keperluan biasa.", items: [
@@ -986,7 +1048,7 @@ const msPages = {
       { type: "cards", kicker: "Format ruang tersedia", title: "Pilih hartanah mengikut cara perniagaan anda beroperasi", text: "Setiap halaman kekal menyediakan butiran rujukan semasa, lokasi dan laluan pertanyaan terus.", items: [
         { number: "01", title: "Kedai & bilik pameran", text: "Kedai berhadapan pelanggan di Jalan TPK 2/8 untuk pameran, runcit khusus, perkhidmatan dan kegunaan lifestyle.", route: "leasingShop", image: images.leasingShop, linkLabel: "Lihat kedai dan bilik pameran" },
         { number: "02", title: "Bangunan sesebuah", text: "Pilihan keseluruhan bangunan untuk bilik pameran utama, pusat automotif atau operasi komersial lebih besar.", route: "leasingDetached", image: images.leasingDetached, linkLabel: "Lihat bangunan sesebuah" },
-        { number: "03", title: "Bangunan berkembar", text: "Format fleksibel untuk keperluan pameran, servis, paparan, penyimpanan dan operasi.", route: "leasingSemiDetached", image: images.leasingSemiDetached, linkLabel: "Lihat bangunan berkembar" }
+        { number: "03", title: "Bangunan berkembar", text: "No. 69 Jalan TPK 2/8 telah disewa. Terokai format hartanah dan tanya tentang premis lain.", route: "leasingSemiDetached", image: images.leasingSemiDetached, linkLabel: "Lihat format dan pilihan lain" }
       ] },
       { type: "split", title: "Alamat mudah dilihat di koridor Puchong–Bukit Jalil.", text: "Di Taman Perindustrian Kinrara, yang lazim dirujuk sebagai TPK Park, perniagaan Home & Living, Automotif dan Lifestyle terpilih mendapat manfaat daripada akses terus, parkir pengunjung dan kluster yang mapan.", image: images.leasing, alt: "Hartanah komersial berhadapan pelanggan di TPK Park, Puchong", route: "contact", linkLabel: "Bincangkan keperluan ruang anda" },
       { type: "cards", kicker: "Kesesuaian penyewa", title: "Perniagaan yang melengkapi destinasi", text: "Strategi penyewaan mengutamakan konsep berguna dan berhadapan pelanggan yang melengkapi campuran perniagaan sedia ada.", items: [
@@ -1013,6 +1075,23 @@ const msPages = {
     blocks: [
       { type: "notice", text: "Pilihan kedai dan bilik pameran terhad mungkin tersedia. Sahkan unit, keluasan lantai, sewa diminta, kegunaan dibenarkan dan aturan lawatan sebelum membuat keputusan." },
       { type: "unitDetails", inventory: "shopShowroom" },
+      {
+        "type": "plans",
+        "kicker": "Susun atur & akses",
+        "title": "Format kedai dua tingkat yang praktikal",
+        "text": "Unit tengah standard berukuran 22 kaki × 80 kaki, dengan ruang pameran atau runcit di tingkat bawah dan ruang paparan, pejabat atau perundingan di tingkat satu. Susun atur dan ketersediaan sebenar bergantung pada unit.",
+        "openLabel": "Buka pelan pada saiz penuh",
+        "note": "Pelan dan foto dalaman diambil daripada pek penyewaan 3 September 2026. Pelan, ukuran dan keadaan adalah untuk rujukan serta perlu disahkan.",
+        "items": [
+          {
+            "title": "Pelan tipikal tingkat bawah dan tingkat satu",
+            "image": "/assets/leasing/plans/section-2-typical-shoplot.jpg",
+            "width": 679,
+            "height": 635,
+            "alt": "Pelan rujukan kedai dua tingkat tipikal di Jalan TPK 2/8"
+          }
+        ]
+      },
       { type: "split", title: "Untuk perniagaan yang perlu dilihat pelanggan.", text: "Kedai di Jalan TPK 2/8 sesuai untuk perabot, dapur, almari, jubin, perkakasan sanitari, pencahayaan, dalaman, kafe, kesejahteraan dan perkhidmatan khusus. Akses aras jalan dan perniagaan destinasi berdekatan menyokong lawatan terancang dan perbandingan pilihan.", image: images.leasing, alt: "Bahagian hadapan kedai dan bilik pameran di TPK Park, Puchong" },
       { type: "cards", kicker: "Kekuatan praktikal", title: "Format komersial berhadapan pelanggan", text: "Nilai unit sebenar berdasarkan keperluan operasi dan ubah suai anda.", items: [
         { number: "01", title: "Keterlihatan", text: "Kehadiran menghadap jalan dalam kawasan komersial dan perindustrian yang aktif." },
@@ -1037,6 +1116,34 @@ const msPages = {
     blocks: [
       { type: "notice", text: "Bangunan, keluasan dan sewa diminta RM58,000 sebulan yang disenaraikan adalah indikatif. Sahkan ketersediaan, kegunaan dibenarkan, keadaan dan semua terma komersial semasa." },
       { type: "unitDetails", inventory: "detached" },
+      {
+        "type": "plans",
+        "kicker": "Susun atur & akses",
+        "title": "Lihat susun atur bangunan sesebuah",
+        "text": "No. 7 mempunyai dua tingkat dan kawasan luar persendirian. Pek maklumat menunjukkan parkir pelanggan, laluan kenderaan serta ruang untuk pemunggahan ringan. Sahkan kelegaan kenderaan, keperluan pemunggahan, utiliti dan kegunaan yang dibenarkan semasa lawatan.",
+        "openLabel": "Buka pelan pada saiz penuh",
+        "note": "Pelan dan foto dalaman diambil daripada pek penyewaan 3 September 2026. Pelan, ukuran dan keadaan adalah untuk rujukan serta perlu disahkan.",
+        "items": [
+          {
+            "title": "Tingkat bawah dan kawasan luar",
+            "image": "/assets/leasing/plans/no-7-ground-floor.jpg",
+            "width": 915,
+            "height": 763,
+            "alt": "Pelan tingkat bawah No. 7 Jalan TPK 2/4 menunjukkan bangunan, laluan kenderaan dan kawasan luar",
+            "photo": "/assets/leasing/plans/no-7-ground-floor-interior.jpg",
+            "photoAlt": "Ruang dalaman tingkat bawah No. 7 dalam pek penyewaan September 2026"
+          },
+          {
+            "title": "Tingkat satu",
+            "image": "/assets/leasing/plans/no-7-first-floor.jpg",
+            "width": 915,
+            "height": 762,
+            "alt": "Pelan tingkat satu No. 7 Jalan TPK 2/4 menunjukkan ruang pejabat dan mesyuarat",
+            "photo": "/assets/leasing/plans/no-7-first-floor-interior.jpg",
+            "photoAlt": "Ruang dalaman tingkat satu No. 7 dalam pek penyewaan September 2026"
+          }
+        ]
+      },
       { type: "split", title: "Kawalan keseluruhan bangunan untuk kehadiran jenama lebih kukuh.", text: "Format sesebuah menawarkan skala, alamat berdiri sendiri yang mudah dikenali dan kawasan persendirian. Ia mungkin sesuai untuk bilik pameran korporat, pusat automotif, runcit format besar, pusat pengalaman atau operasi seperti ibu pejabat yang berhadapan pelanggan.", image: images.leasingDetached, alt: "Bangunan komersial sesebuah di Jalan TPK 2/4, Puchong" },
       { type: "cards", kicker: "Kesesuaian hartanah", title: "Ruang untuk operasi berskala lebih besar", text: "Sahkan akses, pemunggahan, utiliti, kelulusan dan keperluan ubah suai semasa lawatan.", items: [
         { number: "01", title: "Identiti tersendiri", text: "Bangunan sesebuah menyokong papan tanda, ketibaan dan pengecaman pelanggan yang lebih jelas." },
@@ -1054,22 +1161,22 @@ const msPages = {
     parentRoute: "leasing",
     unitKey: "semiDetached",
     eyebrow: "Penyewaan · Bangunan Berkembar",
-    title: "Kilang Berkembar untuk Disewa di Puchong",
-    description: "Bangunan industri-komersial berkembar untuk disewa di 69 Jalan TPK 2/8, Puchong, dengan keluasan binaan kira-kira 6,446.88 kaki persegi.",
-    lead: "Format keseluruhan bangunan untuk jenama yang memerlukan gabungan bilik pameran, servis, paparan, penyimpanan dan ruang operasi.",
+    title: "Premis Berkembar di Puchong",
+    description: "No. 69 Jalan TPK 2/8 di TPK Park, Puchong telah disewa. Lihat format hartanah berkembar dan tanya tentang premis seumpamanya.",
+    lead: "No. 69 Jalan TPK 2/8 telah disewa. Maklumat rujukan ini menerangkan format untuk perniagaan yang mencari ruang pameran, servis dan operasi seumpamanya.",
     image: images.leasingSemiDetached,
     blocks: [
-      { type: "notice", text: "Bangunan, keluasan dan sewa diminta RM25,000 sebulan yang disenaraikan adalah indikatif. Sahkan ketersediaan, kegunaan dibenarkan, keadaan dan semua terma komersial semasa." },
+      { type: "notice", text: "Unit 69 telah disewa dan tidak lagi ditawarkan sebagai unit tersedia. Hubungi pasukan penyewaan tentang premis alternatif atau peluang akan datang." },
       { type: "unitDetails", inventory: "semiDetached" },
       { type: "split", title: "Keseimbangan praktikal antara bahagian hadapan dan ruang operasi.", text: "Format berkembar boleh menyokong galeri perabot, pusat reka bentuk dalaman, jenama penambahbaikan rumah, perkhidmatan automotif dan pengendali khusus yang menggabungkan paparan pelanggan dengan fungsi sokongan.", image: images.leasingSemiDetached, alt: "Bangunan industri-komersial berkembar di Jalan TPK 2/8, Puchong" },
-      { type: "cards", kicker: "Kesesuaian hartanah", title: "Fleksibel untuk paparan, servis dan operasi", text: "Sahkan akses, susun atur lantai, perkhidmatan dan keadaan ubah suai sebenar semasa lawatan.", items: [
+      { type: "cards", kicker: "Kesesuaian hartanah", title: "Fleksibel untuk paparan, servis dan operasi", text: "Gunakan ciri rujukan ini untuk membincangkan keperluan ruang seumpamanya dengan pasukan penyewaan.", items: [
         { number: "01", title: "Bahagian hadapan lebih luas", text: "Kehadiran berhadapan pelanggan yang mudah dikenali untuk perniagaan berasaskan paparan." },
         { number: "02", title: "Penggunaan keseluruhan bangunan", text: "Rancang kawasan pelanggan, pejabat, servis, penyimpanan dan operasi dalam satu penyewaan." },
         { number: "03", title: "Persekitaran TPK Park", text: "Beroperasi berhampiran perniagaan Home & Living, Automotif dan Lifestyle yang saling melengkapi." }
       ] },
       { type: "faq", kicker: "Soalan bangunan berkembar", title: "Perkara penting untuk disahkan", items: [
         { q: "Berapakah keluasan bangunan berkembar ini?", a: "Maklumat rujukan menyenaraikan kira-kira 6,446.88 kaki persegi keluasan binaan. Ukuran dan susun atur sebenar mesti disahkan." },
-        { q: "Berapakah sewa yang diminta?", a: "Sewa diminta indikatif ialah RM25,000 sebulan, tertakluk kepada ketersediaan semasa, rundingan, kelulusan tuan tanah dan kontrak." },
+        { q: "Adakah Unit 69 masih tersedia?", a: "Tidak. Unit 69 telah disewa. Hubungi pengurusan tentang premis lain dan peluang akan datang." },
         { q: "Bolehkah ia digunakan sebagai bilik pameran dan ruang operasi?", a: "Format campuran itu mungkin sesuai, tetapi kegunaan, ubah suai, pelesenan, pemunggahan dan keperluan operasi lain mesti dikaji sebelum persetujuan." }
       ] }
     ]
@@ -1082,7 +1189,7 @@ const msPages = {
     image: images.leasing,
     cta: { title: "Mencari ruang di TPK Park?", text: "Semak maklumat semasa bagi kedai, bilik pameran dan hartanah industri, kemudian sahkan ketersediaan terkini dengan pasukan penyewaan.", button: "Lihat hartanah yang tersedia", route: "leasing" },
     blocks: [
-      { type: "newsFeature", kicker: "Kemas kini terkini", category: "Penyewaan", date: "2026-09-03", title: "Maklumat penyewaan dalam tiga bahasa.", text: "Bakal penyewa boleh meneliti pek maklumat semasa bagi unit kedai dan bilik pameran, sebuah bangunan sesebuah serta sebuah bangunan berkembar dalam Bahasa Inggeris, Bahasa Melayu atau Bahasa Cina. Ketersediaan dan terma komersial masih tertakluk kepada pengesahan.", image: images.leasing, alt: "Hartanah komersial dan industri untuk disewa di TPK Park, Puchong", route: "leasing", linkLabel: "Terokai hartanah yang tersedia" },
+      { type: "newsFeature", kicker: "Kemas kini terkini", category: "Penyewaan", date: "2026-09-07", title: "Maklumat penyewaan dan pelan lantai terkini.", text: "Terokai unit kedai dan bilik pameran serta bangunan sesebuah dalam Bahasa Inggeris, Bahasa Melayu atau Bahasa Cina, berserta pelan daripada pek penyewaan. No. 69 Jalan TPK 2/8 telah disewa; hubungi pasukan kami tentang pilihan lain. Sahkan ketersediaan dan terma komersial semasa.", image: images.leasing, alt: "Hartanah komersial dan industri untuk disewa di TPK Park, Puchong", route: "leasing", linkLabel: "Terokai hartanah yang tersedia" },
       { type: "newsUpdates", kicker: "Daripada TPK Park", title: "Kemas kini dan konteks berguna", text: "Maklumat langsung mengenai kawasan ini, campuran perniagaannya dan keutamaan pengurusan berterusan.", items: [
         { category: "Pembaharuan taman", title: "Mengekalkan nilai praktikal kawasan perindustrian matang", text: "Usaha TPK Park bagi hartanah terpilih menggabungkan pemilihan penyewa, landskap, pencahayaan fasad, penyelarasan papan tanda, pengurusan parkir dan aktiviti destinasi.", image: images.park, alt: "Persekitaran komersial dan perindustrian di TPK Park, Puchong", route: "about", linkLabel: "Pendekatan TPK Park terhadap pembaharuan" },
         { category: "Campuran perniagaan", title: "Tiga teras perniagaan yang saling melengkapi", text: "Perniagaan Home & Living, Automotif dan Lifestyle membentuk gabungan bilik pameran, perkhidmatan, makanan, kecergasan dan keperluan harian.", image: images.homeLiving, alt: "Perniagaan Home and Living di TPK Park, Puchong", route: "home", linkLabel: "Terokai campuran perniagaan" },
@@ -1095,11 +1202,11 @@ const msPages = {
     eyebrow: "Arkib Pencapaian",
     title: "Rekod yang khusus untuk satu kluster berfokus.",
     description: "Arkib Home Carnival 2026 dan pengiktirafan Malaysia Book of Records bagi kluster runcit Home & Living TPK Park.",
-    lead: "Pada 2026, kluster Home & Living—bukan keseluruhan taman—diiktiraf sebagai kluster runcit Home & Living terbesar dalam sebuah taman perindustrian.",
+    lead: "Pada 5 Julai 2026, kluster Home & Living TPK Park menerima pengiktirafan Malaysia Book of Records sebagai “Largest Home & Living Retail Cluster in an Industrial Park”. Penilaian meliputi 16 perniagaan dalam lapan kategori Home & Living.",
     blocks: [
       { type: "notice", text: "Arkib: Home Carnival 2026 telah berakhir. Halaman ini memelihara pencapaian tersebut dan bukan iklan acara semasa." },
       { type: "stats", items: [{ value: "16", label: "perniagaan dalam penilaian rekod" }, { value: "96,728", label: "kaki persegi dalam kluster yang diiktiraf" }, { value: "8", label: "kategori Home & Living" }] },
-      { type: "split", title: "Pengiktirafan berasaskan kluster perniagaan yang berfungsi.", text: "Rekod itu menandakan hasil pemilihan penyewa dan pembaharuan hartanah yang berterusan. Ia diraikan bersama Home Carnival 2026.", image: images.carnival, alt: "Imej arkib Home Carnival TPK Park 2026" },
+      { type: "split", title: "Pengiktirafan berasaskan kluster perniagaan yang berfungsi.", text: "Rekod itu menandakan hasil pemilihan penyewa dan pembaharuan hartanah yang berterusan. Ia diraikan bersama Home Carnival 2026.", route: "homeLiving", linkLabel: "Terokai kluster Home & Living", image: images.carnival, alt: "Imej arkib Home Carnival TPK Park 2026" },
       { type: "timeline", kicker: "Arkib", title: "Daripada pembaharuan kepada pengiktirafan", items: [
         { year: "Sebelum", title: "Asas industri praktikal", text: "Premis matang dan akses terus menjadi asas perniagaan berhadapan pelanggan." }, { year: "Beransur", title: "Campuran penyewa lebih jelas", text: "Perniagaan Home & Living dibentuk menjadi destinasi yang lebih tersusun." }, { year: "2026", title: "Pengiktirafan rekod", text: "Kluster dinilai merangkumi 16 perniagaan, 96,728 kaki persegi dan lapan kategori." }, { year: "Berterusan", title: "Usaha diteruskan", text: "Pencapaian ini menyokong—bukan menamatkan—pembaharuan jangka panjang." }
       ] }
@@ -1149,7 +1256,7 @@ const zhPages = {
     eyebrow: "蒲种 · 雪兰莪",
     title: "成熟工业空间，为日常生活持续更新。",
     description: "探索蒲种Taman Perindustrian Kinrara（金銮工业园，通称TPK Park）的家居生活展厅、汽车服务、生活配套及租赁机会。",
-    lead: "TPK Park在交通便利的成熟环境中，逐步汇聚家居生活、汽车服务及生活品味业态。",
+    lead: "TPK Park是蒲种Taman Perindustrian Kinrara（金銮工业园）的通称，汇聚家居生活、汽车服务及生活品味业态。",
     image: images.park,
     blocks: [
       { type: "cards", kicker: "三大互补集群", title: "一趟完成更多实用安排。", text: "比较家居方案、安排汽车护理、用餐或体验新活动，都可在这个蒲种目的地进行。", items: [
@@ -1158,7 +1265,7 @@ const zhPages = {
         { number: "03", title: "生活品味", text: "餐饮、运动、亲子活动、日常所需及专业服务。", route: "lifestyle", image: images.lifestyle }
       ] },
       { type: "split", title: "更新之余，保留实用本质。", text: "TPK Park的管理工作聚焦于特定产业及访客共享体验，包括租户组合、园林、建筑照明、招牌协调、停车管理、活动及目的地推广。", image: images.park, alt: "蒲种TPK Park商业与工业单位", route: "about" },
-      { type: "stats", items: [{ value: "16", label: "获认证家居生活集群内的企业" }, { value: "96,728", label: "2026年获认证集群总平方英尺" }, { value: "8", label: "纪录评估涵盖的家居生活类别" }] },
+      { type: "stats", route: "milestones", linkLabel: "了解2026家居生活集群认证", items: [{ value: "16", label: "获认证家居生活集群内的企业" }, { value: "96,728", label: "2026年获认证集群总平方英尺" }, { value: "8", label: "纪录评估涵盖的家居生活类别" }] },
       { type: "news", kicker: "精选报道", title: "媒体报道中的 TPK Park", text: "关于家居生活里程碑及园区长期更新的独立报道。", limit: 3 },
       { type: "faq", kicker: "访客须知", title: "出发前先了解", items: [
         { q: "TPK Park指的是哪里？", a: "TPK Park是雪兰莪州蒲种Taman Perindustrian Kinrara（金銮工业园）的通称，位于蒲种—武吉加里尔走廊。" },
@@ -1189,8 +1296,9 @@ const zhPages = {
     title: "灵感、材料与专家，距离更近。",
     description: "探索蒲种TPK Park家居生活集群，涵盖家具、厨房、卫浴、表面材料、装饰及装修服务。",
     lead: "顾客可在一趟行程中比较更多方案，商家也能从聚焦型目的地中产生协同效应。",
+    cta: { title: "让您的展厅加入TPK Park。", text: "了解适合家居、装修及专业零售业务的商铺与展厅。", button: "查看商铺与展厅", route: "leasingShop" },
     blocks: [
-      { type: "stats", items: [{ value: "16", label: "2026年获认证集群内的企业" }, { value: "96,728", label: "获认证企业总平方英尺" }, { value: "8", label: "评估涵盖的类别" }] },
+      { type: "stats", route: "milestones", linkLabel: "了解2026家居生活集群认证", items: [{ value: "16", label: "2026年获认证集群内的企业" }, { value: "96,728", label: "获认证企业总平方英尺" }, { value: "8", label: "评估涵盖的类别" }] },
       { type: "directory", kicker: "业态组合", title: "实用的装修采购路线", text: "租户及营业信息可能变更，出发前请直接向商家确认。", items: [["家具", "Lavino"], ["厨房、卫浴与瓷砖", "Ga Hing"], ["厨卫", "Kuche + BaTH"], ["瓷砖与表面", "Jubin BMS"], ["厨房与家居方案", "Signature"], ["窗帘", "MK Curtain"], ["窗帘", "Baagus"], ["工具", "Total Tools"], ["家具", "V Haus Living"], ["设计与施工", "Balens Design"], ["建筑方案", "BUILTOP"], ["门与门闸", "Premio Door"], ["室内设计", "Choose Interior"], ["家具", "KLOT"], ["门与门闸", "DC Moto"], ["门与门闸", "Fagolli"]] },
       { type: "cards", kicker: "规划行程", title: "从第一步灵感到最后细节", text: "可先从集群寻找方向，再直接确认库存、预约及营业时间。", items: [
         { number: "01", title: "比较", text: "亲自查看材料与饰面后再作决定。" }, { number: "02", title: "协调", text: "带上尺寸、参考图片及项目时间表。" }, { number: "03", title: "确认", text: "向商家确认报价、保修、送货及安装安排。" }
@@ -1202,6 +1310,7 @@ const zhPages = {
     title: "汽车护理、专业能力与更多选择。",
     description: "探索蒲种TPK Park的汽车销售、维修、美容、专业车厂及技术培训。",
     lead: "持续扩展的汽车业态，为车主、技师及学员提供销售、保养、美容及专业服务。",
+    cta: { title: "为汽车业务寻找合适空间。", text: "了解适合展厅或面客汽车业务的独立式建筑，并向租赁团队确认供应与用途。", button: "查看独立式建筑", route: "leasingDetached" },
     blocks: [
       { type: "directory", kicker: "汽车业态", title: "覆盖不同用车阶段的服务", text: "预约、车型及服务由各商家自行管理。", items: [["销售与维修", "Perodua 3S Kinrara"], ["销售与维修", "Mazda 3S"], ["维修", "Kia 4S Service"], ["专业车厂", "Techtrics Auto"], ["技术教育", "Techtra Automotive Academy"], ["汽车美容", "Jon Detailing"], ["维修", "Jaecoo Service Centre"], ["专业车厂", "Toyokar"]] },
       { type: "cards", kicker: "一站式汽车地址", title: "以实用通行为核心", text: "工业型单位适合车辆进出、维修、展示及技术操作。", items: [
@@ -1215,6 +1324,7 @@ const zhPages = {
     title: "实用的日常停靠，让地方更有活力。",
     description: "在蒲种TPK Park寻找餐饮、健身、游泳、体操、眼镜服务及日常所需。",
     lead: "除了展厅与车厂，TPK Park也通过日常配套，让员工、家庭及访客在一周内有更多回访理由。",
+    cta: { title: "为您的新业务寻找空间。", text: "了解适合餐饮、健康、工作室及配套服务的商铺形式。", button: "查看商铺空间", route: "leasingShop" },
     blocks: [
       { type: "directory", kicker: "园区周边", title: "用餐、运动、学习与处理日常事务", text: "各商家自行管理课程、预约及营业时间。", items: [["餐饮", "m.o.t.d"], ["餐饮", "Jazmina Bistro"], ["餐饮", "Nasi Lemak Daun Pisang Nuarina"], ["餐饮", "Yummy Nyonya Kitchen"], ["游泳", "Optimum Swim School"], ["体操", "Aces Gymnastic Academy"], ["眼镜", "Forsee Lens"], ["便利店", "99 Speedmart"], ["健康", "Happivilles"]] },
       { type: "cards", kicker: "日常节奏", title: "更多回访理由", text: "混合型目的地既支持计划行程，也照顾日常需要。", items: [
@@ -1234,7 +1344,7 @@ const zhPages = {
       { type: "cards", kicker: "可租空间类型", title: "按业务运营方式选择物业", text: "每个长期保留的单位页面均提供当前参考资料、地点及直接查询方式。", items: [
         { number: "01", title: "商铺与展厅", text: "位于Jalan TPK 2/8的面客商铺，适合展示、专业零售、服务及生活业态。", route: "leasingShop", image: images.leasingShop, linkLabel: "查看商铺与展厅" },
         { number: "02", title: "独立式建筑", text: "整栋独立物业，适合旗舰展厅、汽车中心或较大型商业运营。", route: "leasingDetached", image: images.leasingDetached, linkLabel: "查看独立式建筑" },
-        { number: "03", title: "半独立式单位", text: "适合展厅、服务、陈列、储存及运营需求的灵活整栋空间。", route: "leasingSemiDetached", image: images.leasingSemiDetached, linkLabel: "查看半独立式单位" }
+        { number: "03", title: "半独立式单位", text: "Jalan TPK 2/8门牌69号已出租。了解这类物业，并查询其他选择。", route: "leasingSemiDetached", image: images.leasingSemiDetached, linkLabel: "查看物业特点与其他选择" }
       ] },
       { type: "split", title: "位于蒲种—武吉加里尔走廊的醒目商业地址。", text: "Taman Perindustrian Kinrara（金銮工业园，通称TPK Park）具备便利驶入及访客停车，并汇聚成熟的家居生活、汽车服务及生活业态。", image: images.leasing, alt: "蒲种TPK Park面客商业物业", route: "contact", linkLabel: "讨论您的空间需求" },
       { type: "cards", kicker: "优先租户类型", title: "为园区增加价值的业务", text: "租赁策略优先考虑实用、面向顾客，并能补充现有商业组合的业态。", items: [
@@ -1261,6 +1371,23 @@ const zhPages = {
     blocks: [
       { type: "notice", text: "目前可能仅有少量商铺与展厅选择。作决定前，请确认具体单位、楼面面积、叫租、准许用途及看房安排。" },
       { type: "unitDetails", inventory: "shopShowroom" },
+      {
+        "type": "plans",
+        "kicker": "布局与通行",
+        "title": "实用的两层商铺格局",
+        "text": "标准中间单位为22英尺 × 80英尺，底层可作展厅或零售，一楼可安排展示、办公室或咨询空间。实际布局与供应须按个别单位确认。",
+        "openLabel": "打开完整尺寸平面图",
+        "note": "图则及室内照片取自2026年9月3日租赁资料包。图则、尺寸及物业状况仅供参考，须进一步核实。",
+        "items": [
+          {
+            "title": "典型底层与一楼平面图",
+            "image": "/assets/leasing/plans/section-2-typical-shoplot.jpg",
+            "width": 679,
+            "height": 635,
+            "alt": "Jalan TPK 2/8典型两层商铺参考平面图"
+          }
+        ]
+      },
       { type: "split", title: "为需要被顾客看见的业务而设。", text: "Jalan TPK 2/8沿线商铺适合家具、厨房、衣柜、瓷砖、卫浴、灯饰、室内设计、咖啡馆、健康及专业服务。地面直接通行和邻近目的地型商家，有助计划性到访与比较选购。", image: images.leasing, alt: "蒲种TPK Park商铺与展厅门面" },
       { type: "cards", kicker: "实用优势", title: "面向顾客的商业空间", text: "请按实际运营及装修需求评估具体单位。", items: [
         { number: "01", title: "醒目位置", text: "位于活跃商业及工业区内，具面向街道的品牌展示机会。" },
@@ -1285,6 +1412,34 @@ const zhPages = {
     blocks: [
       { type: "notice", text: "所列建筑、面积及每月RM58,000叫租均为参考资料。请确认当前供应、准许用途、物业状况及所有商业条款。" },
       { type: "unitDetails", inventory: "detached" },
+      {
+        "type": "plans",
+        "kicker": "布局与通行",
+        "title": "了解独立式建筑的布局",
+        "text": "7号建筑共有两层，并设私人户外范围。资料包列明顾客停车、车道及轻型装卸空间。看房时请确认车辆通行净空、装卸要求、公共设施及准许用途。",
+        "openLabel": "打开完整尺寸平面图",
+        "note": "图则及室内照片取自2026年9月3日租赁资料包。图则、尺寸及物业状况仅供参考，须进一步核实。",
+        "items": [
+          {
+            "title": "底层与户外范围",
+            "image": "/assets/leasing/plans/no-7-ground-floor.jpg",
+            "width": 915,
+            "height": 763,
+            "alt": "Jalan TPK 2/4门牌7号底层平面图，显示建筑、车道与户外范围",
+            "photo": "/assets/leasing/plans/no-7-ground-floor-interior.jpg",
+            "photoAlt": "2026年9月租赁资料包中的7号底层室内照片"
+          },
+          {
+            "title": "一楼",
+            "image": "/assets/leasing/plans/no-7-first-floor.jpg",
+            "width": 915,
+            "height": 762,
+            "alt": "Jalan TPK 2/4门牌7号一楼平面图，显示办公室与会议空间",
+            "photo": "/assets/leasing/plans/no-7-first-floor-interior.jpg",
+            "photoAlt": "2026年9月租赁资料包中的7号一楼室内照片"
+          }
+        ]
+      },
       { type: "split", title: "整栋自主使用，建立更鲜明的品牌形象。", text: "独立式建筑提供较大规模、清晰的独立地址及专属范围，可能适合企业展厅、汽车中心、大型零售、体验中心或具面客需求的总部式运营。", image: images.leasingDetached, alt: "蒲种Jalan TPK 2/4独立式商业建筑" },
       { type: "cards", kicker: "物业特点", title: "满足较大型运营需求的空间", text: "看房时请确认通行、装卸、水电、审批及装修要求。", items: [
         { number: "01", title: "独立品牌识别", text: "独立式建筑有利于清晰招牌、到达体验及顾客辨识。" },
@@ -1302,22 +1457,22 @@ const zhPages = {
     parentRoute: "leasing",
     unitKey: "semiDetached",
     eyebrow: "租赁 · 半独立式单位",
-    title: "蒲种半独立式厂房出租",
-    description: "蒲种Jalan TPK 2/8门牌69号半独立式工业商业建筑出租，建筑面积约6,446.88平方英尺。",
-    lead: "适合需要结合展厅、服务、陈列、储存及运营空间的整栋单位。",
+    title: "蒲种半独立式厂房与展厅",
+    description: "蒲种TPK Park Jalan TPK 2/8门牌69号现已出租。了解半独立式物业特点，并查询类似物业。",
+    lead: "Jalan TPK 2/8门牌69号现已出租。以下参考资料介绍这类物业，供寻找类似展厅、服务及运营空间的商家了解。",
     image: images.leasingSemiDetached,
     blocks: [
-      { type: "notice", text: "所列建筑、面积及每月RM25,000叫租均为参考资料。请确认当前供应、准许用途、物业状况及所有商业条款。" },
+      { type: "notice", text: "69号单位现已出租，不再作为可租单位提供。欢迎联系租赁团队，查询其他物业或未来机会。" },
       { type: "unitDetails", inventory: "semiDetached" },
       { type: "split", title: "兼顾门面展示与运营空间。", text: "半独立式单位可支持家具展厅、室内设计中心、家居改善品牌、汽车服务及专业运营商，把顾客展示与后勤功能结合在同一物业。", image: images.leasingSemiDetached, alt: "蒲种Jalan TPK 2/8半独立式工业商业建筑" },
-      { type: "cards", kicker: "物业特点", title: "灵活用于展示、服务与运营", text: "看房时请确认实际通行、楼层布局、设施及装修条件。", items: [
+      { type: "cards", kicker: "物业特点", title: "灵活用于展示、服务与运营", text: "欢迎参考这些物业特点，与租赁团队讨论类似空间需求。", items: [
         { number: "01", title: "较宽门面", text: "为以展示为主的业务提供容易辨识的面客形象。" },
         { number: "02", title: "整栋使用", text: "可在一个租约内规划顾客、办公室、服务、储存及运营区域。" },
         { number: "03", title: "TPK Park环境", text: "邻近互补的家居生活、汽车服务及生活业态。" }
       ] },
       { type: "faq", kicker: "半独立式单位常见问题", title: "需要确认的重点", items: [
         { q: "半独立式单位面积是多少？", a: "参考资料列出建筑面积约6,446.88平方英尺。实际尺寸与布局均须核实。" },
-        { q: "参考叫租是多少？", a: "参考叫租为每月RM25,000，须视当前供应、协商、业主批准及合约而定。" },
+        { q: "69号单位仍可租用吗？", a: "69号单位已出租。欢迎联系管理团队，了解其他物业及未来机会。" },
         { q: "可以同时作为展厅与运营空间吗？", a: "这种混合用途可能适合，但拟议用途、装修、执照、装卸及其他运营要求必须在签约前审查。" }
       ] }
     ]
@@ -1330,7 +1485,7 @@ const zhPages = {
     image: images.leasing,
     cta: { title: "正在寻找TPK Park租赁空间？", text: "查看当前商铺、展厅及工业单位资料，再向租赁团队确认最新供应情况。", button: "查看出租单位", route: "leasing" },
     blocks: [
-      { type: "newsFeature", kicker: "最新动态", category: "租赁", date: "2026-09-03", title: "租赁资料提供三种语言版本", text: "准租户现可用英文、马来文或中文查阅商铺与展厅、独立式建筑及半独立式单位的最新资料包。单位供应与商业条款仍须另行确认。", image: images.leasing, alt: "蒲种TPK Park待租商业与工业单位", route: "leasing", linkLabel: "查看出租单位" },
+      { type: "newsFeature", kicker: "最新动态", category: "租赁", date: "2026-09-07", title: "最新租赁资料与平面图", text: "以英文、马来文或中文了解商铺与展厅及独立式建筑，并查看租赁资料包中的平面图。Jalan TPK 2/8的69号单位已出租；欢迎联系团队了解其他选择。最新供应与商业条款须另行确认。", image: images.leasing, alt: "蒲种TPK Park待租商业与工业单位", route: "leasing", linkLabel: "查看出租单位" },
       { type: "newsUpdates", kicker: "来自TPK Park", title: "最新动态与实用资讯", text: "由TPK Park发布，介绍这里的商业组合及持续管理重点。", items: [
         { category: "园区更新", title: "让成熟工业区持续保持实用价值", text: "TPK Park针对特定产业的工作，包括租户组合、园林、建筑照明、招牌协调、停车管理及目的地活动。", image: images.park, alt: "蒲种TPK Park商业与工业环境", route: "about", linkLabel: "了解TPK Park的更新方式" },
         { category: "商业组合", title: "三个相辅相成的业态支柱", text: "家居生活、汽车服务及生活品味业态，共同形成展厅、服务、餐饮、运动与日常所需的多元组合。", image: images.homeLiving, alt: "蒲种TPK Park家居生活商家", route: "home", linkLabel: "探索商业组合" },
@@ -1343,11 +1498,11 @@ const zhPages = {
     eyebrow: "里程碑档案",
     title: "属于一个聚焦集群的纪录。",
     description: "TPK Park 2026 Home Carnival及家居生活零售集群获《马来西亚纪录大全》认证的档案。",
-    lead: "2026年，家居生活集群——并非整个园区——获认证为工业园内最大型家居生活零售集群。",
+    lead: "2026年7月5日，TPK Park家居生活集群获《马来西亚纪录大全》认证为“工业园内最大型家居生活零售集群”。评估涵盖16家企业及八个家居生活类别。",
     blocks: [
       { type: "notice", text: "档案说明：2026 Home Carnival已经结束。本页保存该里程碑，并非现行活动广告。" },
       { type: "stats", items: [{ value: "16", label: "纪录评估涵盖的企业" }, { value: "96,728", label: "获认证集群总平方英尺" }, { value: "8", label: "家居生活类别" }] },
-      { type: "split", title: "认证源于真实运作的商业集群。", text: "该纪录反映长期租户组合及产业更新的成果，并配合2026 Home Carnival与商家及访客共同庆祝。", image: images.carnival, alt: "TPK Park 2026 Home Carnival档案图片" },
+      { type: "split", title: "认证源于真实运作的商业集群。", text: "该纪录反映长期租户组合及产业更新的成果，并配合2026 Home Carnival与商家及访客共同庆祝。", route: "homeLiving", linkLabel: "探索家居生活集群", image: images.carnival, alt: "TPK Park 2026 Home Carnival档案图片" },
       { type: "timeline", kicker: "档案", title: "从更新走向认证", items: [
         { year: "之前", title: "实用工业基础", text: "成熟单位与直接通行成为面向顾客业务的基础。" }, { year: "逐步", title: "更清晰的租户组合", text: "家居生活商家逐渐形成协调的目的地。" }, { year: "2026", title: "纪录认证", text: "集群经评估涵盖16家企业、96,728平方英尺及八个类别。" }, { year: "持续", title: "更新继续", text: "里程碑支持——而非完成——地方的长期更新。" }
       ] }

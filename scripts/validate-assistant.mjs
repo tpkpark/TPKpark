@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { readFile } from "node:fs/promises";
 import vm from "node:vm";
-import { answerQuestion, assistantEnabled, validateInput, systemPrompt } from "../lib/assistant.mjs";
+import { answerQuestion, assistantEnabled, validateInput, systemPrompt, replyLanguage } from "../lib/assistant.mjs";
 import { sourceLinks, knowledge } from "../lib/assistant-knowledge.mjs";
 import handler, { allowedOrigin, takeSlot } from "../api/ask.js";
 
@@ -89,6 +89,14 @@ test("approved knowledge retains public inventory boundaries", () => {
   assert.match(knowledge, /No\. 69.*leased/);
   assert.doesNotMatch(knowledge, /23,?500|formsubmit\.co/);
   assert.match(systemPrompt("ms"), /cannot send messages or save enquiries/);
+});
+
+test("Chinese questions and numeric follow-ups retain language even on English pages", async () => {
+  const messages = [{ role: "user", content: "我想租展厅。" }, { role: "assistant", content: "您的预算是多少？" }, { role: "user", content: "RM4000" }];
+  assert.equal(replyLanguage("en", messages), "zh");
+  assert.equal(replyLanguage("zh", [{ role: "user", content: "What is the rent?" }]), "en");
+  assert.equal(replyLanguage("en", [{ role: "user", content: "Berapakah sewa tingkat satu?" }]), "ms");
+  await assert.rejects(answerQuestion({ locale: "en", messages }, { token: "test", fetchImpl: async () => completion("An English answer", ["leasingShop"]) }), { code: "unavailable" });
 });
 
 const clientSource = await readFile(new URL("../js/ask-tpk.js", import.meta.url), "utf8");

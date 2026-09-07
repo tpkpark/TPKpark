@@ -34,6 +34,13 @@ Vercel builds with `npm run build` and serves the repository root as a static si
 - No leasing WhatsApp number has been verified. Retain the existing office phone and email until management identifies the intended WhatsApp contact. Do not use a supplier's number from a quoted email signature.
 - `docs/leasing-distribution.md` contains prepared public copy and links for Google Business and agents. It has not been posted or sent. GSC Wizard now has a leasing content group and English, Malay and Chinese rental-intent keyword groups; these help reporting and do not change rankings themselves.
 
+## Ask TPK Park
+
+- A discreet floating button opens a help panel in the current page language. It links to leasing information, the three business categories and the contact page, with an email link to the existing team inbox.
+- This is a quick-help panel, not an AI chatbot. It has no message input, model connection, conversation storage or external chat service. Do not describe it as answering questions or receiving enquiries.
+- The panel opens only on request, closes with Escape or an outside click, and returns focus to its trigger when closed explicitly. It stays out of the way while the privacy panel or mobile menu is open. Without JavaScript, the floating control stays hidden and the normal site navigation remains available.
+- `scripts/ask-tpk-copy.mjs` holds English, Malay and Chinese copy. `js/ask-tpk.js` controls the panel; existing analytics handles its ordinary links under the current visitor preferences.
+
 ## Search and analytics maintenance
 
 - GSC property: `https://www.tpkpark.com/`. The sitemap contains all 42 canonical pages.

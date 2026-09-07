@@ -77,7 +77,7 @@ export const seoTitles = {
 };
 
 const septemberSeoRoutes = new Set(["home", "homeLiving", "automotive", "lifestyle", "leasing", "leasingShop", "leasingDetached", "leasingSemiDetached", "news", "milestones"]);
-export const routeLastModified = Object.fromEntries(routeIds.map((routeId) => [routeId, septemberSeoRoutes.has(routeId) ? "2026-09-07" : ["profile", "publicRecord"].includes(routeId) ? "2026-09-04" : "2026-09-03"]));
+export const routeLastModified = Object.fromEntries(routeIds.map((routeId) => [routeId, ["leasing", "leasingShop", "leasingDetached", "contact"].includes(routeId) ? "2026-09-08" : septemberSeoRoutes.has(routeId) ? "2026-09-07" : ["profile", "publicRecord"].includes(routeId) ? "2026-09-04" : "2026-09-03"]));
 
 export function routePath(locale, routeId) {
   const prefix = localeConfig[locale].prefix;
@@ -722,6 +722,7 @@ const enPages = {
     image: images.leasing,
     blocks: [
       { type: "notice", text: "Published availability, dimensions, asking rents and commercial terms are indicative and must be confirmed with the TPK Park leasing team." },
+      { type: "leasingOptions" },
       { type: "cards", kicker: "Available space formats", title: "Choose a property around how your business works", text: "Each permanent page provides the current reference details, location and a direct enquiry route.", items: [
         { number: "01", title: "Shop & showroom", text: "Customer-facing shoplots along Jalan TPK 2/8 for display, specialist retail, services and lifestyle uses.", route: "leasingShop", image: images.leasingShop, linkLabel: "View shops and showrooms" },
         { number: "02", title: "Detached building", text: "A standalone whole-building option for a flagship showroom, automotive centre or larger commercial operation.", route: "leasingDetached", image: images.leasingDetached, linkLabel: "View detached building" },
@@ -752,6 +753,7 @@ const enPages = {
     blocks: [
       { type: "notice", text: "Limited shop and showroom options may be available. Confirm the exact unit, floor area, asking rent, permitted use and viewing arrangements before making a decision." },
       { type: "unitDetails", inventory: "shopShowroom" },
+      { type: "leasingOptions", shopOnly: true },
       {
         "type": "plans",
         "kicker": "Layout & access",
@@ -935,7 +937,7 @@ const enPages = {
     eyebrow: "Contact",
     title: "Start with a conversation.",
     description: "Contact TPK Park management in Puchong for leasing, event collaboration, media or general enquiries.",
-    lead: "For leasing, media, events or general matters, contact the management office or prepare an email using the form below.",
+    lead: "For leasing, media, events or general matters, contact the management office or tell us what you need using the form below.",
     blocks: [{ type: "contact", officeHours: "Monday–Friday, 9:00am–5:00pm; Saturday, 9:00am–12:00pm", address: "Taman Perindustrian Kinrara, 47180 Puchong, Selangor, Malaysia", labels: { phone: "Telephone", email: "Email", hours: "Management office", address: "Location", formTitle: "What would you like to discuss?" } }]
   }
 };
@@ -1045,6 +1047,7 @@ const msPages = {
     image: images.leasing,
     blocks: [
       { type: "notice", text: "Ketersediaan, keluasan, sewa diminta dan terma komersial yang diterbitkan adalah indikatif dan perlu disahkan dengan pasukan penyewaan TPK Park." },
+      { type: "leasingOptions" },
       { type: "cards", kicker: "Format ruang tersedia", title: "Pilih hartanah mengikut cara perniagaan anda beroperasi", text: "Setiap halaman kekal menyediakan butiran rujukan semasa, lokasi dan laluan pertanyaan terus.", items: [
         { number: "01", title: "Kedai & bilik pameran", text: "Kedai berhadapan pelanggan di Jalan TPK 2/8 untuk pameran, runcit khusus, perkhidmatan dan kegunaan lifestyle.", route: "leasingShop", image: images.leasingShop, linkLabel: "Lihat kedai dan bilik pameran" },
         { number: "02", title: "Bangunan sesebuah", text: "Pilihan keseluruhan bangunan untuk bilik pameran utama, pusat automotif atau operasi komersial lebih besar.", route: "leasingDetached", image: images.leasingDetached, linkLabel: "Lihat bangunan sesebuah" },
@@ -1075,6 +1078,7 @@ const msPages = {
     blocks: [
       { type: "notice", text: "Pilihan kedai dan bilik pameran terhad mungkin tersedia. Sahkan unit, keluasan lantai, sewa diminta, kegunaan dibenarkan dan aturan lawatan sebelum membuat keputusan." },
       { type: "unitDetails", inventory: "shopShowroom" },
+      { type: "leasingOptions", shopOnly: true },
       {
         "type": "plans",
         "kicker": "Susun atur & akses",
@@ -1246,7 +1250,7 @@ const msPages = {
     eyebrow: "Hubungi",
     title: "Mulakan dengan perbualan.",
     description: "Hubungi pengurusan TPK Park di Puchong untuk penyewaan, kerjasama acara, media atau pertanyaan umum.",
-    lead: "Untuk penyewaan, media, acara atau perkara umum, hubungi pejabat pengurusan atau sediakan e-mel melalui borang berikut.",
+    lead: "Untuk penyewaan, media, acara atau perkara umum, hubungi pejabat pengurusan atau nyatakan keperluan anda melalui borang berikut.",
     blocks: [{ type: "contact", officeHours: "Isnin–Jumaat, 9:00 pagi–5:00 petang; Sabtu, 9:00 pagi–12:00 tengah hari", address: "Taman Perindustrian Kinrara, 47180 Puchong, Selangor, Malaysia", labels: { phone: "Telefon", email: "E-mel", hours: "Pejabat pengurusan", address: "Lokasi", formTitle: "Apakah yang ingin anda bincangkan?" } }]
   }
 };
@@ -1341,6 +1345,7 @@ const zhPages = {
     image: images.leasing,
     blocks: [
       { type: "notice", text: "网页所列的单位供应、面积、叫租及商业条款均为参考资料，须向TPK Park租赁团队确认。" },
+      { type: "leasingOptions" },
       { type: "cards", kicker: "可租空间类型", title: "按业务运营方式选择物业", text: "每个长期保留的单位页面均提供当前参考资料、地点及直接查询方式。", items: [
         { number: "01", title: "商铺与展厅", text: "位于Jalan TPK 2/8的面客商铺，适合展示、专业零售、服务及生活业态。", route: "leasingShop", image: images.leasingShop, linkLabel: "查看商铺与展厅" },
         { number: "02", title: "独立式建筑", text: "整栋独立物业，适合旗舰展厅、汽车中心或较大型商业运营。", route: "leasingDetached", image: images.leasingDetached, linkLabel: "查看独立式建筑" },
@@ -1371,6 +1376,7 @@ const zhPages = {
     blocks: [
       { type: "notice", text: "目前可能仅有少量商铺与展厅选择。作决定前，请确认具体单位、楼面面积、叫租、准许用途及看房安排。" },
       { type: "unitDetails", inventory: "shopShowroom" },
+      { type: "leasingOptions", shopOnly: true },
       {
         "type": "plans",
         "kicker": "布局与通行",
@@ -1542,7 +1548,7 @@ const zhPages = {
     eyebrow: "联系",
     title: "从一次对话开始。",
     description: "联系蒲种TPK Park管理团队，查询租赁、活动合作、媒体或一般事项。",
-    lead: "如有租赁、媒体、活动或一般事项，请联系管理处，或使用以下表格准备电邮。",
+    lead: "如有租赁、媒体、活动或一般事项，请联系管理处，或使用以下表格说明您的需求。",
     blocks: [{ type: "contact", officeHours: "星期一至五，上午9时至下午5时；星期六，上午9时至中午12时", address: "Taman Perindustrian Kinrara, 47180 Puchong, Selangor, Malaysia", labels: { phone: "电话", email: "电邮", hours: "管理处办公时间", address: "地点", formTitle: "您希望讨论什么？" } }]
   }
 };

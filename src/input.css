@@ -44,6 +44,28 @@ button, input, select, textarea { font: inherit; }
 .analytics-details p { margin-top: 10px; }
 .analytics-status { font-size: 14px; }
 .analytics-actions button:disabled { opacity: .55; cursor: not-allowed; }
+.ask-tpk { position: fixed; z-index: 60; right: max(1rem, env(safe-area-inset-right)); bottom: max(1rem, env(safe-area-inset-bottom)); }
+.ask-tpk-trigger { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; min-height: 44px; padding: .625rem 1rem; border: 1px solid rgba(255, 254, 249, .25); border-radius: 999px; background: var(--forest); color: var(--cream); box-shadow: 0 3px 14px rgba(13, 42, 33, .16); font-size: .875rem; font-weight: 650; cursor: pointer; }
+.ask-tpk-trigger:hover { background: var(--forest-dark); }
+.ask-tpk-trigger svg { flex-shrink: 0; }
+.ask-tpk-panel { position: absolute; right: 0; bottom: calc(100% + .625rem); width: min(22rem, calc(100vw - 2rem - env(safe-area-inset-right))); max-height: calc(100vh - 6.5rem - env(safe-area-inset-bottom)); max-height: calc(100dvh - 6.5rem - env(safe-area-inset-bottom)); overflow-y: auto; overscroll-behavior: contain; padding: 1.25rem; border: 1px solid var(--line); border-radius: 16px; background: var(--cream); color: var(--ink); box-shadow: 0 8px 32px rgba(13, 42, 33, .16); }
+.ask-tpk-heading { display: flex; align-items: center; justify-content: space-between; gap: .75rem; }
+.ask-tpk-heading h2 { margin: 0; font-size: 1rem; font-weight: 700; }
+.ask-tpk-close { display: grid; place-items: center; flex-shrink: 0; width: 44px; height: 44px; margin: -.5rem -.5rem -.5rem 0; border: 0; border-radius: 50%; background: transparent; color: var(--forest); cursor: pointer; }
+.ask-tpk-close:hover { background: var(--sage); }
+.ask-tpk-intro { margin: .75rem 0 1rem; font-size: 1rem; }
+.ask-tpk-options { display: grid; gap: .625rem; }
+.ask-tpk-option { display: block; padding: .875rem; border: 1px solid var(--line); border-radius: 10px; text-decoration: none; cursor: pointer; }
+.ask-tpk-option:hover { background: var(--paper); border-color: var(--forest); }
+.ask-tpk-option strong { display: block; font-size: 1rem; font-weight: 650; }
+.ask-tpk-option > span { display: block; margin-top: .25rem; color: rgba(16, 23, 19, .72); font-size: .875rem; line-height: 1.5; }
+.ask-tpk-businesses > summary { position: relative; padding-right: 2rem; list-style: none; }
+.ask-tpk-businesses > summary::-webkit-details-marker { display: none; }
+.ask-tpk-businesses > summary::after { content: "+"; position: absolute; top: .875rem; right: .875rem; color: var(--forest); }
+.ask-tpk-businesses[open] > summary::after { content: "−"; }
+.ask-tpk-business-links { display: grid; padding: .375rem .875rem 0; }
+.ask-tpk-business-links a { display: flex; align-items: center; min-height: 44px; font-size: .875rem; }
+.ask-tpk-contact { display: inline-flex; align-items: center; min-height: 44px; margin-top: .625rem; color: var(--forest); font-size: .875rem; }
 .skip-link { position: fixed; left: 1rem; top: -6rem; z-index: 100; padding: .8rem 1rem; background: var(--cream); color: var(--forest); border-radius: 999px; }
 .skip-link:focus { top: 1rem; }
 
@@ -235,6 +257,19 @@ button, input, select, textarea { font: inherit; }
 .contact-row span { display: block; color: rgba(16,23,19,.55); font-size: 11px; text-transform: uppercase; letter-spacing: .12em; font-weight: 800; margin-bottom: 7px; }
 .contact-row a { font-family: Georgia, serif; font-size: 1.35rem; }
 .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.form-hint { margin: 8px 0 0; font-size: 14px; line-height: 1.5; color: rgba(16,23,19,.72); }
+.enquiry-status { padding: 16px; border: 1px solid var(--forest); border-radius: 8px; font-size: 16px; }
+.leasing-options { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.leasing-options-two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.leasing-option { padding: 28px; border: 1px solid var(--line); border-radius: 16px; display: flex; flex-direction: column; align-items: flex-start; }
+.leasing-option h3 { font-size: clamp(20px, 2vw, 26px); line-height: 1.25; margin: 0 0 16px; }
+.leasing-option > p { margin: 0 0 20px; }
+.leasing-option .leasing-option-rent { margin-top: auto; padding-top: 12px; }
+.leasing-option-rent span, .leasing-option-rent strong { display: block; }
+.leasing-option-rent span, .leasing-option-status { font-size: 14px; }
+.leasing-option-rent strong { font-size: clamp(22px, 2.4vw, 30px); font-weight: 650; }
+.leasing-option .text-link { margin-top: 16px; }
+@media (max-width: 900px) { .leasing-options { grid-template-columns: 1fr; } }
 .field { display: flex; flex-direction: column; gap: 8px; }
 .field-full { grid-column: 1 / -1; }
 .field label { font-size: 12px; font-weight: 800; }

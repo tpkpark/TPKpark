@@ -9,7 +9,7 @@
     "build:css": "tailwindcss -i ./src/input.css -o ./css/tailwind.css --minify",
     "build": "npm run generate && npm run build:css",
     "validate": "node scripts/validate-site.mjs",
-    "test": "npm run build && npm run validate && node --test scripts/validate-analytics.mjs"
+    "test": "npm run build && npm run validate && node --test scripts/validate-analytics.mjs scripts/validate-enquiry.mjs"
   },
   "repository": {
     "type": "git",

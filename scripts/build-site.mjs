@@ -18,6 +18,8 @@ import {
 
 import { imageAssets } from "./image-assets.mjs";
 import { analyticsCopy, measurementId } from "./analytics-config.mjs";
+import { enquiryCopy } from "./enquiry-config.mjs";
+import { askTpkCopy } from "./ask-tpk-copy.mjs";
 
 const root = process.cwd();
 const locales = Object.keys(localeConfig);
@@ -49,9 +51,13 @@ function link(locale, routeId, label, className = "") {
   return `<a href="${routePath(locale, routeId)}"${className ? ` class="${className}"` : ""}>${escapeHtml(label)}</a>`;
 }
 
-function contactHref(locale, unitKey = "") {
+function contactHref(locale, unitKey = "", intent = "", floor = "") {
   const base = routePath(locale, "contact");
-  return unitKey ? `${base}?space=${encodeURIComponent(leasingInventory[unitKey].queryValue)}` : base;
+  const params = new URLSearchParams();
+  if (unitKey) params.set("space", leasingInventory[unitKey].queryValue);
+  if (intent) params.set("intent", intent);
+  if (floor) params.set("floor", floor);
+  return params.size ? `${base}?${params}` : base;
 }
 
 function localeLinks(locale, routeId, expanded = false) {
@@ -256,13 +262,32 @@ function renderUnitDetails(locale, block) {
     ${sectionHeader({ kicker: ui.factsKicker, title: leased ? ui.leasedTitle : ui.factsTitle, text: leased ? ui.leasedText : ui.factsText })}
     <dl class="unit-facts">${facts}<div class="unit-fact"><dt>${escapeHtml(ui.labels.lastUpdated)}</dt><dd><time datetime="${routeLastModified[unit.routeId]}">${escapeHtml(formatDate(locale, routeLastModified[unit.routeId]))}</time></dd></div></dl>
     <div class="unit-actions">
-      <a class="button button-dark" href="${contactHref(locale, block.inventory)}">${escapeHtml(leased ? ui.enquireAlternatives : ui.enquire)} <span class="arrow" aria-hidden="true">→</span></a>
+      <a class="button button-dark" href="${escapeHtml(contactHref(locale, block.inventory, leased ? "" : "viewing"))}">${escapeHtml(leased ? ui.enquireAlternatives : enquiryCopy[locale].viewing)} <span class="arrow" aria-hidden="true">→</span></a>
       <a class="button button-outline" href="tel:+60380765200">${escapeHtml(ui.call)}</a>
       ${brochure}
       ${englishBrochure}
       <a class="text-link" href="${escapeHtml(unit.mapUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(ui.location)} <span class="arrow" aria-hidden="true">↗</span></a>
     </div>
     <p class="unit-disclaimer">${escapeHtml(ui.disclaimer)}</p>
+  </div></section>`;
+}
+
+function renderLeasingOptions(locale, shopOnly = false) {
+  const c = enquiryCopy[locale];
+  const entries = [
+    { title: c.groundTitle, text: c.groundText, rent: c.groundRent, floor: "ground", unit: "shopShowroom" },
+    { title: c.firstTitle, text: c.firstText, rent: c.firstRent, floor: "first", unit: "shopShowroom" },
+    ...(!shopOnly ? [{ title: c.detachedTitle, text: c.detachedText, rent: c.detachedRent, floor: "", unit: "detached" }] : [])
+  ];
+  return `<section class="section"><div class="shell">
+    ${sectionHeader({ kicker: c.overviewKicker, title: shopOnly ? c.shopTitle : c.overviewTitle, text: shopOnly ? c.shopText : c.overviewText })}
+    <div class="leasing-options${shopOnly ? " leasing-options-two" : ""}">${entries.map(item => `<article class="leasing-option">
+      <h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.text)}</p>
+      <p class="leasing-option-rent"><span>${escapeHtml(c.rentLabel)}</span><strong>${escapeHtml(item.rent)}</strong></p>
+      <p class="leasing-option-status">${escapeHtml(item.unit === "detached" ? c.detachedStatus : c.status)}</p>
+      <a class="button button-outline" href="${escapeHtml(contactHref(locale, item.unit, "availability", item.floor))}">${escapeHtml(c.enquire)} <span aria-hidden="true">→</span></a>
+      ${shopOnly ? "" : `<a class="text-link" href="${routePath(locale, leasingInventory[item.unit].routeId)}">${escapeHtml(c.details)}</a>`}
+    </article>`).join("")}</div><p class="unit-disclaimer">${escapeHtml(c.overviewNote)}</p>
   </div></section>`;
 }
 
@@ -320,6 +345,8 @@ function renderProfileSources(locale, block) {
 function renderContact(locale, block) {
   const t = site[locale];
   const f = t.form;
+  const c = enquiryCopy[locale];
+  const submitLabel = f.send;
   const labels = block.labels;
   const options = f.options.map((option) => `<option value="${escapeHtml(option)}">${escapeHtml(option)}</option>`).join("");
   const spaceOptions = f.spaceOptions.map((option) => `<option value="${escapeHtml(option.value)}">${escapeHtml(option.label)}</option>`).join("");
@@ -330,18 +357,23 @@ function renderContact(locale, block) {
       <div class="contact-row"><span>${escapeHtml(labels.hours)}</span><p>${escapeHtml(block.officeHours)}</p></div>
       <div class="contact-row"><span>${escapeHtml(labels.address)}</span><p>${escapeHtml(block.address)}</p></div>
     </div>
-    <div><p class="eyebrow">${escapeHtml(labels.formTitle)}</p><form class="form-grid" data-email-form>
-      <div class="field"><label for="name">${escapeHtml(f.name)}</label><input id="name" name="name" autocomplete="name" required></div>
-      <div class="field"><label for="company">${escapeHtml(f.company)}</label><input id="company" name="company" autocomplete="organization"></div>
-      <div class="field"><label for="email">${escapeHtml(f.email)}</label><input id="email" name="email" type="email" autocomplete="email" required></div>
-      <div class="field"><label for="phone">${escapeHtml(f.phone)}</label><input id="phone" name="phone" type="tel" autocomplete="tel"></div>
+    <div><p class="eyebrow">${escapeHtml(labels.formTitle)}</p><form class="form-grid" data-email-form action="mailto:info@tpkpark.com" method="post" enctype="text/plain" data-locale="${locale}" data-canonical="${absolute(locale, "contact")}" data-leasing-interest="${escapeHtml(f.options[0])}" data-draft-ready="${escapeHtml(c.draftReady)}">
+      <div class="field"><label for="name">${escapeHtml(f.name)}</label><input id="name" name="name" autocomplete="name" maxlength="120" required></div>
+      <div class="field"><label for="company">${escapeHtml(f.company)}</label><input id="company" name="company" autocomplete="organization" maxlength="160"></div>
+      <div class="field"><label for="email">${escapeHtml(f.email)}</label><input id="email" name="email" type="email" autocomplete="email" maxlength="254" required></div>
+      <div class="field"><label for="phone">${escapeHtml(f.phone)}</label><input id="phone" name="phone" type="tel" autocomplete="tel" maxlength="40"></div>
       <div class="field field-full"><label for="interest">${escapeHtml(f.interest)}</label><select id="interest" name="interest" required><option value="">${escapeHtml(f.select)}</option>${options}</select></div>
-      <div class="field field-full"><label for="space-type">${escapeHtml(f.spaceType)}</label><select id="space-type" name="spaceType"><option value="">${escapeHtml(f.spaceSelect)}</option>${spaceOptions}</select></div>
-      <div class="field field-full"><label for="message">${escapeHtml(f.message)}</label><textarea id="message" name="message" required></textarea></div>
+      <div class="field-full form-grid" data-leasing-fields>
+        <div class="field"><label for="space-type">${escapeHtml(f.spaceType)}</label><select id="space-type" name="spaceType"><option value="">${escapeHtml(f.spaceSelect)}</option>${spaceOptions}</select></div>
+        <div class="field"><label for="request-type">${escapeHtml(c.purpose)}</label><select id="request-type" name="requestType"><option value="availability">${escapeHtml(c.information)}</option><option value="viewing">${escapeHtml(c.viewingOption)}</option></select></div>
+        <div class="field field-full" data-floor-field><label for="floor">${escapeHtml(c.floor)}</label><select id="floor" name="floor"><option value="">${escapeHtml(c.floorAny)}</option><option value="ground">${escapeHtml(c.ground)}</option><option value="first">${escapeHtml(c.first)}</option><option value="both">${escapeHtml(c.both)}</option></select></div>
+      </div>
+      <div class="field field-full"><label for="message">${escapeHtml(f.message)}</label><textarea id="message" name="message" maxlength="4000" aria-describedby="enquiry-hint" required></textarea><p id="enquiry-hint" class="form-hint">${escapeHtml(c.hint)}</p></div>
       <p class="form-note">${escapeHtml(t.emailApp)}</p>
-      <div class="field-full"><button class="button button-dark" type="submit">${escapeHtml(f.send)} <span class="arrow" aria-hidden="true">→</span></button></div>
+      <p class="enquiry-status field-full" data-enquiry-status role="status" tabindex="-1" hidden></p>
+      <div class="field-full"><button class="button button-dark" type="submit"><span data-submit-label>${escapeHtml(submitLabel)}</span> <span class="arrow" aria-hidden="true">→</span></button></div>
     </form></div>
-  </div></div></section>`;
+  </div></div></section><script defer src="/js/enquiry.js"></script>`;
 }
 
 function renderBlock(locale, routeId, page, block, index) {
@@ -358,6 +390,7 @@ function renderBlock(locale, routeId, page, block, index) {
     case "faq": return renderFaq(block);
     case "notice": return renderNotice(locale, block);
     case "unitDetails": return renderUnitDetails(locale, block);
+    case "leasingOptions": return renderLeasingOptions(locale, block.shopOnly);
     case "plans": return renderPlans(block);
     case "profile": return renderProfile(page, block);
     case "profileSources": return renderProfileSources(locale, block);
@@ -525,33 +558,6 @@ function scripts(locale) {
         if (event.key === 'Escape' && menuButton.getAttribute('aria-expanded') === 'true') menuButton.click();
       });
     }
-    const emailForm = document.querySelector('[data-email-form]');
-    if (emailForm) {
-      const requestedSpace = new URLSearchParams(window.location.search).get('space');
-      const spaceField = emailForm.querySelector('[name="spaceType"]');
-      const interestField = emailForm.querySelector('[name="interest"]');
-      if (requestedSpace && spaceField && [...spaceField.options].some((option) => option.value === requestedSpace)) {
-        spaceField.value = requestedSpace;
-        interestField.value = ${safeJson(t.form.options[0])};
-      }
-      emailForm.addEventListener('submit', (event) => {
-        event.preventDefault();
-        const data = new FormData(emailForm);
-        const selectedSpace = spaceField?.selectedOptions[0]?.text || '-';
-        const subject = 'TPK Park enquiry — ' + data.get('interest');
-        const body = [
-          '${escapeHtml(t.form.name)}: ' + data.get('name'),
-          '${escapeHtml(t.form.company)}: ' + (data.get('company') || '-'),
-          '${escapeHtml(t.form.email)}: ' + data.get('email'),
-          '${escapeHtml(t.form.phone)}: ' + (data.get('phone') || '-'),
-          '${escapeHtml(t.form.interest)}: ' + data.get('interest'),
-          '${escapeHtml(t.form.spaceType)}: ' + selectedSpace,
-          '',
-          data.get('message')
-        ].join('\\n');
-        window.location.href = 'mailto:info@tpkpark.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-      });
-    }
   </script>`;
 }
 
@@ -565,6 +571,27 @@ function analytics(locale, routeId) {
     <div class="analytics-actions"><button type="button" class="button button-dark" data-analytics-allow>${escapeHtml(copy.allow)}</button><button type="button" class="button button-outline" data-analytics-basic>${escapeHtml(copy.basic)}</button><button type="button" class="button button-outline" data-analytics-off>${escapeHtml(copy.off)}</button></div>
   </section>
   <script defer src="/js/analytics.js" data-measurement-id="${escapeHtml(measurementId)}" data-locale="${locale}" data-route="${routeId}" data-canonical="${absolute(locale, routeId)}"></script>`;
+}
+
+function askTpk(locale) {
+  const copy = askTpkCopy[locale];
+  const businessLinks = ["homeLiving", "automotive", "lifestyle"].map(route => `<a href="${routePath(locale, route)}">${escapeHtml(site[locale].nav[route])}</a>`).join("");
+  return `<aside class="ask-tpk" data-ask-tpk>
+    <button class="ask-tpk-trigger" type="button" data-ask-trigger aria-expanded="false" aria-controls="ask-tpk-panel" aria-haspopup="dialog" hidden>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-8 8H5l-3 2v-10a9 9 0 0 1 18 0Z"/><path d="M7 10h8M7 14h5"/></svg>
+      <span>${escapeHtml(copy.label)}</span>
+    </button>
+    <section class="ask-tpk-panel" id="ask-tpk-panel" data-ask-panel role="dialog" aria-labelledby="ask-tpk-title" aria-describedby="ask-tpk-intro" tabindex="-1" hidden>
+      <div class="ask-tpk-heading"><h2 id="ask-tpk-title">${escapeHtml(copy.label)}</h2><button type="button" class="ask-tpk-close" data-ask-close aria-label="${escapeHtml(copy.close)}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div>
+      <p class="ask-tpk-intro" id="ask-tpk-intro">${escapeHtml(copy.intro)}</p>
+      <div class="ask-tpk-options">
+        <a class="ask-tpk-option" href="${routePath(locale, "leasing")}"><strong>${escapeHtml(copy.leasing)}</strong><span>${escapeHtml(copy.leasingText)}</span></a>
+        <details class="ask-tpk-businesses"><summary class="ask-tpk-option"><strong>${escapeHtml(copy.businesses)}</strong><span>${escapeHtml(copy.businessesText)}</span></summary><nav class="ask-tpk-business-links" aria-label="${escapeHtml(copy.businesses)}">${businessLinks}</nav></details>
+        <a class="ask-tpk-option" href="${routePath(locale, "contact")}"><strong>${escapeHtml(copy.visit)}</strong><span>${escapeHtml(copy.visitText)}</span></a>
+      </div>
+      <a class="ask-tpk-contact" href="mailto:info@tpkpark.com">${escapeHtml(copy.contact)}</a>
+    </section>
+  </aside><script defer src="/js/ask-tpk.js"></script>`;
 }
 
 function renderPage(locale, routeId) {
@@ -616,6 +643,7 @@ function renderPage(locale, routeId) {
   <main id="main">${body}</main>
   ${footer(locale)}
   ${analytics(locale, routeId)}
+  ${askTpk(locale)}
   ${scripts(locale)}
 </body>
 </html>`;

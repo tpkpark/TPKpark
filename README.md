@@ -1,6 +1,6 @@
 # TPK Park website
 
-Static multilingual website for TPK Park, deployed by Vercel.
+Multilingual website for TPK Park, with static pages and a small AI endpoint on Vercel.
 
 ## Structure
 
@@ -21,7 +21,7 @@ npm test
 
 ## Deployment
 
-Vercel builds with `npm run build` and serves the repository root as a static site. Preview branches must be reviewed before merging into `main`; merging to `main` is the production release action.
+Vercel builds with `npm run build`, serves the static pages and runs `api/ask.js` as a Node function. Preview branches must be reviewed before merging into `main`; merging to `main` is the production release action.
 
 ## Leasing enquiries
 
@@ -36,10 +36,16 @@ Vercel builds with `npm run build` and serves the repository root as a static si
 
 ## Ask TPK Park
 
-- A discreet floating button opens a help panel in the current page language. It links to leasing information, the three business categories and the contact page, with an email link to the existing team inbox.
-- This is a quick-help panel, not an AI chatbot. It has no message input, model connection, conversation storage or external chat service. Do not describe it as answering questions or receiving enquiries.
+- The discreet button opens a real typed conversation when AI is enabled, with English, Malay and Chinese answers, starter questions, follow-ups and related public pages. Plain text and allowlisted source links prevent model output from creating HTML or arbitrary links.
+- `api/ask.js` calls OpenAI GPT-4.1 mini through Vercel AI Gateway. `@vercel/oidc` obtains the current deployment identity inside each request; no provider key is shipped to the browser. An existing `AI_GATEWAY_API_KEY` may be supplied server-side for local development. Do not put secrets in chat, source code or GitHub.
+- `lib/assistant-knowledge.mjs` derives the reference from the checked-in public website and leasing inventory. No tenancy workbooks, inboxes or private documents are connected. New public content is picked up on the next deployment. Inventory is not live; the team must confirm rents, suitability, availability and viewings. Unit 69 remains leased and its private agreed rent is excluded.
+- Conversation context is bounded and held only in page memory. New chat or page navigation clears it. The endpoint does not save or log transcripts; `store: false` is sent to the model. Messages still pass through Vercel and OpenAI, whose service retention policies apply. Chat content never enters site analytics. This is not a zero-retention guarantee.
+- The assistant cannot send emails, collect leads, book viewings or agree tenancy terms. It points to the existing contact page; its email form still prepares a draft that the visitor must send.
 - The panel opens only on request, closes with Escape or an outside click, and returns focus to its trigger when closed explicitly. It stays out of the way while the privacy panel or mobile menu is open. Without JavaScript, the floating control stays hidden and the normal site navigation remains available.
-- `scripts/ask-tpk-copy.mjs` holds English, Malay and Chinese copy. `js/ask-tpk.js` controls the panel; existing analytics handles its ordinary links under the current visitor preferences.
+- The `codex/ai-assistant` Vercel preview enables AI for review. Production requires `TPK_AI_ENABLED=1` and a redeployment after approval. `TPK_AI_ENABLED=0` disables it; an unset production value retains the existing quick-help panel. Keep this production switch off until actual provider responses, public facts, privacy copy and a project spending limit are reviewed.
+- Each request has a 2,000-character question limit, bounded recent history, 700 output tokens and a 23-second provider timeout, without automatic retries. The server also rejects cross-site requests and applies a 12-request/10-minute visitor limit and three concurrent requests **per function instance**. These limits are not a distributed quota or monthly cost cap. Use the AI Gateway budget scoped to `tpkpark-site`; do not alter other projects or enable automatic credit purchases without approval.
+- `TPK_AI_ENABLED=1 npm test` checks the AI page variant and deterministic protocol, request, output and privacy boundaries without calling a model. Only builds of the named Vercel preview branch run four fixed public model questions, writing `assets/assistant-preview-check.json` and a build-log result. A successful site build alone does not mean those live checks passed; inspect their report before release. These preview calls consume a small amount of gateway credit.
+- Provider outages or exhausted credit show a clear retry message and leave leasing and contact links available. Failed questions remain in the input; there is no silent fake response.
 
 ## Search and analytics maintenance
 

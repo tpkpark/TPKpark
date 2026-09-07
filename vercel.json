@@ -2,6 +2,7 @@
   "buildCommand": "npm run build",
   "outputDirectory": ".",
   "framework": null,
+  "functions": { "api/ask.js": { "maxDuration": 30 } },
   "redirects": [
     {
       "source": "/shoplot.pdf",

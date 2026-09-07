@@ -18,7 +18,7 @@ import {
 
 import { imageAssets } from "./image-assets.mjs";
 import { analyticsCopy, measurementId } from "./analytics-config.mjs";
-import { deliveryConfig, enquiryCopy } from "./enquiry-config.mjs";
+import { enquiryCopy } from "./enquiry-config.mjs";
 
 const root = process.cwd();
 const locales = Object.keys(localeConfig);
@@ -345,9 +345,7 @@ function renderContact(locale, block) {
   const t = site[locale];
   const f = t.form;
   const c = enquiryCopy[locale];
-  const delivery = deliveryConfig();
-  const direct = delivery.mode === "formsubmit";
-  const submitLabel = direct ? c.send : f.send;
+  const submitLabel = f.send;
   const labels = block.labels;
   const options = f.options.map((option) => `<option value="${escapeHtml(option)}">${escapeHtml(option)}</option>`).join("");
   const spaceOptions = f.spaceOptions.map((option) => `<option value="${escapeHtml(option.value)}">${escapeHtml(option.label)}</option>`).join("");
@@ -358,7 +356,7 @@ function renderContact(locale, block) {
       <div class="contact-row"><span>${escapeHtml(labels.hours)}</span><p>${escapeHtml(block.officeHours)}</p></div>
       <div class="contact-row"><span>${escapeHtml(labels.address)}</span><p>${escapeHtml(block.address)}</p></div>
     </div>
-    <div><p class="eyebrow">${escapeHtml(labels.formTitle)}</p><form class="form-grid" data-email-form action="${escapeHtml(delivery.action)}" method="post"${direct ? "" : ' enctype="text/plain"'} data-delivery-mode="${delivery.mode}" data-ajax-endpoint="${escapeHtml(delivery.ajax)}" data-locale="${locale}" data-canonical="${absolute(locale, "contact")}" data-leasing-interest="${escapeHtml(f.options[0])}" data-submit-label="${escapeHtml(submitLabel)}" data-sending="${escapeHtml(c.sending)}" data-success="${escapeHtml(c.success)}" data-error="${escapeHtml(c.error)}" data-draft-ready="${escapeHtml(c.draftReady)}">
+    <div><p class="eyebrow">${escapeHtml(labels.formTitle)}</p><form class="form-grid" data-email-form action="mailto:info@tpkpark.com" method="post" enctype="text/plain" data-locale="${locale}" data-canonical="${absolute(locale, "contact")}" data-leasing-interest="${escapeHtml(f.options[0])}" data-draft-ready="${escapeHtml(c.draftReady)}">
       <div class="field"><label for="name">${escapeHtml(f.name)}</label><input id="name" name="name" autocomplete="name" maxlength="120" required></div>
       <div class="field"><label for="company">${escapeHtml(f.company)}</label><input id="company" name="company" autocomplete="organization" maxlength="160"></div>
       <div class="field"><label for="email">${escapeHtml(f.email)}</label><input id="email" name="email" type="email" autocomplete="email" maxlength="254" required></div>
@@ -370,9 +368,7 @@ function renderContact(locale, block) {
         <div class="field field-full" data-floor-field><label for="floor">${escapeHtml(c.floor)}</label><select id="floor" name="floor"><option value="">${escapeHtml(c.floorAny)}</option><option value="ground">${escapeHtml(c.ground)}</option><option value="first">${escapeHtml(c.first)}</option><option value="both">${escapeHtml(c.both)}</option></select></div>
       </div>
       <div class="field field-full"><label for="message">${escapeHtml(f.message)}</label><textarea id="message" name="message" maxlength="4000" aria-describedby="enquiry-hint" required></textarea><p id="enquiry-hint" class="form-hint">${escapeHtml(c.hint)}</p></div>
-      <div class="enquiry-honeypot" aria-hidden="true"><label for="enquiry-website">${escapeHtml(c.honeypot)}</label><input id="enquiry-website" name="_honey" tabindex="-1" autocomplete="off"></div>
-      ${direct ? `<input type="hidden" name="_subject" value="TPK Park website enquiry"><input type="hidden" name="_template" value="table"><input type="hidden" name="_url" value="${absolute(locale, "contact")}">` : ""}
-      <p class="form-note">${escapeHtml(direct ? c.privacy : t.emailApp)}${direct ? ` <a href="https://formsubmit.co/privacy.pdf" target="_blank" rel="noopener noreferrer">${escapeHtml(c.privacyLink)}</a>` : ""}</p>
+      <p class="form-note">${escapeHtml(t.emailApp)}</p>
       <p class="enquiry-status field-full" data-enquiry-status role="status" tabindex="-1" hidden></p>
       <div class="field-full"><button class="button button-dark" type="submit"><span data-submit-label>${escapeHtml(submitLabel)}</span> <span class="arrow" aria-hidden="true">→</span></button></div>
     </form></div>

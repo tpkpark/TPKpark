@@ -236,10 +236,7 @@ button, input, select, textarea { font: inherit; }
 .contact-row a { font-family: Georgia, serif; font-size: 1.35rem; }
 .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
 .form-hint { margin: 8px 0 0; font-size: 14px; line-height: 1.5; color: rgba(16,23,19,.72); }
-.enquiry-honeypot { display: none; }
 .enquiry-status { padding: 16px; border: 1px solid var(--forest); border-radius: 8px; font-size: 16px; }
-.enquiry-status[data-state="error"] { border-color: #923b26; }
-.form-grid button:disabled { opacity: .65; cursor: wait; }
 .leasing-options { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
 .leasing-options-two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .leasing-option { padding: 28px; border: 1px solid var(--line); border-radius: 16px; display: flex; flex-direction: column; align-items: flex-start; }

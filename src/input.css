@@ -31,6 +31,12 @@ a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: .22em
 img { display: block; max-width: 100%; }
 button, input, select, textarea { font: inherit; }
 :focus-visible { outline: 3px solid var(--gold); outline-offset: 4px; }
+[hidden] { display: none !important; }
+.analytics-consent { position: fixed; z-index: 80; bottom: 12px; left: 12px; right: 12px; max-width: 920px; margin: auto; padding: 20px; background: var(--cream); color: var(--ink); border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 8px 36px rgba(13,42,33,.2); font-size: 14px; max-height: 70vh; overflow: auto; }
+.analytics-consent p { margin: 0 0 10px; }
+.analytics-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.analytics-actions .button { min-height: 44px; padding: 9px 18px; }
+.analytics-settings { color: inherit; padding: 0; text-decoration: underline; text-underline-offset: .22em; text-align: left; cursor: pointer; }
 .skip-link { position: fixed; left: 1rem; top: -6rem; z-index: 100; padding: .8rem 1rem; background: var(--cream); color: var(--forest); border-radius: 999px; }
 .skip-link:focus { top: 1rem; }
 
@@ -347,3 +353,13 @@ button, input, select, textarea { font: inherit; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+
+.stats-link { margin-top: 20px; }
+.floor-plans { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 20px 0; }
+.floor-plans summary { cursor: pointer; font-size: 1.1rem; font-weight: 600; }
+.plan-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 32px; margin-top: 28px; }
+.floor-plan { margin: 0; min-width: 0; }
+.floor-plan h3 { margin-bottom: 16px; }
+.floor-plan > a > img { width: 100%; max-width: 915px; height: auto; object-fit: contain; background: white; }
+.floor-plan figcaption { margin-top: 10px; font-size: .9rem; }
+.floor-plan .plan-interior { width: 100%; max-width: 467px; height: auto; margin-top: 20px; }

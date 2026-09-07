@@ -10,8 +10,23 @@
     },
     {
       "source": "/semid.pdf",
-      "destination": "/assets/leasing/tpk-park-semi-detached-showroom-industrial-unit-no-69-for-lease.pdf",
-      "permanent": true
+      "destination": "/leasing/semi-detached/",
+      "permanent": false
+    },
+    {
+      "source": "/assets/leasing/tpk-park-semi-detached-showroom-industrial-unit-no-69-for-lease.pdf",
+      "destination": "/leasing/semi-detached/",
+      "permanent": false
+    },
+    {
+      "source": "/assets/leasing/tpk-park-semi-detached-showroom-industrial-unit-no-69-for-lease-ms.pdf",
+      "destination": "/ms/leasing/semi-detached/",
+      "permanent": false
+    },
+    {
+      "source": "/assets/leasing/tpk-park-semi-detached-showroom-industrial-unit-no-69-for-lease-zh.pdf",
+      "destination": "/zh/leasing/semi-detached/",
+      "permanent": false
     }
   ]
 }

@@ -43,7 +43,6 @@ button, input, select, textarea { font: inherit; }
 .analytics-details summary { cursor: pointer; text-decoration: underline; text-underline-offset: .22em; }
 .analytics-details p { margin-top: 10px; }
 .analytics-status { font-size: 14px; }
-.analytics-note { margin: 0; padding-bottom: 20px; font-size: 14px; }
 .analytics-actions button:disabled { opacity: .55; cursor: not-allowed; }
 .skip-link { position: fixed; left: 1rem; top: -6rem; z-index: 100; padding: .8rem 1rem; background: var(--cream); color: var(--forest); border-radius: 999px; }
 .skip-link:focus { top: 1rem; }

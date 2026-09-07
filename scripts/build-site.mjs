@@ -104,7 +104,6 @@ function footer(locale) {
         </nav></div>
       </div>
       <div class="footer-bottom"><span>© 2026 ${escapeHtml(t.rights)}</span><span>Taman Perindustrian Kinrara · Puchong · Selangor</span><button type="button" class="analytics-settings" data-analytics-settings aria-controls="analytics-panel" hidden>${escapeHtml(analyticsCopy[locale].settings)}</button></div>
-      <p class="analytics-note">${escapeHtml(analyticsCopy[locale].footer)}</p>
     </div>
   </footer>`;
 }

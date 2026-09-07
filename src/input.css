@@ -37,6 +37,14 @@ button, input, select, textarea { font: inherit; }
 .analytics-actions { display: flex; gap: 12px; flex-wrap: wrap; }
 .analytics-actions .button { min-height: 44px; padding: 9px 18px; }
 .analytics-settings { color: inherit; padding: 0; text-decoration: underline; text-underline-offset: .22em; text-align: left; cursor: pointer; }
+.analytics-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; }
+.analytics-heading button { min-height: 44px; }
+.analytics-details { margin-bottom: 12px; }
+.analytics-details summary { cursor: pointer; text-decoration: underline; text-underline-offset: .22em; }
+.analytics-details p { margin-top: 10px; }
+.analytics-status { font-size: 14px; }
+.analytics-note { margin: 0; padding-bottom: 20px; font-size: 14px; }
+.analytics-actions button:disabled { opacity: .55; cursor: not-allowed; }
 .skip-link { position: fixed; left: 1rem; top: -6rem; z-index: 100; padding: .8rem 1rem; background: var(--cream); color: var(--forest); border-radius: 999px; }
 .skip-link:focus { top: 1rem; }
 

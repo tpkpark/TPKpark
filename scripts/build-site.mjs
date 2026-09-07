@@ -103,7 +103,8 @@ function footer(locale) {
           <a href="mailto:info@tpkpark.com">info@tpkpark.com</a>${social}
         </nav></div>
       </div>
-      <div class="footer-bottom"><span>© 2026 ${escapeHtml(t.rights)}</span><span>Taman Perindustrian Kinrara · Puchong · Selangor</span>${measurementId ? `<button type="button" class="analytics-settings" data-analytics-settings hidden>${escapeHtml(analyticsCopy[locale].settings)}</button>` : ""}</div>
+      <div class="footer-bottom"><span>© 2026 ${escapeHtml(t.rights)}</span><span>Taman Perindustrian Kinrara · Puchong · Selangor</span><button type="button" class="analytics-settings" data-analytics-settings aria-controls="analytics-panel" hidden>${escapeHtml(analyticsCopy[locale].settings)}</button></div>
+      <p class="analytics-note">${escapeHtml(analyticsCopy[locale].footer)}</p>
     </div>
   </footer>`;
 }
@@ -556,11 +557,13 @@ function scripts(locale) {
 }
 
 function analytics(locale, routeId) {
-  if (!measurementId) return "";
   const copy = analyticsCopy[locale];
-  return `<section class="analytics-consent" aria-labelledby="analytics-title" data-analytics-consent hidden>
-    <div><p id="analytics-title"><strong>${escapeHtml(copy.title)}</strong></p><p>${escapeHtml(copy.text)} <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">${escapeHtml(copy.privacy)}</a>.</p></div>
-    <div class="analytics-actions"><button type="button" class="button button-dark" data-analytics-allow>${escapeHtml(copy.allow)}</button><button type="button" class="button" data-analytics-decline>${escapeHtml(copy.decline)}</button></div>
+  return `<section id="analytics-panel" class="analytics-consent" aria-labelledby="analytics-title" data-analytics-consent hidden>
+    <div class="analytics-heading"><p id="analytics-title"><strong>${escapeHtml(copy.title)}</strong></p><button type="button" class="analytics-settings" data-analytics-close>${escapeHtml(copy.close)}</button></div>
+    <p>${escapeHtml(copy.basicText)}</p>
+    <details class="analytics-details"><summary>${escapeHtml(copy.more)}</summary><p>${escapeHtml(copy.detailText)}</p><p><a href="https://vercel.com/docs/analytics/privacy-policy" target="_blank" rel="noopener noreferrer">${escapeHtml(copy.vercelPrivacy)}</a> · <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">${escapeHtml(copy.googlePrivacy)}</a></p></details>
+    <p class="analytics-status" data-analytics-status data-basic="${escapeHtml(copy.statusBasic)}" data-detailed="${escapeHtml(copy.statusDetailed)}" data-off="${escapeHtml(copy.statusOff)}" data-signal="${escapeHtml(copy.statusSignal)}" aria-live="polite"></p>
+    <div class="analytics-actions"><button type="button" class="button button-dark" data-analytics-allow>${escapeHtml(copy.allow)}</button><button type="button" class="button button-outline" data-analytics-basic>${escapeHtml(copy.basic)}</button><button type="button" class="button button-outline" data-analytics-off>${escapeHtml(copy.off)}</button></div>
   </section>
   <script defer src="/js/analytics.js" data-measurement-id="${escapeHtml(measurementId)}" data-locale="${locale}" data-route="${routeId}" data-canonical="${absolute(locale, routeId)}"></script>`;
 }
@@ -581,6 +584,7 @@ function renderPage(locale, routeId) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="strict-origin">
   <title>${escapeHtml(seoTitle)}</title>
   <meta name="description" content="${escapeHtml(page.description)}">
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">

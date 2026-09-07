@@ -23,6 +23,18 @@ npm test
 
 Vercel builds with `npm run build` and serves the repository root as a static site. Preview branches must be reviewed before merging into `main`; merging to `main` is the production release action.
 
+## Leasing enquiries
+
+- The leasing overview and shop page distinguish ground-floor and first-floor asking rents. These are reference options from the September 2026 brochure, not a verified list of vacant unit numbers. Do not infer individual floor area by halving the brochure's whole-unit figure. The operational workbook contains different architectural area bases and historical occupancy entries awaiting review.
+- Property viewing links preselect the space type and request. Shop comparison links also preselect the requested floor. The contact form preserves general, event and media enquiries; leasing-only fields are hidden when not relevant.
+- `scripts/enquiry-config.mjs` contains multilingual UI copy and the direct-delivery activation setting. **`formSubmitEndpoint` is currently empty: no data is sent to FormSubmit, and the working email-draft flow remains active.** Automatic approval review required the owner's explicit approval of FormSubmit before external routing could be created. Do not activate it indirectly or describe direct delivery as live.
+- After that provider-specific approval, activate delivery to the existing `info@tpkpark.com` inbox and verify a clearly labelled test is received. Then put the exact verified public form action URL in `formSubmitEndpoint`, rebuild and review the resulting form before publication. Do not put inbox credentials or private API keys in source.
+- `js/enquiry.js` implements both the current email draft and the prepared direct-delivery flow. Direct delivery displays success only after provider acceptance, keeps visitor input after failures, uses a 20-second timeout without automatic retries, blocks duplicate submits, and excludes form contents from analytics. The direct form privacy notice explains processing by FormSubmit and its documented retention of up to 30 days. No files are requested.
+- `email_draft` remains a draft action. `enquiry_submit` will count provider-accepted submissions only after direct delivery is activated; it is not proof of email receipt, a confirmed viewing or a signed tenancy. Both analytics preferences continue to apply. Any operational delivery test must also check the actual inbox.
+- Links directly to the enquiry page may use `source=google-business`, `agent`, `facebook`, `instagram`, `signage` or `tenant-referral`. These fixed labels accompany the operational enquiry only; they create no browser storage or visitor identifier. Other values are reported as `website`, and attribution is not persisted across page navigation.
+- No leasing WhatsApp number has been verified. Retain the existing office phone and email until management identifies the intended WhatsApp contact. Do not use a supplier's number from a quoted email signature.
+- `docs/leasing-distribution.md` contains prepared public copy and links for Google Business and agents. It has not been posted or sent. GSC Wizard now has a leasing content group and English, Malay and Chinese rental-intent keyword groups; these help reporting and do not change rankings themselves.
+
 ## Search and analytics maintenance
 
 - GSC property: `https://www.tpkpark.com/`. The sitemap contains all 42 canonical pages.

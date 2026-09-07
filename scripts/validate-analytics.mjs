@@ -47,13 +47,14 @@ function client({ hostname = "www.tpkpark.com", saved = null, legacy = null, pri
   const clickLink = (href, area = "") => events.click?.({ target: { closest: () => ({
     getAttribute: () => href, closest: selector => selector === area ? {} : null
   }) } });
-  const submit = space => events.submit?.({ target: { matches: () => true, querySelector: selector => {
+  const submit = (space, mode = "email") => events.submit?.({ target: { dataset: { deliveryMode: mode }, matches: () => true, querySelector: selector => {
     assert.equal(selector, '[name="spaceType"]', "only a known category may be read from the form");
     return { value: space };
   } } });
   const focusForm = () => events.focusin?.({ target: { closest: () => ({}) } });
   const scroll = position => { window.scrollY = position; windowEvents.scroll?.(); };
-  return { controls, scripts, sent, basicSent, beforeSend, clickLink, submit, focusForm, scroll, window, windowEvents, storage, cookieWrites, canonical, reloadScript: () => vm.runInContext(source, context) };
+  const submitted = space => events["tpk:enquiry-submitted"]?.({ detail: { spaceType: space } });
+  return { controls, scripts, sent, basicSent, beforeSend, clickLink, submit, submitted, focusForm, scroll, window, windowEvents, storage, cookieWrites, canonical, reloadScript: () => vm.runInContext(source, context) };
 }
 
 test("basic statistics work without loading Google; opting in starts one GA4 page view without replay", () => {
@@ -166,4 +167,23 @@ test("cross-tab changes and blocked local storage preserve working privacy contr
   assert.equal(closed.storage.get(key), "basic");
   assert.equal(closed.sent().length, 0);
   assert.equal(closed.controls.consent.hidden, true);
+});
+
+test("direct form submissions count only after provider acceptance and preserve privacy choices", () => {
+  const page = client({ saved: "detailed" });
+  page.submit("shop-showroom", "formsubmit");
+  const before = page.basicSent().length;
+  assert.equal(before, 0);
+  // Trigger through the same document listener used by the enquiry client.
+  page.submitted("shop-showroom");
+  assert.equal(page.basicSent().length, before + 1);
+  assert.equal(page.basicSent().at(-1).name, "enquiry_submit");
+  assert.equal(page.sent().at(-1)[1], "enquiry_submit");
+  page.submitted("private@example.com");
+  assert.equal(page.basicSent().at(-1).data.target, "unspecified");
+  assert.equal(JSON.stringify(page.sent()).includes("private@example.com"), false);
+  page.controls.off.handlers.click();
+  const offCount = page.basicSent().length;
+  page.submitted("shop-showroom");
+  assert.equal(page.basicSent().length, offCount);
 });

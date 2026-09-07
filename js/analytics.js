@@ -204,11 +204,18 @@
 
   document.addEventListener("submit", event => {
     if (!event.target.matches?.("[data-email-form]")) return;
+    if (event.target.dataset?.deliveryMode === "formsubmit") return;
     const space = event.target.querySelector('[name="spaceType"]')?.value;
     const selected = knownSpaces.includes(space) ? space : "unspecified";
     // Preparing an email is not a sent or received enquiry.
     record("email_draft", { space_type: selected }, selected);
   }, true);
+
+  document.addEventListener("tpk:enquiry-submitted", event => {
+    const selected = knownSpaces.includes(event.detail?.spaceType) ? event.detail.spaceType : "unspecified";
+    // Provider acceptance is a submitted enquiry, not a viewing or signed lease.
+    record("enquiry_submit", { space_type: selected }, selected);
+  });
 
   document.addEventListener("focusin", event => {
     if (!detailedAllowed || formStarted || !event.target.closest?.("[data-email-form]")) return;

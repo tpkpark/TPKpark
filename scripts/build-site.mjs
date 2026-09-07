@@ -18,6 +18,7 @@ import {
 
 import { imageAssets } from "./image-assets.mjs";
 import { analyticsCopy, measurementId } from "./analytics-config.mjs";
+import { deliveryConfig, enquiryCopy } from "./enquiry-config.mjs";
 
 const root = process.cwd();
 const locales = Object.keys(localeConfig);
@@ -49,9 +50,13 @@ function link(locale, routeId, label, className = "") {
   return `<a href="${routePath(locale, routeId)}"${className ? ` class="${className}"` : ""}>${escapeHtml(label)}</a>`;
 }
 
-function contactHref(locale, unitKey = "") {
+function contactHref(locale, unitKey = "", intent = "", floor = "") {
   const base = routePath(locale, "contact");
-  return unitKey ? `${base}?space=${encodeURIComponent(leasingInventory[unitKey].queryValue)}` : base;
+  const params = new URLSearchParams();
+  if (unitKey) params.set("space", leasingInventory[unitKey].queryValue);
+  if (intent) params.set("intent", intent);
+  if (floor) params.set("floor", floor);
+  return params.size ? `${base}?${params}` : base;
 }
 
 function localeLinks(locale, routeId, expanded = false) {
@@ -256,13 +261,32 @@ function renderUnitDetails(locale, block) {
     ${sectionHeader({ kicker: ui.factsKicker, title: leased ? ui.leasedTitle : ui.factsTitle, text: leased ? ui.leasedText : ui.factsText })}
     <dl class="unit-facts">${facts}<div class="unit-fact"><dt>${escapeHtml(ui.labels.lastUpdated)}</dt><dd><time datetime="${routeLastModified[unit.routeId]}">${escapeHtml(formatDate(locale, routeLastModified[unit.routeId]))}</time></dd></div></dl>
     <div class="unit-actions">
-      <a class="button button-dark" href="${contactHref(locale, block.inventory)}">${escapeHtml(leased ? ui.enquireAlternatives : ui.enquire)} <span class="arrow" aria-hidden="true">→</span></a>
+      <a class="button button-dark" href="${escapeHtml(contactHref(locale, block.inventory, leased ? "" : "viewing"))}">${escapeHtml(leased ? ui.enquireAlternatives : enquiryCopy[locale].viewing)} <span class="arrow" aria-hidden="true">→</span></a>
       <a class="button button-outline" href="tel:+60380765200">${escapeHtml(ui.call)}</a>
       ${brochure}
       ${englishBrochure}
       <a class="text-link" href="${escapeHtml(unit.mapUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(ui.location)} <span class="arrow" aria-hidden="true">↗</span></a>
     </div>
     <p class="unit-disclaimer">${escapeHtml(ui.disclaimer)}</p>
+  </div></section>`;
+}
+
+function renderLeasingOptions(locale, shopOnly = false) {
+  const c = enquiryCopy[locale];
+  const entries = [
+    { title: c.groundTitle, text: c.groundText, rent: c.groundRent, floor: "ground", unit: "shopShowroom" },
+    { title: c.firstTitle, text: c.firstText, rent: c.firstRent, floor: "first", unit: "shopShowroom" },
+    ...(!shopOnly ? [{ title: c.detachedTitle, text: c.detachedText, rent: c.detachedRent, floor: "", unit: "detached" }] : [])
+  ];
+  return `<section class="section"><div class="shell">
+    ${sectionHeader({ kicker: c.overviewKicker, title: shopOnly ? c.shopTitle : c.overviewTitle, text: shopOnly ? c.shopText : c.overviewText })}
+    <div class="leasing-options${shopOnly ? " leasing-options-two" : ""}">${entries.map(item => `<article class="leasing-option">
+      <h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.text)}</p>
+      <p class="leasing-option-rent"><span>${escapeHtml(c.rentLabel)}</span><strong>${escapeHtml(item.rent)}</strong></p>
+      <p class="leasing-option-status">${escapeHtml(item.unit === "detached" ? c.detachedStatus : c.status)}</p>
+      <a class="button button-outline" href="${escapeHtml(contactHref(locale, item.unit, "availability", item.floor))}">${escapeHtml(c.enquire)} <span aria-hidden="true">→</span></a>
+      ${shopOnly ? "" : `<a class="text-link" href="${routePath(locale, leasingInventory[item.unit].routeId)}">${escapeHtml(c.details)}</a>`}
+    </article>`).join("")}</div><p class="unit-disclaimer">${escapeHtml(c.overviewNote)}</p>
   </div></section>`;
 }
 
@@ -320,6 +344,10 @@ function renderProfileSources(locale, block) {
 function renderContact(locale, block) {
   const t = site[locale];
   const f = t.form;
+  const c = enquiryCopy[locale];
+  const delivery = deliveryConfig();
+  const direct = delivery.mode === "formsubmit";
+  const submitLabel = direct ? c.send : f.send;
   const labels = block.labels;
   const options = f.options.map((option) => `<option value="${escapeHtml(option)}">${escapeHtml(option)}</option>`).join("");
   const spaceOptions = f.spaceOptions.map((option) => `<option value="${escapeHtml(option.value)}">${escapeHtml(option.label)}</option>`).join("");
@@ -330,18 +358,25 @@ function renderContact(locale, block) {
       <div class="contact-row"><span>${escapeHtml(labels.hours)}</span><p>${escapeHtml(block.officeHours)}</p></div>
       <div class="contact-row"><span>${escapeHtml(labels.address)}</span><p>${escapeHtml(block.address)}</p></div>
     </div>
-    <div><p class="eyebrow">${escapeHtml(labels.formTitle)}</p><form class="form-grid" data-email-form>
-      <div class="field"><label for="name">${escapeHtml(f.name)}</label><input id="name" name="name" autocomplete="name" required></div>
-      <div class="field"><label for="company">${escapeHtml(f.company)}</label><input id="company" name="company" autocomplete="organization"></div>
-      <div class="field"><label for="email">${escapeHtml(f.email)}</label><input id="email" name="email" type="email" autocomplete="email" required></div>
-      <div class="field"><label for="phone">${escapeHtml(f.phone)}</label><input id="phone" name="phone" type="tel" autocomplete="tel"></div>
+    <div><p class="eyebrow">${escapeHtml(labels.formTitle)}</p><form class="form-grid" data-email-form action="${escapeHtml(delivery.action)}" method="post"${direct ? "" : ' enctype="text/plain"'} data-delivery-mode="${delivery.mode}" data-ajax-endpoint="${escapeHtml(delivery.ajax)}" data-locale="${locale}" data-canonical="${absolute(locale, "contact")}" data-leasing-interest="${escapeHtml(f.options[0])}" data-submit-label="${escapeHtml(submitLabel)}" data-sending="${escapeHtml(c.sending)}" data-success="${escapeHtml(c.success)}" data-error="${escapeHtml(c.error)}" data-draft-ready="${escapeHtml(c.draftReady)}">
+      <div class="field"><label for="name">${escapeHtml(f.name)}</label><input id="name" name="name" autocomplete="name" maxlength="120" required></div>
+      <div class="field"><label for="company">${escapeHtml(f.company)}</label><input id="company" name="company" autocomplete="organization" maxlength="160"></div>
+      <div class="field"><label for="email">${escapeHtml(f.email)}</label><input id="email" name="email" type="email" autocomplete="email" maxlength="254" required></div>
+      <div class="field"><label for="phone">${escapeHtml(f.phone)}</label><input id="phone" name="phone" type="tel" autocomplete="tel" maxlength="40"></div>
       <div class="field field-full"><label for="interest">${escapeHtml(f.interest)}</label><select id="interest" name="interest" required><option value="">${escapeHtml(f.select)}</option>${options}</select></div>
-      <div class="field field-full"><label for="space-type">${escapeHtml(f.spaceType)}</label><select id="space-type" name="spaceType"><option value="">${escapeHtml(f.spaceSelect)}</option>${spaceOptions}</select></div>
-      <div class="field field-full"><label for="message">${escapeHtml(f.message)}</label><textarea id="message" name="message" required></textarea></div>
-      <p class="form-note">${escapeHtml(t.emailApp)}</p>
-      <div class="field-full"><button class="button button-dark" type="submit">${escapeHtml(f.send)} <span class="arrow" aria-hidden="true">→</span></button></div>
+      <div class="field-full form-grid" data-leasing-fields>
+        <div class="field"><label for="space-type">${escapeHtml(f.spaceType)}</label><select id="space-type" name="spaceType"><option value="">${escapeHtml(f.spaceSelect)}</option>${spaceOptions}</select></div>
+        <div class="field"><label for="request-type">${escapeHtml(c.purpose)}</label><select id="request-type" name="requestType"><option value="availability">${escapeHtml(c.information)}</option><option value="viewing">${escapeHtml(c.viewingOption)}</option></select></div>
+        <div class="field field-full" data-floor-field><label for="floor">${escapeHtml(c.floor)}</label><select id="floor" name="floor"><option value="">${escapeHtml(c.floorAny)}</option><option value="ground">${escapeHtml(c.ground)}</option><option value="first">${escapeHtml(c.first)}</option><option value="both">${escapeHtml(c.both)}</option></select></div>
+      </div>
+      <div class="field field-full"><label for="message">${escapeHtml(f.message)}</label><textarea id="message" name="message" maxlength="4000" aria-describedby="enquiry-hint" required></textarea><p id="enquiry-hint" class="form-hint">${escapeHtml(c.hint)}</p></div>
+      <div class="enquiry-honeypot" aria-hidden="true"><label for="enquiry-website">${escapeHtml(c.honeypot)}</label><input id="enquiry-website" name="_honey" tabindex="-1" autocomplete="off"></div>
+      ${direct ? `<input type="hidden" name="_subject" value="TPK Park website enquiry"><input type="hidden" name="_template" value="table"><input type="hidden" name="_url" value="${absolute(locale, "contact")}">` : ""}
+      <p class="form-note">${escapeHtml(direct ? c.privacy : t.emailApp)}${direct ? ` <a href="https://formsubmit.co/privacy.pdf" target="_blank" rel="noopener noreferrer">${escapeHtml(c.privacyLink)}</a>` : ""}</p>
+      <p class="enquiry-status field-full" data-enquiry-status role="status" tabindex="-1" hidden></p>
+      <div class="field-full"><button class="button button-dark" type="submit"><span data-submit-label>${escapeHtml(submitLabel)}</span> <span class="arrow" aria-hidden="true">→</span></button></div>
     </form></div>
-  </div></div></section>`;
+  </div></div></section><script defer src="/js/enquiry.js"></script>`;
 }
 
 function renderBlock(locale, routeId, page, block, index) {
@@ -358,6 +393,7 @@ function renderBlock(locale, routeId, page, block, index) {
     case "faq": return renderFaq(block);
     case "notice": return renderNotice(locale, block);
     case "unitDetails": return renderUnitDetails(locale, block);
+    case "leasingOptions": return renderLeasingOptions(locale, block.shopOnly);
     case "plans": return renderPlans(block);
     case "profile": return renderProfile(page, block);
     case "profileSources": return renderProfileSources(locale, block);
@@ -523,33 +559,6 @@ function scripts(locale) {
       });
       document.addEventListener('keydown', (event) => {
         if (event.key === 'Escape' && menuButton.getAttribute('aria-expanded') === 'true') menuButton.click();
-      });
-    }
-    const emailForm = document.querySelector('[data-email-form]');
-    if (emailForm) {
-      const requestedSpace = new URLSearchParams(window.location.search).get('space');
-      const spaceField = emailForm.querySelector('[name="spaceType"]');
-      const interestField = emailForm.querySelector('[name="interest"]');
-      if (requestedSpace && spaceField && [...spaceField.options].some((option) => option.value === requestedSpace)) {
-        spaceField.value = requestedSpace;
-        interestField.value = ${safeJson(t.form.options[0])};
-      }
-      emailForm.addEventListener('submit', (event) => {
-        event.preventDefault();
-        const data = new FormData(emailForm);
-        const selectedSpace = spaceField?.selectedOptions[0]?.text || '-';
-        const subject = 'TPK Park enquiry — ' + data.get('interest');
-        const body = [
-          '${escapeHtml(t.form.name)}: ' + data.get('name'),
-          '${escapeHtml(t.form.company)}: ' + (data.get('company') || '-'),
-          '${escapeHtml(t.form.email)}: ' + data.get('email'),
-          '${escapeHtml(t.form.phone)}: ' + (data.get('phone') || '-'),
-          '${escapeHtml(t.form.interest)}: ' + data.get('interest'),
-          '${escapeHtml(t.form.spaceType)}: ' + selectedSpace,
-          '',
-          data.get('message')
-        ].join('\\n');
-        window.location.href = 'mailto:info@tpkpark.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
       });
     }
   </script>`;

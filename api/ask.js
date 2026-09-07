@@ -6,6 +6,7 @@ import { answerQuestion, assistantEnabled, AssistantError, limits } from "../lib
 const salt = randomBytes(32);
 const visitors = new Map();
 let active = 0;
+let gatewayReadyAt = 0;
 
 export function allowedOrigin(origin, env = process.env) {
   const allowed = new Set(["https://www.tpkpark.com", "https://tpkpark.com"]);
@@ -43,6 +44,10 @@ export default async function handler(req, res) {
     if (!raw || Buffer.byteLength(raw) > limits.bodyBytes) return send(413, { error: "too_long" });
     body = JSON.parse(raw);
   } catch { return send(400, { error: "invalid_request" }); }
+  if (Date.now() < gatewayReadyAt) {
+    res.setHeader("Retry-After", String(Math.ceil((gatewayReadyAt - Date.now()) / 1000)));
+    return send(429, { error: "busy" });
+  }
   // Vercel supplies x-forwarded-for; it is not forwarded to the AI provider.
   const address = String(req.headers["x-forwarded-for"] || req.socket?.remoteAddress || "unknown").split(",")[0];
   const key = createHmac("sha256", salt).update(address).digest("hex");
@@ -51,7 +56,11 @@ export default async function handler(req, res) {
   try { return send(200, await answerQuestion(body)); }
   catch (error) {
     const safe = error instanceof AssistantError ? error : new AssistantError("unavailable");
-    if (safe.status === 429) res.setHeader("Retry-After", "60");
+    if (safe.status === 429) {
+      const delay = safe.retryAfter || 60;
+      gatewayReadyAt = Date.now() + delay * 1000;
+      res.setHeader("Retry-After", String(delay));
+    }
     // Never return or log request text, credentials or provider error bodies.
     return send(safe.status, { error: safe.code });
   } finally { release(); }

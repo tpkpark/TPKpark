@@ -55,6 +55,7 @@
   const starterButtons = [...starters.querySelectorAll("[data-ask-starter]")];
   let history = [];
   let pending = false;
+  let retryAt = 0;
 
   function message(role, text, sources = []) {
     const item = document.createElement("div");
@@ -118,6 +119,11 @@
     event.preventDefault();
     const question = input.value.trim();
     if (pending || !question || question.length > 2000) return;
+    if (Date.now() < retryAt) {
+      status.textContent = widget.dataset.busy;
+      status.hidden = false;
+      return;
+    }
     const messages = [...history.slice(-8), { role: "user", content: question }];
     const payload = { locale: widget.dataset.locale, messages };
     while (messages.length > 1 && (messages.reduce((n, item) => n + item.content.length, 0) > 9000 || new TextEncoder().encode(JSON.stringify(payload)).length > 18000)) messages.splice(0, 2);
@@ -135,7 +141,13 @@
         headers: { "Content-Type": "application/json" }, signal: controller.signal,
         body: JSON.stringify(payload)
       });
-      if (!response.ok) throw new Error(response.status === 429 ? "busy" : "error");
+      if (!response.ok) {
+        if (response.status === 429) {
+          const delay = Number(response.headers?.get("retry-after"));
+          retryAt = Date.now() + (Number.isFinite(delay) && delay > 0 ? delay : 60) * 1000;
+        }
+        throw new Error(response.status === 429 ? "busy" : "error");
+      }
       const result = await response.json();
       if (typeof result.answer !== "string" || !result.answer.trim() || result.answer.length > 5000 || !Array.isArray(result.sources)) throw new Error("error");
       const answer = message("assistant", result.answer, result.sources);

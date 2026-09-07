@@ -101,6 +101,7 @@ test("Chinese questions and numeric follow-ups retain language even on English p
 
 const clientSource = await readFile(new URL("../js/ask-tpk.js", import.meta.url), "utf8");
 function chatClient(responses) {
+  let now = Date.now();
   class Element {
     constructor() { this.dataset = {}; this.children = []; this.events = {}; this.value = ""; this.hidden = false; this.textContent = ""; }
     addEventListener(name, fn) { this.events[name] = fn; }
@@ -125,11 +126,11 @@ function chatClient(responses) {
   const document = { querySelector: selector => selector === "[data-ask-tpk]" ? widget : null, addEventListener() {}, createElement: () => new Element() };
   const requests = [];
   vm.runInNewContext(clientSource, {
-    document, location: { origin: "https://www.tpkpark.com" }, URL, TextEncoder, AbortController, setTimeout, clearTimeout,
+    document, location: { origin: "https://www.tpkpark.com" }, URL, TextEncoder, AbortController, setTimeout, clearTimeout, Date: { now: () => now },
     MutationObserver: class { observe() {} },
     fetch: async (url, options) => { requests.push({ url, body: JSON.parse(options.body) }); return responses.shift(); }
   });
-  return { ...elements, requests, submit: () => elements.form.events.submit({ preventDefault() {} }) };
+  return { ...elements, requests, advance: ms => { now += ms; }, submit: () => elements.form.events.submit({ preventDefault() {} }) };
 }
 
 test("chat renders plain text and approved links, preserves follow-ups, and clears local history", async () => {
@@ -165,5 +166,12 @@ test("failed questions stay editable and retry only once without polluting histo
   assert.equal(page.messages.childElementCount, 0);
   assert.equal(page.send.disabled, false);
   await page.submit();
+  assert.equal(page.requests.length, 1, "Respect the cooldown before retrying");
+  page.advance(61000);
+  await page.submit();
   assert.equal(page.requests[1].body.messages.length, 1);
+});
+
+test("provider retry intervals are preserved without retrying requests automatically", async () => {
+  await assert.rejects(answerQuestion(question, { token: "test", fetchImpl: async () => ({ ok: false, status: 429, headers: { get: () => "90" } }) }), error => error.code === "busy" && error.retryAfter === 90);
 });

@@ -12,10 +12,12 @@ const samples = [
 ];
 try {
   for (const sample of samples) {
+    if (checks.length) await new Promise(resolve => setTimeout(resolve, 20000));
     const response = await answerQuestion({ locale: sample.locale, messages: [{ role: "user", content: sample.question }] });
     checks.push({ locale: sample.locale, question: sample.question, ...response, passed: sample.check(response) });
   }
   const question = "Would the first floor fit my RM4,000 monthly budget? Can you confirm a viewing tomorrow?";
+  await new Promise(resolve => setTimeout(resolve, 20000));
   const response = await answerQuestion({ locale: "en", messages: [
     { role: "user", content: samples[0].question },
     { role: "assistant", content: checks[0].answer },
@@ -23,7 +25,7 @@ try {
   ] });
   checks.push({ locale: "en", question, ...response, passed: /3,?600/.test(response.answer) && response.sources.some(s => s.id === "contact") });
 } catch (error) {
-  checks.push({ passed: false, error: error.code || "unavailable", providerStatus: error.providerStatus || null });
+  checks.push({ passed: false, error: error.code || "unavailable", providerStatus: error.providerStatus || null, retryAfter: error.retryAfter || null });
 }
 const report = { kind: "Fixed public preview questions; no visitor data", checkedAt: new Date().toISOString(), passed: checks.length === 4 && checks.every(check => check.passed), checks };
 await mkdir("assets", { recursive: true });

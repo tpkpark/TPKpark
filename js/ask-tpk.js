@@ -74,7 +74,7 @@
       // AI output is never inserted as HTML or made into arbitrary links.
       if (typeof source?.url !== "string" || typeof source.title !== "string") continue;
       const url = new URL(source.url, location.origin);
-      if (url.origin !== location.origin || !/^\/(?:ms\/|zh\/)?(?:about\/|home-living\/|automotive\/|lifestyle\/|leasing\/(?:shop-showroom\/|detached-building\/|semi-detached\/)?|contact\/|milestones\/)?$/.test(url.pathname) || url.search || url.hash) continue;
+      if (url.origin !== location.origin || !/^\/(?:ms\/|zh\/)?(?:about\/|home-living\/|automotive\/|lifestyle\/|leasing\/(?:shop-showroom\/|detached-building\/|semi-detached\/)?|contact\/|milestones\/|news\/|wong-shung-yen\/(?:public-record\/)?)?$/.test(url.pathname) || url.search || url.hash) continue;
       const link = document.createElement("a");
       link.href = url.pathname;
       link.textContent = source.title;

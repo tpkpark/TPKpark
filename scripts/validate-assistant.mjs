@@ -3,7 +3,8 @@ import test from "node:test";
 import { readFile } from "node:fs/promises";
 import vm from "node:vm";
 import { answerQuestion, assistantEnabled, validateInput, systemPrompt, replyLanguage } from "../lib/assistant.mjs";
-import { sourceLinks, knowledge } from "../lib/assistant-knowledge.mjs";
+import { sourceLinks, knowledge, sources } from "../lib/assistant-knowledge.mjs";
+import { site, routeIds, routePath, profileSources, articles } from "./site-data.mjs";
 import handler, { allowedOrigin, takeSlot } from "../api/ask.js";
 
 const question = { locale: "en", messages: [{ role: "user", content: "What can I rent?" }] };
@@ -91,6 +92,33 @@ test("approved knowledge retains public inventory boundaries", () => {
   assert.match(systemPrompt("ms"), /cannot send messages or save enquiries/);
 });
 
+test("the assistant can read the published profile and shared public-record blocks", () => {
+  assert.deepEqual(Object.keys(sources), routeIds, "Every published route must be available for answers");
+  const profile = site.en.pages.profile.blocks.find(block => block.type === "profile");
+  assert.ok(sources.profile.text.includes(profile.introduction));
+  assert.match(sources.profile.text, /Managing Director of TPK Park Sdn\. Bhd\./);
+  assert.match(sources.profile.text, /Currently pursuing a Master/);
+  assert.match(sources.profile.text, /Associate Producer.*Men Who Save the World/);
+  for (const record of profileSources) assert.ok(sources.publicRecord.text.includes(record.summary.en), `Missing published ${record.source} summary`);
+  for (const article of articles) assert.ok(sources.news.text.includes(article.summary.en), `Missing published ${article.source} news summary`);
+  for (const locale of ["en", "ms", "zh"]) {
+    assert.deepEqual(sourceLinks(["profile", "publicRecord", "news"], locale).map(source => source.url), ["profile", "publicRecord", "news"].map(id => routePath(locale, id)));
+  }
+});
+
+test("a profile question reaches the model with biography facts and valid profile citations", async () => {
+  const result = await answerQuestion({ locale: "en", messages: [{ role: "user", content: "tell me about wong shung yen" }] }, { token: "test", fetchImpl: async (_, options) => {
+    const body = JSON.parse(options.body);
+    assert.match(body.messages[0].content, /Wong Shung Yen is Managing Director of TPK Park Sdn\. Bhd\./);
+    assert.match(body.messages[0].content, /Variety.*associate producer/);
+    assert.ok(body.response_format.json_schema.schema.properties.sourceIds.items.enum.includes("profile"));
+    assert.ok(body.response_format.json_schema.schema.properties.sourceIds.items.enum.includes("publicRecord"));
+    return completion("Wong Shung Yen is Managing Director of TPK Park Sdn. Bhd.", ["profile", "publicRecord"]);
+  } });
+  assert.equal(result.sources[0].url, "/wong-shung-yen/");
+  assert.equal(result.sources[1].url, "/wong-shung-yen/public-record/");
+});
+
 test("Chinese questions and numeric follow-ups retain language even on English pages", async () => {
   const messages = [{ role: "user", content: "我想租展厅。" }, { role: "assistant", content: "您的预算是多少？" }, { role: "user", content: "RM4000" }];
   assert.equal(replyLanguage("en", messages), "zh");
@@ -152,6 +180,18 @@ test("chat renders plain text and approved links, preserves follow-ups, and clea
   await page.submit();
   assert.equal(page.requests[2].body.messages.length, 1);
   assert.equal(page.requests[2].url, "/api/ask");
+});
+
+test("profile, public-record and every other published route remain clickable in every language", async () => {
+  for (const locale of ["en", "ms", "zh"]) {
+    for (let i = 0; i < routeIds.length; i += 3) {
+      const links = sourceLinks(routeIds.slice(i, i + 3), locale);
+      const page = chatClient([{ ok: true, json: async () => ({ answer: "Published information", sources: links }) }]);
+      page.input.value = "Tell me about TPK Park";
+      await page.submit();
+      assert.deepEqual(page.messages.children[1].children[2].children.map(link => link.href), links.map(link => link.url));
+    }
+  }
 });
 
 test("failed questions stay editable and retry only once without polluting history", async () => {

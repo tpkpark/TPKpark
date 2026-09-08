@@ -103,7 +103,11 @@ test("the assistant can read the published profile and shared public-record bloc
   for (const article of articles) assert.ok(sources.news.text.includes(article.summary.en), `Missing published ${article.source} news summary`);
   for (const locale of ["en", "ms", "zh"]) {
     assert.deepEqual(sourceLinks(["profile", "publicRecord", "news"], locale).map(source => source.url), ["profile", "publicRecord", "news"].map(id => routePath(locale, id)));
+    assert.ok(systemPrompt(locale).includes(site[locale].pages.profile.blocks.find(block => block.type === "profile").introduction));
   }
+  assert.match(systemPrompt("zh"), /深静（哈古乐）华小/);
+  assert.match(systemPrompt("zh"), /协同制片人/);
+  assert.doesNotMatch(systemPrompt("zh"), /新成学校|拯救世界的男人/);
 });
 
 test("a profile question reaches the model with biography facts and valid profile citations", async () => {

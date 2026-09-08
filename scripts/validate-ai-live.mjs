@@ -8,7 +8,7 @@ const checks = [];
 const samples = [
   { locale: "en", question: "tell me about wong shung yen", check: result => /Wong Shung Yen/i.test(result.answer) && /Managing Director/i.test(result.answer) && /TPK Park/i.test(result.answer) && result.sources.some(s => s.id === "profile") && !/no information|no details|not (?:have|available)/i.test(result.answer) },
   { locale: "ms", question: "Siapakah Wong Shung Yen dan apakah peranannya di TPK Park?", check: result => /Wong Shung Yen/i.test(result.answer) && /Pengarah Urusan/i.test(result.answer) && result.sources.some(s => s.id === "profile") },
-  { locale: "zh", question: "介绍一下黄松延，他与TPK Park有什么关系？", check: result => /黄松延/.test(result.answer) && /TPK Park/i.test(result.answer) && /董事|总经理/.test(result.answer) && result.sources.some(s => s.id === "profile") }
+  { locale: "zh", question: "介绍一下黄松延，与TPK Park的关系，以及他在学校和电影方面的参与。", check: result => /黄松延/.test(result.answer) && /TPK Park/i.test(result.answer) && /深静/.test(result.answer) && /协同制片人/.test(result.answer) && /Lelaki Harapan Dunia|Men Who Save the World/i.test(result.answer) && !/新成学校|拯救世界的男人/.test(result.answer) && result.sources.some(s => s.id === "profile") }
 ];
 try {
   for (const sample of samples) {

@@ -20,6 +20,7 @@ import { imageAssets } from "./image-assets.mjs";
 import { analyticsCopy, measurementId } from "./analytics-config.mjs";
 import { enquiryCopy } from "./enquiry-config.mjs";
 import { askTpkCopy } from "./ask-tpk-copy.mjs";
+import { assistantEnabled } from "../lib/assistant.mjs";
 
 const root = process.cwd();
 const locales = Object.keys(localeConfig);
@@ -575,21 +576,35 @@ function analytics(locale, routeId) {
 
 function askTpk(locale) {
   const copy = askTpkCopy[locale];
+  const ai = assistantEnabled();
   const businessLinks = ["homeLiving", "automotive", "lifestyle"].map(route => `<a href="${routePath(locale, route)}">${escapeHtml(site[locale].nav[route])}</a>`).join("");
-  return `<aside class="ask-tpk" data-ask-tpk>
+  const chat = `<p class="ask-tpk-badge">${escapeHtml(copy.aiLabel)} · EN / BM / 中文</p>
+      <p class="ask-tpk-intro" id="ask-tpk-intro">${escapeHtml(copy.aiIntro)}</p>
+      <div class="ask-tpk-messages" data-ask-messages role="log" aria-live="polite" aria-relevant="additions" aria-label="${escapeHtml(copy.label)}"></div>
+      <div class="ask-tpk-starters" data-ask-starters>${copy.starters.map(question => `<button type="button" data-ask-starter>${escapeHtml(question)}</button>`).join("")}</div>
+      <p class="ask-tpk-status" data-ask-status role="status" hidden></p>
+      <form class="ask-tpk-form" data-ask-form>
+        <label class="sr-only" for="ask-tpk-question">${escapeHtml(copy.input)}</label>
+        <textarea id="ask-tpk-question" data-ask-input name="question" rows="2" maxlength="2000" required autocomplete="off" placeholder="${escapeHtml(copy.placeholder)}"></textarea>
+        <div class="ask-tpk-actions"><button type="button" data-ask-clear>${escapeHtml(copy.clear)}</button><button class="ask-tpk-send" type="submit" data-ask-send>${escapeHtml(copy.send)} <span aria-hidden="true">↑</span></button></div>
+      </form>
+      <p class="ask-tpk-note">${escapeHtml(copy.disclaimer)}</p>
+      <div class="ask-tpk-handoff"><a href="${routePath(locale, "contact")}">${escapeHtml(copy.team)}</a><a href="${routePath(locale, "leasing")}">${escapeHtml(copy.browse)}</a></div>
+      <details class="ask-tpk-privacy"><summary>${escapeHtml(copy.privacyTitle)}</summary><p>${escapeHtml(copy.privacy)}</p></details>`;
+  return `<aside class="ask-tpk" data-ask-tpk data-locale="${locale}" data-ai-enabled="${ai}" data-you="${escapeHtml(copy.you)}" data-thinking="${escapeHtml(copy.thinking)}" data-error="${escapeHtml(copy.error)}" data-busy="${escapeHtml(copy.busy)}" data-sources="${escapeHtml(copy.sources)}" data-assistant="${escapeHtml(copy.aiLabel)}">
     <button class="ask-tpk-trigger" type="button" data-ask-trigger aria-expanded="false" aria-controls="ask-tpk-panel" aria-haspopup="dialog" hidden>
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-8 8H5l-3 2v-10a9 9 0 0 1 18 0Z"/><path d="M7 10h8M7 14h5"/></svg>
       <span>${escapeHtml(copy.label)}</span>
     </button>
-    <section class="ask-tpk-panel" id="ask-tpk-panel" data-ask-panel role="dialog" aria-labelledby="ask-tpk-title" aria-describedby="ask-tpk-intro" tabindex="-1" hidden>
+    <section class="ask-tpk-panel${ai ? " ask-tpk-ai" : ""}" id="ask-tpk-panel" data-ask-panel role="dialog" aria-labelledby="ask-tpk-title" aria-describedby="ask-tpk-intro" tabindex="-1" hidden>
       <div class="ask-tpk-heading"><h2 id="ask-tpk-title">${escapeHtml(copy.label)}</h2><button type="button" class="ask-tpk-close" data-ask-close aria-label="${escapeHtml(copy.close)}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div>
-      <p class="ask-tpk-intro" id="ask-tpk-intro">${escapeHtml(copy.intro)}</p>
+      ${ai ? chat : `<p class="ask-tpk-intro" id="ask-tpk-intro">${escapeHtml(copy.intro)}</p>
       <div class="ask-tpk-options">
         <a class="ask-tpk-option" href="${routePath(locale, "leasing")}"><strong>${escapeHtml(copy.leasing)}</strong><span>${escapeHtml(copy.leasingText)}</span></a>
         <details class="ask-tpk-businesses"><summary class="ask-tpk-option"><strong>${escapeHtml(copy.businesses)}</strong><span>${escapeHtml(copy.businessesText)}</span></summary><nav class="ask-tpk-business-links" aria-label="${escapeHtml(copy.businesses)}">${businessLinks}</nav></details>
         <a class="ask-tpk-option" href="${routePath(locale, "contact")}"><strong>${escapeHtml(copy.visit)}</strong><span>${escapeHtml(copy.visitText)}</span></a>
       </div>
-      <a class="ask-tpk-contact" href="mailto:info@tpkpark.com">${escapeHtml(copy.contact)}</a>
+      <a class="ask-tpk-contact" href="mailto:info@tpkpark.com">${escapeHtml(copy.contact)}</a>`}
     </section>
   </aside><script defer src="/js/ask-tpk.js"></script>`;
 }

@@ -7,15 +7,19 @@
   "scripts": {
     "generate": "node scripts/build-site.mjs",
     "build:css": "tailwindcss -i ./src/input.css -o ./css/tailwind.css --minify",
-    "build": "npm run generate && npm run build:css",
+    "build": "npm run generate && npm run build:css && node scripts/validate-ai-live.mjs",
     "validate": "node scripts/validate-site.mjs",
-    "test": "npm run build && npm run validate && node --test scripts/validate-analytics.mjs scripts/validate-enquiry.mjs"
+    "test": "npm run build && npm run validate && node --test scripts/validate-analytics.mjs scripts/validate-enquiry.mjs scripts/validate-assistant.mjs"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tpkpark/TPKpark.git"
   },
-  "keywords": ["tpk-park", "puchong", "static-site"],
+  "keywords": [
+    "tpk-park",
+    "puchong",
+    "static-site"
+  ],
   "author": "TPK Park Sdn. Bhd.",
   "license": "ISC",
   "bugs": {
@@ -23,6 +27,7 @@
   },
   "homepage": "https://www.tpkpark.com/",
   "dependencies": {
+    "@vercel/oidc": "3.8.5",
     "tailwindcss": "^3.4.17"
   }
 }

@@ -4,20 +4,50 @@ export const askTpkCopy = {
     leasing: "Find premises", leasingText: "Explore shops, showrooms and leasing information.",
     businesses: "Find a business", businessesText: "Browse the businesses at TPK Park.",
     visit: "Plan a visit", visitText: "Find our location, office hours and contact details.",
-    contact: "Email the TPK Park team"
+    contact: "Email the TPK Park team",
+    aiLabel: "AI assistant", aiIntro: "Tell me what you’re looking for. I can help with premises, businesses and visits.",
+    input: "Your question", placeholder: "Ask about TPK Park…", send: "Send", clear: "New chat",
+    you: "You", thinking: "Looking at TPK Park’s information…", sources: "Related pages",
+    error: "I couldn’t answer just now. Please try again or contact the team below.",
+    busy: "The assistant is busy. Please try again in a minute or contact the team.",
+    disclaimer: "AI answers may be inaccurate. Confirm availability and leasing details with our team.",
+    privacyTitle: "About this assistant",
+    privacy: "Sending a question shares this conversation with OpenAI through Vercel to generate an answer. Please leave out personal or confidential details. The site keeps the chat only while this page is open and does not send its text to analytics. Providers may retain service data under their policies. This chat does not send an enquiry or book a viewing.",
+    team: "Contact the team", browse: "Browse leasing",
+    starters: ["What can I rent here?", "Help me find a business", "How do I arrange a viewing?"]
   },
   ms: {
     label: "Tanya TPK Park", close: "Tutup Tanya TPK Park", intro: "Bagaimanakah kami boleh membantu?",
     leasing: "Cari premis", leasingText: "Terokai kedai, bilik pameran dan maklumat penyewaan.",
     businesses: "Cari perniagaan", businessesText: "Lihat perniagaan di TPK Park.",
     visit: "Rancang kunjungan", visitText: "Dapatkan lokasi, waktu pejabat dan maklumat hubungan kami.",
-    contact: "E-mel pasukan TPK Park"
+    contact: "E-mel pasukan TPK Park",
+    aiLabel: "Pembantu AI", aiIntro: "Beritahu apa yang anda cari. Saya boleh membantu dengan premis, perniagaan dan kunjungan.",
+    input: "Soalan anda", placeholder: "Tanya tentang TPK Park…", send: "Hantar", clear: "Sembang baharu",
+    you: "Anda", thinking: "Menyemak maklumat TPK Park…", sources: "Halaman berkaitan",
+    error: "Saya tidak dapat menjawab sekarang. Cuba lagi atau hubungi pasukan di bawah.",
+    busy: "Pembantu sedang sibuk. Cuba lagi sebentar nanti atau hubungi pasukan kami.",
+    disclaimer: "Jawapan AI mungkin tidak tepat. Sahkan ketersediaan dan butiran penyewaan dengan pasukan kami.",
+    privacyTitle: "Tentang pembantu ini",
+    privacy: "Menghantar soalan berkongsi perbualan ini dengan OpenAI melalui Vercel untuk menghasilkan jawapan. Elakkan maklumat peribadi atau sulit. Laman ini menyimpan sembang hanya selagi halaman ini dibuka dan tidak menghantar teksnya kepada analitik. Penyedia mungkin menyimpan data perkhidmatan mengikut dasar mereka. Sembang ini tidak menghantar pertanyaan atau menempah lawatan.",
+    team: "Hubungi pasukan", browse: "Lihat penyewaan",
+    starters: ["Apakah premis yang boleh disewa?", "Bantu saya mencari perniagaan", "Bagaimana mengatur lawatan tapak?"]
   },
   zh: {
     label: "咨询 TPK Park", close: "关闭咨询 TPK Park", intro: "您想了解什么？",
     leasing: "寻找商用空间", leasingText: "了解商铺、展厅及租赁资料。",
     businesses: "寻找商家", businessesText: "浏览TPK Park的商家与服务。",
     visit: "计划到访", visitText: "查看地点、办公时间及联系方式。",
-    contact: "电邮联系TPK Park团队"
+    contact: "电邮联系TPK Park团队",
+    aiLabel: "AI助手", aiIntro: "告诉我您在寻找什么。我可以协助您了解商用空间、商家及到访安排。",
+    input: "您的问题", placeholder: "询问有关TPK Park的问题…", send: "发送", clear: "新对话",
+    you: "您", thinking: "正在查阅TPK Park的资料…", sources: "相关页面",
+    error: "暂时无法回答。请重试，或通过下方链接联系团队。",
+    busy: "助手目前较忙。请稍后重试，或联系我们的团队。",
+    disclaimer: "AI回答可能不准确。请向团队确认当前供应及租赁详情。",
+    privacyTitle: "关于此助手",
+    privacy: "发送问题会通过Vercel将本次对话分享给OpenAI以生成回答。请勿提供个人或机密资料。网站仅在此页面打开期间保留对话，不会将对话内容发送至分析工具。服务提供商可能按其政策保留服务数据。此对话不会发送咨询邮件或确认看房预约。",
+    team: "联系团队", browse: "浏览租赁信息",
+    starters: ["这里有什么商用空间可以租？", "帮我寻找商家", "如何安排看单位？"]
   }
 };

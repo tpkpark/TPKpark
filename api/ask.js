@@ -1,8 +1,8 @@
 import { createHmac, randomBytes } from "node:crypto";
-import { answerQuestion, assistantEnabled, AssistantError, limits } from "../lib/assistant.mjs";
+import { answerQuestion, assistantEnabled, AssistantError, limits, validateInput } from "../lib/assistant.mjs";
 
-// Short-lived, per-instance abuse protection. No raw IPs or conversations are
-// stored. Gateway project budgets are the separate, durable spending control.
+// Per-instance abuse backstop. Hosting and AI Gateway usage settings remain
+// managed in Lawrence's existing Vercel account.
 const salt = randomBytes(32);
 const visitors = new Map();
 let active = 0;
@@ -17,10 +17,10 @@ export function allowedOrigin(origin, env = process.env) {
   return allowed.has(origin);
 }
 
-export function takeSlot(key, now = Date.now()) {
+export function takeSlot(key, now = Date.now(), networkLimit = 100) {
   for (const [id, entry] of visitors) if (entry.until <= now) visitors.delete(id);
-  const entry = visitors.get(key) || { count: 0, until: now + 600000 };
-  if (entry.count >= 12 || active >= 3 || (!visitors.has(key) && visitors.size >= 2000)) return null;
+  const entry = visitors.get(key) || { count: 0, until: (Math.floor(now / 600000) + 1) * 600000 };
+  if (entry.count >= networkLimit || active >= 3 || (!visitors.has(key) && visitors.size >= 2000)) return null;
   entry.count += 1;
   visitors.set(key, entry);
   active += 1;
@@ -42,7 +42,7 @@ export default async function handler(req, res) {
   try {
     const raw = typeof req.body === "string" ? req.body : Buffer.isBuffer(req.body) ? req.body.toString("utf8") : JSON.stringify(req.body);
     if (!raw || Buffer.byteLength(raw) > limits.bodyBytes) return send(413, { error: "too_long" });
-    body = JSON.parse(raw);
+    body = validateInput(JSON.parse(raw));
   } catch { return send(400, { error: "invalid_request" }); }
   if (Date.now() < gatewayReadyAt) {
     res.setHeader("Retry-After", String(Math.ceil((gatewayReadyAt - Date.now()) / 1000)));
@@ -50,18 +50,24 @@ export default async function handler(req, res) {
   }
   // Vercel supplies x-forwarded-for; it is not forwarded to the AI provider.
   const address = String(req.headers["x-forwarded-for"] || req.socket?.remoteAddress || "unknown").split(",")[0];
-  const key = createHmac("sha256", salt).update(address).digest("hex");
+  const key = createHmac("sha256", salt).update(`${Math.floor(Date.now() / 600000)}:${address}`).digest("hex");
+
   const release = takeSlot(key);
-  if (!release) { res.setHeader("Retry-After", "60"); return send(429, { error: "busy" }); }
+  if (!release) {
+    const networkLimited = (visitors.get(key)?.count || 0) >= 100;
+    const delay = networkLimited ? Math.max(1, Math.ceil((visitors.get(key).until - Date.now()) / 1000)) : 2;
+    res.setHeader("Retry-After", String(delay));
+    return send(429, { error: networkLimited ? "rate_limited" : "busy" });
+  }
   try { return send(200, await answerQuestion(body)); }
   catch (error) {
     const safe = error instanceof AssistantError ? error : new AssistantError("unavailable");
     if (safe.status === 429) {
       const delay = safe.retryAfter || 60;
-      gatewayReadyAt = Date.now() + delay * 1000;
+      if (safe.providerStatus === 429) gatewayReadyAt = Date.now() + delay * 1000;
       res.setHeader("Retry-After", String(delay));
     }
     // Never return or log request text, credentials or provider error bodies.
-    return send(safe.status, { error: safe.code });
+    return send(safe.status, { error: safe.code, ...(process.env.VERCEL_ENV === "preview" && /^(?:gateway_(?:auth|request|[0-9]{3})|output_(?:decode|incomplete|schema|language))$/.test(safe.diagnostic || "") ? { diagnostic: safe.diagnostic } : {}) });
   } finally { release(); }
 }

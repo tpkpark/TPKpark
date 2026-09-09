@@ -19,8 +19,9 @@ import {
 import { imageAssets } from "./image-assets.mjs";
 import { analyticsCopy, measurementId } from "./analytics-config.mjs";
 import { enquiryCopy } from "./enquiry-config.mjs";
-import { askTpkCopy } from "./ask-tpk-copy.mjs";
+import { askTpkCopy, starterQuestions } from "./ask-tpk-copy.mjs";
 import { assistantEnabled } from "../lib/assistant.mjs";
+import { propertyCatalog } from "../lib/assistant-rich.mjs";
 
 const root = process.cwd();
 const locales = Object.keys(localeConfig);
@@ -574,24 +575,28 @@ function analytics(locale, routeId) {
   <script defer src="/js/analytics.js" data-measurement-id="${escapeHtml(measurementId)}" data-locale="${locale}" data-route="${routeId}" data-canonical="${absolute(locale, routeId)}"></script>`;
 }
 
-function askTpk(locale) {
+function askTpk(locale, routeId) {
   const copy = askTpkCopy[locale];
   const ai = assistantEnabled();
   const businessLinks = ["homeLiving", "automotive", "lifestyle"].map(route => `<a href="${routePath(locale, route)}">${escapeHtml(site[locale].nav[route])}</a>`).join("");
-  const chat = `<p class="ask-tpk-badge">${escapeHtml(copy.aiLabel)} · EN / BM / 中文</p>
+  const catalog = Object.fromEntries(Object.entries(propertyCatalog(locale)).map(([id, card]) => [id, { ...card, image: imageAssets[card.image]?.src || card.image }]));
+  const config = { copy, catalog, sources: Object.fromEntries(routeIds.map(id => [id, { id, title: site[locale].pages[id].eyebrow || site[locale].pages[id].title, url: routePath(locale, id) }])) };
+  const chat = `<p class="ask-tpk-badge">${escapeHtml(copy.aiLabel)}</p>
+      <div class="ask-tpk-language"><label for="ask-tpk-language">${escapeHtml(copy.language)}</label><select id="ask-tpk-language" data-ask-language><option value="auto">${escapeHtml(copy.auto)}</option><option value="en">EN</option><option value="zh">中文</option><option value="ms">BM</option></select></div>
       <p class="ask-tpk-intro" id="ask-tpk-intro">${escapeHtml(copy.aiIntro)}</p>
       <div class="ask-tpk-messages" data-ask-messages role="log" aria-live="polite" aria-relevant="additions" aria-label="${escapeHtml(copy.label)}"></div>
-      <div class="ask-tpk-starters" data-ask-starters>${copy.starters.map(question => `<button type="button" data-ask-starter>${escapeHtml(question)}</button>`).join("")}</div>
+      <div class="ask-tpk-starters" data-ask-starters>${starterQuestions(locale, routeId).map(question => `<button type="button" data-ask-starter>${escapeHtml(question)}</button>`).join("")}</div>
       <p class="ask-tpk-status" data-ask-status role="status" hidden></p>
       <form class="ask-tpk-form" data-ask-form>
         <label class="sr-only" for="ask-tpk-question">${escapeHtml(copy.input)}</label>
         <textarea id="ask-tpk-question" data-ask-input name="question" rows="2" maxlength="2000" required autocomplete="off" placeholder="${escapeHtml(copy.placeholder)}"></textarea>
         <div class="ask-tpk-actions"><button type="button" data-ask-clear>${escapeHtml(copy.clear)}</button><button class="ask-tpk-send" type="submit" data-ask-send>${escapeHtml(copy.send)} <span aria-hidden="true">↑</span></button></div>
       </form>
+      <p class="ask-tpk-memory">${escapeHtml(copy.memory)}</p>
       <p class="ask-tpk-note">${escapeHtml(copy.disclaimer)}</p>
-      <div class="ask-tpk-handoff"><a href="${routePath(locale, "contact")}">${escapeHtml(copy.team)}</a><a href="${routePath(locale, "leasing")}">${escapeHtml(copy.browse)}</a></div>
+      <div class="ask-tpk-handoff"><a href="tel:+60380765200">${escapeHtml(copy.call)}</a><a href="mailto:info@tpkpark.com">${escapeHtml(copy.email)}</a><a href="${routePath(locale, "leasing")}">${escapeHtml(copy.browse)}</a><button type="button" data-ask-draft>${escapeHtml(copy.draftButton)}</button></div>
       <details class="ask-tpk-privacy"><summary>${escapeHtml(copy.privacyTitle)}</summary><p>${escapeHtml(copy.privacy)}</p></details>`;
-  return `<aside class="ask-tpk" data-ask-tpk data-locale="${locale}" data-ai-enabled="${ai}" data-you="${escapeHtml(copy.you)}" data-thinking="${escapeHtml(copy.thinking)}" data-error="${escapeHtml(copy.error)}" data-busy="${escapeHtml(copy.busy)}" data-sources="${escapeHtml(copy.sources)}" data-assistant="${escapeHtml(copy.aiLabel)}">
+  return `<aside class="ask-tpk" data-ask-tpk data-locale="${locale}" data-ai-enabled="${ai}" data-pathname="${routePath(locale, routeId)}" data-you="${escapeHtml(copy.you)}" data-thinking="${escapeHtml(copy.thinking)}" data-error="${escapeHtml(copy.error)}" data-busy="${escapeHtml(copy.busy)}" data-sources="${escapeHtml(copy.sources)}" data-assistant="${escapeHtml(copy.aiLabel)}">
     <button class="ask-tpk-trigger" type="button" data-ask-trigger aria-expanded="false" aria-controls="ask-tpk-panel" aria-haspopup="dialog" hidden>
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-8 8H5l-3 2v-10a9 9 0 0 1 18 0Z"/><path d="M7 10h8M7 14h5"/></svg>
       <span>${escapeHtml(copy.label)}</span>
@@ -606,7 +611,7 @@ function askTpk(locale) {
       </div>
       <a class="ask-tpk-contact" href="mailto:info@tpkpark.com">${escapeHtml(copy.contact)}</a>`}
     </section>
-  </aside><script defer src="/js/ask-tpk.js"></script>`;
+  </aside>${ai ? `<script type="application/json" id="ask-tpk-config">${safeJson(config)}</script>` : ""}<script type="module" src="/js/ask-tpk.js"></script>`;
 }
 
 function renderPage(locale, routeId) {
@@ -658,7 +663,7 @@ function renderPage(locale, routeId) {
   <main id="main">${body}</main>
   ${footer(locale)}
   ${analytics(locale, routeId)}
-  ${askTpk(locale)}
+  ${askTpk(locale, routeId)}
   ${scripts(locale)}
 </body>
 </html>`;

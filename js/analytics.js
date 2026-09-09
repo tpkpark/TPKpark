@@ -19,8 +19,8 @@
     legacy = localStorage.getItem(legacyKey);
   } catch { /* Preferences still apply to the current page when storage is unavailable. */ }
   if (!["basic", "detailed", "off"].includes(saved)) saved = null;
-  // A previous "No thanks" promised no analytics. Do not silently enrol that visitor.
-  let preference = saved || (legacy === "granted" ? "detailed" : legacy === "denied" ? "off" : "basic");
+  // Preserve every previous explicit choice. New visitors use detailed analytics without an interruptive first-visit dialog.
+  let preference = saved || (legacy === "granted" ? "detailed" : legacy === "denied" ? "off" : "detailed");
   let basicAllowed = false;
   let detailedAllowed = false;
   let vercelStarted = false;
@@ -95,7 +95,7 @@
   function stopGoogle() {
     if (!id) return;
     window["ga-disable-" + id] = true;
-    // Do not load Google to communicate a refusal. No pre-consent GA4 pings are sent.
+    // Do not load Google merely to communicate an opt-out.
     if (googleStarted) gtag("consent", "update", { analytics_storage: "denied" });
     for (const cookie of document.cookie.split(";")) {
       const name = cookie.trim().split("=")[0];
@@ -142,11 +142,12 @@
       openedFromSettings = true;
       if (banner) banner.hidden = false;
       settings.setAttribute("aria-expanded", "true");
-      document.querySelector(privacySignal ? "[data-analytics-off]" : "[data-analytics-basic]")?.focus();
+      const focusTarget = privacySignal ? "off" : preference === "detailed" ? "allow" : preference;
+      document.querySelector(`[data-analytics-${focusTarget}]`)?.focus();
     });
   }
   applyPreference();
-  if (!saved && !legacy && !privacySignal && banner) banner.hidden = false;
+  // No first-visit dialog. Privacy controls remain available from the footer.
 
   window.addEventListener("storage", event => {
     if (event.key !== key && event.key !== null) return;

@@ -5,6 +5,10 @@
   if (!config || !productionHosts.includes(location.hostname) || window.tpkAnalyticsLoaded) return;
   window.tpkAnalyticsLoaded = true;
 
+  // Legacy consent/settings markup may still exist in generated HTML; remove it so the live UX matches MOTD.
+  document.querySelector?.("[data-analytics-consent]")?.remove();
+  document.querySelector?.("[data-analytics-settings]")?.remove();
+
   const id = /^G-[A-Z0-9]+$/.test(config.measurementId || "") ? config.measurementId : "";
   let formStarted = false;
   const scrollMilestones = new Set();
@@ -22,7 +26,7 @@
   };
   try { if (document.referrer) params.page_referrer = new URL(document.referrer).origin + "/"; } catch { /* Invalid referrer. */ }
 
-  // Always-on first-party Vercel Analytics. Keep URLs canonical so query strings and fragments are not sent.
+  // Always-on Vercel Analytics. Keep URLs canonical so query strings and fragments are not sent.
   window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
   window.va("beforeSend", event => ({ ...event, url: canonical.href }));
   const vercelScript = document.createElement("script");

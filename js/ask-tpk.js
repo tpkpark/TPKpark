@@ -98,7 +98,9 @@ import { loadSession, saveSession, clearSession, boundedTurns, requestMessages, 
       photo.alt = card.title;
       photo.loading = "lazy";
       photo.width = 640; photo.height = 400;
-      box.append(photo, textElement("h3", card.title), textElement("p", card.description), textElement("p", `${copy.rentLabel}: ${card.rent}`, "ask-tpk-rent"), textElement("p", `${copy.areaLabel}: ${card.builtUp}${card.landArea ? " · " + card.landArea : ""}`), textElement("p", card.status));
+      box.append(photo, textElement("h3", card.title), textElement("p", card.description), textElement("p", `${copy.rentLabel}: ${card.rent}`, "ask-tpk-rent"), textElement("p", `${copy.builtUpLabel}: ${card.builtUp}`));
+      if (card.landArea) box.append(textElement("p", `${copy.landAreaLabel}: ${card.landArea}`));
+      box.append(textElement("p", card.status));
       const links = document.createElement("nav");
       links.className = "ask-tpk-sources";
       for (const [title, url] of [[copy.details, card.url], [copy.brochure, card.brochure]]) {

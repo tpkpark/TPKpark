@@ -10,7 +10,7 @@ Implements the agreed Mr. M improvements for TPK Park's leasing and public-infor
 - Ground-floor shop, first-floor shop and No. 7 recommendation cards use the current public site data, images, areas, asking rents and PDF links. The model selects approved IDs only. Shop whole-unit area remains labelled as covering two floors. Unit 69 has no recommendation card or retired brochure link.
 - Email drafts appear only after an explicit request or the Draft an enquiry button. The assistant extracts verbatim visitor-supplied business type, budget, size, floor and timing; it cannot turn its own suggestions into visitor requirements. Missing fields remain blank. The visitor reviews/edits the draft and opens their email app to send it. Edits are not submitted to the model, analytics or a lead service.
 - Permanent office phone, team email and leasing links remain usable during errors. No WhatsApp or FormSubmit.
-- Short factual answers, at most one useful follow-up, no repetitive contact pitch. Published information cannot confirm availability, suitability, licences, a tenancy offer or a viewing.
+- Short factual answers, at most one useful follow-up, no repetitive contact pitch. Live-review hardening removes observed ideal/perfect wording and redundant closing viewing pitches; requested email drafts get a short review instruction instead of a duplicated letter or repeated property cards. Published information cannot confirm availability, suitability, licences, a tenancy offer or a viewing.
 
 ## Cost control and release requirement
 

@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { readFile, access } from "node:fs/promises";
 import { answerQuestion, providerRequest, replyLanguage, validateInput, schema } from "../lib/assistant.mjs";
-import { propertyCatalog, pageContext, cleanEnquiry, emptyEnquiry, wantsEmailDraft } from "../lib/assistant-rich.mjs";
+import { propertyCatalog, pageContext, cleanEnquiry, emptyEnquiry, wantsEmailDraft, reviewedAnswer } from "../lib/assistant-rich.mjs";
 import { assertProductionBudget, productionBudgetReady } from "../lib/assistant-budget.mjs";
 import { loadSession, saveSession, clearSession, SESSION_KEY, SESSION_TTL, boundedTurns, requestMessages, emailBody, emailLink } from "../js/ask-tpk-state.js";
 import { askTpkCopy, starterQuestions } from "./ask-tpk-copy.mjs";
@@ -26,6 +26,7 @@ test("fixed language wins, Japanese is not misclassified as Chinese, and numeric
   assert.equal(replyLanguage("en", [{ role: "user", content: "这栋建筑多少钱？" }], "ms"), "ms");
   assert.equal(replyLanguage("en", [{ role: "user", content: "日本語でお願いします。" }, { role: "assistant", content: "はい。" }, { role: "user", content: "58,000?" }]), "ja");
   assert.equal(replyLanguage("zh", [{ role: "user", content: "Bonjour, présentez les bâtiments." }]), "auto");
+  assert.equal(replyLanguage("zh", [{ role: "user", content: "请用法语回答这栋建筑的租金是多少。" }]), "auto");
   const request = providerRequest({ ...question, replyPreference: "zh" });
   assert.match(request.messages[0].content, /Write the answer in Simplified Chinese/);
   assert.throws(() => validateInput({ ...question, replyPreference: "__proto__" }), { code: "invalid_request" });
@@ -117,4 +118,16 @@ test("generated pages expose contextual controls, safe catalogs and updated disc
     assert.deepEqual(Object.keys(catalog.catalog), ["shopGround", "shopFirst", "detached"]);
     assert.doesNotMatch(JSON.stringify(catalog.catalog), /no-69-for-lease/);
   }
+});
+
+
+test("reviewed email answers avoid duplicate letters and property replies avoid observed sales embellishment", () => {
+  const messages = [{ role: "user", content: "Show me the shop brochure" }];
+  const text = "It is ideal for office uses. Availability and use require confirmation. For current availability and to arrange a viewing, please contact the management team.";
+  const answer = reviewedAnswer(text, { language: "en", enquiry: emptyEnquiry(), messages, hasCards: true });
+  assert.doesNotMatch(answer, /ideal|arrange a viewing/);
+  assert.match(answer, /Availability and use require confirmation/);
+  const draft = reviewedAnswer("Dear team, [Your Name]", { language: "zh", enquiry: { requested: true }, messages, hasCards: false });
+  assert.match(draft, /草稿/);
+  assert.doesNotMatch(draft, /Dear team|Your Name/);
 });

@@ -29,6 +29,8 @@ test("fixed language wins, Japanese is not misclassified as Chinese, and numeric
   assert.equal(replyLanguage("zh", [{ role: "user", content: "请用法语回答这栋建筑的租金是多少。" }]), "auto");
   const request = providerRequest({ ...question, replyPreference: "zh" });
   assert.match(request.messages[0].content, /Write the answer in Simplified Chinese/);
+  assert.equal(request.messages.at(-1).role, "system");
+  assert.match(request.messages.at(-1).content, /overrides conflicting language instructions/);
   assert.throws(() => validateInput({ ...question, replyPreference: "__proto__" }), { code: "invalid_request" });
 });
 

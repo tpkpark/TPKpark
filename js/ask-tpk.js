@@ -231,6 +231,7 @@ import { loadSession, saveSession, clearSession, boundedTurns, requestMessages, 
     input.scrollIntoView({ block: "nearest" });
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), 29000);
+    let diagnostic = "client_response";
     try {
       const response = await fetch("/api/ask", {
         method: "POST", credentials: "same-origin", cache: "no-store",
@@ -238,6 +239,8 @@ import { loadSession, saveSession, clearSession, boundedTurns, requestMessages, 
         body: JSON.stringify(payload)
       });
       if (!response.ok) {
+        diagnostic = `http_${response.status}`;
+        try { const failure = await response.json(); if (/^(?:gateway_(?:auth|request|[0-9]{3})|output_(?:decode|incomplete|schema|language))$/.test(failure.diagnostic || "")) diagnostic += ":" + failure.diagnostic; } catch { /* Keep only the status code. */ }
         if (response.status === 429) {
           const header = response.headers?.get("retry-after");
           const delay = header && Number.isFinite(Number(header)) ? Number(header) : (Date.parse(header) - Date.now()) / 1000;
@@ -259,6 +262,7 @@ import { loadSession, saveSession, clearSession, boundedTurns, requestMessages, 
       status.hidden = true;
       if (!panel.hidden) answer.scrollIntoView({ block: "nearest" });
     } catch (error) {
+      if (location.hostname?.endsWith(".vercel.app")) console.warn("Ask TPK preview diagnostic:", diagnostic);
       userMessage.remove();
       starters.hidden = state.turns.length > 0;
       status.textContent = error.message === "busy" ? retryMessage() : widget.dataset.error;

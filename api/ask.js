@@ -70,6 +70,6 @@ export default async function handler(req, res) {
       res.setHeader("Retry-After", String(delay));
     }
     // Never return or log request text, credentials or provider error bodies.
-    return send(safe.status, { error: safe.code });
+    return send(safe.status, { error: safe.code, ...(process.env.VERCEL_ENV === "preview" && /^(?:gateway_(?:auth|request|[0-9]{3})|output_(?:decode|incomplete|schema|language))$/.test(safe.diagnostic || "") ? { diagnostic: safe.diagnostic } : {}) });
   } finally { release(); }
 }

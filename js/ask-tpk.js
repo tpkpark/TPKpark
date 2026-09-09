@@ -9,6 +9,13 @@ import { loadSession, saveSession, clearSession, boundedTurns, requestMessages, 
   const closeButton = widget.querySelector("[data-ask-close]");
   if (!trigger || !panel || !closeButton) return;
 
+  function measure(action, reason) {
+    // Emit categories only. The analytics listener applies the visitor's active setting.
+    try {
+      document.dispatchEvent(new CustomEvent("tpk:assistant", { detail: { action, reason } }));
+    } catch { /* Measurement must never interrupt a visitor's conversation. */ }
+  }
+
   function close(restoreFocus = false) {
     panel.hidden = true;
     trigger.setAttribute("aria-expanded", "false");
@@ -20,6 +27,7 @@ import { loadSession, saveSession, clearSession, boundedTurns, requestMessages, 
     panel.hidden = false;
     trigger.setAttribute("aria-expanded", "true");
     panel.focus();
+    measure("open");
   });
   closeButton.addEventListener("click", () => close(true));
   document.addEventListener("keydown", event => {
@@ -232,6 +240,8 @@ import { loadSession, saveSession, clearSession, boundedTurns, requestMessages, 
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), 29000);
     let diagnostic = "client_response";
+    let failureReason = "network";
+    measure("question");
     try {
       const response = await fetch("/api/ask", {
         method: "POST", credentials: "same-origin", cache: "no-store",
@@ -239,6 +249,7 @@ import { loadSession, saveSession, clearSession, boundedTurns, requestMessages, 
         body: JSON.stringify(payload)
       });
       if (!response.ok) {
+        failureReason = response.status === 429 ? "rate_limited" : "unavailable";
         diagnostic = `http_${response.status}`;
         try { const failure = await response.json(); if (/^(?:gateway_(?:auth|request|[0-9]{3})|output_(?:decode|incomplete|schema|language))$/.test(failure.diagnostic || "")) diagnostic += ":" + failure.diagnostic; } catch { /* Keep only the status code. */ }
         if (response.status === 429) {
@@ -249,6 +260,7 @@ import { loadSession, saveSession, clearSession, boundedTurns, requestMessages, 
         }
         throw new Error(response.status === 429 ? "busy" : "error");
       }
+      failureReason = "invalid_response";
       const result = await response.json();
       if (typeof result.answer !== "string" || !result.answer.trim() || result.answer.length > 5000 || !Array.isArray(result.sources) || !Array.isArray(result.propertyIds)) throw new Error("error");
       const answer = message("assistant", result.answer, result.sources, result);
@@ -260,8 +272,11 @@ import { loadSession, saveSession, clearSession, boundedTurns, requestMessages, 
       while (log.childElementCount > state.turns.length) log.firstElementChild.remove();
       input.value = "";
       status.hidden = true;
+      measure("answer");
+      if (result.enquiry?.requested === true) measure("draft_ready");
       if (!panel.hidden) answer.scrollIntoView({ block: "nearest" });
     } catch (error) {
+      measure("error", error.name === "AbortError" ? "timeout" : failureReason);
       if (location.hostname?.endsWith(".vercel.app")) console.warn("Ask TPK preview diagnostic:", diagnostic);
       userMessage.remove();
       starters.hidden = state.turns.length > 0;

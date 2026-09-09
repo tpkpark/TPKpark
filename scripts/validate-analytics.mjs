@@ -56,27 +56,28 @@ function client({ hostname = "www.tpkpark.com", saved = null, legacy = null, pri
   return { controls, scripts, sent, basicSent, beforeSend, clickLink, submit, focusForm, scroll, window, windowEvents, storage, cookieWrites, canonical, reloadScript: () => vm.runInContext(source, context) };
 }
 
-test("basic statistics work without loading Google; opting in starts one GA4 page view without replay", () => {
+test("new visitors get detailed analytics without a first-visit dialog and can reduce tracking", () => {
   const page = client();
-  assert.deepEqual(page.scripts.map(script => script.src), ["/_vercel/insights/script.js"]);
-  page.clickLink("tel:+60380765200");
-  page.submit("shop-showroom");
-  page.focusForm();
-  page.scroll(950);
-  assert.deepEqual(page.basicSent().map(event => event.name), ["contact_click", "email_draft"]);
-  assert.equal(page.sent().length, 0);
+  assert.deepEqual(page.scripts.map(script => script.src), ["/_vercel/insights/script.js", "https://www.googletagmanager.com/gtag/js?id=G-TEST12345"]);
+  assert.deepEqual(page.sent().map(event => event[1]), ["page_view"]);
+  assert.equal(page.controls.consent.hidden, true);
   assert.equal(page.beforeSend({ type: "pageview", url: page.canonical + "?email=private@example.com#secret" }).url, page.canonical);
 
-  page.controls.allow.handlers.click();
-  assert.equal(page.scripts.length, 2);
-  assert.deepEqual(page.sent().map(event => event[1]), ["page_view"]);
-  page.controls.allow.handlers.click();
-  page.reloadScript();
-  assert.equal(page.scripts.length, 2);
-  assert.equal(page.sent().length, 1);
   page.clickLink("tel:+60380765200");
-  assert.equal(page.basicSent().length, 3);
+  assert.deepEqual(page.basicSent().map(event => event.name), ["contact_click"]);
+  assert.deepEqual(page.sent().map(event => event[1]), ["page_view", "contact_click"]);
+
+  page.controls.basic.handlers.click();
+  assert.equal(page.window["ga-disable-G-TEST12345"], true);
+  page.clickLink("tel:+60380765200");
+  assert.equal(page.basicSent().length, 2);
   assert.equal(page.sent().length, 2);
+
+  page.controls.allow.handlers.click();
+  page.clickLink("tel:+60380765200");
+  assert.equal(page.scripts.length, 2);
+  assert.equal(page.basicSent().length, 3);
+  assert.deepEqual(page.sent().map(event => event[1]), ["page_view", "contact_click", "contact_click"]);
 });
 
 test("selected actions stay anonymous in both systems and use only two Vercel properties", () => {
@@ -111,7 +112,7 @@ test("selected actions stay anonymous in both systems and use only two Vercel pr
   assert.equal(page.sent().some(event => ["generate_lead", "form_submit"].includes(event[1])), false);
 });
 
-test("detailed engagement is optional, counts milestones once, and stops independently of basic statistics", () => {
+test("detailed engagement counts milestones once and stops independently of basic statistics", () => {
   const page = client({ saved: "detailed" });
   page.focusForm(); page.focusForm();
   page.scroll(500); page.scroll(950); page.scroll(990);
@@ -145,7 +146,7 @@ test("previous refusals, explicit opt-outs, browser privacy preferences and prev
   assert.equal(previousGrant.sent().length, 1);
 });
 
-test("cross-tab changes and blocked local storage preserve working privacy controls", () => {
+test("cross-tab changes, blocked storage and footer settings preserve working privacy controls", () => {
   const page = client({ saved: "detailed" });
   page.windowEvents.storage({ key, newValue: "off" });
   page.clickLink("tel:+60380765200");
@@ -156,14 +157,20 @@ test("cross-tab changes and blocked local storage preserve working privacy contr
   page.clickLink("tel:+60380765200");
   assert.equal(page.basicSent().length, 1);
   assert.equal(page.sent().length, 1);
+
   const blocked = client({ storageUnavailable: true });
+  assert.equal(blocked.sent().length, 1);
   blocked.controls.off.handlers.click();
   blocked.clickLink("tel:+60380765200");
   assert.equal(blocked.basicSent().length, 0);
   assert.equal(blocked.beforeSend({ type: "pageview", url: blocked.canonical }), null);
+
   const closed = client();
+  assert.equal(closed.controls.consent.hidden, true);
+  closed.controls.settings.handlers.click();
+  assert.equal(closed.controls.consent.hidden, false);
   closed.controls.close.handlers.click();
-  assert.equal(closed.storage.get(key), "basic");
-  assert.equal(closed.sent().length, 0);
+  assert.equal(closed.storage.get(key), "detailed");
+  assert.equal(closed.sent().length, 1);
   assert.equal(closed.controls.consent.hidden, true);
 });

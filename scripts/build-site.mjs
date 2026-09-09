@@ -109,9 +109,10 @@ function footer(locale) {
           ${link(locale, "contact", t.nav.contact)}
           <a href="tel:+60380765200">+60 3 8076 5200</a>
           <a href="mailto:info@tpkpark.com">info@tpkpark.com</a>${social}
+          <button type="button" class="analytics-settings" data-analytics-settings aria-controls="analytics-panel" hidden>${escapeHtml(analyticsCopy[locale].settings)}</button>
         </nav></div>
       </div>
-      <div class="footer-bottom"><span>© 2026 ${escapeHtml(t.rights)}</span><span>Taman Perindustrian Kinrara · Puchong · Selangor</span><button type="button" class="analytics-settings" data-analytics-settings aria-controls="analytics-panel" hidden>${escapeHtml(analyticsCopy[locale].settings)}</button></div>
+      <div class="footer-bottom"><span>© 2026 ${escapeHtml(t.rights)}</span><span>Taman Perindustrian Kinrara · Puchong · Selangor</span></div>
     </div>
   </footer>`;
 }

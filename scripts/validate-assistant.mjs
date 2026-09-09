@@ -2,13 +2,16 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { readFile } from "node:fs/promises";
 import vm from "node:vm";
+import * as stateHelpers from "../js/ask-tpk-state.js";
+import { propertyCatalog, emptyEnquiry } from "../lib/assistant-rich.mjs";
+import { askTpkCopy } from "./ask-tpk-copy.mjs";
 import { answerQuestion, assistantEnabled, validateInput, systemPrompt, replyLanguage } from "../lib/assistant.mjs";
 import { sourceLinks, knowledge, sources } from "../lib/assistant-knowledge.mjs";
 import { site, routeIds, routePath, profileSources, articles } from "./site-data.mjs";
 import handler, { allowedOrigin, takeSlot } from "../api/ask.js";
 
 const question = { locale: "en", messages: [{ role: "user", content: "What can I rent?" }] };
-const completion = (answer, sourceIds, finish_reason = "stop") => ({ ok: true, json: async () => ({ choices: [{ finish_reason, message: { content: JSON.stringify({ answer, sourceIds }) } }] }) });
+const completion = (answer, sourceIds, finish_reason = "stop") => ({ ok: true, json: async () => ({ choices: [{ finish_reason, message: { content: JSON.stringify({ answer, sourceIds, propertyIds: [], enquiry: emptyEnquiry() }) } }] }) });
 
 test("production requires activation and arbitrary sites cannot call the endpoint", () => {
   assert.equal(assistantEnabled({ VERCEL_ENV: "production" }), false);
@@ -68,7 +71,7 @@ test("short-lived abuse limits cap bursts and release concurrency safely", () =>
   const releases = [takeSlot("a"), takeSlot("b"), takeSlot("c")];
   assert.equal(takeSlot("d"), null);
   releases.forEach(release => { release(); release(); });
-  for (let i = 0; i < 12; i += 1) { const release = takeSlot("visitor-limit", 1000); assert.equal(typeof release, "function"); release(); }
+  for (let i = 0; i < 100; i += 1) { const release = takeSlot("visitor-limit", 1000); assert.equal(typeof release, "function"); release(); }
   assert.equal(takeSlot("visitor-limit", 1000), null);
   const release = takeSlot("visitor-limit", 601001); assert.equal(typeof release, "function"); release();
 });
@@ -89,7 +92,7 @@ test("approved knowledge retains public inventory boundaries", () => {
   assert.match(knowledge, /RM58,000/);
   assert.match(knowledge, /No\. 69.*leased/);
   assert.doesNotMatch(knowledge, /23,?500|formsubmit\.co/);
-  assert.match(systemPrompt("ms"), /cannot send messages or save enquiries/);
+  assert.match(systemPrompt("ms"), /cannot send messages or save enquiries/i);
 });
 
 test("the assistant can read the published profile and shared public-record blocks", () => {
@@ -132,7 +135,7 @@ test("Chinese questions and numeric follow-ups retain language even on English p
 });
 
 const clientSource = await readFile(new URL("../js/ask-tpk.js", import.meta.url), "utf8");
-function chatClient(responses) {
+function chatClient(responses, storage = { getItem() {}, setItem() {}, removeItem() {} }) {
   let now = Date.now();
   class Element {
     constructor() { this.dataset = {}; this.children = []; this.events = {}; this.value = ""; this.hidden = false; this.textContent = ""; }
@@ -150,15 +153,17 @@ function chatClient(responses) {
     focus() {}
     scrollIntoView() {}
   }
-  const names = ["trigger", "panel", "close", "form", "input", "messages", "status", "starters", "clear", "send"];
+  const names = ["trigger", "panel", "close", "form", "input", "messages", "status", "starters", "clear", "send", "language", "draft"];
   const elements = Object.fromEntries(names.map(name => [name, new Element()]));
   const widget = new Element();
-  widget.dataset = { aiEnabled: "true", locale: "en", you: "You", assistant: "AI", error: "Try again", busy: "Busy", thinking: "Thinking", sources: "Sources" };
+  widget.dataset = { aiEnabled: "true", locale: "en", pathname: "/", you: "You", assistant: "AI", error: "Try again", busy: "Busy", thinking: "Thinking", sources: "Sources" };
   widget.querySelector = selector => elements[selector.replace(/\[data-ask-|\]/g, "")];
-  const document = { querySelector: selector => selector === "[data-ask-tpk]" ? widget : null, addEventListener() {}, createElement: () => new Element() };
+  const config = { copy: askTpkCopy.en, catalog: propertyCatalog("en"), sources: Object.fromEntries(routeIds.map(id => [id, { id, title: id, url: routePath("en", id) }])) };
+  const document = { querySelector: selector => selector === "[data-ask-tpk]" ? widget : selector === "#ask-tpk-config" ? { textContent: JSON.stringify(config) } : null, addEventListener() {}, createElement: () => new Element() };
   const requests = [];
-  vm.runInNewContext(clientSource, {
-    document, location: { origin: "https://www.tpkpark.com" }, URL, TextEncoder, AbortController, setTimeout, clearTimeout, Date: { now: () => now },
+  vm.runInNewContext(clientSource.replace(/^import .*?;\n/, ""), {
+    ...stateHelpers, window: { sessionStorage: storage },
+    document, location: { origin: "https://www.tpkpark.com" }, URL, TextEncoder, AbortController, setTimeout, clearTimeout, Date: class extends Date { static now() { return now; } },
     MutationObserver: class { observe() {} },
     fetch: async (url, options) => { requests.push({ url, body: JSON.parse(options.body) }); return responses.shift(); }
   });
@@ -166,7 +171,7 @@ function chatClient(responses) {
 }
 
 test("chat renders plain text and approved links, preserves follow-ups, and clears local history", async () => {
-  const response = { ok: true, json: async () => ({ answer: '<img src=x onerror="alert(1)"> Test answer', sources: [
+  const response = { ok: true, json: async () => ({ answer: '<img src=x onerror="alert(1)"> Test answer', propertyIds: [], sources: [
     { title: "Contact", url: "/contact/" }, { title: "Detached", url: "/leasing/detached-building/" }, { title: "Unsafe", url: "https://evil.example" }
   ] }) };
   const page = chatClient([response, response, response]);
@@ -190,7 +195,7 @@ test("profile, public-record and every other published route remain clickable in
   for (const locale of ["en", "ms", "zh"]) {
     for (let i = 0; i < routeIds.length; i += 3) {
       const links = sourceLinks(routeIds.slice(i, i + 3), locale);
-      const page = chatClient([{ ok: true, json: async () => ({ answer: "Published information", sources: links }) }]);
+      const page = chatClient([{ ok: true, json: async () => ({ answer: "Published information", sources: links, propertyIds: [] }) }]);
       page.input.value = "Tell me about TPK Park";
       await page.submit();
       assert.deepEqual(page.messages.children[1].children[2].children.map(link => link.href), links.map(link => link.url));
@@ -199,14 +204,14 @@ test("profile, public-record and every other published route remain clickable in
 });
 
 test("failed questions stay editable and retry only once without polluting history", async () => {
-  const page = chatClient([{ ok: false, status: 429 }, { ok: true, json: async () => ({ answer: "Please contact the team.", sources: [] }) }]);
+  const page = chatClient([{ ok: false, status: 429 }, { ok: true, json: async () => ({ answer: "Please contact the team.", sources: [], propertyIds: [] }) }]);
   page.input.value = "Can I view tomorrow?";
   const first = page.submit();
   await page.submit();
   await first;
   assert.equal(page.requests.length, 1);
   assert.equal(page.input.value, "Can I view tomorrow?");
-  assert.equal(page.status.textContent, "Busy");
+  assert.match(page.status.textContent, /Please try again after/);
   assert.equal(page.messages.childElementCount, 0);
   assert.equal(page.send.disabled, false);
   await page.submit();
@@ -218,4 +223,40 @@ test("failed questions stay editable and retry only once without polluting histo
 
 test("provider retry intervals are preserved without retrying requests automatically", async () => {
   await assert.rejects(answerQuestion(question, { token: "test", fetchImpl: async () => ({ ok: false, status: 429, headers: { get: () => "90" } }) }), error => error.code === "busy" && error.retryAfter === 90);
+});
+
+test("moving to another page restores the conversation and language but New chat removes them", async () => {
+  const map = new Map();
+  const storage = { getItem: key => map.get(key), setItem: (key, value) => map.set(key, value), removeItem: key => map.delete(key) };
+  const response = { ok: true, json: async () => ({ answer: "The published first-floor rent is RM3,600/month.", sources: [{ id: "leasingShop", title: "Shops", url: "/leasing/shop-showroom/" }], propertyIds: ["shopFirst"], enquiry: emptyEnquiry() }) };
+  const first = chatClient([response], storage);
+  first.language.value = "zh";
+  first.language.events.change();
+  first.input.value = "I want first-floor space.";
+  await first.submit();
+  const second = chatClient([response], storage);
+  assert.equal(second.language.value, "zh");
+  assert.equal(second.messages.childElementCount, 2);
+  second.input.value = "What about the area?";
+  await second.submit();
+  assert.equal(second.requests[0].body.messages[0].content, "I want first-floor space.");
+  assert.equal(second.requests[0].body.replyPreference, "zh");
+  second.clear.events.click();
+  const third = chatClient([], storage);
+  assert.equal(third.messages.childElementCount, 0);
+});
+
+test("reviewed draft edits affect only a mailto draft and never produce a model request", async () => {
+  const page = chatClient([{ ok: true, json: async () => ({ answer: "Review your draft below.", sources: [], propertyIds: [], enquiry: { requested: true, businessType: "furniture showroom", budget: "RM4,000/month", size: "", floor: "first floor", timing: "" } }) }]);
+  page.input.value = "Help me draft an email enquiry.";
+  await page.submit();
+  const box = page.messages.children[1].children[2];
+  const textarea = box.children[2].children[1];
+  const link = box.children[3];
+  assert.match(textarea.value, /furniture showroom/);
+  textarea.value += "\nI would prefer October.";
+  textarea.events.input();
+  assert.match(decodeURIComponent(link.href), /I would prefer October/);
+  assert.match(link.href, /^mailto:info@tpkpark.com\?/);
+  assert.equal(page.requests.length, 1);
 });

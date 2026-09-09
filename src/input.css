@@ -431,3 +431,20 @@ button, input, select, textarea { font: inherit; }
 .floor-plan > a > img { width: 100%; max-width: 915px; height: auto; object-fit: contain; background: white; }
 .floor-plan figcaption { margin-top: 10px; font-size: .9rem; }
 .floor-plan .plan-interior { width: 100%; max-width: 467px; height: auto; margin-top: 20px; }
+
+.ask-tpk-language { display: flex; align-items: center; justify-content: space-between; gap: .75rem; margin-top: .625rem; font-size: .8125rem; }
+.ask-tpk-language select { min-height: 44px; border: 1px solid var(--line); border-radius: 8px; padding: .375rem .75rem; color: var(--forest); background: white; font: inherit; }
+.ask-tpk-memory { margin: .75rem 0; font-size: .75rem; line-height: 1.5; color: #48564e; }
+.ask-tpk-handoff button { min-height: 44px; text-align: left; text-decoration: underline; }
+.ask-tpk-property { margin-top: .875rem; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--cream); }
+.ask-tpk-property img { width: 100%; height: 8rem; object-fit: cover; }
+.ask-tpk-property h3 { margin: .75rem .75rem .375rem; font-size: .9375rem; font-weight: 700; color: var(--forest); }
+.ask-tpk-property p, .ask-tpk-property nav { margin: .5rem .75rem; font-size: .8125rem; }
+.ask-tpk-property .ask-tpk-rent { font-weight: 650; }
+.ask-tpk-property .ask-tpk-card-note { font-size: .6875rem; color: #48564e; }
+.ask-tpk-email { margin-top: .875rem; border-top: 1px solid var(--line); padding-top: .5rem; }
+.ask-tpk-email summary { min-height: 44px; padding: .5rem 0; cursor: pointer; color: var(--forest); font-weight: 650; }
+.ask-tpk-email label { display: block; margin-top: .75rem; }
+.ask-tpk-email label span, .ask-tpk-email p { font-size: .75rem; line-height: 1.5; }
+.ask-tpk-email textarea { display: block; width: 100%; margin: .5rem 0; padding: .75rem; border: 1px solid var(--line); border-radius: 8px; background: white; font-size: .875rem; line-height: 1.5; resize: vertical; }
+.ask-tpk-email-open { display: inline-flex; align-items: center; min-height: 44px; color: var(--forest); text-decoration: underline; }

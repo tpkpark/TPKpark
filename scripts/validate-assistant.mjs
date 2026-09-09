@@ -137,9 +137,13 @@ test("Chinese questions and numeric follow-ups retain language even on English p
 const clientSource = await readFile(new URL("../js/ask-tpk.js", import.meta.url), "utf8");
 function chatClient(responses, storage = { getItem() {}, setItem() {}, removeItem() {} }) {
   let now = Date.now();
+  const telemetry = [];
   class Element {
     constructor() { this.dataset = {}; this.children = []; this.events = {}; this.value = ""; this.hidden = false; this.textContent = ""; }
-    addEventListener(name, fn) { this.events[name] = fn; }
+    addEventListener(name, fn) {
+      const previous = this.events[name];
+      this.events[name] = previous ? event => { previous(event); return fn(event); } : fn;
+    }
     setAttribute() {}
     getAttribute() { return "false"; }
     querySelector() { return null; }
@@ -155,19 +159,21 @@ function chatClient(responses, storage = { getItem() {}, setItem() {}, removeIte
   }
   const names = ["trigger", "panel", "close", "form", "input", "messages", "status", "starters", "clear", "send", "language", "draft"];
   const elements = Object.fromEntries(names.map(name => [name, new Element()]));
+  elements.panel.hidden = true;
   const widget = new Element();
   widget.dataset = { aiEnabled: "true", locale: "en", pathname: "/", you: "You", assistant: "AI", error: "Try again", busy: "Busy", thinking: "Thinking", sources: "Sources" };
   widget.querySelector = selector => elements[selector.replace(/\[data-ask-|\]/g, "")];
   const config = { copy: askTpkCopy.en, catalog: propertyCatalog("en"), sources: Object.fromEntries(routeIds.map(id => [id, { id, title: id, url: routePath("en", id) }])) };
-  const document = { querySelector: selector => selector === "[data-ask-tpk]" ? widget : selector === "#ask-tpk-config" ? { textContent: JSON.stringify(config) } : null, addEventListener() {}, createElement: () => new Element() };
+  const document = { querySelector: selector => selector === "[data-ask-tpk]" ? widget : selector === "#ask-tpk-config" ? { textContent: JSON.stringify(config) } : null, addEventListener() {}, createElement: () => new Element(), dispatchEvent(event) { telemetry.push({ type: event.type, ...event.detail }); } };
   const requests = [];
   vm.runInNewContext(clientSource.replace(/^import .*?;\n/, ""), {
     ...stateHelpers, window: { sessionStorage: storage },
     document, location: { origin: "https://www.tpkpark.com" }, URL, TextEncoder, AbortController, setTimeout, clearTimeout, Date: class extends Date { static now() { return now; } },
     MutationObserver: class { observe() {} },
+    CustomEvent: class { constructor(type, options) { this.type = type; this.detail = options.detail; } },
     fetch: async (url, options) => { requests.push({ url, body: JSON.parse(options.body) }); return responses.shift(); }
   });
-  return { ...elements, requests, advance: ms => { now += ms; }, submit: () => elements.form.events.submit({ preventDefault() {} }) };
+  return { ...elements, telemetry, requests, advance: ms => { now += ms; }, submit: () => elements.form.events.submit({ preventDefault() {} }) };
 }
 
 test("chat renders plain text and approved links, preserves follow-ups, and clears local history", async () => {
@@ -189,6 +195,8 @@ test("chat renders plain text and approved links, preserves follow-ups, and clea
   await page.submit();
   assert.equal(page.requests[2].body.messages.length, 1);
   assert.equal(page.requests[2].url, "/api/ask");
+  assert.deepEqual(page.telemetry.map(e => e.action), ["question", "answer", "question", "answer", "question", "answer"]);
+  assert.doesNotMatch(JSON.stringify(page.telemetry), /Tell me|premises|Test answer|New question/);
 });
 
 test("profile, public-record and every other published route remain clickable in every language", async () => {
@@ -219,6 +227,8 @@ test("failed questions stay editable and retry only once without polluting histo
   page.advance(61000);
   await page.submit();
   assert.equal(page.requests[1].body.messages.length, 1);
+  assert.deepEqual(page.telemetry.map(e => e.action), ["question", "error", "question", "answer"]);
+  assert.equal(page.telemetry[1].reason, "rate_limited");
 });
 
 test("provider retry intervals are preserved without retrying requests automatically", async () => {
@@ -237,6 +247,7 @@ test("moving to another page restores the conversation and language but New chat
   const second = chatClient([response], storage);
   assert.equal(second.language.value, "zh");
   assert.equal(second.messages.childElementCount, 2);
+  assert.equal(second.telemetry.length, 0, "Restoring a conversation must not recount answers");
   second.input.value = "What about the area?";
   await second.submit();
   assert.equal(second.requests[0].body.messages[0].content, "I want first-floor space.");
@@ -259,4 +270,15 @@ test("reviewed draft edits affect only a mailto draft and never produce a model 
   assert.match(decodeURIComponent(link.href), /I would prefer October/);
   assert.match(link.href, /^mailto:info@tpkpark.com\?/);
   assert.equal(page.requests.length, 1);
+  assert.deepEqual(page.telemetry.map(e => e.action), ["question", "answer", "draft_ready"]);
+  assert.doesNotMatch(JSON.stringify(page.telemetry), /furniture|4,000|October|info@/);
+});
+
+test("opening the assistant is measured only when the panel opens", () => {
+  const page = chatClient([]);
+  page.trigger.events.click();
+  page.trigger.events.click();
+  page.trigger.events.click();
+  assert.deepEqual(page.telemetry.map(e => e.action), ["open", "open"]);
+  assert.equal(page.requests.length, 0);
 });

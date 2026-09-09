@@ -3,7 +3,6 @@ import test from "node:test";
 import { readFile, access } from "node:fs/promises";
 import { answerQuestion, providerRequest, replyLanguage, validateInput, schema } from "../lib/assistant.mjs";
 import { propertyCatalog, pageContext, cleanEnquiry, emptyEnquiry, wantsEmailDraft, reviewedAnswer } from "../lib/assistant-rich.mjs";
-import { assertProductionBudget, productionBudgetReady } from "../lib/assistant-budget.mjs";
 import { loadSession, saveSession, clearSession, SESSION_KEY, SESSION_TTL, boundedTurns, requestMessages, emailBody, emailLink } from "../js/ask-tpk-state.js";
 import { askTpkCopy, starterQuestions } from "./ask-tpk-copy.mjs";
 import { leasingInventory, routeIds, routePath } from "./site-data.mjs";
@@ -97,15 +96,15 @@ test("tab storage restores only bounded completed exchanges and expires or clear
   assert.deepEqual(loadSession(blocked).turns, []);
 });
 
-test("production cannot deploy without a verified native budget acknowledgement; quota refusals never trigger an automatic paid retry", async () => {
-  assert.equal(productionBudgetReady({ VERCEL_ENV: "production" }), false);
-  assert.throws(() => assertProductionBudget({ VERCEL_ENV: "production", TPK_AI_ENABLED: "1" }), /release blocked/);
-  assert.doesNotThrow(() => assertProductionBudget({ VERCEL_ENV: "preview" }));
-  assert.doesNotThrow(() => assertProductionBudget({ VERCEL_ENV: "production", TPK_AI_GATEWAY_BUDGET_CONFIRMED: "5_USD_MONTHLY" }));
-  assert.doesNotThrow(() => assertProductionBudget({ VERCEL_ENV: "production", TPK_AI_ENABLED: "0" }));
-  await assert.rejects(answerQuestion(question, { env: { VERCEL_ENV: "production", AI_GATEWAY_API_KEY: "must-not-use" }, fetchImpl: () => assert.fail("Missing release gate must prevent provider requests") }), { code: "unavailable" });
+test("production uses its existing Gateway setup; quota refusals never trigger an automatic paid retry", async () => {
+  const env = { VERCEL_ENV: "production", TPK_AI_ENABLED: "1", AI_GATEWAY_API_KEY: "test-existing-gateway-key" };
+  const result = await answerQuestion(question, { env, fetchImpl: async (_url, options) => {
+    assert.equal(options.headers.Authorization, "Bearer test-existing-gateway-key");
+    return completion({});
+  } });
+  assert.equal(result.answer, "Published property information.");
   let calls = 0;
-  await assert.rejects(answerQuestion(question, { token: "test", fetchImpl: async () => { calls += 1; return { ok: false, status: 402, json: async () => ({ error: { type: "quota_for_entity_exceeded", message: "Private account details" } }) }; } }), error => error.code === "budget_limited" && !error.message.includes("Private"));
+  await assert.rejects(answerQuestion(question, { env, fetchImpl: async () => { calls += 1; return { ok: false, status: 402, json: async () => ({ error: { type: "quota_for_entity_exceeded", message: "Private account details" } }) }; } }), error => error.code === "budget_limited" && !error.message.includes("Private"));
   assert.equal(calls, 1);
 });
 

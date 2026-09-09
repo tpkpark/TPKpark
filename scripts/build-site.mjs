@@ -23,9 +23,6 @@ import { askTpkCopy, starterQuestions } from "./ask-tpk-copy.mjs";
 import { assistantEnabled } from "../lib/assistant.mjs";
 import { propertyCatalog } from "../lib/assistant-rich.mjs";
 
-import { assertProductionBudget } from "../lib/assistant-budget.mjs";
-
-assertProductionBudget();
 const root = process.cwd();
 const locales = Object.keys(localeConfig);
 

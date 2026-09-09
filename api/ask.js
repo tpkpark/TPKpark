@@ -1,10 +1,8 @@
 import { createHmac, randomBytes } from "node:crypto";
 import { answerQuestion, assistantEnabled, AssistantError, limits, validateInput } from "../lib/assistant.mjs";
 
-import { productionBudgetReady } from "../lib/assistant-budget.mjs";
-
-// Per-instance abuse backstop. Vercel AI Gateway enforces the shared monthly
-// project budget; production OIDC requests cannot bypass that budget.
+// Per-instance abuse backstop. Hosting and AI Gateway usage settings remain
+// managed in Lawrence's existing Vercel account.
 const salt = randomBytes(32);
 const visitors = new Map();
 let active = 0;
@@ -37,7 +35,7 @@ export default async function handler(req, res) {
   const send = (status, value) => { res.statusCode = status; res.end(JSON.stringify(value)); };
   if (req.method !== "POST") { res.setHeader("Allow", "POST"); return send(405, { error: "method_not_allowed" }); }
   if (!allowedOrigin(req.headers.origin) || req.headers["sec-fetch-site"] === "cross-site") return send(403, { error: "invalid_origin" });
-  if (!assistantEnabled() || !productionBudgetReady()) return send(503, { error: "unavailable" });
+  if (!assistantEnabled()) return send(503, { error: "unavailable" });
   if (!(req.headers["content-type"] || "").toLowerCase().startsWith("application/json")) return send(415, { error: "invalid_request" });
   if (Number(req.headers["content-length"]) > limits.bodyBytes) return send(413, { error: "too_long" });
   let body;

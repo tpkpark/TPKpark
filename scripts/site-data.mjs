@@ -77,7 +77,18 @@ export const seoTitles = {
 };
 
 const septemberSeoRoutes = new Set(["home", "homeLiving", "automotive", "lifestyle", "leasing", "leasingShop", "leasingDetached", "leasingSemiDetached", "news", "milestones"]);
-export const routeLastModified = Object.fromEntries(routeIds.map((routeId) => [routeId, ["home", "about", "homeLiving", "leasing", "leasingShop", "leasingDetached"].includes(routeId) ? "2026-09-09" : ["leasing", "leasingShop", "leasingDetached", "contact"].includes(routeId) ? "2026-09-08" : septemberSeoRoutes.has(routeId) ? "2026-09-07" : ["profile", "publicRecord"].includes(routeId) ? "2026-09-04" : "2026-09-03"]));
+const routeLastModifiedOverrides = {
+  home: "2026-09-09",
+  about: "2026-09-09",
+  homeLiving: "2026-09-09",
+  leasing: "2026-09-10",
+  leasingShop: "2026-09-09",
+  leasingDetached: "2026-09-09",
+  contact: "2026-09-08",
+  profile: "2026-09-04",
+  publicRecord: "2026-09-04"
+};
+export const routeLastModified = Object.fromEntries(routeIds.map((routeId) => [routeId, routeLastModifiedOverrides[routeId] || (septemberSeoRoutes.has(routeId) ? "2026-09-07" : "2026-09-03")]));
 
 export function routePath(locale, routeId) {
   const prefix = localeConfig[locale].prefix;
@@ -740,6 +751,8 @@ const enPages = {
       { type: "faq", kicker: "Leasing questions", title: "Before you enquire", items: [
         { q: "Where is TPK Park in Puchong?", a: "TPK Park is the common name for Taman Perindustrian Kinrara, or Kinrara Industrial Park, along the Puchong–Bukit Jalil corridor. The published leasing options are on Jalan TPK 2/8 and Jalan TPK 2/4. Use each property page for its location and viewing enquiry." },
         { q: "What types of property can I rent at TPK Park in Puchong?", a: "Options may include customer-facing shoplots and showrooms, detached whole buildings and semi-detached industrial-commercial premises. Availability changes, so confirm the current list with the leasing team." },
+        { q: "Which premises are currently advertised for rent at TPK Park?", a: "Current public information covers limited ground-floor and first-floor shop or showroom options along Jalan TPK 2/8 and the detached building at No. 7 Jalan TPK 2/4. No. 69 Jalan TPK 2/8 has been leased. Confirm availability and terms before relying on any listing." },
+        { q: "How is TPK Park connected to Bukit Jalil, KESAS and the LDP?", a: "TPK Park is on the Puchong–Bukit Jalil corridor, with access via Bukit Jalil Highway and connections towards KESAS and the LDP. Check the relevant property page for its exact Jalan TPK address and map link." },
         { q: "Is TPK Park suitable for a showroom or retail business?", a: "Yes. The precinct is curated around customer-facing Home & Living, Automotive and Lifestyle businesses that benefit from visibility, drive-up access, parking and neighbouring complementary brands." },
         { q: "Are asking rents and sizes final?", a: "No. Published figures are indicative reference information. Dimensions, availability, rent, permitted use and all commercial terms must be verified and agreed in contract." },
         { q: "How do I arrange a viewing?", a: "Use the enquiry link on the relevant property page, call +60 3 8076 5200 or email info@tpkpark.com with your preferred use, size and opening timeline." }
@@ -1070,6 +1083,8 @@ const msPages = {
       { type: "faq", kicker: "Soalan penyewaan", title: "Sebelum membuat pertanyaan", items: [
         { q: "Di manakah TPK Park di Puchong?", a: "TPK Park ialah nama lazim bagi Taman Perindustrian Kinrara di koridor Puchong–Bukit Jalil. Pilihan penyewaan yang dipaparkan terletak di Jalan TPK 2/8 dan Jalan TPK 2/4. Rujuk halaman hartanah berkenaan untuk lokasi dan pertanyaan lawatan." },
         { q: "Apakah jenis hartanah yang boleh disewa di TPK Park, Puchong?", a: "Pilihan mungkin merangkumi kedai dan bilik pameran berhadapan pelanggan, keseluruhan bangunan sesebuah serta premis industri-komersial berkembar. Ketersediaan berubah, jadi sahkan senarai semasa dengan pasukan penyewaan." },
+        { q: "Premis manakah yang kini diiklankan untuk disewa di TPK Park?", a: "Maklumat awam semasa merangkumi pilihan terhad di tingkat bawah dan tingkat satu bagi kedai atau bilik pameran di Jalan TPK 2/8 serta bangunan sesebuah di No. 7 Jalan TPK 2/4. No. 69 Jalan TPK 2/8 telah disewa. Sahkan ketersediaan dan terma sebelum bergantung pada mana-mana iklan." },
+        { q: "Bagaimanakah akses ke TPK Park dari Bukit Jalil, KESAS dan LDP?", a: "TPK Park terletak di koridor Puchong–Bukit Jalil, dengan akses melalui Lebuhraya Bukit Jalil serta sambungan ke arah KESAS dan LDP. Rujuk halaman hartanah berkaitan untuk alamat Jalan TPK dan pautan peta yang tepat." },
         { q: "Adakah TPK Park sesuai untuk bilik pameran atau perniagaan runcit?", a: "Ya. Kawasan ini dibentuk untuk perniagaan Home & Living, Automotif dan Lifestyle berhadapan pelanggan yang mendapat manfaat daripada keterlihatan, akses terus, parkir dan jenama berdekatan yang saling melengkapi." },
         { q: "Adakah sewa diminta dan keluasan yang diterbitkan adalah muktamad?", a: "Tidak. Angka yang diterbitkan ialah maklumat rujukan indikatif. Keluasan, ketersediaan, sewa, kegunaan dibenarkan dan semua terma komersial mesti disahkan dan dipersetujui dalam kontrak." },
         { q: "Bagaimana saya mengatur lawatan tapak?", a: "Gunakan pautan pertanyaan pada halaman hartanah berkaitan, hubungi +60 3 8076 5200 atau e-mel info@tpkpark.com dengan kegunaan, saiz dan garis masa pembukaan anda." }
@@ -1373,6 +1388,8 @@ const zhPages = {
       { type: "faq", kicker: "租赁常见问题", title: "查询前须知", items: [
         { q: "TPK Park位于蒲种哪里？", a: "TPK Park是Taman Perindustrian Kinrara（金銮工业园）的通称，位于蒲种—武吉加里尔走廊。网页所列出租选择位于Jalan TPK 2/8与Jalan TPK 2/4；请在相应物业页面查看位置并查询看单位安排。" },
         { q: "蒲种TPK Park有哪些物业可出租？", a: "选择可能包括面客商铺与展厅、整栋独立式建筑，以及半独立式工业商业单位。供应会变化，请向租赁团队确认当前名单。" },
+        { q: "TPK Park目前有哪些物业公开招租？", a: "目前公开资料包括Jalan TPK 2/8沿线少量底层及一楼商铺或展厅选择，以及Jalan TPK 2/4门牌7号独立式建筑。Jalan TPK 2/8门牌69号已经出租。依赖任何广告前，请先确认供应与条款。" },
+        { q: "从武吉加里尔、KESAS或LDP如何前往TPK Park？", a: "TPK Park位于蒲种—武吉加里尔走廊，可经武吉加里尔大道，并衔接KESAS与LDP前往。请在相应物业页面查看准确的Jalan TPK地址与地图链接。" },
         { q: "TPK Park适合展厅或零售业务吗？", a: "适合。园区围绕面客的家居生活、汽车服务及生活业态规划，商家可受益于醒目位置、直接驶入、停车及互补品牌集聚。" },
         { q: "网页所列叫租和面积是最终资料吗？", a: "不是。所列数字仅供参考。面积、供应、租金、准许用途及所有商业条款均须核实，并以合约为准。" },
         { q: "如何预约看单位？", a: "请使用相关物业页面的查询链接，致电+60 3 8076 5200，或电邮info@tpkpark.com，并注明用途、所需面积及预计开业时间。" }

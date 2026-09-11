@@ -1,4 +1,4 @@
-// Display assets re-encoded from the existing site photographs. Social preview URLs remain unchanged.
+// Assets re-encoded from existing site imagery. The legacy park image is billboard artwork, not a photograph; use real frontage photographs in page content. Social preview URLs remain unchanged.
 export const imageAssets = {
   "https://i.imgur.com/an6ruYm.jpg": {
     "src": "/assets/images/park-1536.webp",

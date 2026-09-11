@@ -132,12 +132,17 @@ function pageHero(locale, routeId, page) {
 function homeHero(locale, page) {
   const t = site[locale];
   return `<section class="hero" aria-labelledby="hero-title">
-    <img class="hero-media" ${displayImage(page.image, "(max-width: 760px) 1000px, 100vw")} alt="" fetchpriority="high" referrerpolicy="no-referrer">
+    <div class="shell hero-layout">
     <div class="hero-content"><p class="eyebrow">${escapeHtml(page.eyebrow)}</p><h1 id="hero-title">${escapeHtml(page.title)}</h1><p class="hero-lead">${escapeHtml(page.lead)}</p>
       <div class="hero-actions">
         <a class="button button-primary" href="${routePath(locale, "homeLiving")}">${escapeHtml(t.discover)} <span class="arrow" aria-hidden="true">→</span></a>
         <a class="button button-secondary" href="${routePath(locale, "leasing")}">${escapeHtml(t.enquiries)}</a>
       </div>
+    </div>
+    <figure class="hero-figure">
+      <img class="hero-media" ${displayImage(page.heroImage || page.image, "(max-width: 1020px) calc(100vw - 48px), (max-width: 1280px) 50vw, 580px")} alt="${escapeHtml(page.heroAlt || "")}" fetchpriority="high" referrerpolicy="no-referrer">
+      ${page.heroCaption ? `<figcaption>${escapeHtml(page.heroCaption)}</figcaption>` : ""}
+    </figure>
     </div>
   </section>`;
 }
@@ -162,6 +167,12 @@ function renderCards(locale, block) {
 function renderSplit(locale, block, index) {
   const t = site[locale];
   const action = block.route ? `<a class="button button-dark" href="${routePath(locale, block.route)}">${escapeHtml(block.linkLabel || t.readMore)} <span class="arrow" aria-hidden="true">→</span></a>` : "";
+  if (block.presentation === "renewal") {
+    return `<section class="section section-sage renewal-section"><div class="shell renewal-grid">
+      <div class="renewal-copy"><span class="section-number">${String(index + 1).padStart(2, "0")}</span><h2>${escapeHtml(block.title)}</h2><p>${escapeHtml(block.text)}</p>${action}</div>
+      <figure class="renewal-figure"><img ${displayImage(block.image, "(max-width: 1020px) calc(100vw - 48px), (max-width: 1280px) 50vw, 580px")} alt="${escapeHtml(block.alt)}" loading="lazy" referrerpolicy="no-referrer">${block.caption ? `<figcaption>${escapeHtml(block.caption)}</figcaption>` : ""}</figure>
+    </div></section>`;
+  }
   const image = `<img class="split-media" ${displayImage(block.image, "(max-width: 760px) 960px, 1200px")} alt="${escapeHtml(block.alt)}" loading="lazy" referrerpolicy="no-referrer">`;
   const copy = `<div class="split-copy"><span class="section-number">${String(index + 1).padStart(2, "0")}</span><h2>${escapeHtml(block.title)}</h2><p>${escapeHtml(block.text)}</p>${action}</div>`;
   return `<section class="split section-sage">${index % 2 ? `${copy}${image}` : `${image}${copy}`}</section>`;

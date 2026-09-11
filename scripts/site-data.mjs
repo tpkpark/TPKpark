@@ -78,8 +78,9 @@ export const seoTitles = {
 
 const septemberSeoRoutes = new Set(["home", "homeLiving", "automotive", "lifestyle", "leasing", "leasingShop", "leasingDetached", "leasingSemiDetached", "news", "milestones"]);
 const routeLastModifiedOverrides = {
-  home: "2026-09-09",
-  about: "2026-09-09",
+  news: "2026-09-11",
+  home: "2026-09-11",
+  about: "2026-09-11",
   homeLiving: "2026-09-09",
   leasing: "2026-09-10",
   leasingShop: "2026-09-09",
@@ -620,14 +621,17 @@ const enPages = {
     title: "A mature industrial place, renewed for everyday life.",
     description: "Discover TPK Park at Kinrara Industrial Park, Puchong: Home & Living showrooms, automotive services, dining and commercial premises for rent.",
     lead: "TPK Park is the common name for Taman Perindustrian Kinrara (Kinrara Industrial Park) in Puchong, where Home & Living, Automotive and Lifestyle businesses come together.",
-    image: images.park,
+    image: images.park, // Preserve the existing social preview.
+    heroImage: images.homeLiving,
+    heroAlt: 'Shopfronts, greenery and roadside parking at TPK Park in Puchong',
+    heroCaption: 'Taman Perindustrian Kinrara · Puchong',
     blocks: [
       { type: "cards", kicker: "Three connected clusters", title: "Plan one useful trip.", text: "Compare home ideas, arrange vehicle care, meet over a meal or discover a new activity—within one practical Puchong destination.", items: [
-        { number: "01", title: "Home & Living", text: "Showrooms, renovation materials, kitchens, bathrooms, furniture and specialist trades.", route: "homeLiving", image: images.homeLiving },
-        { number: "02", title: "Automotive", text: "Sales, servicing, detailing, specialist workshops and technical learning.", route: "automotive", image: images.automotive },
-        { number: "03", title: "Lifestyle", text: "Food, fitness, family activities, daily essentials and professional services.", route: "lifestyle", image: images.lifestyle }
+        { number: "01", title: "Home & Living", text: "Showrooms, renovation materials, kitchens, bathrooms, furniture and specialist trades.", route: "homeLiving" },
+        { number: "02", title: "Automotive", text: "Sales, servicing, detailing, specialist workshops and technical learning.", route: "automotive" },
+        { number: "03", title: "Lifestyle", text: "Food, fitness, family activities, daily essentials and professional services.", route: "lifestyle" }
       ] },
-      { type: "split", title: "Renewal that keeps the place practical.", text: "TPK Park's management work focuses on selected properties and shared visitor experience: tenant curation, landscaping, façade lighting, coordinated signage, parking management, events and destination positioning.", image: images.park, alt: "Commercial and industrial premises at TPK Park in Puchong", route: "about" },
+      { type: "split", presentation: "renewal", title: "Renewal that keeps the place practical.", text: "TPK Park's management work focuses on selected properties and shared visitor experience: tenant curation, landscaping, façade lighting, coordinated signage, parking management, events and destination positioning.", image: images.lifestyle, alt: 'Street-level view of TPK Park showrooms, shopfronts and parking', caption: 'Showrooms, shopfronts and everyday access.', route: "about" },
       { type: "stats", route: "milestones", linkLabel: "Explore the 2026 Home & Living recognition", items: [
         { value: "16", label: "businesses in the recognised Home & Living cluster" },
         { value: "96,728", label: "sq ft represented by the 2026 recognised cluster" },
@@ -643,6 +647,7 @@ const enPages = {
       ] }
     ]
   },
+
   about: {
     cta: {"title": "Plan your next business premises.", "text": "Browse the property formats managed by TPK Park Sdn. Bhd. and discuss your operating needs with our leasing team.", "button": "Compare leasing options", "route": "leasing"},
     eyebrow: "About TPK Park",
@@ -650,7 +655,7 @@ const enPages = {
     description: "Learn how TPK Park Sdn. Bhd. manages and repositions selected properties at Taman Perindustrian Kinrara through tenant curation, renewal and placemaking.",
     lead: "TPK Park is a common reference to Taman Perindustrian Kinrara in Puchong. This website highlights selected properties, businesses and place-renewal initiatives associated with the area, together with TPK Park Sdn. Bhd.'s work on the properties and projects under its management.",
     blocks: [
-      { type: "split", title: "Useful first. Distinctive over time.", text: "The work starts with the practical strengths of a mature industrial setting: direct vehicle access, ground-level parking, loading convenience and strong road connections. Renewal then adds a clearer tenant mix and a more welcoming shared environment.", image: images.park, alt: "Taman Perindustrian Kinrara, commonly known as TPK Park" },
+      { type: "split", title: "Useful first. Distinctive over time.", text: "The work starts with the practical strengths of a mature industrial setting: direct vehicle access, ground-level parking, loading convenience and strong road connections. Renewal then adds a clearer tenant mix and a more welcoming shared environment.", image: images.homeLiving, alt: "Taman Perindustrian Kinrara, commonly known as TPK Park" },
       { type: "cards", kicker: "How we work", title: "Stewardship, not spectacle.", text: "A grounded management approach built around the needs of tenants and visitors.", items: [
         { number: "01", title: "Property stewardship", text: "Long-term asset and tenancy management across selected premises." },
         { number: "02", title: "Business clustering", text: "A clearer mix around Home & Living, Automotive and Lifestyle uses." },
@@ -888,7 +893,7 @@ const enPages = {
     blocks: [
       { type: "newsFeature", kicker: "Latest update", category: "Leasing", date: "2026-09-07", title: "Updated leasing details and floor plans.", text: "Explore shop and showroom units and the detached building in English, Bahasa Melayu or Chinese, with floor plans from the leasing packs. No. 69 Jalan TPK 2/8 has been leased; the team can advise on alternatives. Confirm current availability and commercial terms.", image: images.leasing, alt: "Commercial and industrial properties available for lease at TPK Park in Puchong", route: "leasing", linkLabel: "Explore available properties" },
       { type: "newsUpdates", kicker: "From TPK Park", title: "Updates and useful context", text: "First-party information about the place, its business mix and ongoing management priorities.", items: [
-        { category: "Park renewal", title: "Keeping a mature industrial address useful", text: "TPK Park's work across selected properties combines tenant curation with landscaping, façade lighting, signage coordination, parking management and destination activity.", image: images.park, alt: "Commercial and industrial surroundings at TPK Park in Puchong", route: "about", linkLabel: "How TPK Park approaches renewal" },
+        { category: "Park renewal", title: "Keeping a mature industrial address useful", text: "TPK Park's work across selected properties combines tenant curation with landscaping, façade lighting, signage coordination, parking management and destination activity.", image: images.homeLiving, alt: "Commercial and industrial surroundings at TPK Park in Puchong", route: "about", linkLabel: "How TPK Park approaches renewal" },
         { category: "Business mix", title: "Three complementary business pillars", text: "Home & Living, Automotive and Lifestyle businesses create a broader mix of showrooms, services, dining, fitness and everyday needs.", image: images.homeLiving, alt: "Home and Living businesses at TPK Park in Puchong", route: "home", linkLabel: "Explore the business mix" },
         { category: "2026 milestone", date: "2026-07-05", title: "Recognition for a focused Home & Living cluster", text: "The recognised cluster comprised 16 businesses, 96,728 sq ft and eight categories within an industrial-park setting.", image: images.record, alt: "Malaysia Book of Records recognition for the TPK Park Home and Living cluster", route: "milestones", linkLabel: "Explore the milestone" }
       ] },
@@ -967,14 +972,17 @@ const msPages = {
     title: "Kawasan perindustrian matang, diperbaharui untuk kehidupan seharian.",
     description: "Terokai Taman Perindustrian Kinrara, yang lazim dirujuk sebagai TPK Park, di Puchong: pameran Home & Living, perkhidmatan automotif, kemudahan gaya hidup dan peluang penyewaan.",
     lead: "TPK Park ialah sebutan lazim bagi Taman Perindustrian Kinrara di Puchong, yang menghimpunkan perniagaan Home & Living, Automotif dan Lifestyle.",
-    image: images.park,
+    image: images.park, // Preserve the existing social preview.
+    heroImage: images.homeLiving,
+    heroAlt: 'Deretan kedai, landskap dan parkir tepi jalan di TPK Park, Puchong',
+    heroCaption: 'Taman Perindustrian Kinrara · Puchong',
     blocks: [
       { type: "cards", kicker: "Tiga kluster saling melengkapi", title: "Rancang satu perjalanan yang berguna.", text: "Bandingkan idea rumah, uruskan kenderaan, nikmati hidangan atau cuba aktiviti baharu—semuanya dalam satu destinasi praktikal di Puchong.", items: [
-        { number: "01", title: "Home & Living", text: "Bilik pameran, bahan renovasi, dapur, bilik mandi, perabot dan kemahiran khusus.", route: "homeLiving", image: images.homeLiving },
-        { number: "02", title: "Automotif", text: "Jualan, servis, detailing, bengkel khusus dan pembelajaran teknikal.", route: "automotive", image: images.automotive },
-        { number: "03", title: "Lifestyle", text: "Makanan, kecergasan, aktiviti keluarga, keperluan harian dan perkhidmatan profesional.", route: "lifestyle", image: images.lifestyle }
+        { number: "01", title: "Home & Living", text: "Bilik pameran, bahan renovasi, dapur, bilik mandi, perabot dan kemahiran khusus.", route: "homeLiving" },
+        { number: "02", title: "Automotif", text: "Jualan, servis, detailing, bengkel khusus dan pembelajaran teknikal.", route: "automotive" },
+        { number: "03", title: "Lifestyle", text: "Makanan, kecergasan, aktiviti keluarga, keperluan harian dan perkhidmatan profesional.", route: "lifestyle" }
       ] },
-      { type: "split", title: "Pembaharuan yang mengekalkan nilai praktikal.", text: "Pengurusan TPK Park memberi tumpuan kepada hartanah terpilih dan pengalaman bersama pengunjung: pemilihan penyewa, landskap, pencahayaan fasad, penyelarasan papan tanda, pengurusan parkir, acara dan penjenamaan destinasi.", image: images.park, alt: "Premis komersial dan perindustrian di TPK Park, Puchong", route: "about" },
+      { type: "split", presentation: "renewal", title: "Pembaharuan yang mengekalkan nilai praktikal.", text: "Pengurusan TPK Park memberi tumpuan kepada hartanah terpilih dan pengalaman bersama pengunjung: pemilihan penyewa, landskap, pencahayaan fasad, penyelarasan papan tanda, pengurusan parkir, acara dan penjenamaan destinasi.", image: images.lifestyle, alt: 'Pemandangan aras jalan bilik pameran, kedai dan parkir di TPK Park', caption: 'Bilik pameran, deretan kedai dan akses harian.', route: "about" },
       { type: "stats", route: "milestones", linkLabel: "Terokai pengiktirafan Home & Living 2026", items: [
         { value: "16", label: "perniagaan dalam kluster Home & Living yang diiktiraf" },
         { value: "96,728", label: "kaki persegi dalam kluster yang diiktiraf pada 2026" },
@@ -990,6 +998,7 @@ const msPages = {
       ] }
     ]
   },
+
   about: {
     cta: {"title": "Rancang premis perniagaan anda.", "text": "Lihat format hartanah di bawah pengurusan TPK Park Sdn. Bhd. dan bincangkan keperluan operasi dengan pasukan penyewaan.", "button": "Bandingkan pilihan penyewaan", "route": "leasing"},
     eyebrow: "Tentang TPK Park",
@@ -997,7 +1006,7 @@ const msPages = {
     description: "Ketahui bagaimana TPK Park Sdn. Bhd. mengurus dan memperbaharui hartanah terpilih di Taman Perindustrian Kinrara melalui pemilihan penyewa dan pembentukan tempat.",
     lead: "TPK Park ialah sebutan lazim bagi Taman Perindustrian Kinrara di Puchong. Laman web ini mengetengahkan hartanah, perniagaan dan inisiatif pembaharuan terpilih yang berkaitan dengan kawasan tersebut, termasuk usaha TPK Park Sdn. Bhd. berkaitan hartanah dan projek di bawah pengurusannya.",
     blocks: [
-      { type: "split", title: "Praktikal dahulu. Lebih tersusun dari semasa ke semasa.", text: "Asasnya ialah kekuatan persekitaran perindustrian matang: akses kenderaan terus, parkir aras tanah, pemunggahan mudah dan hubungan jalan raya yang baik. Pembaharuan menambah campuran penyewa yang lebih jelas dan persekitaran bersama yang lebih mesra.", image: images.park, alt: "Taman Perindustrian Kinrara yang lazim dirujuk sebagai TPK Park" },
+      { type: "split", title: "Praktikal dahulu. Lebih tersusun dari semasa ke semasa.", text: "Asasnya ialah kekuatan persekitaran perindustrian matang: akses kenderaan terus, parkir aras tanah, pemunggahan mudah dan hubungan jalan raya yang baik. Pembaharuan menambah campuran penyewa yang lebih jelas dan persekitaran bersama yang lebih mesra.", image: images.homeLiving, alt: "Taman Perindustrian Kinrara yang lazim dirujuk sebagai TPK Park" },
       { type: "cards", kicker: "Cara kami bekerja", title: "Pengurusan yang konsisten.", text: "Pendekatan yang berpijak pada keperluan penyewa dan pengunjung.", items: [
         { number: "01", title: "Pengurusan hartanah", text: "Pengurusan aset dan penyewaan jangka panjang bagi premis terpilih." },
         { number: "02", title: "Pengelompokan perniagaan", text: "Campuran lebih jelas berasaskan Home & Living, Automotif dan Lifestyle." },
@@ -1220,7 +1229,7 @@ const msPages = {
     blocks: [
       { type: "newsFeature", kicker: "Kemas kini terkini", category: "Penyewaan", date: "2026-09-07", title: "Maklumat penyewaan dan pelan lantai terkini.", text: "Terokai unit kedai dan bilik pameran serta bangunan sesebuah dalam Bahasa Inggeris, Bahasa Melayu atau Bahasa Cina, berserta pelan daripada pek penyewaan. No. 69 Jalan TPK 2/8 telah disewa; hubungi pasukan kami tentang pilihan lain. Sahkan ketersediaan dan terma komersial semasa.", image: images.leasing, alt: "Hartanah komersial dan industri untuk disewa di TPK Park, Puchong", route: "leasing", linkLabel: "Terokai hartanah yang tersedia" },
       { type: "newsUpdates", kicker: "Daripada TPK Park", title: "Kemas kini dan konteks berguna", text: "Maklumat langsung mengenai kawasan ini, campuran perniagaannya dan keutamaan pengurusan berterusan.", items: [
-        { category: "Pembaharuan taman", title: "Mengekalkan nilai praktikal kawasan perindustrian matang", text: "Usaha TPK Park bagi hartanah terpilih menggabungkan pemilihan penyewa, landskap, pencahayaan fasad, penyelarasan papan tanda, pengurusan parkir dan aktiviti destinasi.", image: images.park, alt: "Persekitaran komersial dan perindustrian di TPK Park, Puchong", route: "about", linkLabel: "Pendekatan TPK Park terhadap pembaharuan" },
+        { category: "Pembaharuan taman", title: "Mengekalkan nilai praktikal kawasan perindustrian matang", text: "Usaha TPK Park bagi hartanah terpilih menggabungkan pemilihan penyewa, landskap, pencahayaan fasad, penyelarasan papan tanda, pengurusan parkir dan aktiviti destinasi.", image: images.homeLiving, alt: "Persekitaran komersial dan perindustrian di TPK Park, Puchong", route: "about", linkLabel: "Pendekatan TPK Park terhadap pembaharuan" },
         { category: "Campuran perniagaan", title: "Tiga teras perniagaan yang saling melengkapi", text: "Perniagaan Home & Living, Automotif dan Lifestyle membentuk gabungan bilik pameran, perkhidmatan, makanan, kecergasan dan keperluan harian.", image: images.homeLiving, alt: "Perniagaan Home and Living di TPK Park, Puchong", route: "home", linkLabel: "Terokai campuran perniagaan" },
         { category: "Pencapaian 2026", date: "2026-07-05", title: "Pengiktirafan bagi kluster Home & Living yang berfokus", text: "Kluster yang diiktiraf merangkumi 16 perniagaan, 96,728 kaki persegi dan lapan kategori dalam persekitaran taman perindustrian.", image: images.record, alt: "Pengiktirafan Malaysia Book of Records bagi kluster Home and Living TPK Park", route: "milestones", linkLabel: "Terokai pencapaian" }
       ] },
@@ -1287,14 +1296,17 @@ const zhPages = {
     title: "成熟工业空间，为日常生活持续更新。",
     description: "探索蒲种Taman Perindustrian Kinrara（金銮工业园，通称TPK Park）的家居生活展厅、汽车服务、生活配套及租赁机会。",
     lead: "TPK Park是蒲种Taman Perindustrian Kinrara（金銮工业园）的通称，汇聚家居生活、汽车服务及生活品味业态。",
-    image: images.park,
+    image: images.park, // Preserve the existing social preview.
+    heroImage: images.homeLiving,
+    heroAlt: '蒲种TPK Park的商铺、绿化与路边停车位',
+    heroCaption: 'Taman Perindustrian Kinrara · 蒲种',
     blocks: [
       { type: "cards", kicker: "三大互补集群", title: "一趟完成更多实用安排。", text: "比较家居方案、安排汽车护理、用餐或体验新活动，都可在这个蒲种目的地进行。", items: [
-        { number: "01", title: "家居生活", text: "展厅、装修材料、厨房、卫浴、家具及专业服务。", route: "homeLiving", image: images.homeLiving },
-        { number: "02", title: "汽车服务", text: "销售、维修、美容、专业车厂及技术教育。", route: "automotive", image: images.automotive },
-        { number: "03", title: "生活品味", text: "餐饮、运动、亲子活动、日常所需及专业服务。", route: "lifestyle", image: images.lifestyle }
+        { number: "01", title: "家居生活", text: "展厅、装修材料、厨房、卫浴、家具及专业服务。", route: "homeLiving" },
+        { number: "02", title: "汽车服务", text: "销售、维修、美容、专业车厂及技术教育。", route: "automotive" },
+        { number: "03", title: "生活品味", text: "餐饮、运动、亲子活动、日常所需及专业服务。", route: "lifestyle" }
       ] },
-      { type: "split", title: "更新之余，保留实用本质。", text: "TPK Park的管理工作聚焦于特定产业及访客共享体验，包括租户组合、园林、建筑照明、招牌协调、停车管理、活动及目的地推广。", image: images.park, alt: "蒲种TPK Park商业与工业单位", route: "about" },
+      { type: "split", presentation: "renewal", title: "更新之余，保留实用本质。", text: "TPK Park的管理工作聚焦于特定产业及访客共享体验，包括租户组合、园林、建筑照明、招牌协调、停车管理、活动及目的地推广。", image: images.lifestyle, alt: '从街道观看TPK Park的展厅、商铺与停车空间', caption: '展厅、商铺与日常出入空间。', route: "about" },
       { type: "stats", route: "milestones", linkLabel: "了解2026家居生活集群认证", items: [{ value: "16", label: "获认证家居生活集群内的企业" }, { value: "96,728", label: "2026年获认证集群总平方英尺" }, { value: "8", label: "纪录评估涵盖的家居生活类别" }] },
       { type: "news", kicker: "精选报道", title: "媒体报道中的 TPK Park", text: "关于家居生活里程碑及园区长期更新的独立报道。", limit: 3 },
       { type: "faq", kicker: "访客须知", title: "出发前先了解", items: [
@@ -1306,6 +1318,7 @@ const zhPages = {
       ] }
     ]
   },
+
   about: {
     cta: {"title": "规划您的下一处经营空间。", "text": "了解TPK Park Sdn. Bhd.所管理的物业类型，并向租赁团队说明您的运营需要。", "button": "比较租赁选择", "route": "leasing"},
     eyebrow: "关于TPK Park",
@@ -1313,7 +1326,7 @@ const zhPages = {
     description: "了解TPK Park Sdn. Bhd.如何通过租户组合、产业更新及地方营造，管理Taman Perindustrian Kinrara（金銮工业园）的特定产业。",
     lead: "TPK Park是蒲种Taman Perindustrian Kinrara（金銮工业园）的通称。本网站介绍与该区相关的特定产业、商家及地方更新项目，也呈现TPK Park Sdn. Bhd.在其所管理产业与项目方面的工作。",
     blocks: [
-      { type: "split", title: "实用为先，逐步形成特色。", text: "成熟工业环境的优势包括车辆直达、地面停车、装卸便利及良好道路连接。在此基础上，通过更清晰的租户组合及更友善的共享环境持续更新。", image: images.park, alt: "Taman Perindustrian Kinrara（金銮工业园，通称TPK Park）" },
+      { type: "split", title: "实用为先，逐步形成特色。", text: "成熟工业环境的优势包括车辆直达、地面停车、装卸便利及良好道路连接。在此基础上，通过更清晰的租户组合及更友善的共享环境持续更新。", image: images.homeLiving, alt: "Taman Perindustrian Kinrara（金銮工业园，通称TPK Park）" },
       { type: "cards", kicker: "我们的方式", title: "持续管理，脚踏实地。", text: "以租户及访客的实际需要为基础。", items: [
         { number: "01", title: "产业管理", text: "对特定单位进行长期资产与租赁管理。" }, { number: "02", title: "商业集群", text: "围绕家居生活、汽车服务及生活品味规划业态。" }, { number: "03", title: "地方更新", text: "园林、照明、招牌协调、停车及目的地活动。" }
       ] },
@@ -1525,7 +1538,7 @@ const zhPages = {
     blocks: [
       { type: "newsFeature", kicker: "最新动态", category: "租赁", date: "2026-09-07", title: "最新租赁资料与平面图", text: "以英文、马来文或中文了解商铺与展厅及独立式建筑，并查看租赁资料包中的平面图。Jalan TPK 2/8的69号单位已出租；欢迎联系团队了解其他选择。最新供应与商业条款须另行确认。", image: images.leasing, alt: "蒲种TPK Park待租商业与工业单位", route: "leasing", linkLabel: "查看出租单位" },
       { type: "newsUpdates", kicker: "来自TPK Park", title: "最新动态与实用资讯", text: "由TPK Park发布，介绍这里的商业组合及持续管理重点。", items: [
-        { category: "园区更新", title: "让成熟工业区持续保持实用价值", text: "TPK Park针对特定产业的工作，包括租户组合、园林、建筑照明、招牌协调、停车管理及目的地活动。", image: images.park, alt: "蒲种TPK Park商业与工业环境", route: "about", linkLabel: "了解TPK Park的更新方式" },
+        { category: "园区更新", title: "让成熟工业区持续保持实用价值", text: "TPK Park针对特定产业的工作，包括租户组合、园林、建筑照明、招牌协调、停车管理及目的地活动。", image: images.homeLiving, alt: "蒲种TPK Park商业与工业环境", route: "about", linkLabel: "了解TPK Park的更新方式" },
         { category: "商业组合", title: "三个相辅相成的业态支柱", text: "家居生活、汽车服务及生活品味业态，共同形成展厅、服务、餐饮、运动与日常所需的多元组合。", image: images.homeLiving, alt: "蒲种TPK Park家居生活商家", route: "home", linkLabel: "探索商业组合" },
         { category: "2026年里程碑", date: "2026-07-05", title: "聚焦发展的家居生活集群获得认证", text: "获认证集群涵盖16家企业、96,728平方英尺及八个类别，坐落于成熟工业园环境。", image: images.record, alt: "TPK Park家居生活集群获马来西亚纪录大全认证", route: "milestones", linkLabel: "了解这项里程碑" }
       ] },

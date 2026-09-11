@@ -19,9 +19,9 @@ export const imageAssets = {
     "srcset": "/assets/images/automotive-480.webp 480w, /assets/images/automotive-1120.webp 1120w"
   },
   "https://i.imgur.com/Z5h4hmH.jpg": {
-    "src": "/assets/images/lifestyle-1600.webp",
+    "src": "/assets/images/lifestyle-frontage-20260911-1600.webp",
     "width": 1600,
     "height": 720,
-    "srcset": "/assets/images/lifestyle-480.webp 480w, /assets/images/lifestyle-1600.webp 1600w"
+    "srcset": "/assets/images/lifestyle-frontage-20260911-480.webp 480w, /assets/images/lifestyle-frontage-20260911-1600.webp 1600w"
   }
 };

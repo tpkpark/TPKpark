@@ -95,7 +95,7 @@ button, input, select, textarea { font: inherit; }
 .ask-tpk-ai button:disabled { opacity: .55; cursor: wait; }
 .ask-tpk-status { margin: .875rem 0; font-size: .875rem; color: var(--forest); }
 .ask-tpk-voice-status { margin: .5rem 0 0; font-size: .75rem; line-height: 1.45; color: var(--forest); }
-.ask-tpk-note, .ask-tpk-privacy { margin: .75rem 0 0; font-size: .75rem; line-height: 1.5; color: #48564e; }
+.ask-tpk-privacy { margin: .75rem 0 0; font-size: .75rem; line-height: 1.5; color: #48564e; }
 .ask-tpk-handoff { display: flex; flex-wrap: wrap; gap: .25rem 1rem; font-size: .875rem; color: var(--forest); }
 .ask-tpk-handoff a { display: inline-flex; align-items: center; min-height: 44px; }
 .ask-tpk-privacy summary { display: flex; align-items: center; min-height: 32px; cursor: pointer; text-decoration: underline; }
@@ -463,7 +463,6 @@ button, input, select, textarea { font: inherit; }
 
 .ask-tpk-language { display: flex; align-items: center; justify-content: space-between; gap: .75rem; margin-top: .625rem; font-size: .8125rem; }
 .ask-tpk-language select { min-height: 44px; border: 1px solid var(--line); border-radius: 8px; padding: .375rem .75rem; color: var(--forest); background: white; font: inherit; }
-.ask-tpk-memory { margin: .75rem 0; font-size: .75rem; line-height: 1.5; color: #48564e; }
 .ask-tpk-handoff button { min-height: 44px; text-align: left; text-decoration: underline; }
 .ask-tpk-property { margin-top: .875rem; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--cream); }
 .ask-tpk-property img { width: 100%; height: 8rem; object-fit: cover; }

@@ -19,6 +19,7 @@ test("production requires activation and arbitrary sites cannot call the endpoin
   assert.equal(assistantEnabled({ VERCEL_ENV: "preview", VERCEL_GIT_COMMIT_REF: "codex/ai-assistant" }), true);
   assert.equal(assistantEnabled({ VERCEL_ENV: "preview", VERCEL_GIT_COMMIT_REF: "codex/ask-tpk-voice" }), true);
   assert.equal(assistantEnabled({ VERCEL_ENV: "preview", VERCEL_GIT_COMMIT_REF: "codex/ask-tpk-disclosure-cleanup" }), true);
+  assert.equal(assistantEnabled({ VERCEL_ENV: "preview", VERCEL_GIT_COMMIT_REF: "codex/ask-tpk-ai-disclosure" }), true);
   assert.equal(assistantEnabled({ VERCEL_ENV: "preview", VERCEL_GIT_COMMIT_REF: "codex/ai-assistant", TPK_AI_ENABLED: "0" }), false);
   const env = { VERCEL: "1", VERCEL_URL: "tpk-test.vercel.app" };
   for (const origin of ["https://tpkpark.com", "https://www.tpkpark.com", "https://tpk-test.vercel.app"]) assert.equal(allowedOrigin(origin, env), true);

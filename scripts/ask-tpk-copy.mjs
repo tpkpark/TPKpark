@@ -10,7 +10,6 @@ export const askTpkCopy = {
     you: "You", thinking: "Looking at TPK Park’s information…", sources: "Related pages",
     error: "I couldn’t answer just now. Please try again or contact the team below.",
     busy: "The assistant is busy. Please try again in a minute or contact the team.",
-    privacyTitle: "About this assistant",
     privacy: "Sending a question shares this conversation with OpenAI through Vercel to generate an answer. Please leave out personal or confidential details. The site keeps the chat only while this page is open and does not send its text to analytics. Providers may retain service data under their policies. This chat does not send an enquiry or book a viewing.",
     team: "Contact the team", browse: "Browse leasing",
     starters: ["What can I rent here?", "Help me find a business", "How do I arrange a viewing?"]
@@ -26,7 +25,6 @@ export const askTpkCopy = {
     you: "Anda", thinking: "Menyemak maklumat TPK Park…", sources: "Halaman berkaitan",
     error: "Saya tidak dapat menjawab sekarang. Cuba lagi atau hubungi pasukan di bawah.",
     busy: "Pembantu sedang sibuk. Cuba lagi sebentar nanti atau hubungi pasukan kami.",
-    privacyTitle: "Tentang pembantu ini",
     privacy: "Menghantar soalan berkongsi perbualan ini dengan OpenAI melalui Vercel untuk menghasilkan jawapan. Elakkan maklumat peribadi atau sulit. Laman ini menyimpan sembang hanya selagi halaman ini dibuka dan tidak menghantar teksnya kepada analitik. Penyedia mungkin menyimpan data perkhidmatan mengikut dasar mereka. Sembang ini tidak menghantar pertanyaan atau menempah lawatan.",
     team: "Hubungi pasukan", browse: "Lihat penyewaan",
     starters: ["Apakah premis yang boleh disewa?", "Bantu saya mencari perniagaan", "Bagaimana mengatur lawatan tapak?"]
@@ -42,7 +40,6 @@ export const askTpkCopy = {
     you: "您", thinking: "正在查阅TPK Park的资料…", sources: "相关页面",
     error: "暂时无法回答。请重试，或通过下方链接联系团队。",
     busy: "助手目前较忙。请稍后重试，或联系我们的团队。",
-    privacyTitle: "关于此助手",
     privacy: "发送问题会通过Vercel将本次对话分享给OpenAI以生成回答。请勿提供个人或机密资料。网站仅在此页面打开期间保留对话，不会将对话内容发送至分析工具。服务提供商可能按其政策保留服务数据。此对话不会发送咨询邮件或确认看房预约。",
     team: "联系团队", browse: "浏览租赁信息",
     starters: ["这里有什么商用空间可以租？", "帮我寻找商家", "如何安排看单位？"]

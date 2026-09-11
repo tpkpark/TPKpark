@@ -2,6 +2,7 @@ export const SESSION_KEY = "tpk:ask:session:v2";
 export const SESSION_TTL = 90 * 60 * 1000;
 const fields = ["businessType", "budget", "size", "floor", "timing"];
 const preferences = ["auto", "en", "ms", "zh"];
+const answerLanguages = ["auto", "en", "ms", "zh", "ja", "ko"];
 const blank = () => ({ turns: [], replyPreference: "auto", retryAt: 0 });
 
 export function boundedTurns(turns) {
@@ -15,6 +16,7 @@ export function boundedTurns(turns) {
     if (role === "assistant") {
       clean.sourceIds = Array.isArray(turn.sourceIds) ? turn.sourceIds.filter(id => typeof id === "string" && id.length < 40).slice(0, 3) : [];
       clean.propertyIds = Array.isArray(turn.propertyIds) ? turn.propertyIds.filter(id => ["shopGround", "shopFirst", "detached"].includes(id)).slice(0, 3) : [];
+      if (answerLanguages.includes(turn.language)) clean.language = turn.language;
       if (turn.enquiry?.requested === true) clean.enquiry = { requested: true, ...Object.fromEntries(fields.map(key => [key, typeof turn.enquiry[key] === "string" ? turn.enquiry[key].slice(0, 120) : ""])) };
     }
     result.push(clean);

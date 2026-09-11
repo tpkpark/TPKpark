@@ -602,7 +602,8 @@ function askTpk(locale, routeId) {
       <form class="ask-tpk-form" data-ask-form>
         <label class="sr-only" for="ask-tpk-question">${escapeHtml(copy.input)}</label>
         <textarea id="ask-tpk-question" data-ask-input name="question" rows="2" maxlength="2000" required autocomplete="off" placeholder="${escapeHtml(copy.placeholder)}"></textarea>
-        <div class="ask-tpk-actions"><button type="button" data-ask-clear>${escapeHtml(copy.clear)}</button><button class="ask-tpk-send" type="submit" data-ask-send>${escapeHtml(copy.send)} <span aria-hidden="true">↑</span></button></div>
+        <p class="ask-tpk-voice-status" id="ask-tpk-voice-status" data-ask-voice-status role="status" hidden></p>
+        <div class="ask-tpk-actions"><button type="button" data-ask-clear>${escapeHtml(copy.clear)}</button><div class="ask-tpk-compose-actions"><button class="ask-tpk-voice" type="button" data-ask-voice aria-label="${escapeHtml(copy.voiceStart)}" aria-describedby="ask-tpk-voice-status" aria-pressed="false" title="${escapeHtml(copy.voiceStart)}" hidden><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 17v5M8 22h8"/></svg></button><button class="ask-tpk-send" type="submit" data-ask-send>${escapeHtml(copy.send)} <span aria-hidden="true">↑</span></button></div></div>
       </form>
       <p class="ask-tpk-memory">${escapeHtml(copy.memory)}</p>
       <p class="ask-tpk-note">${escapeHtml(copy.disclaimer)}</p>

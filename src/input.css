@@ -74,6 +74,9 @@ button, input, select, textarea { font: inherit; }
 .ask-tpk-message[data-role="user"] { margin-left: 1.5rem; background: var(--sage); }
 .ask-tpk-message strong { display: block; margin-bottom: .25rem; font-size: .75rem; color: var(--forest); }
 .ask-tpk-message p { margin: 0; white-space: pre-wrap; }
+.ask-tpk-listen { display: inline-flex; align-items: center; gap: .375rem; min-height: 36px; margin-top: .5rem; padding: .25rem .5rem; border: 1px solid var(--line); border-radius: 999px; background: var(--cream); color: var(--forest); font-size: .75rem; cursor: pointer; }
+.ask-tpk-listen:hover { border-color: var(--forest); background: var(--sage); }
+.ask-tpk-listen[aria-pressed="true"] { border-color: var(--forest); background: var(--forest); color: var(--cream); }
 .ask-tpk-sources { display: flex; flex-wrap: wrap; gap: .25rem .75rem; margin-top: .5rem; }
 .ask-tpk-sources a { display: inline-flex; align-items: center; min-height: 32px; font-size: .8125rem; color: var(--forest); }
 .ask-tpk-starters { display: grid; gap: .5rem; }
@@ -83,10 +86,15 @@ button, input, select, textarea { font: inherit; }
 .ask-tpk-form textarea { display: block; width: 100%; max-height: 8rem; resize: vertical; padding: .25rem; border: 0; background: transparent; font-size: 1rem; line-height: 1.5; }
 .ask-tpk-actions { display: flex; align-items: center; justify-content: space-between; gap: .75rem; margin-top: .5rem; }
 .ask-tpk-actions button { min-height: 44px; padding: .375rem .75rem; border-radius: 8px; font-size: .875rem; cursor: pointer; }
+.ask-tpk-compose-actions { display: flex; align-items: center; gap: .375rem; }
+.ask-tpk-actions .ask-tpk-voice { display: grid; place-items: center; width: 44px; padding: 0; border: 1px solid var(--line); border-radius: 50%; background: var(--cream); color: var(--forest); }
+.ask-tpk-actions .ask-tpk-voice:hover { border-color: var(--forest); background: var(--sage); }
+.ask-tpk-actions .ask-tpk-voice[aria-pressed="true"] { border-color: var(--forest); background: var(--forest); color: var(--cream); box-shadow: 0 0 0 4px rgba(23, 62, 49, .12); }
 .ask-tpk-actions .ask-tpk-send { background: var(--forest); color: var(--cream); }
 .ask-tpk-actions .ask-tpk-send span { margin-left: .375rem; }
 .ask-tpk-ai button:disabled { opacity: .55; cursor: wait; }
 .ask-tpk-status { margin: .875rem 0; font-size: .875rem; color: var(--forest); }
+.ask-tpk-voice-status { margin: .5rem 0 0; font-size: .75rem; line-height: 1.45; color: var(--forest); }
 .ask-tpk-note, .ask-tpk-privacy { margin: .75rem 0 0; font-size: .75rem; line-height: 1.5; color: #48564e; }
 .ask-tpk-handoff { display: flex; flex-wrap: wrap; gap: .25rem 1rem; font-size: .875rem; color: var(--forest); }
 .ask-tpk-handoff a { display: inline-flex; align-items: center; min-height: 44px; }

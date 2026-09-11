@@ -7,6 +7,7 @@ Implements the agreed Mr. M improvements for TPK Park's leasing and public-infor
 - Validated current-page context and relevant questions for property, business-category, leadership, contact and history/news pages. An explicit visitor topic wins over the page hint.
 - Last three completed exchanges survive navigation in the same tab for up to 90 minutes of inactivity. New chat clears them. Storage-blocked browsers continue in page memory. Failed questions remain editable and never become completed history.
 - Auto / EN / 中文 / BM answer preference. Auto supports additional languages, including Japanese, with Japanese kana checked before Chinese Han characters. Fixed preferences override language requests in chat. Page controls, reference cards and email templates use the website page language.
+- Optional browser/device voice controls add short-question dictation and answer playback where supported. Dictation never submits automatically: recognised text remains editable for review. Voice controls stay hidden in unsupported or insecure browsers, never listen continuously and stop when the panel closes. Audio is not sent to TPK Park analytics; only anonymous start/ready/playback action categories follow the visitor’s existing analytics choice.
 - Ground-floor shop, first-floor shop and No. 7 recommendation cards use the current public site data, images, areas, asking rents and PDF links. The model selects approved IDs only. Shop whole-unit area remains labelled as covering two floors. Unit 69 has no recommendation card or retired brochure link.
 - Email drafts appear only after an explicit request or the Draft an enquiry button. The assistant extracts verbatim visitor-supplied business type, budget, size, floor and timing; it cannot turn its own suggestions into visitor requirements. Missing fields remain blank. The visitor reviews/edits the draft and opens their email app to send it. Edits are not submitted to the model, analytics or a lead service.
 - Permanent office phone, team email and leasing links remain usable during errors. No WhatsApp or FormSubmit.
@@ -21,6 +22,8 @@ Production retains the existing `TPK_AI_ENABLED=1` switch and authentication beh
 The local abuse backstop allows 100 requests per network hash in a fixed 10-minute window per instance (formerly 12), with three concurrent model calls per instance. These controls are neither a globally shared per-network quota nor a monthly spending cap. Raw IPs and transcripts are never stored by the site; only temporary counters and a rotating salted network hash are used. Retry-After reports the actual local window or provider cooldown. Existing Gateway quota refusals are handled safely without exposing provider error bodies or automatically retrying.
 
 The named `codex/ask-tpk-upgrade` preview enables AI for review using the existing preview convention. Its requests use the existing Gateway account and credit.
+
+The follow-up `codex/ask-tpk-voice` preview uses the same convention so the browser-native voice controls can be reviewed with the existing assistant. Voice recognition and playback do not create a second model request or require a new API key.
 
 ## Data boundaries
 

@@ -179,9 +179,9 @@ test("assistant categories respect basic, detailed, off, privacy signals and pre
     const page = client(options);
     const basic = !options.privacy && !options.hostname && options.saved !== "off";
     const detailed = basic && options.saved === "detailed";
-    for (const action of ["open", "question", "answer", "draft_ready", "error"]) page.assistant({ action, reason: "timeout", question: "private@example.com", answer: "Secret", draft: "Confidential" });
-    assert.equal(page.basicSent().length, basic ? 5 : 0);
-    assert.equal(page.sent().filter(e => e[1].startsWith("assistant_")).length, detailed ? 5 : 0);
+    for (const action of ["open", "question", "answer", "draft_ready", "voice_start", "voice_ready", "listen_start", "error"]) page.assistant({ action, reason: "timeout", question: "private@example.com", answer: "Secret", draft: "Confidential", transcript: "Do not collect" });
+    assert.equal(page.basicSent().length, basic ? 8 : 0);
+    assert.equal(page.sent().filter(e => e[1].startsWith("assistant_")).length, detailed ? 8 : 0);
     const payloads = JSON.stringify([page.sent(), page.basicSent()]);
     assert.doesNotMatch(payloads, /private@example.com|Secret|Confidential/);
     if (basic) assert.equal(page.basicSent().at(-1).data.target, "timeout");

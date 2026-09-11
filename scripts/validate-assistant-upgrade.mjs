@@ -115,6 +115,7 @@ test("generated pages expose contextual controls, safe catalogs and updated disc
     ms: "Jawapan AI mungkin tidak tepat, jadi sahkan ketersediaan dan butiran penyewaan dengan pasukan kami.",
     zh: "AI回答可能不准确，请向团队确认当前供应及租赁详情。"
   };
+  const removedDisclosureTitles = ["About this assistant", "Tentang pembantu ini", "关于此助手"];
   for (const locale of ["en", "ms", "zh"]) for (const id of ["leasingShop", "leasingDetached", "profile", "contact"]) {
     const html = await readFile(new URL(".." + routePath(locale, id) + "index.html", import.meta.url), "utf8");
     assert.ok(html.includes(`data-pathname="${routePath(locale, id)}"`));
@@ -123,6 +124,10 @@ test("generated pages expose contextual controls, safe catalogs and updated disc
     assert.match(html, /data-ask-voice-status/);
     assert.match(html, /90/);
     assert.doesNotMatch(html, /class="ask-tpk-(?:memory|note)"/);
+    assert.match(html, /<details class="ask-tpk-guide"><summary><span>[^<]+<\/span><span class="ask-tpk-guide-icon" aria-hidden="true">i<\/span><\/summary><p class="ask-tpk-guide-note">/);
+    assert.doesNotMatch(html, /<details class="ask-tpk-guide"[^>]*\sopen(?:\s|>)/);
+    assert.doesNotMatch(html, /ask-tpk-privacy/);
+    for (const title of removedDisclosureTitles) assert.ok(!html.includes(title));
     assert.match(html, /tel:\+60380765200/);
     const catalog = JSON.parse(html.match(/<script type="application\/json" id="ask-tpk-config">([^<]+)<\/script>/)[1]);
     assert.ok(catalog.copy.privacy.includes(accuracyNotice[locale]));

@@ -17,6 +17,7 @@ test("production requires activation and arbitrary sites cannot call the endpoin
   assert.equal(assistantEnabled({ VERCEL_ENV: "production" }), false);
   assert.equal(assistantEnabled({ VERCEL_ENV: "production", TPK_AI_ENABLED: "1" }), true);
   assert.equal(assistantEnabled({ VERCEL_ENV: "preview", VERCEL_GIT_COMMIT_REF: "codex/ai-assistant" }), true);
+  assert.equal(assistantEnabled({ VERCEL_ENV: "preview", VERCEL_GIT_COMMIT_REF: "codex/ask-tpk-voice" }), true);
   assert.equal(assistantEnabled({ VERCEL_ENV: "preview", VERCEL_GIT_COMMIT_REF: "codex/ai-assistant", TPK_AI_ENABLED: "0" }), false);
   const env = { VERCEL: "1", VERCEL_URL: "tpk-test.vercel.app" };
   for (const origin of ["https://tpkpark.com", "https://www.tpkpark.com", "https://tpk-test.vercel.app"]) assert.equal(allowedOrigin(origin, env), true);
@@ -56,6 +57,7 @@ test("follow-ups reach the real model protocol with fixed public grounding and n
     return completion("一楼参考租金为每月RM3,600，请向团队确认。", ["leasingShop", "contact"]);
   } });
   assert.equal(calls, 1);
+  assert.equal(result.language, "zh");
   assert.equal(result.sources[0].url, "/zh/leasing/shop-showroom/");
 });
 
@@ -135,17 +137,17 @@ test("Chinese questions and numeric follow-ups retain language even on English p
 });
 
 const clientSource = await readFile(new URL("../js/ask-tpk.js", import.meta.url), "utf8");
-function chatClient(responses, storage = { getItem() {}, setItem() {}, removeItem() {} }) {
+function chatClient(responses, storage = { getItem() {}, setItem() {}, removeItem() {} }, browser = {}) {
   let now = Date.now();
   const telemetry = [];
   class Element {
-    constructor() { this.dataset = {}; this.children = []; this.events = {}; this.value = ""; this.hidden = false; this.textContent = ""; }
+    constructor() { this.dataset = {}; this.children = []; this.events = {}; this.attributes = {}; this.value = ""; this.hidden = false; this.textContent = ""; }
     addEventListener(name, fn) {
       const previous = this.events[name];
       this.events[name] = previous ? event => { previous(event); return fn(event); } : fn;
     }
-    setAttribute() {}
-    getAttribute() { return "false"; }
+    setAttribute(name, value) { this.attributes[name] = String(value); }
+    getAttribute(name) { return this.attributes[name] ?? "false"; }
     querySelector() { return null; }
     querySelectorAll() { return []; }
     append(...items) { items.forEach(item => { item.parent = this; this.children.push(item); }); }
@@ -157,9 +159,10 @@ function chatClient(responses, storage = { getItem() {}, setItem() {}, removeIte
     focus() {}
     scrollIntoView() {}
   }
-  const names = ["trigger", "panel", "close", "form", "input", "messages", "status", "starters", "clear", "send", "language", "draft"];
+  const names = ["trigger", "panel", "close", "form", "input", "messages", "status", "starters", "clear", "send", "language", "draft", "voice", "voice-status"];
   const elements = Object.fromEntries(names.map(name => [name, new Element()]));
   elements.panel.hidden = true;
+  elements.voice.hidden = true;
   const widget = new Element();
   widget.dataset = { aiEnabled: "true", locale: "en", pathname: "/", you: "You", assistant: "AI", error: "Try again", busy: "Busy", thinking: "Thinking", sources: "Sources" };
   widget.querySelector = selector => elements[selector.replace(/\[data-ask-|\]/g, "")];
@@ -167,13 +170,13 @@ function chatClient(responses, storage = { getItem() {}, setItem() {}, removeIte
   const document = { querySelector: selector => selector === "[data-ask-tpk]" ? widget : selector === "#ask-tpk-config" ? { textContent: JSON.stringify(config) } : null, addEventListener() {}, createElement: () => new Element(), dispatchEvent(event) { telemetry.push({ type: event.type, ...event.detail }); } };
   const requests = [];
   vm.runInNewContext(clientSource.replace(/^import .*?;\n/, ""), {
-    ...stateHelpers, window: { sessionStorage: storage },
+    ...stateHelpers, window: { sessionStorage: storage, ...browser },
     document, location: { origin: "https://www.tpkpark.com" }, URL, TextEncoder, AbortController, setTimeout, clearTimeout, Date: class extends Date { static now() { return now; } },
     MutationObserver: class { observe() {} },
     CustomEvent: class { constructor(type, options) { this.type = type; this.detail = options.detail; } },
     fetch: async (url, options) => { requests.push({ url, body: JSON.parse(options.body) }); return responses.shift(); }
   });
-  return { ...elements, telemetry, requests, advance: ms => { now += ms; }, submit: () => elements.form.events.submit({ preventDefault() {} }) };
+  return { ...elements, voiceStatus: elements["voice-status"], telemetry, requests, advance: ms => { now += ms; }, submit: () => elements.form.events.submit({ preventDefault() {} }) };
 }
 
 test("chat renders plain text and approved links, preserves follow-ups, and clears local history", async () => {
@@ -281,4 +284,49 @@ test("opening the assistant is measured only when the panel opens", () => {
   page.trigger.events.click();
   assert.deepEqual(page.telemetry.map(e => e.action), ["open", "open"]);
   assert.equal(page.requests.length, 0);
+});
+
+test("browser voice input stays reviewable and answer playback is optional", async () => {
+  const recognitions = [];
+  class Recognition {
+    constructor() { recognitions.push(this); }
+    start() { this.onstart?.(); }
+    stop() { this.onend?.(); }
+    abort() {}
+  }
+  const spoken = [];
+  const speechSynthesis = {
+    speak(utterance) { spoken.push(utterance); utterance.onstart?.(); },
+    cancel() {}
+  };
+  class SpeechSynthesisUtterance { constructor(text) { this.text = text; } }
+  const response = { ok: true, json: async () => ({ answer: "Sewa yang diterbitkan ialah RM3,600 sebulan.", sources: [], propertyIds: [], enquiry: emptyEnquiry(), language: "ms" }) };
+  const page = chatClient([response], { getItem() {}, setItem() {}, removeItem() {} }, { SpeechRecognition: Recognition, speechSynthesis, SpeechSynthesisUtterance, navigator: { language: "en-MY" }, isSecureContext: true });
+  assert.equal(page.voice.hidden, false);
+  page.language.value = "ms";
+  page.language.events.change();
+  page.input.value = "Saya";
+  page.voice.events.click();
+  assert.equal(recognitions[0].lang, "ms-MY");
+  assert.equal(page.voice.getAttribute("aria-pressed"), "true");
+  recognitions[0].onresult({ results: [[{ transcript: "mahu sewa kedai" }]] });
+  assert.equal(page.input.value, "Saya mahu sewa kedai");
+  assert.equal(page.requests.length, 0, "Dictation must remain editable until the visitor sends it");
+  assert.deepEqual(page.telemetry.map(event => event.action), ["voice_start", "voice_ready"]);
+  await page.submit();
+  assert.equal(page.requests[0].body.messages[0].content, "Saya mahu sewa kedai");
+  const listen = page.messages.children[1].children[2];
+  assert.equal(listen.textContent, "Listen");
+  listen.events.click();
+  assert.equal(spoken[0].text, "Sewa yang diterbitkan ialah RM3,600 sebulan.");
+  assert.equal(spoken[0].lang, "ms-MY");
+  assert.equal(listen.getAttribute("aria-pressed"), "true");
+  assert.deepEqual(page.telemetry.map(event => event.action), ["voice_start", "voice_ready", "question", "answer", "listen_start"]);
+  assert.doesNotMatch(JSON.stringify(page.telemetry), /mahu sewa|RM3,600/);
+});
+
+test("voice controls remain hidden when browser speech recognition is unavailable", () => {
+  const page = chatClient([]);
+  assert.equal(page.voice.hidden, true);
+  assert.equal(page.voice.events.click, undefined);
 });

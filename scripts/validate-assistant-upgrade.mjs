@@ -76,12 +76,13 @@ test("email drafts require an explicit request and only quote visitor requiremen
 
 test("tab storage restores only bounded completed exchanges and expires or clears them", () => {
   const storage = memoryStorage();
-  const turns = Array.from({ length: 8 }, (_, i) => ({ role: i % 2 ? "assistant" : "user", content: `Turn ${i}`, sourceIds: ["profile"], propertyIds: ["detached"], enquiry: emptyEnquiry() }));
+  const turns = Array.from({ length: 8 }, (_, i) => ({ role: i % 2 ? "assistant" : "user", content: `Turn ${i}`, sourceIds: ["profile"], propertyIds: ["detached"], enquiry: emptyEnquiry(), language: i % 2 ? "zh" : undefined }));
   saveSession(storage, { turns, replyPreference: "zh", retryAt: 4000 }, 1000);
   const loaded = loadSession(storage, 2000);
   assert.equal(loaded.turns.length, 6);
   assert.equal(loaded.turns[0].content, "Turn 2");
   assert.equal(loaded.replyPreference, "zh");
+  assert.equal(loaded.turns[1].language, "zh");
   assert.equal(loaded.retryAt, 4000);
   assert.equal(requestMessages(loaded.turns, "What about the rent?").length, 7);
   assert.equal(loadSession(storage, 1000 + SESSION_TTL).turns.length, 0);
@@ -113,6 +114,8 @@ test("generated pages expose contextual controls, safe catalogs and updated disc
     const html = await readFile(new URL(".." + routePath(locale, id) + "index.html", import.meta.url), "utf8");
     assert.ok(html.includes(`data-pathname="${routePath(locale, id)}"`));
     assert.match(html, /data-ask-language/);
+    assert.match(html, /data-ask-voice[^-]/);
+    assert.match(html, /data-ask-voice-status/);
     assert.match(html, /90/);
     assert.match(html, /tel:\+60380765200/);
     const catalog = JSON.parse(html.match(/<script type="application\/json" id="ask-tpk-config">([^<]+)<\/script>/)[1]);

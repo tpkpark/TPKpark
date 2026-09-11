@@ -19,6 +19,9 @@ Location searches include `kinrara industrial park` (27 impressions, 0 clicks, a
 | `assistant_answer` | A new answer displayed | Does not establish correctness, satisfaction or enquiry intent |
 | `assistant_error` | A request failed | Only rate_limited, timeout, network, invalid_response or unavailable; no raw diagnostics |
 | `assistant_draft_ready` | A requested email draft displayed | Not sent or received |
+| `assistant_voice_start` | Browser speech recognition started after a visitor tapped the microphone | No microphone audio or transcript is measured |
+| `assistant_voice_ready` | Recognised text was added to the editable question field | The text is not measured and has not been sent |
+| `assistant_listen_start` | Browser or device began reading an answer aloud | The answer content is not measured |
 | `contact_click` + `assistant:phone` / `assistant:email` | Office contact link clicked in chat | A click does not prove a call connected or an email was sent |
 | `contact_click` + `assistant:email_draft` | Reviewed draft opened in an email app | Still not a received enquiry |
 | `file_download` + `assistant:<filename>` | A brochure link clicked in chat | Not proof of a completed download |

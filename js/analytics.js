@@ -160,7 +160,7 @@
   });
 
   // Only bounded action categories cross this boundary; never forward event.detail wholesale.
-  const assistantActions = new Set(["open", "question", "answer", "error", "draft_ready"]);
+  const assistantActions = new Set(["open", "question", "answer", "error", "draft_ready", "voice_start", "voice_ready", "listen_start"]);
   const assistantErrors = new Set(["rate_limited", "timeout", "network", "invalid_response", "unavailable"]);
   document.addEventListener("tpk:assistant", event => {
     const action = event.detail?.action;

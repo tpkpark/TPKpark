@@ -8,6 +8,7 @@ import { loadSession, saveSession, clearSession, boundedTurns, requestMessages, 
   const panel = widget.querySelector("[data-ask-panel]");
   const closeButton = widget.querySelector("[data-ask-close]");
   if (!trigger || !panel || !closeButton) return;
+  let stopVoiceFeatures = () => {};
 
   function measure(action, reason) {
     // Emit categories only. The analytics listener applies the visitor's active setting.
@@ -17,6 +18,7 @@ import { loadSession, saveSession, clearSession, boundedTurns, requestMessages, 
   }
 
   function close(restoreFocus = false) {
+    stopVoiceFeatures();
     panel.hidden = true;
     trigger.setAttribute("aria-expanded", "false");
     if (restoreFocus && !trigger.hidden) trigger.focus();
@@ -64,6 +66,8 @@ import { loadSession, saveSession, clearSession, boundedTurns, requestMessages, 
   if (!form || !input || !log || !status || !starters || !clearButton || !sendButton) return;
   const language = widget.querySelector("[data-ask-language]");
   const draftButton = widget.querySelector("[data-ask-draft]");
+  const voiceButton = widget.querySelector("[data-ask-voice]");
+  const voiceStatus = widget.querySelector("[data-ask-voice-status]");
   let config;
   try { config = JSON.parse(document.querySelector("#ask-tpk-config").textContent); } catch { return; }
   const copy = config.copy;
@@ -75,6 +79,70 @@ import { loadSession, saveSession, clearSession, boundedTurns, requestMessages, 
   let pending = false;
   let expiryTimer;
   language.value = state.replyPreference;
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const speechSynthesis = window.speechSynthesis;
+  const SpeechUtterance = window.SpeechSynthesisUtterance;
+  const canDictate = Boolean(voiceButton && voiceStatus && typeof SpeechRecognition === "function" && window.isSecureContext !== false);
+  const canSpeak = Boolean(speechSynthesis && typeof speechSynthesis.speak === "function" && typeof speechSynthesis.cancel === "function" && typeof SpeechUtterance === "function");
+  let recognition = null;
+  let listening = false;
+  let speakingButton = null;
+  if (canDictate) voiceButton.hidden = false;
+
+  const speechLocales = Object.freeze({ en: "en-MY", ms: "ms-MY", zh: "zh-CN", ja: "ja-JP", ko: "ko-KR", th: "th-TH", id: "id-ID", ta: "ta-IN", hi: "hi-IN", ar: "ar-SA", fr: "fr-FR", de: "de-DE", es: "es-ES" });
+  function speechLanguage(text, hint = "auto") {
+    if (speechLocales[hint]) return speechLocales[hint];
+    if (speechLocales[state.replyPreference]) return speechLocales[state.replyPreference];
+    if (/[぀-ヿ]/u.test(text)) return speechLocales.ja;
+    if (/\p{Script=Hangul}/u.test(text)) return speechLocales.ko;
+    if (/\p{Script=Han}/u.test(text)) return speechLocales.zh;
+    if (/\p{Script=Thai}/u.test(text)) return speechLocales.th;
+    if (/\p{Script=Tamil}/u.test(text)) return speechLocales.ta;
+    if (/\p{Script=Devanagari}/u.test(text)) return speechLocales.hi;
+    if (/\p{Script=Arabic}/u.test(text)) return speechLocales.ar;
+    const browserLanguage = window.navigator?.language;
+    return typeof browserLanguage === "string" && /^[a-z]{2,3}(?:-[a-z0-9]+)*$/i.test(browserLanguage) ? browserLanguage : speechLocales[widget.dataset.locale] || "en-MY";
+  }
+  function setVoiceStatus(text = "") {
+    if (!voiceStatus) return;
+    voiceStatus.textContent = text;
+    voiceStatus.hidden = !text;
+  }
+  function setListening(value) {
+    listening = value;
+    if (!voiceButton) return;
+    voiceButton.setAttribute("aria-pressed", String(value));
+    voiceButton.setAttribute("aria-label", value ? copy.voiceStop : copy.voiceStart);
+    voiceButton.title = value ? copy.voiceStop : copy.voiceStart;
+  }
+  function abortRecognition() {
+    if (!recognition) return;
+    const active = recognition;
+    recognition = null;
+    active.onresult = null;
+    active.onerror = null;
+    active.onend = null;
+    try { active.abort(); } catch { /* Recognition may already have ended. */ }
+    setListening(false);
+  }
+  function resetListenButton(button) {
+    if (!button) return;
+    button.textContent = copy.listen;
+    button.setAttribute("aria-label", copy.listenAnswer);
+    button.setAttribute("aria-pressed", "false");
+  }
+  function stopSpeech() {
+    if (!canSpeak) return;
+    const previous = speakingButton;
+    speakingButton = null;
+    try { speechSynthesis.cancel(); } catch { /* Playback may already have ended. */ }
+    resetListenButton(previous);
+  }
+  stopVoiceFeatures = () => {
+    abortRecognition();
+    stopSpeech();
+    setVoiceStatus();
+  };
 
   function persist() {
     saveSession(storage, state);
@@ -140,11 +208,49 @@ import { loadSession, saveSession, clearSession, boundedTurns, requestMessages, 
     box.append(label, open);
     item.append(box);
   }
+  function renderListen(text, hint) {
+    if (!canSpeak) return null;
+    const button = textElement("button", copy.listen, "ask-tpk-listen");
+    button.type = "button";
+    button.setAttribute("aria-label", copy.listenAnswer);
+    button.setAttribute("aria-pressed", "false");
+    button.addEventListener("click", () => {
+      if (speakingButton === button) return stopSpeech();
+      stopSpeech();
+      let utterance;
+      try { utterance = new SpeechUtterance(text); }
+      catch { return; }
+      utterance.lang = speechLanguage(text, hint);
+      utterance.rate = 1;
+      utterance.onstart = () => {
+        speakingButton = button;
+        button.textContent = copy.stopAudio;
+        button.setAttribute("aria-label", copy.stopAudio);
+        button.setAttribute("aria-pressed", "true");
+        measure("listen_start");
+      };
+      const finish = () => {
+        if (speakingButton !== button) return;
+        speakingButton = null;
+        resetListenButton(button);
+      };
+      utterance.onend = finish;
+      utterance.onerror = finish;
+      speakingButton = button;
+      try { speechSynthesis.speak(utterance); }
+      catch { finish(); }
+    });
+    return button;
+  }
   function message(role, text, sources = [], rich = {}) {
     const item = document.createElement("div");
     item.className = "ask-tpk-message";
     item.dataset.role = role;
     item.append(textElement("strong", widget.dataset[role === "user" ? "you" : "assistant"]), textElement("p", text));
+    if (role === "assistant") {
+      const listenButton = renderListen(text, rich.language);
+      if (listenButton) item.append(listenButton);
+    }
     const links = document.createElement("nav");
     links.className = "ask-tpk-sources";
     links.setAttribute("aria-label", widget.dataset.sources);
@@ -171,6 +277,7 @@ import { loadSession, saveSession, clearSession, boundedTurns, requestMessages, 
     clearButton.disabled = value;
     language.disabled = value;
     draftButton.disabled = value;
+    if (voiceButton) voiceButton.disabled = value;
     for (const button of starterButtons) button.disabled = value;
     form.setAttribute("aria-busy", String(value));
   }
@@ -193,7 +300,62 @@ import { loadSession, saveSession, clearSession, boundedTurns, requestMessages, 
   armExpiry();
   document.addEventListener("visibilitychange", expire);
   trigger.addEventListener("click", expire);
-  language.addEventListener("change", () => { state.replyPreference = language.value; persist(); });
+  language.addEventListener("change", () => { stopVoiceFeatures(); state.replyPreference = language.value; persist(); });
+  if (canDictate) voiceButton.addEventListener("click", () => {
+    if (pending) return;
+    if (listening && recognition) {
+      try { recognition.stop(); } catch { abortRecognition(); }
+      return;
+    }
+    abortRecognition();
+    stopSpeech();
+    setVoiceStatus();
+    let active;
+    try { active = new SpeechRecognition(); }
+    catch { setVoiceStatus(copy.voiceError); return; }
+    recognition = active;
+    const base = input.value.trimEnd();
+    let heard = false;
+    let failed = false;
+    active.lang = speechLanguage("", state.replyPreference);
+    active.continuous = false;
+    active.interimResults = false;
+    active.maxAlternatives = 1;
+    active.onstart = () => {
+      if (recognition !== active) return;
+      setListening(true);
+      setVoiceStatus(copy.voiceListening);
+      measure("voice_start");
+    };
+    active.onresult = event => {
+      if (recognition !== active || heard) return;
+      const transcript = Array.from(event.results || [], result => result?.[0]?.transcript || "").join(" ").trim();
+      if (!transcript) return;
+      heard = true;
+      input.value = `${base}${base ? " " : ""}${transcript}`.slice(0, 2000);
+      setVoiceStatus(copy.voiceReady);
+      measure("voice_ready");
+      input.focus({ preventScroll: true });
+    };
+    active.onerror = event => {
+      if (recognition !== active) return;
+      failed = true;
+      const reason = event?.error;
+      setVoiceStatus(["not-allowed", "service-not-allowed"].includes(reason) ? copy.voiceDenied : reason === "no-speech" ? copy.voiceNoSpeech : copy.voiceError);
+    };
+    active.onend = () => {
+      if (recognition !== active) return;
+      recognition = null;
+      setListening(false);
+      if (!heard && !failed) setVoiceStatus(copy.voiceNoSpeech);
+    };
+    try { active.start(); }
+    catch {
+      recognition = null;
+      setListening(false);
+      setVoiceStatus(copy.voiceError);
+    }
+  });
   for (const button of starterButtons) button.addEventListener("click", () => {
     if (pending) return;
     input.value = button.textContent;
@@ -212,6 +374,7 @@ import { loadSession, saveSession, clearSession, boundedTurns, requestMessages, 
   });
   clearButton.addEventListener("click", () => {
     if (pending) return;
+    stopVoiceFeatures();
     state.turns = [];
     clearSession(storage);
     restore();
@@ -223,6 +386,9 @@ import { loadSession, saveSession, clearSession, boundedTurns, requestMessages, 
     event.preventDefault();
     const question = input.value.trim();
     if (pending || !question || question.length > 2000) return;
+    abortRecognition();
+    stopSpeech();
+    setVoiceStatus();
     expire();
     if (Date.now() < state.retryAt) {
       status.textContent = retryMessage();
@@ -266,7 +432,7 @@ import { loadSession, saveSession, clearSession, boundedTurns, requestMessages, 
       const answer = message("assistant", result.answer, result.sources, result);
       const sourceIds = result.sources.filter(safeSource).map(source => source.id || Object.keys(config.sources).find(id => config.sources[id].url === source.url)).filter(id => Object.hasOwn(config.sources, id));
       // Save only completed exchanges; an interrupted question stays editable.
-      state.turns = boundedTurns([...state.turns, { role: "user", content: question }, { role: "assistant", content: result.answer, sourceIds, propertyIds: result.propertyIds, enquiry: result.enquiry }]);
+      state.turns = boundedTurns([...state.turns, { role: "user", content: question }, { role: "assistant", content: result.answer, sourceIds, propertyIds: result.propertyIds, enquiry: result.enquiry, language: result.language }]);
       state.retryAt = 0;
       persist();
       while (log.childElementCount > state.turns.length) log.firstElementChild.remove();

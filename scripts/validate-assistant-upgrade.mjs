@@ -110,6 +110,11 @@ test("production uses its existing Gateway setup; quota refusals never trigger a
 });
 
 test("generated pages expose contextual controls, safe catalogs and updated disclosure in all three locales", async () => {
+  const accuracyNotice = {
+    en: "AI answers may be inaccurate, so confirm availability and leasing details with our team.",
+    ms: "Jawapan AI mungkin tidak tepat, jadi sahkan ketersediaan dan butiran penyewaan dengan pasukan kami.",
+    zh: "AI回答可能不准确，请向团队确认当前供应及租赁详情。"
+  };
   for (const locale of ["en", "ms", "zh"]) for (const id of ["leasingShop", "leasingDetached", "profile", "contact"]) {
     const html = await readFile(new URL(".." + routePath(locale, id) + "index.html", import.meta.url), "utf8");
     assert.ok(html.includes(`data-pathname="${routePath(locale, id)}"`));
@@ -117,8 +122,10 @@ test("generated pages expose contextual controls, safe catalogs and updated disc
     assert.match(html, /data-ask-voice[^-]/);
     assert.match(html, /data-ask-voice-status/);
     assert.match(html, /90/);
+    assert.doesNotMatch(html, /class="ask-tpk-(?:memory|note)"/);
     assert.match(html, /tel:\+60380765200/);
     const catalog = JSON.parse(html.match(/<script type="application\/json" id="ask-tpk-config">([^<]+)<\/script>/)[1]);
+    assert.ok(catalog.copy.privacy.includes(accuracyNotice[locale]));
     assert.deepEqual(Object.keys(catalog.catalog), ["shopGround", "shopFirst", "detached"]);
     assert.doesNotMatch(JSON.stringify(catalog.catalog), /no-69-for-lease/);
   }

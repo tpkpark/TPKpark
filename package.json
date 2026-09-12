@@ -7,7 +7,7 @@
   "scripts": {
     "generate": "node scripts/build-site.mjs && node scripts/enhance-jade-profile.mjs",
     "build:css": "tailwindcss -i ./src/input.css -o ./css/tailwind.css --minify",
-    "build": "npm run generate && npm run build:css && node scripts/validate-ai-live.mjs",
+    "build": "npm run generate && npm run build:css && node scripts/validate-ai-live.mjs && node scripts/validate-jade-profile.mjs",
     "validate": "node scripts/validate-site.mjs && node scripts/validate-jade-profile.mjs",
     "test": "npm run build && npm run validate && node --test scripts/validate-analytics.mjs scripts/validate-enquiry.mjs scripts/validate-assistant.mjs scripts/validate-assistant-upgrade.mjs scripts/validate-search-portfolio.mjs"
   },

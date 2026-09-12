@@ -70,7 +70,7 @@ function refineMeta(html, config) {
   html = html.replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${config.description}">`);
   html = html.replace(/<meta property="og:title" content="[^"]*">/, `<meta property="og:title" content="${config.title}">`);
   html = html.replace(/<meta property="og:description" content="[^"]*">/, `<meta property="og:description" content="${config.description}">`);
-  html = html.replace(/<meta name="twitter:title" content="[^"]*">/, `<meta name="twitter:title" content="${config.title}</meta>`);
+  html = html.replace(/<meta name="twitter:title" content="[^"]*">/, `<meta name="twitter:title" content="${config.title}">`);
   html = html.replace(/<meta name="twitter:description" content="[^"]*">/, `<meta name="twitter:description" content="${config.description}">`);
   return html;
 }

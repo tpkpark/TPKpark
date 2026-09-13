@@ -5,7 +5,7 @@ Multilingual website for TPK Park, with static pages and a small AI endpoint on 
 ## Structure
 
 - `scripts/site-data.mjs` contains the English, Bahasa Melayu and Chinese content.
-- `scripts/build-site.mjs` generates 14 routes for each language (42 HTML pages), including permanent leasing pages for the principal property formats.
+- `scripts/build-site.mjs` generates 14 routes for each language (42 HTML pages), including permanent leasing pages for the principal property formats. `scripts/enhance-jade-profile.mjs` adds three jade exhibition pages, bringing the total to 45.
 - `scripts/validate-site.mjs` checks routes, internal links, metadata, `hreflang`, JSON-LD, images and form labels.
 - `src/input.css` contains the shared design system.
 - Generated HTML and CSS are produced during the build; the generator, content model and stylesheet source are the maintenance source of truth.
@@ -51,7 +51,7 @@ Vercel builds with `npm run build`, serves the static pages and runs `api/ask.js
 ## Search and analytics maintenance
 
 - The approved search approach is additive: retain TPK Park brand/place visibility and Wong Shung Yen profile visibility while growing a separate high-intent Puchong leasing layer. The keyword-to-page map, early baseline, guardrails and review cadence are documented in [Additive search growth strategy](docs/search-growth-strategy.md). `scripts/validate-search-portfolio.mjs` protects the three distinct search tracks during future releases.
-- GSC property: `https://www.tpkpark.com/`. The sitemap contains all 42 canonical pages.
+- GSC property: `https://www.tpkpark.com/`. The sitemap contains all 45 canonical pages. The exhibition pages and their profile/public-record introductions share `jadeExhibitionLastModified` in `scripts/site-data.mjs`.
 - GA4 web stream: **TPK Park website**, property ID `552928193`, account ID `407042166`, stream ID `15734425194`, measurement ID `G-CF1WSRLQ2P`, Malaysia time and MYR. Account owner: TPK Park Sdn. Bhd.
 - `scripts/analytics-config.mjs` holds the public measurement ID and EN/MS/ZH analytics explanations. `js/analytics.js` operates only on `tpkpark.com` and `www.tpkpark.com`; local and preview deployments send no analytics.
 - **Basic statistics:** Vercel Web Analytics counts page views and selected actions without analytics cookies. Enable Web Analytics on the existing `tpkpark-site` project before deploying this integration. The stable `/_vercel/insights/script.js` route and HTML queue API are supported by Vercel's SDK. The service loads once per page; a `beforeSend` hook cleans page URLs and rejects subsequent measurements after opt-out.

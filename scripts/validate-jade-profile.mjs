@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
+import { jadeExhibitionLastModified } from "./site-data.mjs";
 
 const root = process.cwd();
 const origin = "https://www.tpkpark.com";
@@ -39,6 +40,6 @@ for (const page of pages) {
   assert.ok(sitemap.includes(`<loc>${origin}${page.path}</loc>`), `${page.locale}: sitemap entry missing`);
   assert.ok(sitemap.includes(`href="${origin}${page.path}"`), `${page.locale}: sitemap hreflang target missing`);
 }
-assert.ok(sitemap.match(/<lastmod>2026-09-12<\/lastmod>/g)?.length >= 3, "jade sitemap lastmod missing");
+assert.ok(sitemap.match(new RegExp(`<lastmod>${jadeExhibitionLastModified}</lastmod>`, "g"))?.length >= 3, "jade sitemap lastmod missing");
 
 console.log("Jade exhibition profile validation passed for EN, BM and ZH.");

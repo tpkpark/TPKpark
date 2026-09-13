@@ -4,9 +4,9 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const pages = [
-  { locale: "en", jade: "/wong-shung-yen/jade-exhibition-2024/", profile: "/wong-shung-yen/", record: "/wong-shung-yen/public-record/", title: "Wong Shung Yen | 2024 National Art Gallery Jade Co-Curator", description: "Source-led record of Wong Shung Yen’s co-curatorial role in the 2024 National Art Gallery jade exhibition marking 50 years of Malaysia–China relations." },
-  { locale: "ms", jade: "/ms/wong-shung-yen/jade-exhibition-2024/", profile: "/ms/wong-shung-yen/", record: "/ms/wong-shung-yen/public-record/", title: "Wong Shung Yen | Kurator Bersama Pameran Jed 2024", description: "Rekod berasaskan sumber mengenai peranan Wong Shung Yen sebagai kurator bersama pameran jed Balai Seni Negara 2024 sempena 50 tahun hubungan Malaysia–China." },
-  { locale: "zh", jade: "/zh/wong-shung-yen/jade-exhibition-2024/", profile: "/zh/wong-shung-yen/", record: "/zh/wong-shung-yen/public-record/", title: "黄松延｜2024国家美术馆《璀璨千年》古玉展联合策展人", description: "整理黄松延担任2024年国家美术馆《璀璨千年—不朽与繁荣之美》古玉展联合策展人的官方与媒体记录。展览配合马中建交50周年举行，获英语、中文及马来语媒体广泛报道。" },
+  { locale: "en", jade: "/wong-shung-yen/jade-exhibition-2024/", profile: "/wong-shung-yen/", record: "/wong-shung-yen/public-record/", title: "Wong Shung Yen | 2024 National Art Gallery Jade Co-Curator", description: "Explore the 2024 National Art Gallery jade exhibition, co-curated by Wong Shung Yen, with exhibition details, media coverage and catalogue information." },
+  { locale: "ms", jade: "/ms/wong-shung-yen/jade-exhibition-2024/", profile: "/ms/wong-shung-yen/", record: "/ms/wong-shung-yen/public-record/", title: "Wong Shung Yen | Kurator Bersama Pameran Jed 2024", description: "Kenali pameran jed Balai Seni Negara 2024 dengan Wong Shung Yen sebagai kurator bersama, termasuk butiran pameran, liputan media dan maklumat katalog." },
+  { locale: "zh", jade: "/zh/wong-shung-yen/jade-exhibition-2024/", profile: "/zh/wong-shung-yen/", record: "/zh/wong-shung-yen/public-record/", title: "黄松延｜2024国家美术馆《璀璨千年》古玉展联合策展人", description: "了解黄松延担任联合策展人的2024年国家美术馆《璀璨千年》古玉展，包括展览背景、媒体报道、学术支持及展览图录。" },
 ];
 
 function fileFor(pathname) {
@@ -33,8 +33,8 @@ for (const page of pages) {
   }
 
   if (page.locale === "zh") {
-    assert.ok(jade.includes("从古玉研究到当代文化交流"), "zh: expanded exhibition context missing");
-    assert.ok(jade.includes("策展工作的重点") && jade.includes("跨语言的公共记录") && jade.includes("展览的文化脉络"), "zh: expanded cultural context cards missing");
+    assert.ok(jade.includes("关于展览") && jade.includes("学术支持与展览图录"), "zh: exhibition background missing");
+    assert.ok(jade.includes("古玉与工艺") && jade.includes("马中建交50周年") && jade.includes("媒体报道"), "zh: exhibition overview cards missing");
   }
 }
 

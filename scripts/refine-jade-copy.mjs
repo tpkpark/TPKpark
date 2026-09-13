@@ -9,7 +9,7 @@ const pages = {
     profile: "/wong-shung-yen/",
     record: "/wong-shung-yen/public-record/",
     title: "Wong Shung Yen | 2024 National Art Gallery Jade Co-Curator",
-    description: "Source-led record of Wong Shung Yen’s co-curatorial role in the 2024 National Art Gallery jade exhibition marking 50 years of Malaysia–China relations.",
+    description: "Explore the 2024 National Art Gallery jade exhibition, co-curated by Wong Shung Yen, with exhibition details, media coverage and catalogue information.",
     replacements: [
       ["Dato’ Wong Shung Yen co-curated the National Art Gallery exhibition with Dr Low Cheong Sin for the Malaysian Chinese Cultural Society", "Dato’ Wong Shung Yen co-curated the National Art Gallery exhibition for the Malaysian Chinese Cultural Society"],
       ["Wong Shung Yen served as co-curator, together with Dr Low Cheong Sin, of a month-long National Art Gallery exhibition", "Wong Shung Yen served as co-curator of a month-long National Art Gallery exhibition"],
@@ -27,7 +27,7 @@ const pages = {
     profile: "/ms/wong-shung-yen/",
     record: "/ms/wong-shung-yen/public-record/",
     title: "Wong Shung Yen | Kurator Bersama Pameran Jed 2024",
-    description: "Rekod berasaskan sumber mengenai peranan Wong Shung Yen sebagai kurator bersama pameran jed Balai Seni Negara 2024 sempena 50 tahun hubungan Malaysia–China.",
+    description: "Kenali pameran jed Balai Seni Negara 2024 dengan Wong Shung Yen sebagai kurator bersama, termasuk butiran pameran, liputan media dan maklumat katalog.",
     replacements: [
       ["Dato’ Wong Shung Yen menjadi kurator bersama pameran Balai Seni Negara dengan Dr Low Cheong Sin bagi Pertubuhan Kebudayaan Cina Malaysia", "Dato’ Wong Shung Yen menjadi kurator bersama pameran Balai Seni Negara bagi Pertubuhan Kebudayaan Cina Malaysia"],
       ["Wong Shung Yen menjadi kurator bersama Dr Low Cheong Sin bagi pameran jed purba selama sebulan", "Wong Shung Yen menjadi kurator bersama bagi pameran jed purba selama sebulan"],
@@ -45,7 +45,7 @@ const pages = {
     profile: "/zh/wong-shung-yen/",
     record: "/zh/wong-shung-yen/public-record/",
     title: "黄松延｜2024国家美术馆《璀璨千年》古玉展联合策展人",
-    description: "整理黄松延担任2024年国家美术馆《璀璨千年—不朽与繁荣之美》古玉展联合策展人的官方与媒体记录。展览配合马中建交50周年举行，获英语、中文及马来语媒体广泛报道。",
+    description: "了解黄松延担任联合策展人的2024年国家美术馆《璀璨千年》古玉展，包括展览背景、媒体报道、学术支持及展览图录。",
     replacements: [
       ["拿督黄松延与刘创新博士共同策展，由马来西亚华人文化协会", "拿督黄松延担任联合策展人，由马来西亚华人文化协会"],
       ["2024年，黄松延与刘创新博士共同策划国家美术馆为期一个月的古玉展。", "2024年，黄松延担任联合策展人，参与策划国家美术馆为期一个月的古玉展。"],
@@ -57,7 +57,6 @@ const pages = {
       ["《光华日报》报道展览由策展人拿督黄松延和刘创新博士共同策划，并记录113件玉雕。", "《光华日报》记录拿督黄松延以策展人身份参与共同策划，并记录113件玉雕。"],
       ["MalaysiaGazette马来文报道列黄松延为策展人及马来西亚华人文化协会顾问，并列刘创新博士为策展人。", "MalaysiaGazette马来文报道列黄松延为策展人及马来西亚华人文化协会顾问。"],
     ],
-    extra: `<section class="section"><div class="shell"><div class="section-header"><div><span class="section-number">展览背景</span></div><div><h2>从古玉研究到当代文化交流</h2><p>这项展览于2024年11月23日至12月23日在吉隆坡国家美术馆举行，配合马来西亚与中国建交50周年。马来西亚中文主流媒体报道展出113件玉雕，作品跨越多个历史时期，以古玉作为理解历史审美、礼制传统、工艺与文化交流的切入点。</p></div></div><div class="card-grid"><article class="card"><span class="number">A</span><h3>策展工作的重点</h3><p>公开资料显示，黄松延不只是出席开幕活动，而是以策展人身份参与展览工作。主办方其后也在公开记录中感谢他参与策展，使这项文化经历具有明确的机构依据。</p></article><article class="card"><span class="number">B</span><h3>跨语言的公共记录</h3><p>国家美术馆与旅游、艺术及文化部的官方资料，以及《星报》《东方日报》《南洋商报》《光华日报》和马来文文化媒体，从不同语言与受众角度记录黄松延的策展角色。</p></article><article class="card"><span class="number">C</span><h3>展览的文化脉络</h3><p>西泠印社等中国文化机构的学术支持，以及展后图录的出版，进一步说明这并非单纯的庆典活动，而是一项具有收藏研究、文化传播与马中文化交流脉络的展览项目。</p></article></div></div></section>`,
   },
 };
 
@@ -97,9 +96,6 @@ for (const config of Object.values(pages)) {
   jade = refineMeta(jade, config);
   jade = removeVisibleCoCuratorName(jade, config);
   jade = giveBrandLogosAltText(jade);
-  if (config.extra && !jade.includes("从古玉研究到当代文化交流")) {
-    jade = jade.replace('<section class="section section-sage profile-sources-section">', `${config.extra}<section class="section section-sage profile-sources-section">`);
-  }
   await writeFile(jadeFile, jade, "utf8");
 }
 

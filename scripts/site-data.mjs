@@ -77,6 +77,7 @@ export const seoTitles = {
 };
 
 const septemberSeoRoutes = new Set(["home", "homeLiving", "automotive", "lifestyle", "leasing", "leasingShop", "leasingDetached", "leasingSemiDetached", "news", "milestones"]);
+export const jadeExhibitionLastModified = "2026-09-13";
 const routeLastModifiedOverrides = {
   news: "2026-09-11",
   home: "2026-09-11",
@@ -86,8 +87,8 @@ const routeLastModifiedOverrides = {
   leasingShop: "2026-09-09",
   leasingDetached: "2026-09-09",
   contact: "2026-09-08",
-  profile: "2026-09-04",
-  publicRecord: "2026-09-04"
+  profile: jadeExhibitionLastModified,
+  publicRecord: jadeExhibitionLastModified
 };
 export const routeLastModified = Object.fromEntries(routeIds.map((routeId) => [routeId, routeLastModifiedOverrides[routeId] || (septemberSeoRoutes.has(routeId) ? "2026-09-07" : "2026-09-03")]));
 

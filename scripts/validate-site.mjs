@@ -1,7 +1,7 @@
 import { access, readFile } from "node:fs/promises";
 import { dirname, join, normalize } from "node:path";
 import { fileURLToPath } from "node:url";
-import { articles, leasingInventory, localeConfig, origin, profileSources, routeIds, routeLastModified, routePath, seoTitles, site } from "./site-data.mjs";
+import { articles, jadeExhibitionLastModified, leasingInventory, localeConfig, origin, profileSources, routeIds, routeLastModified, routePath, seoTitles, site } from "./site-data.mjs";
 
 const root = process.cwd();
 const locales = Object.keys(localeConfig);
@@ -272,12 +272,18 @@ const sitemapPath = join(root, "sitemap.xml");
 const sitemap = await readFile(sitemapPath, "utf8");
 const locs = matches(sitemap, /<loc>([^<]+)<\/loc>/g);
 const lastmods = matches(sitemap, /<lastmod>([^<]+)<\/lastmod>/g);
-if (locs.length !== locales.length * routeIds.length) fail("sitemap.xml", `expected ${locales.length * routeIds.length} locations, found ${locs.length}`);
-if (lastmods.length !== locales.length * routeIds.length) fail("sitemap.xml", `expected ${locales.length * routeIds.length} lastmod values, found ${lastmods.length}`);
+// The jade generator adds one exhibition page per locale after the core routes.
+const jadeUrls = locales.map(locale => `${origin}${routePath(locale, "profile")}jade-exhibition-2024/`);
+const expectedSitemapCount = locales.length * routeIds.length + jadeUrls.length;
+if (locs.length !== expectedSitemapCount) fail("sitemap.xml", `expected ${expectedSitemapCount} locations, found ${locs.length}`);
+if (lastmods.length !== expectedSitemapCount) fail("sitemap.xml", `expected ${expectedSitemapCount} lastmod values, found ${lastmods.length}`);
 for (const locale of locales) for (const routeId of routeIds) {
   const url = `${origin}${routePath(locale, routeId)}`;
   if (!sitemap.includes(`<loc>${url}</loc>`)) fail("sitemap.xml", `missing ${url}`);
   if (!sitemap.includes(`<loc>${url}</loc>\n    <lastmod>${routeLastModified[routeId]}</lastmod>`)) fail("sitemap.xml", `missing or incorrect lastmod for ${url}`);
+}
+for (const url of jadeUrls) {
+  if (!sitemap.includes(`<loc>${url}</loc>\n    <lastmod>${jadeExhibitionLastModified}</lastmod>`)) fail("sitemap.xml", `missing or incorrect exhibition entry for ${url}`);
 }
 
 const robots = await readFile(join(root, "robots.txt"), "utf8");

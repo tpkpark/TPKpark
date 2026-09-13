@@ -122,10 +122,15 @@ const contextSources = [
     ms: "Pada Oktober 2024, Xiling Seal Art Society bersetuju memberikan sokongan akademik kepada pameran ini.",
     zh: "2024年10月，西泠印社复函同意担任展览的学术支持单位。",
   }},
-  { source: "Exhibition catalogue · Tai Yip Art Bookshop", titles: { ms: "Katalog pameran · Tai Yip Art Bookshop", zh: "展览图录 · 大业艺术书店" }, label: { en: "Exhibition catalogue", ms: "Katalog pameran", zh: "展览图录" }, url: "https://www.taiyipartbookshop.com/product/%E7%92%80%E8%80%80%E5%8D%83%E5%B9%B4-a-journey-across-millennia-of-dedication-to-enduring-prosperity/", text: {
-    en: "The exhibition catalogue documents 113 jade works spanning prehistoric cultures through the Ming and Qing dynasties. It is available at the National Art Gallery (Balai Seni Negara) bookshop in Kuala Lumpur and through Tai Yip Art Bookshop.",
-    ms: "Katalog pameran mendokumentasikan 113 karya jed dari zaman prasejarah hingga dinasti Ming dan Qing. Katalog ini boleh didapati di kedai buku Balai Seni Negara, Kuala Lumpur, serta melalui Tai Yip Art Bookshop.",
-    zh: "展览图录收录113件玉器作品，涵盖史前文化至明清时期。图录可于吉隆坡国家美术馆（Balai Seni Negara）书店及大业艺术书店购得。",
+  { source: "National Art Gallery (Balai Seni Negara) bookshop", titles: { ms: "Kedai buku Balai Seni Negara", zh: "国家美术馆（Balai Seni Negara）书店" }, label: { en: "Exhibition catalogue", ms: "Katalog pameran", zh: "展览图录" }, url: "https://www.artgallery.gov.my/", text: {
+    en: "The exhibition catalogue is available at the National Art Gallery bookshop in Kuala Lumpur.",
+    ms: "Katalog pameran boleh didapati di kedai buku Balai Seni Negara, Kuala Lumpur.",
+    zh: "展览图录可于吉隆坡国家美术馆书店购得。",
+  }},
+  { source: "Tai Yip Art Bookshop", titles: { ms: "Tai Yip Art Bookshop", zh: "大业艺术书店" }, label: { en: "Exhibition catalogue", ms: "Katalog pameran", zh: "展览图录" }, url: "https://www.taiyipartbookshop.com/product/%E7%92%80%E8%80%80%E5%8D%83%E5%B9%B4-a-journey-across-millennia-of-dedication-to-enduring-prosperity/", text: {
+    en: "The exhibition catalogue documents 113 jade works spanning prehistoric cultures through the Ming and Qing dynasties. It is also available through Tai Yip Art Bookshop.",
+    ms: "Katalog pameran mendokumentasikan 113 karya jed dari zaman prasejarah hingga dinasti Ming dan Qing. Katalog ini juga boleh didapati melalui Tai Yip Art Bookshop.",
+    zh: "展览图录收录113件玉器作品，涵盖史前文化至明清时期，亦可于大业艺术书店购得。",
   }},
 ];
 

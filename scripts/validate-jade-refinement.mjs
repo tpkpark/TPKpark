@@ -26,6 +26,8 @@ for (const page of pages) {
   assert.ok(jade.includes(`<meta name="description" content="${page.description}">`), `${page.locale}: refined description missing`);
   assert.ok(jade.includes('<meta name="twitter:title" content="'), `${page.locale}: twitter title metadata malformed`);
   assert.ok(jade.match(/alt="TPK Park"/g)?.length >= 2, `${page.locale}: brand logo alt text not refined`);
+  assert.ok(!jade.includes("data-jade-gallery-photo"), `${page.locale}: personal gallery photo section should not be embedded`);
+  assert.ok(!jade.includes("jade-gallery-visit"), `${page.locale}: bundled personal gallery photo should not be referenced`);
 
   for (const [label, html] of [["jade", jade], ["profile", profile], ["record", record]]) {
     const visible = mainText(html);
@@ -43,4 +45,4 @@ assert.ok(pages[1].title.length <= 60, "ms title remains too long");
 assert.ok(pages[0].description.length <= 160, "en description remains too long");
 assert.ok(pages[1].description.length <= 160, "ms description remains too long");
 
-console.log("Jade exhibition visible-copy refinement validation passed for EN, BM and ZH.");
+console.log("Jade exhibition visible-copy refinement validation passed for EN, BM and ZH, with no embedded personal gallery photo.");

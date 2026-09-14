@@ -20,6 +20,7 @@ test("production requires activation and arbitrary sites cannot call the endpoin
   assert.equal(assistantEnabled({ VERCEL_ENV: "preview", VERCEL_GIT_COMMIT_REF: "codex/ask-tpk-voice" }), true);
   assert.equal(assistantEnabled({ VERCEL_ENV: "preview", VERCEL_GIT_COMMIT_REF: "codex/ask-tpk-disclosure-cleanup" }), true);
   assert.equal(assistantEnabled({ VERCEL_ENV: "preview", VERCEL_GIT_COMMIT_REF: "codex/ask-tpk-ai-disclosure" }), true);
+  assert.equal(assistantEnabled({ VERCEL_ENV: "preview", VERCEL_GIT_COMMIT_REF: "codex/ask-tpk-mandarin-audio" }), true);
   assert.equal(assistantEnabled({ VERCEL_ENV: "preview", VERCEL_GIT_COMMIT_REF: "codex/ai-assistant", TPK_AI_ENABLED: "0" }), false);
   const env = { VERCEL: "1", VERCEL_URL: "tpk-test.vercel.app" };
   for (const origin of ["https://tpkpark.com", "https://www.tpkpark.com", "https://tpk-test.vercel.app"]) assert.equal(allowedOrigin(origin, env), true);
@@ -182,12 +183,13 @@ function chatClient(responses, storage = { getItem() {}, setItem() {}, removeIte
   const config = { locales: Object.fromEntries(["en", "ms", "zh"].map(locale => [locale, { copy: askTpkCopy[locale], catalog: propertyCatalog(locale), starters: starterQuestions(locale, "home"), sources: Object.fromEntries(routeIds.map(id => [id, { id, title: site[locale].pages[id].eyebrow || site[locale].pages[id].title, url: routePath(locale, id) }])) }])) };
   const document = { querySelector: selector => selector === "[data-ask-tpk]" ? widget : selector === "#ask-tpk-config" ? { textContent: JSON.stringify(config) } : null, addEventListener() {}, createElement: tag => new Element(tag), dispatchEvent(event) { telemetry.push({ type: event.type, ...event.detail }); } };
   const requests = [];
+  const clientFetch = async (url, options) => { requests.push({ url, body: JSON.parse(options.body) }); return responses.shift(); };
   vm.runInNewContext(clientSource.replace(/^import .*?;\n/, ""), {
-    ...stateHelpers, window: { sessionStorage: storage, ...browser },
+    ...stateHelpers, window: { sessionStorage: storage, fetch: clientFetch, URL, ...browser },
     document, location: { origin: "https://www.tpkpark.com" }, URL, TextEncoder, AbortController, setTimeout, clearTimeout, Date: class extends Date { static now() { return now; } },
     MutationObserver: class { observe() {} },
     CustomEvent: class { constructor(type, options) { this.type = type; this.detail = options.detail; } },
-    fetch: async (url, options) => { requests.push({ url, body: JSON.parse(options.body) }); return responses.shift(); }
+    fetch: clientFetch
   });
   return { ...elements, voiceStatus: elements["voice-status"], telemetry, requests, advance: ms => { now += ms; }, submit: () => elements.form.events.submit({ preventDefault() {} }) };
 }
@@ -386,6 +388,71 @@ test("browser voice input stays reviewable and answer playback is optional", asy
   assert.equal(listen.getAttribute("aria-pressed"), "true");
   assert.deepEqual(page.telemetry.map(event => event.action), ["voice_start", "voice_ready", "question", "answer", "listen_start"]);
   assert.doesNotMatch(JSON.stringify(page.telemetry), /mahu sewa|RM3,600/);
+});
+
+test("Chinese playback uses private Mandarin audio even when the phone exposes only English voices", async () => {
+  const native = [];
+  const speechSynthesis = {
+    speak(utterance) { native.push(utterance); utterance.onstart?.(); },
+    cancel() {},
+    getVoices() { return [{ name: "English", lang: "en-US" }]; }
+  };
+  class SpeechSynthesisUtterance { constructor(text) { this.text = text; } }
+  const remote = [];
+  const audioEvents = [];
+  const audios = [];
+  class Audio {
+    constructor(url) { this.url = url; this.currentTime = 0; audios.push(this); }
+    play() { audioEvents.push("play"); return Promise.resolve(); }
+    pause() { audioEvents.push("pause"); }
+  }
+  const windowURL = { createObjectURL() { audioEvents.push("create"); return "blob:mandarin"; }, revokeObjectURL() { audioEvents.push("revoke"); } };
+  const response = { ok: true, json: async () => ({ answer: "金銮工业园位于蒲种。", sources: [], propertyIds: [], enquiry: emptyEnquiry(), language: "zh" }) };
+  const page = chatClient([response], { getItem() {}, setItem() {}, removeItem() {} }, {
+    speechSynthesis, SpeechSynthesisUtterance, navigator: { language: "en-MY" }, isSecureContext: true,
+    fetch: async (url, options) => { remote.push({ url, options }); return { ok: true, blob: async () => ({ size: 128 }) }; },
+    Audio, URL: windowURL
+  });
+  page.language.value = "zh";
+  page.language.events.change();
+  page.input.value = "介绍金銮工业园。";
+  await page.submit();
+  const listen = page.messages.children[1].children[2];
+  await listen.events.click();
+  assert.equal(native.length, 0);
+  assert.equal(remote.length, 1);
+  assert.equal(remote[0].url, "/api/speak");
+  assert.equal(remote[0].options.credentials, "same-origin");
+  assert.deepEqual(JSON.parse(remote[0].options.body), { text: "金銮工业园位于蒲种。", locale: "zh-CN" });
+  assert.equal(audios[0].url, "blob:mandarin");
+  assert.ok(audioEvents.includes("play"));
+  assert.equal(page.voiceStatus.textContent, askTpkCopy.zh.aiVoiceNotice);
+  assert.equal(listen.getAttribute("aria-pressed"), "true");
+  audios[0].onended();
+  assert.equal(listen.getAttribute("aria-pressed"), "false");
+  assert.ok(audioEvents.includes("revoke"));
+});
+
+test("Chinese playback consistently uses the Mandarin endpoint despite a claimed Chinese device voice", async () => {
+  let nativeCalls = 0;
+  const speechSynthesis = { speak() { nativeCalls += 1; }, cancel() {}, getVoices() { return [{ name: "Chinese", lang: "zh-CN" }]; } };
+  class SpeechSynthesisUtterance { constructor(text) { this.text = text; } }
+  const remote = [];
+  class Audio { play() { return Promise.resolve(); } pause() {} }
+  const response = { ok: true, json: async () => ({ answer: "这里汇集家居生活、汽车服务及生活品味商家。", sources: [], propertyIds: [], enquiry: emptyEnquiry(), language: "zh" }) };
+  const page = chatClient([response], { getItem() {}, setItem() {}, removeItem() {} }, {
+    speechSynthesis, SpeechSynthesisUtterance, navigator: { language: "en-MY" },
+    fetch: async (url, options) => { remote.push({ url, options }); return { ok: true, blob: async () => ({ size: 128 }) }; },
+    Audio, URL: { createObjectURL: () => "blob:mandarin", revokeObjectURL() {} }
+  });
+  page.language.value = "zh";
+  page.language.events.change();
+  page.input.value = "这里有什么？";
+  await page.submit();
+  await page.messages.children[1].children[2].events.click();
+  assert.equal(nativeCalls, 0);
+  assert.equal(remote.length, 1);
+  assert.equal(JSON.parse(remote[0].options.body).locale, "zh-CN");
 });
 
 test("voice controls remain hidden when browser speech recognition is unavailable", () => {

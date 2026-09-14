@@ -181,20 +181,22 @@
     return "other";
   }
 
-  const nativeFetch = window.fetch.bind(window);
-  window.fetch = async (...args) => {
-    const response = await nativeFetch(...args);
-    try {
-      const target = args[0] instanceof Request ? args[0].url : String(args[0]);
-      const url = new URL(target, window.location.href);
-      if (url.origin === window.location.origin && url.pathname === "/api/ask" && response.ok) {
-        const data = await response.clone().json();
-        const category = classifyAssistantAnswer(data);
-        pendingAssistantQuestionCategory = assistantQuestionCategories.has(category) ? category : "other";
-      }
-    } catch { pendingAssistantQuestionCategory = ""; }
-    return response;
-  };
+  if (typeof window.fetch === "function") {
+    const nativeFetch = window.fetch.bind(window);
+    window.fetch = async (...args) => {
+      const response = await nativeFetch(...args);
+      try {
+        const target = typeof Request === "function" && args[0] instanceof Request ? args[0].url : String(args[0]);
+        const url = new URL(target, window.location.href);
+        if (url.origin === window.location.origin && url.pathname === "/api/ask" && response.ok) {
+          const data = await response.clone().json();
+          const category = classifyAssistantAnswer(data);
+          pendingAssistantQuestionCategory = assistantQuestionCategories.has(category) ? category : "other";
+        }
+      } catch { pendingAssistantQuestionCategory = ""; }
+      return response;
+    };
+  }
 
   document.addEventListener("tpk:assistant", event => {
     const action = event.detail?.action;

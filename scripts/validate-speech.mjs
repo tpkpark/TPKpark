@@ -49,6 +49,8 @@ test("speech generation uses the existing Vercel AI Gateway with an explicit Man
   assert.deepEqual(audio, expected);
   assert.equal(calls[0].url, "https://ai-gateway.vercel.sh/v4/ai/speech-model");
   assert.equal(calls[0].options.headers.Authorization, "Bearer test-token");
+  assert.equal(calls[0].options.headers["ai-gateway-protocol-version"], "0.0.1");
+  assert.equal(calls[0].options.headers["ai-speech-model-specification-version"], "4");
   assert.equal(calls[0].options.headers["ai-model-id"], "openai/tts-1");
   assert.deepEqual(JSON.parse(calls[0].options.body), { text: "金銮工业园的办公时间。", voice: "nova", outputFormat: "mp3", language: "zh-CN", speed: 1 });
 });

@@ -162,12 +162,55 @@
   // Only bounded action categories cross this boundary; never forward event.detail wholesale.
   const assistantActions = new Set(["open", "question", "answer", "error", "draft_ready", "voice_start", "voice_ready", "listen_start"]);
   const assistantErrors = new Set(["rate_limited", "timeout", "network", "invalid_response", "unavailable"]);
+  const assistantQuestionCategories = new Set(["leasing_enquiry", "leasing", "home_living", "automotive", "lifestyle", "location_contact", "company_history", "leadership_profile", "news_milestones", "other"]);
+  let pendingAssistantQuestionCategory = "";
+
+  function classifyAssistantAnswer(result) {
+    if (!result || typeof result !== "object") return "other";
+    if (result.enquiry?.requested === true) return "leasing_enquiry";
+    if (Array.isArray(result.propertyIds) && result.propertyIds.length) return "leasing";
+    const sourceIds = new Set(Array.isArray(result.sources) ? result.sources.map(source => source?.id).filter(id => typeof id === "string") : []);
+    if (["leasing", "leasingShop", "leasingDetached", "leasingSemiDetached"].some(source => sourceIds.has(source))) return "leasing";
+    if (sourceIds.has("homeLiving")) return "home_living";
+    if (sourceIds.has("automotive")) return "automotive";
+    if (sourceIds.has("lifestyle")) return "lifestyle";
+    if (sourceIds.has("contact")) return "location_contact";
+    if (sourceIds.has("profile") || sourceIds.has("publicRecord")) return "leadership_profile";
+    if (sourceIds.has("news") || sourceIds.has("milestones")) return "news_milestones";
+    if (sourceIds.has("about")) return "company_history";
+    return "other";
+  }
+
+  if (typeof window.fetch === "function") {
+    const nativeFetch = window.fetch.bind(window);
+    window.fetch = async (...args) => {
+      const response = await nativeFetch(...args);
+      try {
+        const target = typeof Request === "function" && args[0] instanceof Request ? args[0].url : String(args[0]);
+        const url = new URL(target, window.location.href);
+        if (url.origin === window.location.origin && url.pathname === "/api/ask" && response.ok) {
+          const data = await response.clone().json();
+          const category = classifyAssistantAnswer(data);
+          pendingAssistantQuestionCategory = assistantQuestionCategories.has(category) ? category : "other";
+        }
+      } catch { pendingAssistantQuestionCategory = ""; }
+      return response;
+    };
+  }
+
   document.addEventListener("tpk:assistant", event => {
     const action = event.detail?.action;
     if (!assistantActions.has(action)) return;
+    if (action === "question") pendingAssistantQuestionCategory = "";
     const reason = action === "error" && assistantErrors.has(event.detail?.reason) ? event.detail.reason : "unspecified";
     const target = action === "error" ? reason : "assistant";
-    record("assistant_" + action, { interaction_origin: "assistant", ...(action === "error" ? { error_type: reason } : {}) }, target);
+    const category = action === "answer" && assistantQuestionCategories.has(pendingAssistantQuestionCategory) ? pendingAssistantQuestionCategory : "";
+    record("assistant_" + action, {
+      interaction_origin: "assistant",
+      ...(action === "error" ? { error_type: reason } : {}),
+      ...(category ? { question_category: category } : {})
+    }, target);
+    if (action === "answer" || action === "error") pendingAssistantQuestionCategory = "";
   });
 
   const knownSpaces = ["shop-showroom", "detached-building", "semi-detached", "terrace-waitlist"];

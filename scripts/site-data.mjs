@@ -88,7 +88,7 @@ const routeLastModifiedOverrides = {
   leasingDetached: "2026-09-09",
   contact: "2026-09-08",
   profile: jadeExhibitionLastModified,
-  publicRecord: jadeExhibitionLastModified
+  publicRecord: "2026-09-14"
 };
 export const routeLastModified = Object.fromEntries(routeIds.map((routeId) => [routeId, routeLastModifiedOverrides[routeId] || (septemberSeoRoutes.has(routeId) ? "2026-09-07" : "2026-09-03")]));
 
@@ -462,6 +462,12 @@ export const profileSources = [
     url: "https://variety.com/2014/film/festivals/film-review-men-who-save-the-world-1201282850/",
     title: { en: "Film review and credits for Men Who Save the World", ms: "Ulasan filem dan kredit Lelaki Harapan Dunia", zh: "电影《Lelaki Harapan Dunia / Men Who Save the World》影评及制作名单" },
     summary: { en: "Variety's review carries production credits for the Malaysian feature; Wong Shung Yen is credited as an associate producer.", ms: "Ulasan Variety menyertakan kredit produksi filem cereka Malaysia itu; Wong Shung Yen dikreditkan sebagai Penerbit Bersekutu.", zh: "《Variety》影评列出这部马来西亚电影的制作名单；黄松延名列协同制片人。" }
+  },
+  {
+    year: "2014", source: "The Print Room", sourceLanguage: "en", category: "culture",
+    url: "https://www.facebook.com/theprintroomkr/posts/pfbid0RgVKg79vmr3VEyCxZNnLt13JQitaCNLHjzg3rtM6vmdBmNY3UsQwjEJGT2oBd5r7l",
+    title: { en: "Film photography at The Print Room", ms: "Fotografi filem di The Print Room", zh: "在The Print Room展出的胶片摄影作品" },
+    summary: { en: "The Print Room's archive records that Wong Shung Yen's Birth series, including the silver-gelatin hand print Birth 1, was shown in the 2014 group exhibition Body in Petaling Jaya.", ms: "Arkib The Print Room merekodkan bahawa siri Birth karya Wong Shung Yen, termasuk cetakan tangan gelatin perak Birth 1, dipamerkan dalam pameran berkumpulan Body pada 2014 di Petaling Jaya.", zh: "The Print Room档案记录，黄松延的《Birth》系列（包括银盐手工印相作品《Birth 1》）曾在2014年八打灵再也的《Body》联展中展出。" }
   },
   {
     year: "2012", date: "2012-12-15", source: "Sin Chew Daily", sourceLanguage: "zh", category: "community",

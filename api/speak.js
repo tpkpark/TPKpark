@@ -39,6 +39,8 @@ export async function generateSpeech({ text, locale }, { fetchImpl = fetch, toke
       headers: {
         "Authorization": `Bearer ${auth}`,
         "Content-Type": "application/json",
+        "ai-gateway-protocol-version": "0.0.1",
+        "ai-speech-model-specification-version": "4",
         "ai-model-id": "openai/tts-1"
       },
       body: JSON.stringify({ text, voice: "nova", outputFormat: "mp3", language: locale, speed: 1 }),

@@ -124,12 +124,15 @@ test("generated pages expose contextual controls, safe catalogs and updated disc
     assert.match(html, /data-ask-voice-status/);
     assert.match(html, /90/);
     assert.doesNotMatch(html, /class="ask-tpk-(?:memory|note)"/);
-    assert.match(html, /<details class="ask-tpk-guide"><summary><span>[^<]+<\/span><span class="ask-tpk-guide-icon" aria-hidden="true">i<\/span><\/summary><p class="ask-tpk-guide-note">/);
+    assert.match(html, /<details class="ask-tpk-guide"><summary><span data-ask-copy="aiLabel">[^<]+<\/span><span class="ask-tpk-guide-icon" aria-hidden="true">i<\/span><\/summary><p class="ask-tpk-guide-note" data-ask-copy="privacy">/);
     assert.doesNotMatch(html, /<details class="ask-tpk-guide"[^>]*\sopen(?:\s|>)/);
     assert.doesNotMatch(html, /ask-tpk-privacy/);
     for (const title of removedDisclosureTitles) assert.ok(!html.includes(title));
     assert.match(html, /tel:\+60380765200/);
-    const catalog = JSON.parse(html.match(/<script type="application\/json" id="ask-tpk-config">([^<]+)<\/script>/)[1]);
+    const config = JSON.parse(html.match(/<script type="application\/json" id="ask-tpk-config">([^<]+)<\/script>/)[1]);
+    assert.deepEqual(Object.keys(config.locales), ["en", "ms", "zh"]);
+    const catalog = config.locales[locale];
+    assert.deepEqual(catalog.starters, starterQuestions(locale, id));
     assert.ok(catalog.copy.privacy.includes(accuracyNotice[locale]));
     assert.deepEqual(Object.keys(catalog.catalog), ["shopGround", "shopFirst", "detached"]);
     assert.doesNotMatch(JSON.stringify(catalog.catalog), /no-69-for-lease/);

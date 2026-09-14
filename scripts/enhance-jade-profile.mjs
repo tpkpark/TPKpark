@@ -1,6 +1,6 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
-import { jadeExhibitionLastModified as lastModified } from "./site-data.mjs";
+import { jadeExhibitionLastModified as lastModified, routeLastModified } from "./site-data.mjs";
 
 const root = process.cwd();
 const origin = "https://www.tpkpark.com";
@@ -254,7 +254,7 @@ function updateSitemap(sitemap) {
     const escaped = copy.profilePath.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     sitemap = sitemap.replace(new RegExp(`(<loc>${origin}${escaped}<\\/loc>\\s*<lastmod>)[^<]+`), `$1${lastModified}`);
     const recordEscaped = copy.publicRecordPath.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    sitemap = sitemap.replace(new RegExp(`(<loc>${origin}${recordEscaped}<\\/loc>\\s*<lastmod>)[^<]+`), `$1${lastModified}`);
+    sitemap = sitemap.replace(new RegExp(`(<loc>${origin}${recordEscaped}<\\/loc>\\s*<lastmod>)[^<]+`), `$1${routeLastModified.publicRecord}`);
   }
   return entries ? sitemap.replace("</urlset>", `${entries}\n</urlset>`) : sitemap;
 }

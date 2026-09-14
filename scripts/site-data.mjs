@@ -956,7 +956,7 @@ const enPages = {
     eyebrow: "Wong Shung Yen · 黄松延",
     title: "Media & public record",
     description: "A curated public record of institutional sources and established media coverage relating to Wong Shung Yen's work in property, education, community and culture.",
-    lead: "A source-led chronology of selected public work, with each record linked to its original publisher.",
+    lead: "A source-led chronology of selected public work, with each record linked to its original publisher. Wong Shung Yen has served as Treasurer of the Board of Governors of SJK(C) Shin Cheng since 2012.",
     parentRoute: "profile",
     cta: { title: "Leadership at TPK Park.", text: "Return to the concise profile of Wong Shung Yen and his current work at TPK Park.", button: "View leadership profile", route: "profile" },
     blocks: [
@@ -1280,7 +1280,7 @@ const msPages = {
     eyebrow: "Wong Shung Yen · 黄松延",
     title: "Media & rekod awam",
     description: "Rekod awam terpilih daripada sumber institusi dan liputan media arus perdana mengenai kerja Wong Shung Yen dalam hartanah, pendidikan, masyarakat dan budaya.",
-    lead: "Kronologi berasaskan sumber mengenai kerja awam terpilih, dengan setiap rekod dipautkan kepada penerbit asal.",
+    lead: "Kronologi berasaskan sumber mengenai kerja awam terpilih, dengan setiap rekod dipautkan kepada penerbit asal. Wong Shung Yen berkhidmat sebagai Bendahari Lembaga Pengelola SJK(C) Shin Cheng sejak 2012.",
     parentRoute: "profile",
     cta: { title: "Kepimpinan di TPK Park.", text: "Kembali kepada profil ringkas Wong Shung Yen dan kerja semasa beliau di TPK Park.", button: "Lihat profil kepimpinan", route: "profile" },
     blocks: [
@@ -1589,7 +1589,7 @@ const zhPages = {
     eyebrow: "黄松延 · Wong Shung Yen",
     title: "媒体与公开记录",
     description: "精选机构资料及主流媒体报道，记录黄松延在房地产、教育、社区及文化领域的公共工作。",
-    lead: "以来源为依据的精选公共工作年表，每项记录均链接至原发布机构。",
+    lead: "以来源为依据的精选公共工作年表，每项记录均链接至原发布机构。黄松延自2012年起担任深静（哈古乐）华小董事会财政。",
     parentRoute: "profile",
     cta: { title: "TPK Park管理团队。", text: "返回黄松延简介，了解他目前在TPK Park的工作。", button: "查看管理团队简介", route: "profile" },
     blocks: [

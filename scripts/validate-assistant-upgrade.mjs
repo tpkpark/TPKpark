@@ -122,6 +122,7 @@ test("generated pages expose contextual controls, safe catalogs and updated disc
     assert.match(html, /data-ask-language/);
     assert.match(html, /data-ask-voice[^-]/);
     assert.match(html, /data-ask-voice-status/);
+    assert.match(html, /ask-tpk\.js\?v=20260915-mandarin-audio-1/);
     assert.match(html, /90/);
     assert.doesNotMatch(html, /class="ask-tpk-(?:memory|note)"/);
     assert.match(html, /<details class="ask-tpk-guide"><summary><span data-ask-copy="aiLabel">[^<]+<\/span><span class="ask-tpk-guide-icon" aria-hidden="true">i<\/span><\/summary><p class="ask-tpk-guide-note" data-ask-copy="privacy">/);
@@ -134,6 +135,9 @@ test("generated pages expose contextual controls, safe catalogs and updated disc
     const catalog = config.locales[locale];
     assert.deepEqual(catalog.starters, starterQuestions(locale, id));
     assert.ok(catalog.copy.privacy.includes(accuracyNotice[locale]));
+    assert.ok(catalog.copy.aiVoiceNotice);
+    assert.ok(catalog.copy.playbackUnavailable);
+    assert.match(catalog.copy.privacy, /AI|人工智能/);
     assert.deepEqual(Object.keys(catalog.catalog), ["shopGround", "shopFirst", "detached"]);
     assert.doesNotMatch(JSON.stringify(catalog.catalog), /no-69-for-lease/);
   }

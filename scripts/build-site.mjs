@@ -624,7 +624,7 @@ function askTpk(locale, routeId) {
       </div>
       <a class="ask-tpk-contact" href="mailto:info@tpkpark.com">${escapeHtml(copy.contact)}</a>`}
     </section>
-  </aside>${ai ? `<script type="application/json" id="ask-tpk-config">${safeJson(config)}</script>` : ""}<script type="module" src="/js/ask-tpk.js?v=20260914-chat-language-1"></script>`;
+  </aside>${ai ? `<script type="application/json" id="ask-tpk-config">${safeJson(config)}</script>` : ""}<script type="module" src="/js/ask-tpk.js?v=20260915-mandarin-audio-1"></script>`;
 }
 
 function renderPage(locale, routeId) {

@@ -87,10 +87,17 @@ import { loadSession, saveSession, clearSession, boundedTurns, requestMessages, 
   const speechSynthesis = window.speechSynthesis;
   const SpeechUtterance = window.SpeechSynthesisUtterance;
   const canDictate = Boolean(voiceButton && voiceStatus && typeof SpeechRecognition === "function" && window.isSecureContext !== false);
-  const canSpeak = Boolean(speechSynthesis && typeof speechSynthesis.speak === "function" && typeof speechSynthesis.cancel === "function" && typeof SpeechUtterance === "function");
+  const canNativeSpeak = Boolean(speechSynthesis && typeof speechSynthesis.speak === "function" && typeof speechSynthesis.cancel === "function" && typeof SpeechUtterance === "function");
+  const canRemoteSpeak = Boolean(typeof window.fetch === "function" && typeof window.Audio === "function" && typeof window.URL?.createObjectURL === "function" && typeof window.URL?.revokeObjectURL === "function");
+  const canSpeak = canNativeSpeak || canRemoteSpeak;
   let recognition = null;
   let listening = false;
   let speakingButton = null;
+  let speakingUtterance = null;
+  let speechController = null;
+  let remoteAudio = null;
+  let remoteObjectUrl = "";
+  let availableVoices = [];
   if (canDictate) voiceButton.hidden = false;
 
   const speechLocales = Object.freeze({ en: "en-MY", ms: "ms-MY", zh: "zh-CN", ja: "ja-JP", ko: "ko-KR", th: "th-TH", id: "id-ID", ta: "ta-IN", hi: "hi-IN", ar: "ar-SA", fr: "fr-FR", de: "de-DE", es: "es-ES" });
@@ -106,6 +113,46 @@ import { loadSession, saveSession, clearSession, boundedTurns, requestMessages, 
     if (/\p{Script=Arabic}/u.test(text)) return speechLocales.ar;
     const browserLanguage = window.navigator?.language;
     return typeof browserLanguage === "string" && /^[a-z]{2,3}(?:-[a-z0-9]+)*$/i.test(browserLanguage) ? browserLanguage : speechLocales[widget.dataset.locale] || "en-MY";
+  }
+  function normalizedLocale(value) {
+    return typeof value === "string" ? value.trim().replaceAll("_", "-").toLowerCase() : "";
+  }
+  function refreshVoices() {
+    if (!canNativeSpeak || typeof speechSynthesis.getVoices !== "function") return;
+    try { availableVoices = Array.from(speechSynthesis.getVoices() || []); }
+    catch { availableVoices = []; }
+  }
+  function selectSpeechVoice(targetLocale) {
+    const voices = availableVoices.filter(voice => voice && typeof voice.lang === "string");
+    const target = normalizedLocale(targetLocale);
+    if (!voices.length || !target) return null;
+    if (target === "zh-cn") {
+      const cantonese = /cantonese|\byue\b|粤|粵|廣東|广东/i;
+      const mandarin = /mandarin|putonghua|普通话|普通話|國語|国语/i;
+      const score = voice => {
+        const lang = normalizedLocale(voice.lang);
+        const name = String(voice.name || "");
+        if (cantonese.test(name) || /^yue(?:-|$)/.test(lang) || /^zh-hk(?:-|$)/.test(lang)) return -1;
+        let value = 0;
+        if (lang === "zh-cn" || lang === "cmn-cn") value = 300;
+        else if (lang === "zh-sg" || lang === "cmn-sg") value = 200;
+        else if (lang === "zh-tw" || lang === "cmn-tw") value = 100;
+        else if (lang === "cmn" || lang.startsWith("cmn-")) value = 80;
+        else if (lang === "zh" || lang.startsWith("zh-")) value = 40;
+        if (mandarin.test(name)) value += 30;
+        return value;
+      };
+      return voices.map((voice, index) => ({ voice, index, score: score(voice) }))
+        .filter(item => item.score > 0)
+        .sort((a, b) => b.score - a.score || a.index - b.index)[0]?.voice || null;
+    }
+    return voices.find(voice => normalizedLocale(voice.lang) === target)
+      || voices.find(voice => normalizedLocale(voice.lang).split("-")[0] === target.split("-")[0])
+      || null;
+  }
+  function remoteSpeechLocale(value) {
+    const target = normalizedLocale(value);
+    return Object.values(speechLocales).find(locale => normalizedLocale(locale) === target) || "";
   }
   function setVoiceStatus(text = "") {
     if (!voiceStatus) return;
@@ -135,11 +182,31 @@ import { loadSession, saveSession, clearSession, boundedTurns, requestMessages, 
     button.setAttribute("aria-label", copy.listenAnswer);
     button.setAttribute("aria-pressed", "false");
   }
+  function setPlayingButton(button) {
+    if (!button) return;
+    button.textContent = copy.stopAudio;
+    button.setAttribute("aria-label", copy.stopAudio);
+    button.setAttribute("aria-pressed", "true");
+  }
   function stopSpeech() {
     if (!canSpeak) return;
     const previous = speakingButton;
     speakingButton = null;
-    try { speechSynthesis.cancel(); } catch { /* Playback may already have ended. */ }
+    if (speakingUtterance) {
+      speakingUtterance.onstart = null;
+      speakingUtterance.onend = null;
+      speakingUtterance.onerror = null;
+      speakingUtterance = null;
+    }
+    if (speechController) { try { speechController.abort(); } catch { /* Request may already have ended. */ } speechController = null; }
+    if (remoteAudio) {
+      remoteAudio.onended = null;
+      remoteAudio.onerror = null;
+      try { remoteAudio.pause(); remoteAudio.currentTime = 0; } catch { /* Playback may already have ended. */ }
+      remoteAudio = null;
+    }
+    if (remoteObjectUrl) { try { window.URL.revokeObjectURL(remoteObjectUrl); } catch { /* URL may already be released. */ } remoteObjectUrl = ""; }
+    if (canNativeSpeak) try { speechSynthesis.cancel(); } catch { /* Playback may already have ended. */ }
     resetListenButton(previous);
   }
   stopVoiceFeatures = () => {
@@ -147,6 +214,10 @@ import { loadSession, saveSession, clearSession, boundedTurns, requestMessages, 
     stopSpeech();
     setVoiceStatus();
   };
+  if (canNativeSpeak) {
+    refreshVoices();
+    speechSynthesis.addEventListener?.("voiceschanged", refreshVoices);
+  }
 
   function persist() {
     saveSession(storage, state);
@@ -268,29 +339,75 @@ import { loadSession, saveSession, clearSession, boundedTurns, requestMessages, 
     button.type = "button";
     button.setAttribute("aria-label", copy.listenAnswer);
     button.setAttribute("aria-pressed", "false");
-    button.addEventListener("click", () => {
+    button.addEventListener("click", async () => {
       if (speakingButton === button) return stopSpeech();
       stopSpeech();
+      setVoiceStatus();
+      const playbackLocale = speechLanguage(text, hint);
+      refreshVoices();
+      const selectedVoice = selectSpeechVoice(playbackLocale);
+      const fallbackLocale = remoteSpeechLocale(playbackLocale);
+      if (canRemoteSpeak && fallbackLocale && (fallbackLocale === "zh-CN" || !canNativeSpeak || !selectedVoice)) {
+        const controller = new AbortController();
+        speechController = controller;
+        speakingButton = button;
+        setPlayingButton(button);
+        const finish = () => {
+          if (speakingButton !== button) return;
+          if (remoteAudio) { remoteAudio.onended = null; remoteAudio.onerror = null; remoteAudio = null; }
+          if (remoteObjectUrl) { try { window.URL.revokeObjectURL(remoteObjectUrl); } catch { /* URL may already be released. */ } remoteObjectUrl = ""; }
+          speechController = null;
+          speakingButton = null;
+          resetListenButton(button);
+        };
+        try {
+          const response = await window.fetch("/api/speak", {
+            method: "POST", credentials: "same-origin", cache: "no-store",
+            headers: { "Accept": "audio/mpeg", "Content-Type": "application/json" },
+            body: JSON.stringify({ text, locale: fallbackLocale }), signal: controller.signal
+          });
+          if (!response.ok) throw new Error("unavailable");
+          const blob = await response.blob();
+          if (speakingButton !== button) return;
+          if (!blob || !Number.isFinite(blob.size) || blob.size < 1 || blob.size > 8000000) throw new Error("unavailable");
+          remoteObjectUrl = window.URL.createObjectURL(blob);
+          remoteAudio = new window.Audio(remoteObjectUrl);
+          remoteAudio.preload = "auto";
+          remoteAudio.onended = finish;
+          remoteAudio.onerror = () => { setVoiceStatus(copy.playbackUnavailable); finish(); };
+          setVoiceStatus(copy.aiVoiceNotice);
+          measure("listen_start");
+          await remoteAudio.play();
+        } catch (error) {
+          if (speakingButton !== button) return;
+          if (error?.name !== "AbortError") setVoiceStatus(copy.playbackUnavailable);
+          finish();
+        }
+        return;
+      }
+      if (!canNativeSpeak) { setVoiceStatus(copy.playbackUnavailable); return; }
       let utterance;
       try { utterance = new SpeechUtterance(text); }
       catch { return; }
-      utterance.lang = speechLanguage(text, hint);
+      utterance.lang = playbackLocale;
+      if (selectedVoice) utterance.voice = selectedVoice;
       utterance.rate = 1;
       utterance.onstart = () => {
+        if (speakingButton !== button) return;
         speakingButton = button;
-        button.textContent = copy.stopAudio;
-        button.setAttribute("aria-label", copy.stopAudio);
-        button.setAttribute("aria-pressed", "true");
+        setPlayingButton(button);
         measure("listen_start");
       };
       const finish = () => {
         if (speakingButton !== button) return;
         speakingButton = null;
+        speakingUtterance = null;
         resetListenButton(button);
       };
       utterance.onend = finish;
       utterance.onerror = finish;
       speakingButton = button;
+      speakingUtterance = utterance;
       try { speechSynthesis.speak(utterance); }
       catch { finish(); }
     });

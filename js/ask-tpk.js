@@ -70,13 +70,17 @@ import { loadSession, saveSession, clearSession, boundedTurns, requestMessages, 
   const voiceStatus = widget.querySelector("[data-ask-voice-status]");
   let config;
   try { config = JSON.parse(document.querySelector("#ask-tpk-config").textContent); } catch { return; }
-  const copy = config.copy;
+  const pageLocale = widget.dataset.locale;
+  let locale = pageLocale;
+  let { copy, catalog, sources } = config.locales[locale];
+  const sourceIdsByPath = new Map(Object.values(config.locales).flatMap(pack => Object.values(pack.sources).map(source => [source.url, source.id])));
   const starterButtons = [...starters.querySelectorAll("[data-ask-starter]")];
   let storage;
   try { storage = window.sessionStorage; } catch { /* Page memory still works. */ }
   let state = loadSession(storage);
   let expiresAt = state.expiresAt || Date.now() + SESSION_TTL;
   let pending = false;
+  let statusKind = "";
   let expiryTimer;
   language.value = state.replyPreference;
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -155,37 +159,85 @@ import { loadSession, saveSession, clearSession, boundedTurns, requestMessages, 
     if (className) element.className = className;
     return element;
   }
+  function copyElement(tag, key, className) {
+    const element = textElement(tag, copy[key], className);
+    element.dataset.askCopy = key;
+    return element;
+  }
+  function localizeDialog() {
+    locale = Object.hasOwn(config.locales, state.replyPreference) ? state.replyPreference : pageLocale;
+    ({ copy, catalog, sources } = config.locales[locale]);
+    panel.lang = locale;
+    // Relabel controls in place: never rebuild the transcript or editable drafts.
+    for (const element of panel.querySelectorAll("[data-ask-copy]")) element.textContent = copy[element.dataset.askCopy];
+    for (const element of panel.querySelectorAll("[data-ask-copy-label]")) element.setAttribute("aria-label", copy[element.dataset.askCopyLabel]);
+    for (const element of panel.querySelectorAll("[data-ask-copy-placeholder]")) element.setAttribute("placeholder", copy[element.dataset.askCopyPlaceholder]);
+    starterButtons.forEach((button, index) => { button.textContent = config.locales[locale].starters[index]; });
+    for (const link of panel.querySelectorAll("[data-ask-route]")) link.href = sources[link.dataset.askRoute].url;
+    for (const link of log.querySelectorAll("[data-ask-source]")) {
+      const source = sources[link.dataset.askSource];
+      if (source) { link.textContent = source.title; link.href = source.url; }
+    }
+    for (const box of log.querySelectorAll("[data-ask-property]")) localizeCard(box);
+    for (const box of log.querySelectorAll("[data-ask-email]")) {
+      const draft = box.querySelector("textarea");
+      box.querySelector("a").href = emailLink(draft.value, copy.emailSubject);
+    }
+    for (const button of log.querySelectorAll("[data-ask-listen]")) resetListenButton(button);
+    setListening(false);
+    setStatus(statusKind);
+  }
   function safeSource(source) {
     if (typeof source?.url !== "string" || typeof source.title !== "string") return null;
     try {
       const url = new URL(source.url, location.origin);
       if (url.origin !== location.origin || !/^\/(?:ms\/|zh\/)?(?:about\/|home-living\/|automotive\/|lifestyle\/|leasing\/(?:shop-showroom\/|detached-building\/|semi-detached\/)?|contact\/|milestones\/|news\/|wong-shung-yen\/(?:public-record\/)?)?$/.test(url.pathname) || url.search || url.hash) return null;
-      return { ...source, url: url.pathname };
+      return { ...source, id: sourceIdsByPath.get(url.pathname), url: url.pathname };
     } catch { return null; }
+  }
+  function localizeCard(box) {
+    const card = catalog[box.dataset.askProperty];
+    if (!card) return;
+    const labels = { rent: "rentLabel", builtUp: "builtUpLabel", landArea: "landAreaLabel" };
+    for (const element of box.querySelectorAll("[data-ask-card-field]")) {
+      const key = element.dataset.askCardField;
+      element.textContent = labels[key] ? `${copy[labels[key]]}: ${card[key]}` : card[key];
+    }
+    box.querySelector("img").alt = card.title;
+    for (const link of box.querySelectorAll("[data-ask-card-link]")) link.href = card[link.dataset.askCardLink];
   }
   function renderCards(item, ids = []) {
     for (const id of [...new Set(ids)].slice(0, 3)) {
-      if (!Object.hasOwn(config.catalog, id)) continue;
-      const card = config.catalog[id];
+      if (!Object.hasOwn(catalog, id)) continue;
+      const card = catalog[id];
       const box = document.createElement("article");
       box.className = "ask-tpk-property";
+      box.dataset.askProperty = id;
       const photo = document.createElement("img");
       photo.src = card.image;
       photo.alt = card.title;
       photo.loading = "lazy";
       photo.width = 640; photo.height = 400;
-      box.append(photo, textElement("h3", card.title), textElement("p", card.description), textElement("p", `${copy.rentLabel}: ${card.rent}`, "ask-tpk-rent"), textElement("p", `${copy.builtUpLabel}: ${card.builtUp}`));
-      if (card.landArea) box.append(textElement("p", `${copy.landAreaLabel}: ${card.landArea}`));
-      box.append(textElement("p", card.status));
+      const field = (tag, key, className) => {
+        const element = textElement(tag, "", className);
+        element.dataset.askCardField = key;
+        return element;
+      };
+      box.append(photo, field("h3", "title"), field("p", "description"), field("p", "rent", "ask-tpk-rent"), field("p", "builtUp"));
+      if (card.landArea) box.append(field("p", "landArea"));
+      box.append(field("p", "status"));
       const links = document.createElement("nav");
       links.className = "ask-tpk-sources";
-      for (const [title, url] of [[copy.details, card.url], [copy.brochure, card.brochure]]) {
-        const link = textElement("a", title);
+      for (const [key, target] of [["details", "url"], ["brochure", "brochure"]]) {
+        const link = copyElement("a", key);
+        const url = card[target];
+        link.dataset.askCardLink = target;
         link.href = url;
         if (url.endsWith(".pdf")) { link.type = "application/pdf"; link.target = "_blank"; link.rel = "noopener noreferrer"; }
         links.append(link);
       }
-      box.append(links, textElement("p", card.note, "ask-tpk-card-note"));
+      box.append(links, field("p", "note", "ask-tpk-card-note"));
+      localizeCard(box);
       item.append(box);
     }
   }
@@ -193,15 +245,16 @@ import { loadSession, saveSession, clearSession, boundedTurns, requestMessages, 
     if (enquiry?.requested !== true) return;
     const box = document.createElement("details");
     box.className = "ask-tpk-email";
+    box.dataset.askEmail = "";
     box.open = true;
-    box.append(textElement("summary", copy.draftTitle), textElement("p", copy.draftNote));
+    box.append(copyElement("summary", "draftTitle"), copyElement("p", "draftNote"));
     const label = document.createElement("label");
-    label.append(textElement("span", copy.draftLabel));
+    label.append(copyElement("span", "draftLabel"));
     const draft = document.createElement("textarea");
     draft.value = emailBody(enquiry, copy);
     draft.rows = 9; draft.maxLength = 2400;
     label.append(draft);
-    const open = textElement("a", copy.openEmail, "ask-tpk-email-open");
+    const open = copyElement("a", "openEmail", "ask-tpk-email-open");
     open.href = emailLink(draft.value, copy.emailSubject);
     draft.addEventListener("input", () => { open.href = emailLink(draft.value, copy.emailSubject); });
     // Edits remain in this page only; never send them to the model or analytics.
@@ -211,6 +264,7 @@ import { loadSession, saveSession, clearSession, boundedTurns, requestMessages, 
   function renderListen(text, hint) {
     if (!canSpeak) return null;
     const button = textElement("button", copy.listen, "ask-tpk-listen");
+    button.dataset.askListen = "";
     button.type = "button";
     button.setAttribute("aria-label", copy.listenAnswer);
     button.setAttribute("aria-pressed", "false");
@@ -242,21 +296,24 @@ import { loadSession, saveSession, clearSession, boundedTurns, requestMessages, 
     });
     return button;
   }
-  function message(role, text, sources = [], rich = {}) {
+  function message(role, text, references = [], rich = {}) {
     const item = document.createElement("div");
     item.className = "ask-tpk-message";
     item.dataset.role = role;
-    item.append(textElement("strong", widget.dataset[role === "user" ? "you" : "assistant"]), textElement("p", text));
+    item.append(copyElement("strong", role === "user" ? "you" : "aiLabel"), textElement("p", text));
     if (role === "assistant") {
       const listenButton = renderListen(text, rich.language);
       if (listenButton) item.append(listenButton);
     }
     const links = document.createElement("nav");
     links.className = "ask-tpk-sources";
-    links.setAttribute("aria-label", widget.dataset.sources);
-    for (const source of sources.slice(0, 3).map(safeSource).filter(Boolean)) {
-      const link = textElement("a", source.title);
-      link.href = source.url;
+    links.dataset.askCopyLabel = "sources";
+    links.setAttribute("aria-label", copy.sources);
+    for (const source of references.slice(0, 3).map(safeSource).filter(Boolean)) {
+      const localized = sources[source.id] || source;
+      const link = textElement("a", localized.title);
+      if (source.id) link.dataset.askSource = source.id;
+      link.href = localized.url;
       links.append(link);
     }
     if (links.childElementCount) item.append(links);
@@ -266,9 +323,10 @@ import { loadSession, saveSession, clearSession, boundedTurns, requestMessages, 
   }
   function restore() {
     log.replaceChildren();
-    for (const turn of state.turns) message(turn.role, turn.content, (turn.sourceIds || []).map(id => Object.hasOwn(config.sources, id) ? config.sources[id] : null).filter(Boolean), turn);
+    for (const turn of state.turns) message(turn.role, turn.content, (turn.sourceIds || []).map(id => Object.hasOwn(sources, id) ? sources[id] : null).filter(Boolean), turn);
     starters.hidden = state.turns.length > 0;
   }
+  localizeDialog();
   restore();
   function busy(value) {
     pending = value;
@@ -282,8 +340,13 @@ import { loadSession, saveSession, clearSession, boundedTurns, requestMessages, 
     form.setAttribute("aria-busy", String(value));
   }
   function retryMessage() {
-    const time = new Date(state.retryAt).toLocaleString(({ en: "en-MY", ms: "ms-MY", zh: "zh-MY" })[widget.dataset.locale], { day: "numeric", month: "short", hour: "numeric", minute: "2-digit", second: "2-digit" });
+    const time = new Date(state.retryAt).toLocaleString(({ en: "en-MY", ms: "ms-MY", zh: "zh-MY" })[locale], { day: "numeric", month: "short", hour: "numeric", minute: "2-digit", second: "2-digit" });
     return copy.retry.replace("{time}", time);
+  }
+  function setStatus(kind = "") {
+    statusKind = kind;
+    status.textContent = kind === "retry" ? retryMessage() : copy[kind] || "";
+    status.hidden = !kind;
   }
   function expire() {
     if (Date.now() < expiresAt) return;
@@ -300,7 +363,12 @@ import { loadSession, saveSession, clearSession, boundedTurns, requestMessages, 
   armExpiry();
   document.addEventListener("visibilitychange", expire);
   trigger.addEventListener("click", expire);
-  language.addEventListener("change", () => { stopVoiceFeatures(); state.replyPreference = language.value; persist(); });
+  language.addEventListener("change", () => {
+    stopVoiceFeatures();
+    state.replyPreference = language.value;
+    localizeDialog();
+    persist();
+  });
   if (canDictate) voiceButton.addEventListener("click", () => {
     if (pending) return;
     if (listening && recognition) {
@@ -378,7 +446,7 @@ import { loadSession, saveSession, clearSession, boundedTurns, requestMessages, 
     state.turns = [];
     clearSession(storage);
     restore();
-    status.hidden = true;
+    setStatus();
     input.value = "";
     input.focus();
   });
@@ -391,8 +459,7 @@ import { loadSession, saveSession, clearSession, boundedTurns, requestMessages, 
     setVoiceStatus();
     expire();
     if (Date.now() < state.retryAt) {
-      status.textContent = retryMessage();
-      status.hidden = false;
+      setStatus("retry");
       return;
     }
     const messages = requestMessages(state.turns, question);
@@ -400,8 +467,7 @@ import { loadSession, saveSession, clearSession, boundedTurns, requestMessages, 
     busy(true);
     const userMessage = message("user", question);
     starters.hidden = true;
-    status.textContent = widget.dataset.thinking;
-    status.hidden = false;
+    setStatus("thinking");
     input.scrollIntoView({ block: "nearest" });
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), 29000);
@@ -430,14 +496,14 @@ import { loadSession, saveSession, clearSession, boundedTurns, requestMessages, 
       const result = await response.json();
       if (typeof result.answer !== "string" || !result.answer.trim() || result.answer.length > 5000 || !Array.isArray(result.sources) || !Array.isArray(result.propertyIds)) throw new Error("error");
       const answer = message("assistant", result.answer, result.sources, result);
-      const sourceIds = result.sources.filter(safeSource).map(source => source.id || Object.keys(config.sources).find(id => config.sources[id].url === source.url)).filter(id => Object.hasOwn(config.sources, id));
+      const sourceIds = result.sources.map(safeSource).filter(Boolean).map(source => source.id).filter(id => Object.hasOwn(sources, id));
       // Save only completed exchanges; an interrupted question stays editable.
       state.turns = boundedTurns([...state.turns, { role: "user", content: question }, { role: "assistant", content: result.answer, sourceIds, propertyIds: result.propertyIds, enquiry: result.enquiry, language: result.language }]);
       state.retryAt = 0;
       persist();
       while (log.childElementCount > state.turns.length) log.firstElementChild.remove();
       input.value = "";
-      status.hidden = true;
+      setStatus();
       measure("answer");
       if (result.enquiry?.requested === true) measure("draft_ready");
       if (!panel.hidden) answer.scrollIntoView({ block: "nearest" });
@@ -446,8 +512,7 @@ import { loadSession, saveSession, clearSession, boundedTurns, requestMessages, 
       if (location.hostname?.endsWith(".vercel.app")) console.warn("Ask TPK preview diagnostic:", diagnostic);
       userMessage.remove();
       starters.hidden = state.turns.length > 0;
-      status.textContent = error.message === "busy" ? retryMessage() : widget.dataset.error;
-      status.hidden = false;
+      setStatus(error.message === "busy" ? "retry" : "error");
     } finally {
       clearTimeout(timer);
       busy(false);

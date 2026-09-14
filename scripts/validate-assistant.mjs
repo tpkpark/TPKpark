@@ -4,7 +4,7 @@ import { readFile } from "node:fs/promises";
 import vm from "node:vm";
 import * as stateHelpers from "../js/ask-tpk-state.js";
 import { propertyCatalog, emptyEnquiry } from "../lib/assistant-rich.mjs";
-import { askTpkCopy } from "./ask-tpk-copy.mjs";
+import { askTpkCopy, starterQuestions } from "./ask-tpk-copy.mjs";
 import { answerQuestion, assistantEnabled, validateInput, systemPrompt, replyLanguage } from "../lib/assistant.mjs";
 import { sourceLinks, knowledge, sources } from "../lib/assistant-knowledge.mjs";
 import { site, routeIds, routePath, profileSources, articles } from "./site-data.mjs";
@@ -139,19 +139,22 @@ test("Chinese questions and numeric follow-ups retain language even on English p
 });
 
 const clientSource = await readFile(new URL("../js/ask-tpk.js", import.meta.url), "utf8");
-function chatClient(responses, storage = { getItem() {}, setItem() {}, removeItem() {} }, browser = {}) {
+function chatClient(responses, storage = { getItem() {}, setItem() {}, removeItem() {} }, browser = {}, pageLocale = "en") {
   let now = Date.now();
   const telemetry = [];
   class Element {
-    constructor() { this.dataset = {}; this.children = []; this.events = {}; this.attributes = {}; this.value = ""; this.hidden = false; this.textContent = ""; }
+    constructor(tag = "div") { this.tag = tag; this.dataset = {}; this.children = []; this.events = {}; this.attributes = {}; this.value = ""; this.hidden = false; this.textContent = ""; }
     addEventListener(name, fn) {
       const previous = this.events[name];
       this.events[name] = previous ? event => { previous(event); return fn(event); } : fn;
     }
     setAttribute(name, value) { this.attributes[name] = String(value); }
     getAttribute(name) { return this.attributes[name] ?? "false"; }
-    querySelector() { return null; }
-    querySelectorAll() { return []; }
+    querySelector(selector) { return this.querySelectorAll(selector)[0] || null; }
+    querySelectorAll(selector) {
+      const attribute = selector.match(/^\[data-([\w-]+)\]$/)?.[1]?.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
+      return this.children.flatMap(child => [...((attribute ? Object.hasOwn(child.dataset, attribute) : child.tag === selector) ? [child] : []), ...child.querySelectorAll(selector)]);
+    }
     append(...items) { items.forEach(item => { item.parent = this; this.children.push(item); }); }
     replaceChildren() { this.children = []; }
     remove() { if (this.parent) this.parent.children = this.parent.children.filter(item => item !== this); }
@@ -165,11 +168,19 @@ function chatClient(responses, storage = { getItem() {}, setItem() {}, removeIte
   const elements = Object.fromEntries(names.map(name => [name, new Element()]));
   elements.panel.hidden = true;
   elements.voice.hidden = true;
+  elements.trigger.textContent = askTpkCopy[pageLocale].label;
+  elements.panel.append(...names.filter(name => !["trigger", "panel"].includes(name)).map(name => elements[name]));
+  const title = new Element("h2"); title.dataset.askCopy = "label"; elements.panel.append(title);
+  elements.input.dataset.askCopyPlaceholder = "placeholder";
+  elements.close.dataset.askCopyLabel = "close";
+  for (const question of starterQuestions(pageLocale, "home")) {
+    const button = new Element("button"); button.dataset.askStarter = ""; button.textContent = question; elements.starters.append(button);
+  }
   const widget = new Element();
-  widget.dataset = { aiEnabled: "true", locale: "en", pathname: "/", you: "You", assistant: "AI", error: "Try again", busy: "Busy", thinking: "Thinking", sources: "Sources" };
+  widget.dataset = { aiEnabled: "true", locale: pageLocale, pathname: routePath(pageLocale, "home") };
   widget.querySelector = selector => elements[selector.replace(/\[data-ask-|\]/g, "")];
-  const config = { copy: askTpkCopy.en, catalog: propertyCatalog("en"), sources: Object.fromEntries(routeIds.map(id => [id, { id, title: id, url: routePath("en", id) }])) };
-  const document = { querySelector: selector => selector === "[data-ask-tpk]" ? widget : selector === "#ask-tpk-config" ? { textContent: JSON.stringify(config) } : null, addEventListener() {}, createElement: () => new Element(), dispatchEvent(event) { telemetry.push({ type: event.type, ...event.detail }); } };
+  const config = { locales: Object.fromEntries(["en", "ms", "zh"].map(locale => [locale, { copy: askTpkCopy[locale], catalog: propertyCatalog(locale), starters: starterQuestions(locale, "home"), sources: Object.fromEntries(routeIds.map(id => [id, { id, title: site[locale].pages[id].eyebrow || site[locale].pages[id].title, url: routePath(locale, id) }])) }])) };
+  const document = { querySelector: selector => selector === "[data-ask-tpk]" ? widget : selector === "#ask-tpk-config" ? { textContent: JSON.stringify(config) } : null, addEventListener() {}, createElement: tag => new Element(tag), dispatchEvent(event) { telemetry.push({ type: event.type, ...event.detail }); } };
   const requests = [];
   vm.runInNewContext(clientSource.replace(/^import .*?;\n/, ""), {
     ...stateHelpers, window: { sessionStorage: storage, ...browser },
@@ -208,7 +219,7 @@ test("profile, public-record and every other published route remain clickable in
   for (const locale of ["en", "ms", "zh"]) {
     for (let i = 0; i < routeIds.length; i += 3) {
       const links = sourceLinks(routeIds.slice(i, i + 3), locale);
-      const page = chatClient([{ ok: true, json: async () => ({ answer: "Published information", sources: links, propertyIds: [] }) }]);
+      const page = chatClient([{ ok: true, json: async () => ({ answer: "Published information", sources: links, propertyIds: [] }) }], undefined, {}, locale);
       page.input.value = "Tell me about TPK Park";
       await page.submit();
       assert.deepEqual(page.messages.children[1].children[2].children.map(link => link.href), links.map(link => link.url));
@@ -288,6 +299,56 @@ test("opening the assistant is measured only when the panel opens", () => {
   assert.equal(page.requests.length, 0);
 });
 
+test("chat language relabels the dialog while preserving messages, edited drafts and the page-language launcher", async () => {
+  const storageMap = new Map();
+  const storage = { getItem: key => storageMap.get(key), setItem: (key, value) => storageMap.set(key, value), removeItem: key => storageMap.delete(key) };
+  const page = chatClient([{ ok: true, json: async () => ({ answer: "Review your draft below.", sources: [{ id: "leasingShop", title: "Shops", url: "/leasing/shop-showroom/" }], propertyIds: ["shopFirst"], enquiry: { requested: true, businessType: "furniture showroom" }, language: "en" }) }], storage);
+  page.input.value = "Help me draft an email enquiry.";
+  await page.submit();
+  const original = [...page.messages.children];
+  const draftBox = page.messages.querySelector("[data-ask-email]");
+  const draft = draftBox.querySelector("textarea");
+  draft.value = "My edited draft — keep this exact text.";
+  draft.events.input();
+  draftBox.open = false;
+  page.input.value = "My unsent question";
+  for (const preference of ["ms", "zh", "en", "auto"]) {
+    page.language.value = preference;
+    page.language.events.change();
+    const locale = preference === "auto" ? "en" : preference;
+    assert.equal(page.panel.lang, locale);
+    assert.equal(page.panel.querySelector("h2").textContent, askTpkCopy[locale].label);
+    assert.equal(page.trigger.textContent, askTpkCopy.en.label);
+    assert.equal(page.close.getAttribute("aria-label"), askTpkCopy[locale].close);
+    assert.equal(page.voice.getAttribute("aria-label"), askTpkCopy[locale].voiceStart);
+    assert.equal(page.input.getAttribute("placeholder"), askTpkCopy[locale].placeholder);
+    assert.equal(page.starters.children[0].textContent, starterQuestions(locale, "home")[0]);
+    assert.equal(page.messages.children[0], original[0]);
+    assert.equal(page.messages.children[1], original[1]);
+    assert.equal(original[1].children[1].textContent, "Review your draft below.");
+    assert.equal(page.messages.querySelector("[data-ask-source]").href, routePath(locale, "leasingShop"));
+    assert.equal(page.messages.querySelector("[data-ask-property]").querySelector("h3").textContent, propertyCatalog(locale).shopFirst.title);
+    assert.equal(page.messages.querySelector("textarea"), draft);
+    assert.equal(draft.value, "My edited draft — keep this exact text.");
+    assert.equal(draftBox.open, false);
+    assert.equal(draftBox.querySelector("summary").textContent, askTpkCopy[locale].draftTitle);
+    const mail = new URL(draftBox.querySelector("a").href);
+    assert.equal(mail.searchParams.get("body"), draft.value);
+    assert.equal(mail.searchParams.get("subject"), askTpkCopy[locale].emailSubject);
+    assert.equal(page.input.value, "My unsent question");
+  }
+  assert.equal(page.requests.length, 1, "Changing language must not generate another answer or send an enquiry");
+  const chinesePage = chatClient([], storage, {}, "zh");
+  assert.equal(chinesePage.language.value, "auto");
+  assert.equal(chinesePage.panel.lang, "zh");
+  assert.equal(chinesePage.trigger.textContent, askTpkCopy.zh.label);
+  chinesePage.language.value = "ms";
+  chinesePage.language.events.change();
+  const englishPage = chatClient([], storage);
+  assert.equal(englishPage.panel.lang, "ms", "Explicit chat choice survives website language navigation");
+  assert.equal(englishPage.trigger.textContent, askTpkCopy.en.label);
+});
+
 test("browser voice input stays reviewable and answer playback is optional", async () => {
   const recognitions = [];
   class Recognition {
@@ -318,7 +379,7 @@ test("browser voice input stays reviewable and answer playback is optional", asy
   await page.submit();
   assert.equal(page.requests[0].body.messages[0].content, "Saya mahu sewa kedai");
   const listen = page.messages.children[1].children[2];
-  assert.equal(listen.textContent, "Listen");
+  assert.equal(listen.textContent, askTpkCopy.ms.listen);
   listen.events.click();
   assert.equal(spoken[0].text, "Sewa yang diterbitkan ialah RM3,600 sebulan.");
   assert.equal(spoken[0].lang, "ms-MY");

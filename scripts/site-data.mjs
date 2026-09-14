@@ -1616,5 +1616,6 @@ export const primaryNav = ["about", "homeLiving", "automotive", "lifestyle", "le
 export const socialLinks = [
   ["Facebook", "https://www.facebook.com/tpkpark.my/"],
   ["Instagram", "https://www.instagram.com/tpkpark/"],
-  ["TikTok", "https://www.tiktok.com/@tpkpark"]
+  ["TikTok", "https://www.tiktok.com/@tpkpark"],
+  ["Xiaohongshu / RedNote", "https://www.xiaohongshu.com/user/profile/69d471000000000026039305"]
 ];

@@ -162,6 +162,25 @@ test("Ga Hing navigation, maps and calls preserve branch attribution and privacy
   assert.equal(page.basicSent().length, 6);
 });
 
+test("Kuche + BaTH referrals use the Puchong branch contact and respect privacy choices", () => {
+  const page = client({ saved: "detailed", locale: "ms" });
+  page.clickLink("/ms/home-living/kuche-bath/");
+  page.clickLink("/zh/home-living/kuche-bath/", ".locale-nav");
+  page.clickLink("https://kbomy.com/?email=private@example.com#private");
+  page.clickLink("https://kbomy.com/contact-us/?email=private@example.com");
+  page.clickLink("https://maps.app.goo.gl/GVQyy6omJkKiJu7VA?private=private@example.com");
+  page.clickLink("tel:+60380791268");
+  assert.deepEqual(page.basicSent().map(event => event.name), ["navigation_click", "language_switch", "outbound_click", "outbound_click", "directions_click", "tenant_contact_click"]);
+  assert.deepEqual(page.basicSent().map(event => event.data.target), ["/ms/home-living/kuche-bath/", "zh", "kuche-bath:website", "kuche-bath:visit", "about", "kuche-bath:phone"]);
+  assert.equal(page.sent().find(event => event[1] === "directions_click")[2].map_provider, "google");
+  assert.equal(page.sent().filter(event => event[1] === "contact_click").length, 0);
+  assert.equal(page.sent().at(-1)[2].tenant, "kuche-bath");
+  assert.doesNotMatch(JSON.stringify([page.sent(), page.basicSent()]), /private@example.com|#private|60380791268|GVQyy/);
+  page.controls.off.handlers.click();
+  page.clickLink("tel:+60380791268");
+  assert.equal(page.basicSent().length, 6);
+});
+
 test("detailed engagement counts milestones once and stops independently of basic statistics", () => {
   const page = client({ saved: "detailed" });
   page.focusForm(); page.focusForm();

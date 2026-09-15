@@ -37,7 +37,7 @@ export const lavinoProfiles = {
         { label: "Directions on Waze", url: directions },
         { label: "Browse Lavino’s website", url: website }
       ] },
-      { type: "cards", kicker: "Before you choose", title: "Make the showroom visit useful.", items: [
+      { type: "cards", alignHeadings: true, kicker: "Before you choose", title: "Make the showroom visit useful.", items: [
         { number: "01", title: "Bring your measurements", text: "Note the room size, doorways and any lift or stair access. A simple floor plan and a few photos can help you explain where a sofa, dining set or bed will go." },
         { number: "02", title: "Compare in person", text: "Use the pieces on display to assess seat comfort, proportions, materials and finishes. Ask the showroom which sizes and colour options are available for the model you like." },
         { number: "03", title: "Plan the delivery", text: "Before ordering, confirm the full price, delivery area, expected lead time, assembly and warranty terms. Mention access restrictions at your home so the team can advise." }
@@ -61,7 +61,7 @@ export const lavinoProfiles = {
         { label: "Arah perjalanan melalui Waze", url: directions },
         { label: "Lihat laman web Lavino", url: website }
       ] },
-      { type: "cards", kicker: "Sebelum memilih", title: "Manfaatkan lawatan ke bilik pameran.", items: [
+      { type: "cards", alignHeadings: true, kicker: "Sebelum memilih", title: "Manfaatkan lawatan ke bilik pameran.", items: [
         { number: "01", title: "Bawa ukuran ruang", text: "Catat saiz bilik, lebar pintu serta akses lif atau tangga. Pelan ringkas dan beberapa foto membantu anda menerangkan tempat sofa, set meja makan atau katil akan diletakkan." },
         { number: "02", title: "Bandingkan sendiri", text: "Nilai keselesaan tempat duduk, saiz, bahan dan kemasan melalui perabot yang dipamerkan. Tanya kakitangan tentang pilihan ukuran dan warna bagi model yang anda minati." },
         { number: "03", title: "Rancang penghantaran", text: "Sebelum membuat pesanan, sahkan harga penuh, kawasan penghantaran, jangka masa menunggu, pemasangan dan syarat waranti. Maklumkan sebarang kekangan akses di rumah anda." }
@@ -85,7 +85,7 @@ export const lavinoProfiles = {
         { label: "使用Waze导航", url: directions },
         { label: "浏览Lavino官网", url: website }
       ] },
-      { type: "cards", kicker: "选购之前", title: "让到访更有收获。", items: [
+      { type: "cards", alignHeadings: true, kicker: "选购之前", title: "让到访更有收获。", items: [
         { number: "01", title: "带上尺寸与照片", text: "先记录房间尺寸、门口宽度，以及电梯或楼梯的通行空间。简单的平面图与几张照片，有助于说明沙发、餐桌或床架的摆放位置。" },
         { number: "02", title: "现场体验与比较", text: "通过展出的家具感受坐感，比较比例、材质与表面处理。遇到喜欢的款式，可以向展厅人员了解可选尺寸与颜色。" },
         { number: "03", title: "提前了解送货安排", text: "下单前确认总价、送货范围、预计等候时间、安装及保修条款。若住所有搬运或出入限制，也请事先告知，方便团队提供建议。" }

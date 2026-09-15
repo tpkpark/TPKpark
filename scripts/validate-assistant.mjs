@@ -100,6 +100,16 @@ test("approved knowledge retains public inventory boundaries", () => {
   assert.match(systemPrompt("ms"), /cannot send messages or save enquiries/i);
 });
 
+test("business guides provide the correct public branch contacts in all three languages", () => {
+  for (const locale of ["en", "ms", "zh"]) {
+    assert.match(sources.lavino.texts[locale], /6, Jalan TPK 2\/2/);
+    assert.match(sources.lavino.texts[locale], /\+60 16 339 1601/);
+    assert.doesNotMatch(sources.lavino.texts[locale], /662 6951|332 9592/);
+    assert.match(sources.motd.texts[locale], /\+60 16 662 6951/);
+    assert.deepEqual(sourceLinks(["lavino"], locale).map(source => source.url), [routePath(locale, "lavino")]);
+  }
+});
+
 test("the assistant can read the published profile and shared public-record blocks", () => {
   assert.deepEqual(Object.keys(sources), routeIds, "Every published route must be available for answers");
   const profile = site.en.pages.profile.blocks.find(block => block.type === "profile");

@@ -126,8 +126,14 @@ for (const locale of locales) {
         if (!["profile", "publicRecord"].includes(routeId) && webPage?.mainEntity?.["@id"] !== (page.business?.["@id"] || placeId)) fail(label, "WebPage main entity does not reference its business or place");
         if (page.business) {
           const business = graph.find(entry => entry["@id"] === page.business["@id"]);
-          if (business?.["@type"] !== "Restaurant" || business?.containedInPlace?.["@id"] !== placeId) fail(label, "Business profile must identify its restaurant and park location");
-          if (business?.url !== "https://www.motdgroup.com/" || business?.telephone !== "+60166626951") fail(label, "MOTD business identity or public contact is incorrect");
+          const expected = {
+            motd: { type: "Restaurant", url: "https://www.motdgroup.com/", phone: "+60166626951" },
+            lavino: { type: "FurnitureStore", url: "https://www.lavino.com.my/", phone: "+60163391601" }
+          }[routeId];
+          if (!expected || business?.["@type"] !== expected.type || business?.containedInPlace?.["@id"] !== placeId) fail(label, "Business profile must identify its business type and park location");
+          if (business?.url !== expected?.url || business?.telephone !== expected?.phone) fail(label, "Business identity or branch contact is incorrect");
+          if (!html.includes(`href="tel:${expected?.phone}"`)) fail(label, "Visible business contact does not match its branch telephone");
+          if (routeId === "lavino" && (business?.address?.streetAddress !== "6, Jalan TPK 2/2, Taman Perindustrian Kinrara" || business?.address?.postalCode !== "47100" || html.includes("+60166626951"))) fail(label, "Lavino must use its own branch address and contact");
         }
         const breadcrumb = graph.find((entry) => entry["@type"] === "BreadcrumbList");
         if (routeId !== "home" && !breadcrumb) fail(label, "BreadcrumbList schema is missing");

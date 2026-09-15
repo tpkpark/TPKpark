@@ -125,6 +125,24 @@ test("MOTD navigation and referrals are measured without counting restaurant cal
   assert.doesNotMatch(JSON.stringify([page.sent(), page.basicSent()]), /private@example.com|#private|60166626951/);
 });
 
+test("Lavino visits and referrals keep the showroom contact separate from park enquiries", () => {
+  const page = client({ saved: "detailed", locale: "ms" });
+  page.clickLink("/ms/home-living/lavino/");
+  page.clickLink("/zh/home-living/lavino/", ".locale-nav");
+  page.clickLink("https://www.lavino.com.my/?email=private@example.com#private");
+  page.clickLink("https://www.waze.com/live-map/directions/my/selangor/puchong/lavino-puchong-or-bandar-kinrara-furniture-showroom?to=place.ChIJ-UmXrFBLzDERLRSUYQXuCqA&private=private@example.com");
+  page.clickLink("tel:+60163391601");
+  assert.deepEqual(page.basicSent().map(event => event.name), ["navigation_click", "language_switch", "outbound_click", "directions_click", "tenant_contact_click"]);
+  assert.deepEqual(page.basicSent().map(event => event.data.target), ["/ms/home-living/lavino/", "zh", "lavino:website", "about", "lavino:phone"]);
+  assert.equal(page.sent().find(event => event[1] === "directions_click")[2].map_provider, "waze");
+  assert.equal(page.sent().filter(event => event[1] === "contact_click").length, 0);
+  assert.equal(page.sent().at(-1)[2].tenant, "lavino");
+  assert.doesNotMatch(JSON.stringify([page.sent(), page.basicSent()]), /private@example.com|#private|60163391601|ChIJ/);
+  page.controls.off.handlers.click();
+  page.clickLink("tel:+60163391601");
+  assert.equal(page.basicSent().length, 5);
+});
+
 test("detailed engagement counts milestones once and stops independently of basic statistics", () => {
   const page = client({ saved: "detailed" });
   page.focusForm(); page.focusForm();

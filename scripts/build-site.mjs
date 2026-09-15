@@ -184,9 +184,17 @@ function renderStats(locale, block) {
   return `<section class="section-compact"><div class="shell"><div class="stats">${items}</div>${more}</div></section>`;
 }
 
-function renderDirectory(block) {
-  const items = block.items.map(([category, name]) => `<div class="directory-item"><span>${escapeHtml(category)}</span><h3>${escapeHtml(name)}</h3></div>`).join("");
+function renderDirectory(locale, block) {
+  const items = block.items.map(([category, name, route]) => `<div class="directory-item"><span>${escapeHtml(category)}</span><h3>${route ? link(locale, route, name, "directory-profile-link") : escapeHtml(name)}</h3></div>`).join("");
   return `<section class="section"><div class="shell">${sectionHeader(block)}<div class="directory">${items}</div></div></section>`;
+}
+
+function renderBusinessVisit(block) {
+  const actions = block.links.map(item => `<a class="text-link" href="${escapeHtml(item.url)}">${escapeHtml(item.label)} <span aria-hidden="true">↗</span></a>`).join("");
+  return `<section class="section"><div class="shell">${sectionHeader(block)}<div class="business-visit">
+    <div><h3>${escapeHtml(block.addressLabel)}</h3><address>${escapeHtml(block.address)}</address><p>${escapeHtml(block.phoneLabel)}: <a href="tel:+60166626951">+60 16 662 6951</a></p></div>
+    <div><div class="business-actions">${actions}</div><p class="business-note">${escapeHtml(block.note)}</p></div>
+  </div></div></section>`;
 }
 
 function renderTimeline(block) {
@@ -395,7 +403,8 @@ function renderBlock(locale, routeId, page, block, index) {
     case "cards": return renderCards(locale, block);
     case "split": return renderSplit(locale, block, index);
     case "stats": return renderStats(locale, block);
-    case "directory": return renderDirectory(block);
+    case "directory": return renderDirectory(locale, block);
+    case "businessVisit": return renderBusinessVisit(block);
     case "timeline": return renderTimeline(block);
     case "quote": return renderQuote(block);
     case "newsFeature": return renderNewsFeature(locale, block);
@@ -416,7 +425,7 @@ function renderBlock(locale, routeId, page, block, index) {
 function cta(locale, page) {
   const t = site[locale];
   const config = page.cta || { title: t.ctaTitle, text: t.ctaText, button: t.ctaButton };
-  const href = config.route ? routePath(locale, config.route) : contactHref(locale, page.unitKey);
+  const href = config.url || (config.route ? routePath(locale, config.route) : contactHref(locale, page.unitKey));
   return `<aside class="cta-panel"><div><h2>${escapeHtml(config.title)}</h2><p>${escapeHtml(config.text)}</p></div><a class="button button-primary" href="${href}">${escapeHtml(config.button)} <span class="arrow" aria-hidden="true">→</span></a></aside>`;
 }
 
@@ -472,12 +481,14 @@ function schemas(locale, routeId, page) {
       isPartOf: { "@id": `${origin}/#website` },
       publisher: { "@id": organizationId },
       about: { "@id": pageEntityId },
-      mainEntity: { "@id": routeId === "publicRecord" ? recordListId : pageEntityId },
-      datePublished: "2026-09-01",
+      mainEntity: { "@id": page.business?.["@id"] || (routeId === "publicRecord" ? recordListId : pageEntityId) },
+      datePublished: page.datePublished || "2026-09-01",
       dateModified: routeLastModified[routeId],
       inLanguage: localeConfig[locale].htmlLang
     }
   ];
+
+  if (page.business) graph.push(page.business);
 
   if (routeId !== "home") {
     const breadcrumbItems = [

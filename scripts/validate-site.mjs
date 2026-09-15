@@ -123,7 +123,12 @@ for (const locale of locales) {
         if (webPage?.dateModified !== routeLastModified[routeId]) fail(label, "WebPage dateModified is incorrect");
         if (webPage?.publisher?.["@id"] !== organizationId) fail(label, "WebPage publisher is incorrect");
         if (!["profile", "publicRecord"].includes(routeId) && webPage?.about?.["@id"] !== placeId) fail(label, "WebPage subject does not reference Taman Perindustrian Kinrara");
-        if (!["profile", "publicRecord"].includes(routeId) && webPage?.mainEntity?.["@id"] !== placeId) fail(label, "WebPage main entity does not reference Taman Perindustrian Kinrara");
+        if (!["profile", "publicRecord"].includes(routeId) && webPage?.mainEntity?.["@id"] !== (page.business?.["@id"] || placeId)) fail(label, "WebPage main entity does not reference its business or place");
+        if (page.business) {
+          const business = graph.find(entry => entry["@id"] === page.business["@id"]);
+          if (business?.["@type"] !== "Restaurant" || business?.containedInPlace?.["@id"] !== placeId) fail(label, "Business profile must identify its restaurant and park location");
+          if (business?.url !== "https://www.motdgroup.com/" || business?.telephone !== "+60166626951") fail(label, "MOTD business identity or public contact is incorrect");
+        }
         const breadcrumb = graph.find((entry) => entry["@type"] === "BreadcrumbList");
         if (routeId !== "home" && !breadcrumb) fail(label, "BreadcrumbList schema is missing");
         if (page.parentRoute && breadcrumb?.itemListElement?.length !== 3) fail(label, "nested page breadcrumb does not contain three levels");

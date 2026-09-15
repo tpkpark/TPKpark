@@ -1,5 +1,9 @@
 // Assets re-encoded from existing site imagery. The legacy park image is billboard artwork, not a photograph; use real frontage photographs in page content. Social preview URLs remain unchanged.
 export const imageAssets = {
+  "https://www.tpkpark.com/assets/images/motd-entrance-1400.webp": {
+    src: "/assets/images/motd-entrance-1400.webp", width: 1400, height: 787,
+    srcset: "/assets/images/motd-entrance-480.webp 480w, /assets/images/motd-entrance-1400.webp 1400w"
+  },
   "https://i.imgur.com/an6ruYm.jpg": {
     "src": "/assets/images/park-1536.webp",
     "width": 1536,

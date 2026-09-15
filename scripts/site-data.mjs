@@ -1,3 +1,5 @@
+import { motdProfiles } from "./motd-profile.mjs";
+
 export const origin = "https://www.tpkpark.com";
 
 export const routeSlugs = {
@@ -6,6 +8,7 @@ export const routeSlugs = {
   homeLiving: "home-living",
   automotive: "automotive",
   lifestyle: "lifestyle",
+  motd: "lifestyle/motd",
   leasing: "leasing",
   leasingShop: "leasing/shop-showroom",
   leasingDetached: "leasing/detached-building",
@@ -32,6 +35,7 @@ export const seoTitles = {
     homeLiving: "Home & Living Showrooms in Puchong | TPK Park",
     automotive: "Automotive Sales & Services in Puchong | TPK Park",
     lifestyle: "Dining, Fitness & Lifestyle in Puchong | TPK Park",
+    motd: "MOTD Bar & Dining at TPK Park, Puchong",
     leasing: "Shops, Showrooms & Buildings for Rent in Puchong | TPK Park",
     leasingShop: "Shop & Showroom for Rent in Kinrara, Puchong | TPK Park",
     leasingDetached: "Detached Showroom Building for Rent in Puchong | TPK Park",
@@ -48,6 +52,7 @@ export const seoTitles = {
     homeLiving: "Bilik Pameran Home & Living di Puchong | TPK Park",
     automotive: "Jualan & Servis Automotif di Puchong | TPK Park",
     lifestyle: "Makan, Kecergasan & Lifestyle di Puchong | TPK Park",
+    motd: "MOTD Bar & Dining di TPK Park, Puchong",
     leasing: "Kedai & Bangunan untuk Disewa di Puchong | TPK Park",
     leasingShop: "Kedai untuk Disewa di Kinrara, Puchong | TPK Park",
     leasingDetached: "Bangunan Sesebuah untuk Disewa di Puchong | TPK Park",
@@ -64,6 +69,7 @@ export const seoTitles = {
     homeLiving: "蒲种家居生活展厅与装修品牌 | TPK Park",
     automotive: "蒲种汽车销售、维修与美容服务 | TPK Park",
     lifestyle: "蒲种餐饮、运动与生活配套 | TPK Park",
+    motd: "MOTD蒲种餐酒馆、炭烤与现场音乐 | TPK Park",
     leasing: "蒲种金銮工业园商铺、展厅与整栋物业出租 | TPK Park",
     leasingShop: "蒲种金銮工业园商铺与展厅出租 | TPK Park",
     leasingDetached: "蒲种独立式商业建筑出租 | TPK Park",
@@ -83,6 +89,8 @@ const routeLastModifiedOverrides = {
   home: "2026-09-11",
   about: "2026-09-11",
   homeLiving: "2026-09-09",
+  lifestyle: "2026-09-15",
+  motd: "2026-09-15",
   leasing: "2026-09-10",
   leasingShop: "2026-09-09",
   leasingDetached: "2026-09-09",
@@ -1606,10 +1614,16 @@ const zhPages = {
 };
 
 export const site = {
-  en: { ...common.en, pages: enPages },
-  ms: { ...common.ms, pages: msPages },
-  zh: { ...common.zh, pages: zhPages }
+  en: { ...common.en, pages: { ...enPages, motd: motdProfiles.en } },
+  ms: { ...common.ms, pages: { ...msPages, motd: motdProfiles.ms } },
+  zh: { ...common.zh, pages: { ...zhPages, motd: motdProfiles.zh } }
 };
+
+// Keep the business profile within the Lifestyle directory.
+for (const locale of Object.keys(site)) {
+  const directory = site[locale].pages.lifestyle.blocks.find(block => block.type === "directory");
+  directory.items = directory.items.map(item => item[1] === "m.o.t.d" ? [...item, "motd"] : item);
+}
 
 export const primaryNav = ["about", "homeLiving", "automotive", "lifestyle", "leasing", "news", "contact"];
 

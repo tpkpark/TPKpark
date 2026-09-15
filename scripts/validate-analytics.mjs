@@ -110,6 +110,21 @@ test("selected actions exclude visitor text in both systems and use only two Ver
   assert.equal(page.sent().some(event => ["generate_lead", "form_submit"].includes(event[1])), false);
 });
 
+test("MOTD navigation and referrals are measured without counting restaurant calls as park enquiries", () => {
+  const page = client({ saved: "detailed" });
+  page.clickLink("/lifestyle/motd/");
+  page.clickLink("/zh/lifestyle/motd/", ".locale-nav");
+  page.clickLink("https://www.motdgroup.com/menu?email=private@example.com#private");
+  page.clickLink("https://www.motdgroup.com/zh/live-house");
+  page.clickLink("https://www.motdgroup.com/contact-us");
+  page.clickLink("https://www.motdgroup.com/zh");
+  page.clickLink("tel:+60166626951");
+  assert.deepEqual(page.basicSent().map(event => event.data.target), ["/lifestyle/motd/", "zh", "motd:menu", "motd:live_music", "motd:visit", "motd:home", "motd:phone"]);
+  assert.equal(page.sent().filter(event => event[1] === "contact_click").length, 0);
+  assert.equal(page.sent().filter(event => event[1] === "tenant_contact_click").length, 1);
+  assert.doesNotMatch(JSON.stringify([page.sent(), page.basicSent()]), /private@example.com|#private|60166626951/);
+});
+
 test("detailed engagement counts milestones once and stops independently of basic statistics", () => {
   const page = client({ saved: "detailed" });
   page.focusForm(); page.focusForm();

@@ -214,7 +214,7 @@
   });
 
   const knownSpaces = ["shop-showroom", "detached-building", "semi-detached", "terrace-waitlist"];
-  const pagePath = /^\/(?:ms\/|zh\/)?(?:about|home-living|automotive|lifestyle|leasing(?:\/(?:shop-showroom|detached-building|semi-detached))?|news|milestones|wong-shung-yen(?:\/public-record)?|contact)?\/?$/;
+  const pagePath = /^\/(?:ms\/|zh\/)?(?:about|home-living|automotive|lifestyle(?:\/motd)?|leasing(?:\/(?:shop-showroom|detached-building|semi-detached))?|news|milestones|wong-shung-yen(?:\/public-record)?|contact)?\/?$/;
   const socialHosts = { "www.facebook.com": "facebook", "www.instagram.com": "instagram", "www.tiktok.com": "tiktok" };
 
   document.addEventListener("click", event => {
@@ -223,6 +223,7 @@
     const href = link.getAttribute("href") || "";
     const fromAssistant = Boolean(link.closest("[data-ask-tpk]"));
     const click = (name, detail, target) => record(name, { ...detail, interaction_origin: fromAssistant ? "assistant" : "website" }, fromAssistant ? "assistant:" + target : target);
+    if (href === "tel:+60166626951") return click("tenant_contact_click", { contact_method: "phone", tenant: "motd" }, "motd:phone");
     if (href.startsWith("tel:")) return click("contact_click", { contact_method: "phone" }, "phone");
     if (href.startsWith("mailto:")) return click("contact_click", { contact_method: "email" }, fromAssistant && link.closest(".ask-tpk-email") ? "email_draft" : "email");
     try {
@@ -250,6 +251,10 @@
         }
       } else if ((url.hostname === "www.google.com" && url.pathname.startsWith("/maps")) || url.hostname === "maps.app.goo.gl") {
         click("directions_click", { map_provider: "google" }, config.route);
+      } else if (["www.motdgroup.com", "motdgroup.com"].includes(url.hostname)) {
+        const path = url.pathname.replace(/^\/zh(?=\/|$)/, "").replace(/\/$/, "") || "/";
+        const destination = { "/": "home", "/menu": "menu", "/live-house": "live_music", "/contact-us": "visit" }[path] || "website";
+        click("outbound_click", { link_domain: "www.motdgroup.com" }, "motd:" + destination);
       } else if (socialHosts[url.hostname]) {
         click("social_click", { network: socialHosts[url.hostname] }, socialHosts[url.hostname]);
       } else {

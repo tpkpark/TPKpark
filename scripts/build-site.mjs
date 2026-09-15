@@ -707,7 +707,7 @@ function renderPage(locale, routeId) {
 <body>
   <a class="skip-link" href="#main">${escapeHtml(t.skip)}</a>
   ${header(locale, routeId)}
-  <main id="main">${body}</main>
+  <main id="main"${page.business ? ' class="business-guide"' : ""}>${body}</main>
   ${footer(locale)}
   ${analytics(locale, routeId)}
   ${askTpk(locale, routeId)}

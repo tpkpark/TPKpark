@@ -167,6 +167,7 @@ button, input, select, textarea { font: inherit; }
 .section-header { display: grid; grid-template-columns: .68fr 1.32fr; gap: 48px; align-items: start; margin-bottom: 48px; }
 .section-header h2, .cta-panel h2 { font-family: Georgia, "Times New Roman", serif; font-size: clamp(2.35rem, 5vw, 4.8rem); font-weight: 400; line-height: 1.03; letter-spacing: -.035em; margin: 0; text-wrap: balance; }
 .section-header p { max-width: 600px; margin: 0; color: rgba(16,23,19,.67); }
+.business-guide .section-header h2 + p { margin-top: 20px; }
 .section-dark .section-header p { color: rgba(255,255,255,.67); }
 .section-number { font-size: 12px; letter-spacing: .18em; text-transform: uppercase; font-weight: 800; color: var(--gold); }
 

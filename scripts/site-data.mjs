@@ -1,6 +1,7 @@
 import { motdProfiles } from "./motd-profile.mjs";
 import { lavinoProfiles } from "./lavino-profile.mjs";
 import { gaHingProfiles } from "./ga-hing-profile.mjs";
+import { kucheBathProfiles } from "./kuche-bath-profile.mjs";
 
 export const origin = "https://www.tpkpark.com";
 
@@ -10,6 +11,7 @@ export const routeSlugs = {
   homeLiving: "home-living",
   lavino: "home-living/lavino",
   gaHing: "home-living/ga-hing",
+  kucheBath: "home-living/kuche-bath",
   automotive: "automotive",
   lifestyle: "lifestyle",
   motd: "lifestyle/motd",
@@ -39,6 +41,7 @@ export const seoTitles = {
     homeLiving: "Home & Living Showrooms in Puchong | TPK Park",
     lavino: "Lavino Puchong Furniture Showroom | TPK Park",
     gaHing: "Ga Hing Puchong | Kitchen, Bathroom & Tiles | TPK Park",
+    kucheBath: "Kuche + BaTH (KBO) Puchong | Kitchen & Bath | TPK Park",
     automotive: "Automotive Sales & Services in Puchong | TPK Park",
     lifestyle: "Dining, Fitness & Lifestyle in Puchong | TPK Park",
     motd: "MOTD Bar & Dining at TPK Park, Puchong",
@@ -58,6 +61,7 @@ export const seoTitles = {
     homeLiving: "Bilik Pameran Home & Living di Puchong | TPK Park",
     lavino: "Bilik Pameran Perabot Lavino Puchong | TPK Park",
     gaHing: "Ga Hing Puchong | Dapur, Bilik Mandi & Jubin | TPK Park",
+    kucheBath: "Kuche + BaTH (KBO) Puchong | Dapur & Bilik Mandi | TPK Park",
     automotive: "Jualan & Servis Automotif di Puchong | TPK Park",
     lifestyle: "Makan, Kecergasan & Lifestyle di Puchong | TPK Park",
     motd: "MOTD Bar & Dining di TPK Park, Puchong",
@@ -77,6 +81,7 @@ export const seoTitles = {
     homeLiving: "蒲种家居生活展厅与装修品牌 | TPK Park",
     lavino: "Lavino蒲种家具展厅 | TPK Park",
     gaHing: "Ga Hing蒲种厨卫与瓷砖展厅 | TPK Park",
+    kucheBath: "Kuche + BaTH（KBO）蒲种厨卫展厅 | TPK Park",
     automotive: "蒲种汽车销售、维修与美容服务 | TPK Park",
     lifestyle: "蒲种餐饮、运动与生活配套 | TPK Park",
     motd: "MOTD蒲种餐酒馆、炭烤与现场音乐 | TPK Park",
@@ -101,6 +106,7 @@ const routeLastModifiedOverrides = {
   homeLiving: "2026-09-15",
   lavino: "2026-09-15",
   gaHing: "2026-09-15",
+  kucheBath: "2026-09-15",
   automotive: "2026-09-15",
   milestones: "2026-09-15",
   lifestyle: "2026-09-15",
@@ -1628,14 +1634,14 @@ const zhPages = {
 };
 
 export const site = {
-  en: { ...common.en, pages: { ...enPages, motd: motdProfiles.en, lavino: lavinoProfiles.en, gaHing: gaHingProfiles.en } },
-  ms: { ...common.ms, pages: { ...msPages, motd: motdProfiles.ms, lavino: lavinoProfiles.ms, gaHing: gaHingProfiles.ms } },
-  zh: { ...common.zh, pages: { ...zhPages, motd: motdProfiles.zh, lavino: lavinoProfiles.zh, gaHing: gaHingProfiles.zh } }
+  en: { ...common.en, pages: { ...enPages, motd: motdProfiles.en, lavino: lavinoProfiles.en, gaHing: gaHingProfiles.en, kucheBath: kucheBathProfiles.en } },
+  ms: { ...common.ms, pages: { ...msPages, motd: motdProfiles.ms, lavino: lavinoProfiles.ms, gaHing: gaHingProfiles.ms, kucheBath: kucheBathProfiles.ms } },
+  zh: { ...common.zh, pages: { ...zhPages, motd: motdProfiles.zh, lavino: lavinoProfiles.zh, gaHing: gaHingProfiles.zh, kucheBath: kucheBathProfiles.zh } }
 };
 
 // Link each business profile from its own cluster directory.
 for (const locale of Object.keys(site)) {
-  for (const [parent, name, route] of [["lifestyle", "m.o.t.d", "motd"], ["homeLiving", "Lavino", "lavino"], ["homeLiving", "Ga Hing", "gaHing"]]) {
+  for (const [parent, name, route] of [["lifestyle", "m.o.t.d", "motd"], ["homeLiving", "Lavino", "lavino"], ["homeLiving", "Ga Hing", "gaHing"], ["homeLiving", "Kuche + BaTH", "kucheBath"]]) {
     const directory = site[locale].pages[parent].blocks.find(block => block.type === "directory");
     directory.items = directory.items.map(item => item[1] === name ? [...item, route] : item);
   }

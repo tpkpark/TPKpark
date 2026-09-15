@@ -214,7 +214,7 @@
   });
 
   const knownSpaces = ["shop-showroom", "detached-building", "semi-detached", "terrace-waitlist"];
-  const pagePath = /^\/(?:ms\/|zh\/)?(?:about|home-living(?:\/(?:lavino|ga-hing))?|automotive|lifestyle(?:\/motd)?|leasing(?:\/(?:shop-showroom|detached-building|semi-detached))?|news|milestones|wong-shung-yen(?:\/public-record)?|contact)?\/?$/;
+  const pagePath = /^\/(?:ms\/|zh\/)?(?:about|home-living(?:\/(?:lavino|ga-hing|kuche-bath))?|automotive|lifestyle(?:\/motd)?|leasing(?:\/(?:shop-showroom|detached-building|semi-detached))?|news|milestones|wong-shung-yen(?:\/public-record)?|contact)?\/?$/;
   const socialHosts = { "www.facebook.com": "facebook", "www.instagram.com": "instagram", "www.tiktok.com": "tiktok", "www.xiaohongshu.com": "xiaohongshu", "www.rednote.com": "xiaohongshu" };
 
   document.addEventListener("click", event => {
@@ -226,6 +226,7 @@
     if (href === "tel:+60166626951") return click("tenant_contact_click", { contact_method: "phone", tenant: "motd" }, "motd:phone");
     if (href === "tel:+60163391601") return click("tenant_contact_click", { contact_method: "phone", tenant: "lavino" }, "lavino:phone");
     if (href === "tel:+60380809119") return click("tenant_contact_click", { contact_method: "phone", tenant: "ga-hing" }, "ga-hing:phone");
+    if (href === "tel:+60380791268") return click("tenant_contact_click", { contact_method: "phone", tenant: "kuche-bath" }, "kuche-bath:phone");
     if (href.startsWith("tel:")) return click("contact_click", { contact_method: "phone" }, "phone");
     if (href.startsWith("mailto:")) return click("contact_click", { contact_method: "email" }, fromAssistant && link.closest(".ask-tpk-email") ? "email_draft" : "email");
     try {
@@ -260,6 +261,9 @@
       } else if (["www.gahing.com", "gahing.com"].includes(url.hostname)) {
         const destination = /^\/contact\/?$/.test(url.pathname) ? "visit" : "website";
         click("outbound_click", { link_domain: "gahing.com" }, "ga-hing:" + destination);
+      } else if (["www.kbomy.com", "kbomy.com"].includes(url.hostname)) {
+        const destination = /^\/contact-us\/?$/.test(url.pathname) ? "visit" : "website";
+        click("outbound_click", { link_domain: "kbomy.com" }, "kuche-bath:" + destination);
       } else if (["www.motdgroup.com", "motdgroup.com"].includes(url.hostname)) {
         const path = url.pathname.replace(/^\/zh(?=\/|$)/, "").replace(/\/$/, "") || "/";
         const destination = { "/": "home", "/menu": "menu", "/live-house": "live_music", "/contact-us": "visit" }[path] || "website";

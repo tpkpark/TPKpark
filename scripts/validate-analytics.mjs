@@ -181,6 +181,25 @@ test("Kuche + BaTH referrals use the Puchong branch contact and respect privacy 
   assert.equal(page.basicSent().length, 6);
 });
 
+test("Jubin BMS referrals preserve the Kinrara contact and omit private URL contents", () => {
+  const page = client({ saved: "detailed", locale: "ms" });
+  page.clickLink("/ms/home-living/jubin-bms/");
+  page.clickLink("/zh/home-living/jubin-bms/", ".locale-nav");
+  page.clickLink("https://www.jubinbms.com.my/?email=private@example.com#private");
+  page.clickLink("https://www.jubinbms.com.my/locate-us?email=private@example.com");
+  page.clickLink("https://www.google.com/maps/dir/?api=1&destination=Jubin+BMS+Puchong+Kinrara&private=private@example.com");
+  page.clickLink("tel:+60380748300");
+  assert.deepEqual(page.basicSent().map(event => event.name), ["navigation_click", "language_switch", "outbound_click", "outbound_click", "directions_click", "tenant_contact_click"]);
+  assert.deepEqual(page.basicSent().map(event => event.data.target), ["/ms/home-living/jubin-bms/", "zh", "jubin-bms:website", "jubin-bms:visit", "about", "jubin-bms:phone"]);
+  assert.equal(page.sent().find(event => event[1] === "directions_click")[2].map_provider, "google");
+  assert.equal(page.sent().filter(event => event[1] === "contact_click").length, 0);
+  assert.equal(page.sent().at(-1)[2].tenant, "jubin-bms");
+  assert.doesNotMatch(JSON.stringify([page.sent(), page.basicSent()]), /private@example.com|#private|60380748300|destination=/);
+  page.controls.off.handlers.click();
+  page.clickLink("tel:+60380748300");
+  assert.equal(page.basicSent().length, 6);
+});
+
 test("detailed engagement counts milestones once and stops independently of basic statistics", () => {
   const page = client({ saved: "detailed" });
   page.focusForm(); page.focusForm();

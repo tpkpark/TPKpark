@@ -340,7 +340,10 @@ button, input, select, textarea { font: inherit; }
 .footer-links { display: grid; gap: 9px; }
 .footer-links a { color: rgba(255,255,255,.76); text-decoration: none; font-size: 14px; }
 .footer-links a:hover { color: var(--cream); }
-.footer-bottom { margin-top: 60px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,.14); display: flex; justify-content: space-between; gap: 30px; color: rgba(255,255,255,.5); font-size: 11px; }
+.footer-bottom { margin-top: 60px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,.14); display: flex; align-items: center; justify-content: space-between; gap: 12px 30px; color: rgba(255,255,255,.5); font-size: 11px; }
+.footer-legal { display: flex; flex-wrap: wrap; align-items: center; gap: 0 24px; }
+.footer-privacy { min-height: 44px; color: rgba(255,255,255,.76); font-size: 11px; text-decoration: none; }
+.footer-privacy:hover, .footer-privacy:focus-visible { color: var(--cream); text-decoration: underline; }
 
 .notice { padding: 14px 18px; border: 1px solid rgba(183,141,70,.45); background: rgba(183,141,70,.1); border-radius: 12px; color: var(--forest); }
 .archive-label { display: inline-flex; border: 1px solid var(--gold); color: var(--gold); border-radius: 999px; padding: 7px 12px; font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
@@ -433,7 +436,7 @@ button, input, select, textarea { font: inherit; }
   .cta-panel .button { justify-self: start; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .footer-brand { grid-column: 1 / -1; }
-  .footer-bottom { flex-direction: column; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; }
 }
 
 @media (max-width: 360px) {

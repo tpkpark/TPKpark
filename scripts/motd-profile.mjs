@@ -37,7 +37,7 @@ export const motdProfiles = {
         { number: "02", title: "An afternoon stop", text: "Afternoon drinks and CHAR offer another reason to stay in the park after appointments, or to meet colleagues and friends." },
         { number: "03", title: "Return for the music", text: "Live performances take place on selected evenings. Check MOTD’s current programme before planning a night out." }
       ] },
-      { type: "businessVisit", kicker: "Plan your stop", title: "Find MOTD in the park.", text: "The entrance is on Jalan TPK 2/8, facing Bukit Jalil Highway. Ample free parking makes it practical to combine dining with other visits around TPK Park.", addressLabel: "Address", address: "1, Jalan TPK 2/8, Taman Perindustrian Kinrara, 47180 Puchong, Selangor", phoneLabel: "MOTD enquiries", note: "Menus, opening hours, performances and table reservations are managed directly by MOTD. Check its website for current details before travelling.", links: [
+      { type: "businessVisit", kicker: "Plan your stop", title: "Find MOTD in the park.", text: "The entrance is on Jalan TPK 2/8, facing Bukit Jalil Highway. Ample free parking makes it practical to combine dining with other visits around TPK Park.", addressLabel: "Address", address: "1, Jalan TPK 2/8, Taman Perindustrian Kinrara, 47180 Puchong, Selangor", phoneLabel: "MOTD enquiries", phoneDisplay: "+60 16 662 6951", note: "Menus, opening hours, performances and table reservations are managed directly by MOTD. Check its website for current details before travelling.", links: [
         { label: "MOTD menus", url: "https://www.motdgroup.com/menu" },
         { label: "Live music at MOTD", url: "https://www.motdgroup.com/live-house" },
         { label: "Opening hours, directions & reservations", url: "https://www.motdgroup.com/contact-us" }
@@ -61,7 +61,7 @@ export const motdProfiles = {
         { number: "02", title: "Persinggahan petang", text: "Minuman petang dan CHAR melengkapkan lawatan selepas janji temu, atau pertemuan bersama rakan sekerja dan sahabat." },
         { number: "03", title: "Kembali untuk muzik", text: "Persembahan muzik secara langsung berlangsung pada malam terpilih. Semak program terkini MOTD sebelum merancang kunjungan." }
       ] },
-      { type: "businessVisit", kicker: "Rancang persinggahan", title: "Cari MOTD di taman ini.", text: "Pintu masuk terletak di Jalan TPK 2/8, menghadap Bukit Jalil Highway. Parkir percuma yang mencukupi memudahkan anda menggabungkan waktu makan dengan lawatan lain di TPK Park.", addressLabel: "Alamat", address: "1, Jalan TPK 2/8, Taman Perindustrian Kinrara, 47180 Puchong, Selangor", phoneLabel: "Pertanyaan MOTD", note: "Menu, waktu operasi, persembahan dan tempahan meja diurus terus oleh MOTD. Semak butiran terkini di laman webnya sebelum berkunjung. Pautan MOTD di bawah membuka halaman dalam bahasa Inggeris.", links: [
+      { type: "businessVisit", kicker: "Rancang persinggahan", title: "Cari MOTD di taman ini.", text: "Pintu masuk terletak di Jalan TPK 2/8, menghadap Bukit Jalil Highway. Parkir percuma yang mencukupi memudahkan anda menggabungkan waktu makan dengan lawatan lain di TPK Park.", addressLabel: "Alamat", address: "1, Jalan TPK 2/8, Taman Perindustrian Kinrara, 47180 Puchong, Selangor", phoneLabel: "Pertanyaan MOTD", phoneDisplay: "+60 16 662 6951", note: "Menu, waktu operasi, persembahan dan tempahan meja diurus terus oleh MOTD. Semak butiran terkini di laman webnya sebelum berkunjung. Pautan MOTD di bawah membuka halaman dalam bahasa Inggeris.", links: [
         { label: "Menu MOTD", url: "https://www.motdgroup.com/menu" },
         { label: "Muzik secara langsung di MOTD", url: "https://www.motdgroup.com/live-house" },
         { label: "Waktu operasi, arah & tempahan", url: "https://www.motdgroup.com/contact-us" }
@@ -85,7 +85,7 @@ export const motdProfiles = {
         { number: "02", title: "下午，留一点相聚时间", text: "下午饮品与CHAR炭烤，让办完事后的停留，或与同事、朋友的见面，多一个选择。" },
         { number: "03", title: "晚上，为音乐再来", text: "MOTD在指定晚上安排现场演出。出发前查看最新节目，选择适合自己的音乐之夜。" }
       ] },
-      { type: "businessVisit", kicker: "到访安排", title: "在园区找到MOTD。", text: "入口位于Jalan TPK 2/8，面向Bukit Jalil Highway。现场设有充足免费停车位，方便把用餐与TPK Park内的其他行程安排在一起。", addressLabel: "地址", address: "1, Jalan TPK 2/8, Taman Perindustrian Kinrara, 47180 Puchong, Selangor", phoneLabel: "联系MOTD", note: "菜单、营业时间、演出与订位均由MOTD直接管理。出发前，请在餐厅官网查看最新资料与订位安排。", links: [
+      { type: "businessVisit", kicker: "到访安排", title: "在园区找到MOTD。", text: "入口位于Jalan TPK 2/8，面向Bukit Jalil Highway。现场设有充足免费停车位，方便把用餐与TPK Park内的其他行程安排在一起。", addressLabel: "地址", address: "1, Jalan TPK 2/8, Taman Perindustrian Kinrara, 47180 Puchong, Selangor", phoneLabel: "联系MOTD", phoneDisplay: "+60 16 662 6951", note: "菜单、营业时间、演出与订位均由MOTD直接管理。出发前，请在餐厅官网查看最新资料与订位安排。", links: [
         { label: "MOTD菜单", url: "https://www.motdgroup.com/zh/menu" },
         { label: "MOTD现场音乐与演出安排", url: "https://www.motdgroup.com/zh/live-house" },
         { label: "营业时间、路线与订位", url: "https://www.motdgroup.com/zh/contact-us" }

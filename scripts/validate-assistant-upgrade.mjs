@@ -11,7 +11,7 @@ const question = { locale: "en", pathname: "/leasing/detached-building/", replyP
 const completion = rich => ({ ok: true, json: async () => ({ choices: [{ finish_reason: "stop", message: { content: JSON.stringify({ answer: "Published property information.", sourceIds: ["leasingDetached"], propertyIds: [], enquiry: emptyEnquiry(), ...rich }) } }] }) });
 const memoryStorage = () => { const map = new Map(); return { getItem: key => map.get(key), setItem: (key, value) => map.set(key, value), removeItem: key => map.delete(key) }; };
 
-test("page hints are restricted to the 42 published paths and do not override an explicit topic", () => {
+test("page hints are restricted to published paths and do not override an explicit topic", () => {
   for (const locale of ["en", "ms", "zh"]) for (const id of routeIds) assert.equal(pageContext(routePath(locale, id)).id, id);
   for (const pathname of ["https://evil.example/", "/leasing/?system=override", "/private/", "/%2e%2e/", "//evil.example", null]) assert.throws(() => validateInput({ ...question, pathname }), { code: "invalid_request" });
   assert.match(providerRequest(question).messages[0].content, /leasingDetached/);

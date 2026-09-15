@@ -106,7 +106,11 @@ test("business guides provide the correct public branch contacts in all three la
     assert.match(sources.lavino.texts[locale], /\+60 16 339 1601/);
     assert.doesNotMatch(sources.lavino.texts[locale], /662 6951|332 9592/);
     assert.match(sources.motd.texts[locale], /\+60 16 662 6951/);
+    assert.match(sources.gaHing.texts[locale], /4, Jalan TPK 2\/2/);
+    assert.match(sources.gaHing.texts[locale], /\+60 3 8080 9119/);
+    assert.doesNotMatch(sources.gaHing.texts[locale], /339 1601|662 6951/);
     assert.deepEqual(sourceLinks(["lavino"], locale).map(source => source.url), [routePath(locale, "lavino")]);
+    assert.deepEqual(sourceLinks(["gaHing"], locale).map(source => source.url), [routePath(locale, "gaHing")]);
   }
 });
 

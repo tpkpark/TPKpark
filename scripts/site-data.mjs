@@ -86,17 +86,19 @@ const septemberSeoRoutes = new Set(["home", "homeLiving", "automotive", "lifesty
 export const jadeExhibitionLastModified = "2026-09-13";
 const routeLastModifiedOverrides = {
   news: "2026-09-11",
-  home: "2026-09-11",
-  about: "2026-09-11",
-  homeLiving: "2026-09-09",
+  home: "2026-09-15",
+  about: "2026-09-15",
+  homeLiving: "2026-09-15",
+  automotive: "2026-09-15",
+  milestones: "2026-09-15",
   lifestyle: "2026-09-15",
   motd: "2026-09-15",
   leasing: "2026-09-10",
   leasingShop: "2026-09-09",
   leasingDetached: "2026-09-09",
-  contact: "2026-09-08",
+  contact: "2026-09-15",
   profile: jadeExhibitionLastModified,
-  publicRecord: "2026-09-14"
+  publicRecord: "2026-09-15"
 };
 export const routeLastModified = Object.fromEntries(routeIds.map((routeId) => [routeId, routeLastModifiedOverrides[routeId] || (septemberSeoRoutes.has(routeId) ? "2026-09-07" : "2026-09-03")]));
 
@@ -108,7 +110,7 @@ export function routePath(locale, routeId) {
 }
 
 export const images = {
-  park: "https://i.imgur.com/an6ruYm.jpg",
+  park: "https://i.imgur.com/EDf26sR.jpg",
   carnival: "https://i.imgur.com/syF6CHS.jpg",
   record: "https://i.imgur.com/yFCJC9P.png",
   portrait: "https://i.imgur.com/vM9ott4.jpg",
@@ -636,7 +638,7 @@ const enPages = {
     title: "A mature industrial place, renewed for everyday life.",
     description: "Discover TPK Park at Kinrara Industrial Park, Puchong: Home & Living showrooms, automotive services, dining and commercial premises for rent.",
     lead: "TPK Park is the common name for Taman Perindustrian Kinrara (Kinrara Industrial Park) in Puchong, where Home & Living, Automotive and Lifestyle businesses come together.",
-    image: images.park, // Preserve the existing social preview.
+    image: images.park,
     heroImage: images.homeLiving,
     heroAlt: 'Shopfronts, greenery and roadside parking at TPK Park in Puchong',
     heroCaption: 'Taman Perindustrian Kinrara · Puchong',
@@ -987,7 +989,7 @@ const msPages = {
     title: "Kawasan perindustrian matang, diperbaharui untuk kehidupan seharian.",
     description: "Terokai Taman Perindustrian Kinrara, yang lazim dirujuk sebagai TPK Park, di Puchong: pameran Home & Living, perkhidmatan automotif, kemudahan gaya hidup dan peluang penyewaan.",
     lead: "TPK Park ialah sebutan lazim bagi Taman Perindustrian Kinrara di Puchong, yang menghimpunkan perniagaan Home & Living, Automotif dan Lifestyle.",
-    image: images.park, // Preserve the existing social preview.
+    image: images.park,
     heroImage: images.homeLiving,
     heroAlt: 'Deretan kedai, landskap dan parkir tepi jalan di TPK Park, Puchong',
     heroCaption: 'Taman Perindustrian Kinrara · Puchong',
@@ -1311,7 +1313,7 @@ const zhPages = {
     title: "成熟工业空间，为日常生活持续更新。",
     description: "探索蒲种Taman Perindustrian Kinrara（金銮工业园，通称TPK Park）的家居生活展厅、汽车服务、生活配套及租赁机会。",
     lead: "TPK Park是蒲种Taman Perindustrian Kinrara（金銮工业园）的通称，汇聚家居生活、汽车服务及生活品味业态。",
-    image: images.park, // Preserve the existing social preview.
+    image: images.park,
     heroImage: images.homeLiving,
     heroAlt: '蒲种TPK Park的商铺、绿化与路边停车位',
     heroCaption: 'Taman Perindustrian Kinrara · 蒲种',

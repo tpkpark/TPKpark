@@ -180,9 +180,10 @@ function renderSplit(locale, block, index) {
   const t = site[locale];
   const action = block.route ? `<a class="button button-dark" href="${routePath(locale, block.route)}">${escapeHtml(block.linkLabel || t.readMore)} <span class="arrow" aria-hidden="true">→</span></a>` : "";
   if (block.presentation === "renewal") {
+    const credit = block.captionSource ? ` <a class="text-link" href="${escapeHtml(block.captionSource.url)}">${escapeHtml(block.captionSource.label)}</a>` : "";
     return `<section class="section section-sage renewal-section"><div class="shell renewal-grid">
       <div class="renewal-copy"><span class="section-number">${String(index + 1).padStart(2, "0")}</span><h2>${escapeHtml(block.title)}</h2><p>${escapeHtml(block.text)}</p>${action}</div>
-      <figure class="renewal-figure"><img ${displayImage(block.image, "(max-width: 1020px) calc(100vw - 48px), (max-width: 1280px) 50vw, 580px")} alt="${escapeHtml(block.alt)}" loading="lazy" referrerpolicy="no-referrer">${block.caption ? `<figcaption>${escapeHtml(block.caption)}</figcaption>` : ""}</figure>
+      <figure class="renewal-figure"><img ${displayImage(block.image, "(max-width: 1020px) calc(100vw - 48px), (max-width: 1280px) 50vw, 580px")} alt="${escapeHtml(block.alt)}" loading="lazy" referrerpolicy="no-referrer">${block.caption ? `<figcaption>${escapeHtml(block.caption)}${credit}</figcaption>` : ""}</figure>
     </div></section>`;
   }
   const image = `<img class="split-media" ${displayImage(block.image, "(max-width: 760px) 960px, 1200px")} alt="${escapeHtml(block.alt)}" loading="lazy" referrerpolicy="no-referrer">`;
@@ -201,8 +202,8 @@ function renderDirectory(locale, block) {
   return `<section class="section"><div class="shell">${sectionHeader(block)}<div class="directory">${items}</div></div></section>`;
 }
 
-function renderBusinessVisit(block, page) {
-  const actions = block.links.map(item => `<a class="text-link" href="${escapeHtml(item.url)}">${escapeHtml(item.label)} <span aria-hidden="true">↗</span></a>`).join("");
+function renderBusinessVisit(locale, block, page) {
+  const actions = block.links.map(item => `<a class="text-link" href="${escapeHtml(item.route ? routePath(locale, item.route) : item.url)}">${escapeHtml(item.label)} <span aria-hidden="true">${item.route ? "→" : "↗"}</span></a>`).join("");
   return `<section class="section"><div class="shell">${sectionHeader(block)}<div class="business-visit">
     <div><h3>${escapeHtml(block.addressLabel)}</h3><address>${escapeHtml(block.address)}</address><p>${escapeHtml(block.phoneLabel)}: <a href="tel:${escapeHtml(page.business.telephone)}">${escapeHtml(block.phoneDisplay)}</a></p></div>
     <div><div class="business-actions">${actions}</div><p class="business-note">${escapeHtml(block.note)}</p></div>
@@ -416,7 +417,7 @@ function renderBlock(locale, routeId, page, block, index) {
     case "split": return renderSplit(locale, block, index);
     case "stats": return renderStats(locale, block);
     case "directory": return renderDirectory(locale, block);
-    case "businessVisit": return renderBusinessVisit(block, page);
+    case "businessVisit": return renderBusinessVisit(locale, block, page);
     case "timeline": return renderTimeline(block);
     case "quote": return renderQuote(block);
     case "newsFeature": return renderNewsFeature(locale, block);

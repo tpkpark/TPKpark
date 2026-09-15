@@ -143,6 +143,25 @@ test("Lavino visits and referrals keep the showroom contact separate from park e
   assert.equal(page.basicSent().length, 5);
 });
 
+test("Ga Hing navigation, maps and calls preserve branch attribution and privacy", () => {
+  const page = client({ saved: "detailed", locale: "zh" });
+  page.clickLink("/zh/home-living/ga-hing/");
+  page.clickLink("/ms/home-living/ga-hing/", ".locale-nav");
+  page.clickLink("https://gahing.com/?email=private@example.com#private");
+  page.clickLink("https://gahing.com/contact/?email=private@example.com");
+  page.clickLink("https://goo.gl/maps/2DQ9PTWTaCcj6JM38?private=private@example.com");
+  page.clickLink("tel:+60380809119");
+  assert.deepEqual(page.basicSent().map(event => event.name), ["navigation_click", "language_switch", "outbound_click", "outbound_click", "directions_click", "tenant_contact_click"]);
+  assert.deepEqual(page.basicSent().map(event => event.data.target), ["/zh/home-living/ga-hing/", "ms", "ga-hing:website", "ga-hing:visit", "about", "ga-hing:phone"]);
+  assert.equal(page.sent().find(event => event[1] === "directions_click")[2].map_provider, "google");
+  assert.equal(page.sent().filter(event => event[1] === "contact_click").length, 0);
+  assert.equal(page.sent().at(-1)[2].tenant, "ga-hing");
+  assert.doesNotMatch(JSON.stringify([page.sent(), page.basicSent()]), /private@example.com|#private|60380809119|2DQ9/);
+  page.controls.off.handlers.click();
+  page.clickLink("tel:+60380809119");
+  assert.equal(page.basicSent().length, 6);
+});
+
 test("detailed engagement counts milestones once and stops independently of basic statistics", () => {
   const page = client({ saved: "detailed" });
   page.focusForm(); page.focusForm();

@@ -1,5 +1,9 @@
 // Locally hosted versions of approved imagery, shared by page content and preview metadata.
 export const imageAssets = {
+  "https://www.tpkpark.com/assets/images/ga-hing-puchong-1440.webp": {
+    src: "/assets/images/ga-hing-puchong-1440.webp", width: 1440, height: 1080,
+    srcset: "/assets/images/ga-hing-puchong-480.webp 480w, /assets/images/ga-hing-puchong-1440.webp 1440w"
+  },
   "https://www.tpkpark.com/assets/images/motd-entrance-1400.webp": {
     src: "/assets/images/motd-entrance-1400.webp", width: 1400, height: 787,
     srcset: "/assets/images/motd-entrance-480.webp 480w, /assets/images/motd-entrance-1400.webp 1400w"

@@ -214,7 +214,7 @@
   });
 
   const knownSpaces = ["shop-showroom", "detached-building", "semi-detached", "terrace-waitlist"];
-  const pagePath = /^\/(?:ms\/|zh\/)?(?:about|home-living(?:\/lavino)?|automotive|lifestyle(?:\/motd)?|leasing(?:\/(?:shop-showroom|detached-building|semi-detached))?|news|milestones|wong-shung-yen(?:\/public-record)?|contact)?\/?$/;
+  const pagePath = /^\/(?:ms\/|zh\/)?(?:about|home-living(?:\/(?:lavino|ga-hing))?|automotive|lifestyle(?:\/motd)?|leasing(?:\/(?:shop-showroom|detached-building|semi-detached))?|news|milestones|wong-shung-yen(?:\/public-record)?|contact)?\/?$/;
   const socialHosts = { "www.facebook.com": "facebook", "www.instagram.com": "instagram", "www.tiktok.com": "tiktok", "www.xiaohongshu.com": "xiaohongshu", "www.rednote.com": "xiaohongshu" };
 
   document.addEventListener("click", event => {
@@ -225,6 +225,7 @@
     const click = (name, detail, target) => record(name, { ...detail, interaction_origin: fromAssistant ? "assistant" : "website" }, fromAssistant ? "assistant:" + target : target);
     if (href === "tel:+60166626951") return click("tenant_contact_click", { contact_method: "phone", tenant: "motd" }, "motd:phone");
     if (href === "tel:+60163391601") return click("tenant_contact_click", { contact_method: "phone", tenant: "lavino" }, "lavino:phone");
+    if (href === "tel:+60380809119") return click("tenant_contact_click", { contact_method: "phone", tenant: "ga-hing" }, "ga-hing:phone");
     if (href.startsWith("tel:")) return click("contact_click", { contact_method: "phone" }, "phone");
     if (href.startsWith("mailto:")) return click("contact_click", { contact_method: "email" }, fromAssistant && link.closest(".ask-tpk-email") ? "email_draft" : "email");
     try {
@@ -250,12 +251,15 @@
             click(name, { destination_path: url.pathname }, url.pathname);
           }
         }
-      } else if ((url.hostname === "www.google.com" && url.pathname.startsWith("/maps")) || url.hostname === "maps.app.goo.gl") {
+      } else if ((url.hostname === "www.google.com" && url.pathname.startsWith("/maps")) || url.hostname === "maps.app.goo.gl" || (url.hostname === "goo.gl" && url.pathname.startsWith("/maps/"))) {
         click("directions_click", { map_provider: "google" }, config.route);
       } else if (["www.waze.com", "waze.com"].includes(url.hostname) && url.pathname.startsWith("/live-map/directions")) {
         click("directions_click", { map_provider: "waze" }, config.route);
       } else if (["www.lavino.com.my", "lavino.com.my"].includes(url.hostname)) {
         click("outbound_click", { link_domain: "www.lavino.com.my" }, "lavino:website");
+      } else if (["www.gahing.com", "gahing.com"].includes(url.hostname)) {
+        const destination = /^\/contact\/?$/.test(url.pathname) ? "visit" : "website";
+        click("outbound_click", { link_domain: "gahing.com" }, "ga-hing:" + destination);
       } else if (["www.motdgroup.com", "motdgroup.com"].includes(url.hostname)) {
         const path = url.pathname.replace(/^\/zh(?=\/|$)/, "").replace(/\/$/, "") || "/";
         const destination = { "/": "home", "/menu": "menu", "/live-house": "live_music", "/contact-us": "visit" }[path] || "website";

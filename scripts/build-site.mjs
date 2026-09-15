@@ -41,6 +41,16 @@ function displayImage(url, sizes = "100vw") {
   return `src="${asset.src}" srcset="${asset.srcset}" sizes="${sizes}" width="${asset.width}" height="${asset.height}" decoding="async"`;
 }
 
+function pageImage(page, routeId) {
+  const source = page.heroImage || page.image || (routeId === "profile" ? images.portrait : images.park);
+  const asset = imageAssets[source];
+  return {
+    url: new URL(asset?.src || source, origin).href,
+    alt: page.heroAlt || page.title,
+    ...(asset ? { width: asset.width, height: asset.height } : {})
+  };
+}
+
 function safeJson(value) {
   return JSON.stringify(value).replaceAll("<", "\\u003c");
 }
@@ -431,6 +441,7 @@ function cta(locale, page) {
 
 function schemas(locale, routeId, page) {
   const url = absolute(locale, routeId);
+  const preferredImage = pageImage(page, routeId);
   const profileUrl = absolute(locale, "profile");
   const personId = `${profileUrl}#person`;
   const organizationId = `${origin}/#organization`;
@@ -484,7 +495,15 @@ function schemas(locale, routeId, page) {
       mainEntity: { "@id": page.business?.["@id"] || (routeId === "publicRecord" ? recordListId : pageEntityId) },
       datePublished: page.datePublished || "2026-09-01",
       dateModified: routeLastModified[routeId],
-      inLanguage: localeConfig[locale].htmlLang
+      inLanguage: localeConfig[locale].htmlLang,
+      ...(page.heroImage ? { primaryImageOfPage: {
+        "@type": "ImageObject",
+        url: preferredImage.url,
+        contentUrl: preferredImage.url,
+        width: preferredImage.width,
+        height: preferredImage.height,
+        caption: preferredImage.alt
+      } } : {})
     }
   ];
 
@@ -647,7 +666,7 @@ function renderPage(locale, routeId) {
   const ogLocaleAlternates = locales.filter((key) => key !== locale).map((key) => `<meta property="og:locale:alternate" content="${localeConfig[key].ogLocale}">`).join("\n  ");
   const hero = routeId === "home" ? homeHero(locale, page) : pageHero(locale, routeId, page);
   const blocks = page.blocks.map((block, index) => renderBlock(locale, routeId, page, block, index)).join("");
-  const ogImage = page.image || (routeId === "profile" ? images.portrait : images.park);
+  const ogImage = pageImage(page, routeId);
   const body = `${hero}${blocks}${routeId === "contact" ? "" : cta(locale, page)}`;
   return `<!doctype html>
 <html lang="${localeConfig[locale].htmlLang}">
@@ -670,13 +689,14 @@ function renderPage(locale, routeId) {
   <meta property="og:title" content="${escapeHtml(seoTitle)}">
   <meta property="og:description" content="${escapeHtml(page.description)}">
   <meta property="og:url" content="${canonical}">
-  <meta property="og:image" content="${ogImage}">
-  <meta property="og:image:alt" content="${escapeHtml(page.title)}">
+  <meta property="og:image" content="${ogImage.url}">
+  <meta property="og:image:alt" content="${escapeHtml(ogImage.alt)}">
+  ${ogImage.width ? `<meta property="og:image:width" content="${ogImage.width}"><meta property="og:image:height" content="${ogImage.height}">` : ""}
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${escapeHtml(seoTitle)}">
   <meta name="twitter:description" content="${escapeHtml(page.description)}">
-  <meta name="twitter:image" content="${ogImage}">
-  <meta name="twitter:image:alt" content="${escapeHtml(page.title)}">
+  <meta name="twitter:image" content="${ogImage.url}">
+  <meta name="twitter:image:alt" content="${escapeHtml(ogImage.alt)}">
   <link rel="preconnect" href="https://i.imgur.com" crossorigin>
   <link rel="stylesheet" href="/css/tailwind.css">
   <script type="application/ld+json">${safeJson(schemas(locale, routeId, page))}</script>

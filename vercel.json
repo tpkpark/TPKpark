@@ -8,6 +8,16 @@
   },
   "redirects": [
     {
+      "source": "/assets/images/park-480.webp",
+      "destination": "/assets/images/home-living-480.webp",
+      "permanent": true
+    },
+    {
+      "source": "/assets/images/park-1536.webp",
+      "destination": "/assets/images/home-living-1120.webp",
+      "permanent": true
+    },
+    {
       "source": "/shoplot.pdf",
       "destination": "/assets/leasing/tpk-park-section-2-shoplots-for-lease.pdf",
       "permanent": true

@@ -96,7 +96,7 @@ function footer(locale) {
   const t = site[locale];
   const explore = ["about", "homeLiving", "automotive", "lifestyle", "leasing", "news", "milestones", "profile"]
     .map((id) => link(locale, id, t.nav[id])).join("");
-  const social = socialLinks.map(([label, url]) => `<a href="${url}" target="_blank" rel="noopener noreferrer">${label}<span class="visually-hidden"> (${escapeHtml(t.external)})</span></a>`).join("");
+  const social = socialLinks.map(([label, url, labels = {}]) => `<a href="${url}" target="_blank" rel="noopener noreferrer">${escapeHtml(labels[locale] || label)}<span class="visually-hidden"> (${escapeHtml(t.external)})</span></a>`).join("");
   return `<footer class="site-footer">
     <div class="shell">
       <div class="footer-grid">

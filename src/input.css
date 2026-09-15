@@ -177,6 +177,7 @@ button, input, select, textarea { font: inherit; }
 .card p { margin: 0; color: rgba(16,23,19,.66); }
 .card:not(.image-card) > h3 { min-height: 2.1em; }
 .card:not(.image-card) > p { min-height: 6.6em; }
+.card-grid-aligned .card > h3 { margin-top: 32px; }
 .card .text-link { margin-top: 20px; }
 .image-card { min-height: 480px; position: relative; padding: 0; overflow: hidden; color: var(--cream); border: 0; }
 .image-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }

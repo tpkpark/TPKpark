@@ -173,7 +173,7 @@ function renderCards(locale, block) {
     }
     return `<article class="card"><span class="number">${escapeHtml(item.number)}</span><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.text)}</p>${more}</article>`;
   }).join("");
-  return `<section class="section"><div class="shell">${sectionHeader(block)}<div class="card-grid">${items}</div></div></section>`;
+  return `<section class="section"><div class="shell">${sectionHeader(block)}<div class="card-grid${block.alignHeadings ? " card-grid-aligned" : ""}">${items}</div></div></section>`;
 }
 
 function renderSplit(locale, block, index) {

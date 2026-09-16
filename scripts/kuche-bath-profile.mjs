@@ -43,11 +43,9 @@ export const kucheBathProfiles = {
         { number: "02", title: "Check bathroom fit", text: "Bring bathroom measurements and photos of the existing basin, shower or toilet if you are replacing them. Compare fittings and finishes, then have your installer check pipe positions and mounting requirements before you commit." },
         { number: "03", title: "Confirm the full order", text: "Ask for a quotation with model codes, quantities and included accessories. Confirm stock, delivery timing, installation scope and warranty terms, and keep these details with your renovation schedule." }
       ] },
-      { type: "businessVisit", kicker: "Plan your visit", title: "Find KBO on Jalan TPK 2/8.", text: "Head to No. 39G for the Puchong showroom. You can also include Ga Hing and Lavino on Jalan TPK 2/2 when planning a wider Home & Living visit.", addressLabel: "Showroom address", address, phoneLabel: "KBO Puchong enquiries", phoneDisplay: "+60 3 8079 1268", note: "Confirm opening hours and the products you want to see directly with the branch. Follow local parking signs and keep entrances and loading areas clear.", links: [
+      { type: "businessVisit", kicker: "Plan your visit", title: "Find KBO on Jalan TPK 2/8.", text: "Head to No. 39G for the Puchong showroom.", addressLabel: "Showroom address", address, phoneLabel: "KBO Puchong enquiries", phoneDisplay: "+60 3 8079 1268", note: "Confirm opening hours and the products you want to see directly with the branch. Follow local parking signs and keep entrances and loading areas clear.", links: [
         { label: "Directions on Google Maps", url: directions },
-        { label: "KBO contact details", url: contact },
-        { label: "Kitchen, bathroom & tiles: Ga Hing", route: "gaHing" },
-        { label: "Furniture: Lavino", route: "lavino" }
+        { label: "KBO contact details", url: contact }
       ] }
     ],
     cta: { title: "Bring a shortlist and a plan.", text: "Browse KBO’s range, note the models that interest you and contact the Puchong showroom to plan your visit.", button: "Visit KBO’s website", url: website }
@@ -69,11 +67,9 @@ export const kucheBathProfiles = {
         { number: "02", title: "Semak kesesuaian bilik mandi", text: "Bawa ukuran bilik mandi serta foto besen, pancuran atau tandas sedia ada jika ingin menggantikannya. Bandingkan kelengkapan dan kemasan, kemudian minta pemasang menyemak kedudukan paip serta keperluan pemasangan sebelum membeli." },
         { number: "03", title: "Sahkan butiran pesanan", text: "Minta sebut harga yang menyenaraikan kod model, kuantiti dan aksesori yang disertakan. Sahkan stok, jangka masa penghantaran, skop pemasangan serta syarat jaminan, dan simpan maklumat ini bersama jadual pengubahsuaian anda." }
       ] },
-      { type: "businessVisit", kicker: "Rancang lawatan", title: "Cari KBO di Jalan TPK 2/8.", text: "Bilik pameran Puchong terletak di No. 39G. Anda juga boleh memasukkan Ga Hing dan Lavino di Jalan TPK 2/2 dalam rancangan lawatan Home & Living anda.", addressLabel: "Alamat bilik pameran", address, phoneLabel: "Pertanyaan KBO Puchong", phoneDisplay: "+60 3 8079 1268", note: "Sahkan waktu operasi dan produk yang ingin dilihat terus dengan cawangan. Patuhi papan tanda parkir dan pastikan pintu masuk serta kawasan pemunggahan tidak terhalang.", links: [
+      { type: "businessVisit", kicker: "Rancang lawatan", title: "Cari KBO di Jalan TPK 2/8.", text: "Bilik pameran Puchong terletak di No. 39G.", addressLabel: "Alamat bilik pameran", address, phoneLabel: "Pertanyaan KBO Puchong", phoneDisplay: "+60 3 8079 1268", note: "Sahkan waktu operasi dan produk yang ingin dilihat terus dengan cawangan. Patuhi papan tanda parkir dan pastikan pintu masuk serta kawasan pemunggahan tidak terhalang.", links: [
         { label: "Arah melalui Google Maps", url: directions },
-        { label: "Maklumat hubungan KBO", url: contact },
-        { label: "Dapur, bilik mandi & jubin: Ga Hing", route: "gaHing" },
-        { label: "Perabot: Lavino", route: "lavino" }
+        { label: "Maklumat hubungan KBO", url: contact }
       ] }
     ],
     cta: { title: "Bawa senarai pilihan dan pelan.", text: "Lihat rangkaian KBO, catat model yang menarik perhatian anda dan hubungi bilik pameran Puchong untuk merancang lawatan.", button: "Laman web KBO", url: website }
@@ -95,11 +91,9 @@ export const kucheBathProfiles = {
         { number: "02", title: "确认卫浴适配", text: "带上浴室尺寸；如需更换面盆、淋浴设备或马桶，也可先拍下现有配置。比较洁具与饰面后，请安装师傅检查水管位置及安装要求，再决定购买。" },
         { number: "03", title: "确认订单细节", text: "索取列明型号、数量及所含配件的报价，确认库存、送货时间、安装范围与保修条款。把这些资料与装修时间表一并保存，方便协调后续安排。" }
       ] },
-      { type: "businessVisit", kicker: "到访安排", title: "在Jalan TPK 2/8找到KBO。", text: "蒲种展厅位于39G号。规划家居采购行程时，也可把Jalan TPK 2/2的Ga Hing与Lavino纳入路线。", addressLabel: "展厅地址", address, phoneLabel: "联系KBO蒲种展厅", phoneDisplay: "+60 3 8079 1268", note: "营业时间及想看的产品，请直接向门店确认。抵达后请遵循现场停车指示，并保持出入口及装卸区域畅通。", links: [
+      { type: "businessVisit", kicker: "到访安排", title: "在Jalan TPK 2/8找到KBO。", text: "蒲种展厅位于39G号。", addressLabel: "展厅地址", address, phoneLabel: "联系KBO蒲种展厅", phoneDisplay: "+60 3 8079 1268", note: "营业时间及想看的产品，请直接向门店确认。抵达后请遵循现场停车指示，并保持出入口及装卸区域畅通。", links: [
         { label: "使用Google Maps导航", url: directions },
-        { label: "KBO联系资料", url: contact },
-        { label: "厨卫与瓷砖：Ga Hing", route: "gaHing" },
-        { label: "家具展厅：Lavino", route: "lavino" }
+        { label: "KBO联系资料", url: contact }
       ] }
     ],
     cta: { title: "带着清单与规划到访。", text: "先浏览KBO的产品系列，记下感兴趣的型号，再联系蒲种展厅安排选看。", button: "前往KBO官网", url: website }

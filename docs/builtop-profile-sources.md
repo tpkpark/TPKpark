@@ -22,7 +22,7 @@ The main website's About and Our Works navigation pages timed out during the ini
 
 ## Editorial and photography boundaries
 
-Guidance about describing a property, agreeing scope, materials, submissions, changes, access, schedules and handover is original preparation advice. It does not state that particular services, approvals, deadlines or warranties are included or guaranteed. Related Jubin BMS and Ga Hing links are suggestions for independent material comparisons, not claims of a partnership or packaged service.
+Guidance about describing a property, agreeing scope, materials, submissions, changes, access, schedules and handover is original preparation advice. It does not state that particular services, approvals, deadlines or warranties are included or guaranteed.
 
 The photograph was refreshed on 16 September 2026 from the official [Sunway Geo project](https://www.builtopmalaysia.com/showproducts/productid/5306104/cid/554650/sunway-geo/), which identifies the property as a townhouse designed by the Builtop Team. [Original image](https://cdn1.npcdn.net/images/fbce522659139c493530292e85174c21_1728551792.jpeg). It shows a study space with built-in timber shelving and a desk. The 1600×1200 source is preserved in full and exported as `assets/images/builtop-sunway-geo-1440.webp` (1440×1080) and `assets/images/builtop-sunway-geo-480.webp` (480×360), with no crop, retouching or generated content.
 

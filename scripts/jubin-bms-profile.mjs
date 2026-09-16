@@ -42,11 +42,9 @@ export const jubinBmsProfiles = {
         { number: "02", title: "Match the finish to its use", text: "Explain whether you are choosing for a wall, a living-room floor or a wet area. Ask about suitability, cleaning and upkeep. Compare colour and texture in person, and check your choices with your installer." },
         { number: "03", title: "Keep the order clear", text: "Record product codes, sizes, finishes and quantities. Confirm batch consistency, stock and delivery timing with the showroom, and ask what grout, trims and installation materials your tiler will need." }
       ] },
-      { type: "businessVisit", kicker: "Plan your visit", title: "Find Jubin BMS on Jalan TPK 2/3.", text: "The Kinrara showroom is at No. 7. For a wider renovation visit, you can also include Ga Hing on Jalan TPK 2/2 and Kuche + BaTH on Jalan TPK 2/8.", addressLabel: "Showroom address", address, phoneLabel: "Jubin BMS Kinrara enquiries", phoneDisplay: "+60 3 8074 8300", note: "Confirm opening hours and current displays directly with the branch. Follow local parking signs and keep entrances and loading areas clear.", links: [
+      { type: "businessVisit", kicker: "Plan your visit", title: "Find Jubin BMS on Jalan TPK 2/3.", text: "The Kinrara showroom is at No. 7.", addressLabel: "Showroom address", address, phoneLabel: "Jubin BMS Kinrara enquiries", phoneDisplay: "+60 3 8074 8300", note: "Confirm opening hours and current displays directly with the branch. Follow local parking signs and keep entrances and loading areas clear.", links: [
         { label: "Directions on Google Maps", url: directions },
-        { label: "Jubin BMS branch directory", url: locations },
-        { label: "Kitchen, bathroom & tiles: Ga Hing", route: "gaHing" },
-        { label: "Kitchen & bathroom: Kuche + BaTH", route: "kucheBath" }
+        { label: "Jubin BMS branch directory", url: locations }
       ] }
     ],
     cta: { title: "Bring your palette and your plans.", text: "Browse the Jubin BMS range, note the finishes you like and contact the Kinrara showroom before your visit.", button: "Visit Jubin BMS’s website", url: website }
@@ -68,11 +66,9 @@ export const jubinBmsProfiles = {
         { number: "02", title: "Pilih mengikut kegunaan", text: "Terangkan sama ada jubin untuk dinding, lantai ruang tamu atau kawasan basah. Tanya tentang kesesuaian, pembersihan dan penjagaan. Bandingkan warna serta tekstur sendiri, kemudian semak pilihan dengan pemasang anda." },
         { number: "03", title: "Sahkan butiran pesanan", text: "Catat kod produk, saiz, kemasan dan kuantiti. Sahkan keseragaman kelompok pengeluaran, stok dan masa penghantaran dengan bilik pameran. Tanya tukang jubin tentang grout, kemasan tepi dan bahan pemasangan yang diperlukan." }
       ] },
-      { type: "businessVisit", kicker: "Rancang lawatan", title: "Cari Jubin BMS di Jalan TPK 2/3.", text: "Bilik pameran Kinrara terletak di No. 7. Untuk lawatan pengubahsuaian yang lebih menyeluruh, anda juga boleh singgah di Ga Hing di Jalan TPK 2/2 dan Kuche + BaTH di Jalan TPK 2/8.", addressLabel: "Alamat bilik pameran", address, phoneLabel: "Pertanyaan Jubin BMS Kinrara", phoneDisplay: "+60 3 8074 8300", note: "Sahkan waktu operasi dan pameran semasa terus dengan cawangan. Patuhi papan tanda parkir dan pastikan pintu masuk serta kawasan pemunggahan tidak terhalang.", links: [
+      { type: "businessVisit", kicker: "Rancang lawatan", title: "Cari Jubin BMS di Jalan TPK 2/3.", text: "Bilik pameran Kinrara terletak di No. 7.", addressLabel: "Alamat bilik pameran", address, phoneLabel: "Pertanyaan Jubin BMS Kinrara", phoneDisplay: "+60 3 8074 8300", note: "Sahkan waktu operasi dan pameran semasa terus dengan cawangan. Patuhi papan tanda parkir dan pastikan pintu masuk serta kawasan pemunggahan tidak terhalang.", links: [
         { label: "Arah melalui Google Maps", url: directions },
-        { label: "Direktori cawangan Jubin BMS", url: locations },
-        { label: "Dapur, bilik mandi & jubin: Ga Hing", route: "gaHing" },
-        { label: "Dapur & bilik mandi: Kuche + BaTH", route: "kucheBath" }
+        { label: "Direktori cawangan Jubin BMS", url: locations }
       ] }
     ],
     cta: { title: "Bawa pilihan warna dan pelan anda.", text: "Lihat rangkaian Jubin BMS, catat kemasan yang anda minati dan hubungi bilik pameran Kinrara sebelum berkunjung.", button: "Laman web Jubin BMS", url: website }
@@ -94,11 +90,9 @@ export const jubinBmsProfiles = {
         { number: "02", title: "按使用位置选材", text: "说明瓷砖将用于墙面、客厅地面还是湿区，了解适用范围、清洁方法与日常保养。现场比较颜色和触感后，再请安装师傅确认是否符合实际需要。" },
         { number: "03", title: "记录完整订单", text: "记下产品编号、尺寸、饰面与数量，向展厅确认批次一致性、库存和送货时间。也请铺砖师傅列明所需的填缝剂、收边条及其他安装材料。" }
       ] },
-      { type: "businessVisit", kicker: "到访安排", title: "在Jalan TPK 2/3找到Jubin BMS。", text: "金銮展厅位于7号。规划装修采购行程时，也可顺道到Jalan TPK 2/2的Ga Hing，以及Jalan TPK 2/8的Kuche + BaTH。", addressLabel: "展厅地址", address, phoneLabel: "联系Jubin BMS金銮展厅", phoneDisplay: "+60 3 8074 8300", note: "营业时间及当前展示的产品，请直接向门店确认。抵达后请遵循现场停车指示，并保持出入口及装卸区域畅通。", links: [
+      { type: "businessVisit", kicker: "到访安排", title: "在Jalan TPK 2/3找到Jubin BMS。", text: "金銮展厅位于7号。", addressLabel: "展厅地址", address, phoneLabel: "联系Jubin BMS金銮展厅", phoneDisplay: "+60 3 8074 8300", note: "营业时间及当前展示的产品，请直接向门店确认。抵达后请遵循现场停车指示，并保持出入口及装卸区域畅通。", links: [
         { label: "使用Google Maps导航", url: directions },
-        { label: "Jubin BMS门店目录", url: locations },
-        { label: "厨卫与瓷砖：Ga Hing", route: "gaHing" },
-        { label: "厨房与卫浴：Kuche + BaTH", route: "kucheBath" }
+        { label: "Jubin BMS门店目录", url: locations }
       ] }
     ],
     cta: { title: "带着配色想法与平面图到访。", text: "先浏览Jubin BMS的产品系列，记下喜欢的饰面，再联系金銮展厅安排选看。", button: "前往Jubin BMS官网", url: website }

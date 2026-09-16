@@ -47,12 +47,10 @@ export const dcMotoProfiles = {
         { number: "02", title: "Discuss daily use", text: "Consider who will use the gate and how they will open it. Ask about remote controls, optional app access, safety beams, backup power and manual release. Have the installer explain which features and accessories suit your chosen system." },
         { number: "03", title: "Confirm the scope", text: "Use DCMOTO’s dealer list for sales enquiries. Ask for a quotation that separates the motor, accessories, wiring and installation, and clarify any gate repairs required. Confirm warranty terms and who will handle servicing after installation." }
       ] },
-      { type: "businessVisit", kicker: "Plan your visit", title: "Find DC Moto on Jalan TPK 2/8.", text: "The DCMOTO Experience & Service Center is at 49G. You can also include Premio Door for entrance doors or KLOT for cabinet hardware when planning a visit along the same street.", addressLabel: "Experience & Service Center", address, phoneLabel: "DCMOTO WhatsApp", phoneDisplay: "+60 11 5627 9623", phoneUrl: whatsapp, note: "Contact the centre via WhatsApp to confirm opening hours and the support or demonstrations available before visiting. DCMOTO directs sales and purchases to its dealers.", links: [
+      { type: "businessVisit", kicker: "Plan your visit", title: "Find DC Moto on Jalan TPK 2/8.", text: "The DCMOTO Experience & Service Center is at 49G.", addressLabel: "Experience & Service Center", address, phoneLabel: "DCMOTO WhatsApp", phoneDisplay: "+60 11 5627 9623", phoneUrl: whatsapp, note: "Contact the centre via WhatsApp to confirm opening hours and the support or demonstrations available before visiting. DCMOTO directs sales and purchases to its dealers.", links: [
         { label: "Directions on Google Maps", url: directions },
         { label: "Centre details & official dealers", url: contact },
-        { label: "DCMOTO user guides & support", url: support },
-        { label: "Entrance doors: Premio Door", route: "premioDoor" },
-        { label: "Cabinet hardware: KLOT", route: "klot" }
+        { label: "DCMOTO user guides & support", url: support }
       ] }
     ],
     cta: { title: "Start with your gate details.", text: "Explore DCMOTO’s systems and note the features you need before speaking with a dealer about suitability, installation and pricing.", button: "Explore DCMOTO systems", url: website }
@@ -75,12 +73,10 @@ export const dcMotoProfiles = {
         { number: "02", title: "Bincangkan kegunaan harian", text: "Pertimbangkan siapa yang menggunakan pagar dan cara mereka membukanya. Tanya tentang alat kawalan jauh, akses aplikasi pilihan, sensor keselamatan, kuasa sandaran dan pelepas manual. Minta pemasang menerangkan ciri serta aksesori yang sesuai dengan sistem pilihan anda." },
         { number: "03", title: "Sahkan skop kerja", text: "Rujuk senarai pengedar DCMOTO untuk pertanyaan jualan. Minta sebut harga yang mengasingkan motor, aksesori, pendawaian dan pemasangan, serta jelaskan sebarang pembaikan pagar yang diperlukan. Sahkan syarat jaminan dan pihak yang mengurus servis selepas pemasangan." }
       ] },
-      { type: "businessVisit", kicker: "Rancang lawatan", title: "Cari DC Moto di Jalan TPK 2/8.", text: "DCMOTO Experience & Service Center terletak di 49G. Anda juga boleh singgah di Premio Door untuk pintu masuk atau KLOT untuk kelengkapan kabinet semasa merancang lawatan di jalan yang sama.", addressLabel: "Pusat Pengalaman & Servis", address, phoneLabel: "WhatsApp DCMOTO", phoneDisplay: "+60 11 5627 9623", phoneUrl: whatsapp, note: "Hubungi pusat ini melalui WhatsApp untuk mengesahkan waktu operasi serta sokongan atau demonstrasi yang tersedia sebelum berkunjung. DCMOTO mengarahkan urusan jualan dan pembelian kepada pengedarnya.", links: [
+      { type: "businessVisit", kicker: "Rancang lawatan", title: "Cari DC Moto di Jalan TPK 2/8.", text: "DCMOTO Experience & Service Center terletak di 49G.", addressLabel: "Pusat Pengalaman & Servis", address, phoneLabel: "WhatsApp DCMOTO", phoneDisplay: "+60 11 5627 9623", phoneUrl: whatsapp, note: "Hubungi pusat ini melalui WhatsApp untuk mengesahkan waktu operasi serta sokongan atau demonstrasi yang tersedia sebelum berkunjung. DCMOTO mengarahkan urusan jualan dan pembelian kepada pengedarnya.", links: [
         { label: "Arah melalui Google Maps", url: directions },
         { label: "Maklumat pusat & pengedar rasmi", url: contact },
-        { label: "Panduan pengguna & sokongan DCMOTO", url: support },
-        { label: "Pintu masuk: Premio Door", route: "premioDoor" },
-        { label: "Kelengkapan kabinet: KLOT", route: "klot" }
+        { label: "Panduan pengguna & sokongan DCMOTO", url: support }
       ] }
     ],
     cta: { title: "Mulakan dengan butiran pagar anda.", text: "Terokai sistem DCMOTO dan catat ciri yang anda perlukan sebelum berbincang dengan pengedar tentang kesesuaian, pemasangan dan harga.", button: "Terokai sistem DCMOTO", url: website }
@@ -103,12 +99,10 @@ export const dcMotoProfiles = {
         { number: "02", title: "讨论日常使用", text: "考虑家中有哪些人会使用门闸，以及需要怎样的开启方式。可询问遥控器、选配手机应用连接、安全感应器、备用电源与手动释放功能，请安装人员说明所选系统适用的功能和配件。" },
         { number: "03", title: "确认安装范围", text: "销售询价可参考DCMOTO的官方经销商名单。请对方在报价中分列电机、配件、布线与安装费用，并说明是否需要维修原有门闸。下单前，确认保修条款及安装后的维修服务由谁负责。" }
       ] },
-      { type: "businessVisit", kicker: "到访安排", title: "在Jalan TPK 2/8找到DC Moto。", text: "DCMOTO体验与服务中心位于49G号。规划同一条街的到访行程时，也可到Premio Door了解入户门，或到KLOT选看橱柜五金。", addressLabel: "体验与服务中心", address, phoneLabel: "DCMOTO WhatsApp", phoneDisplay: "+60 11 5627 9623", phoneUrl: whatsapp, note: "出发前，请通过WhatsApp向中心确认营业时间，以及可提供的支持或产品演示。DCMOTO的销售与购买事宜请联系其经销商。", links: [
+      { type: "businessVisit", kicker: "到访安排", title: "在Jalan TPK 2/8找到DC Moto。", text: "DCMOTO体验与服务中心位于49G号。", addressLabel: "体验与服务中心", address, phoneLabel: "DCMOTO WhatsApp", phoneDisplay: "+60 11 5627 9623", phoneUrl: whatsapp, note: "出发前，请通过WhatsApp向中心确认营业时间，以及可提供的支持或产品演示。DCMOTO的销售与购买事宜请联系其经销商。", links: [
         { label: "使用Google Maps导航", url: directions },
         { label: "中心资料与官方经销商", url: contact },
-        { label: "DCMOTO使用指南与支持", url: support },
-        { label: "入户门：Premio Door", route: "premioDoor" },
-        { label: "橱柜五金：KLOT", route: "klot" }
+        { label: "DCMOTO使用指南与支持", url: support }
       ] }
     ],
     cta: { title: "带着门闸资料开始沟通。", text: "先浏览DCMOTO的系统并记下所需功能，再向经销商了解适配要求、安装安排与价格。", button: "了解DCMOTO系统", url: website }

@@ -9,7 +9,7 @@ Routes: `/home-living/dc-moto/`, `/ms/home-living/dc-moto/` and `/zh/home-living
 - [DCMOTO's official homepage](https://www.dcmoto.my/) introduces GFM975 and GFM925 driver motors, remote controls, infrared safety beams, solar kits and Digicraft Home. The guide summarises the range and asks visitors to confirm model compatibility and required accessories.
 - [GFM975](https://www.dcmoto.my/products/gfm975/) and [GFM925](https://www.dcmoto.my/products/gfm925/) cover systems for swing and folding gates. Solar power is a GFM975 option; the guide does not imply it is included with every system. App control requires compatible additional hardware. Exact performance, load limits, security and battery-duration claims are not repeated.
 - [User support](https://www.dcmoto.my/user-support-guide/) provides product guides, manuals, maintenance and support resources. The guide links here rather than reproducing installation or safety-device override instructions.
-- The existing TPK Park directory supplies the display name DC Moto and Home & Living cluster context. Premio Door and KLOT are nearby stops on the same street.
+- The existing TPK Park directory supplies the display name DC Moto and Home & Living cluster context.
 
 ## Centre, dealers and hours
 

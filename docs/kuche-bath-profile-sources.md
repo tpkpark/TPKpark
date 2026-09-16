@@ -30,6 +30,6 @@ The official photo gallery's opening-event images show a different branch fronta
 
 ## Site integration
 
-All three Home & Living directories link to their matching-language guide. The new guide links back to Home & Living and to Ga Hing and Lavino. It uses the existing aligned card headings. Canonicals, language alternates, breadcrumbs, branch schema, preview metadata and sitemap entries are generated from the route data.
+All three Home & Living directories link to their matching-language guide. The guide links back to Home & Living. It uses the existing aligned card headings. Canonicals, language alternates, breadcrumbs, branch schema, preview metadata and sitemap entries are generated from the route data.
 
 Ask TPK Park receives the published guide and public branch landline. Its source-link allowlist accepts the new routes. Analytics distinguishes Kuche + BaTH calls from park enquiries, uses bounded labels for website/contact/map referrals and respects existing privacy choices without sending phone numbers or URL query contents.

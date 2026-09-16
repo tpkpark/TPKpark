@@ -8,7 +8,7 @@ Routes: `/home-living/v-haus-living/`, `/ms/home-living/v-haus-living/` and `/zh
 - [Official website](https://www.vhausliving.com/): establishes its minimalist furniture positioning and living, dining and bedroom ranges. The guide uses “V Haus Living” to match the existing TPK Park directory, with “V-Haus Living Puchong” as an alternate business name.
 - [Official product catalogue](https://www.vhausliving.com/ourproducts/): lists sofas, dining tables and chairs, bed frames, wardrobes and storage cabinets. These categories support a short range overview without promising that a particular model is available at Puchong.
 - [About V Haus Living](https://www.vhausliving.com/pages/pages_id/53816/): describes its furniture and home-decor business. Promotional superlatives and unverified quality claims are not repeated.
-- TPK Park's existing directory supplies the park context and V Haus Living entry. Existing Kuche + BaTH and Lavino guides supply the nearby showroom addresses used for related visits.
+- TPK Park's existing directory supplies the park context and V Haus Living entry.
 
 ## Branch details and directions
 
@@ -36,6 +36,6 @@ The shared image registry supplies the new visible page image, primary-page imag
 
 ## Site integration
 
-All three Home & Living directories link to their matching-language guide. The guide links back to Home & Living and to Kuche + BaTH and Lavino, inheriting the existing heading spacing and aligned advice-card headings. Canonicals, language alternates, breadcrumbs, furniture-store schema, image metadata and sitemap entries are generated from the route data.
+All three Home & Living directories link to their matching-language guide. The guide links back to Home & Living, inheriting the existing heading spacing and aligned advice-card headings. Canonicals, language alternates, breadcrumbs, furniture-store schema, image metadata and sitemap entries are generated from the route data.
 
 Ask TPK Park receives the published branch address, phone and hours, and its source-link allowlist includes the new route in all three languages. Analytics identifies V Haus Living calls separately from park enquiries and uses bounded website, branch-page and map referral labels. It retains existing privacy choices and does not transmit telephone numbers, coordinates or URL query contents.

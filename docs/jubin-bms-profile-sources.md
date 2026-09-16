@@ -8,7 +8,7 @@ Routes: `/home-living/jubin-bms/`, `/ms/home-living/jubin-bms/` and `/zh/home-li
 - [Jubin BMS website](https://www.jubinbms.com.my/): its product navigation documents floor and wall tiles, mosaics, stone surfaces and bathroom fittings. These categories inform the short range overview; they do not establish current branch stock.
 - [Kinrara soft-opening announcement](https://www.jubinbms.com.my/event/jubin-bms-puchong-kinrara-soft-opening-tiles-sanitary-wares-malaysia), dated 10 January 2026: identifies the branch and labels photographs of its tile and sanitary ware displays. The tile-display image is used with a dated caption and source credit.
 - [Kinrara grand-opening report](https://www.jubinbms.com.my/event/jubin-bms-puchong-kinrara-grand-opening-21st-tiles-sanitary-ware-showroom), dated 24 January 2026: corroborates the operating branch. Expired launch promotions and gifts are not carried into the guide.
-- TPK Park's existing Home & Living directory supplies the display name “Jubin BMS” and cluster context. Existing Ga Hing and Kuche + BaTH guides supply nearby stops on Jalan TPK 2/2 and Jalan TPK 2/8.
+- TPK Park's existing Home & Living directory supplies the display name “Jubin BMS” and cluster context.
 
 ## Contacts and directions
 
@@ -32,6 +32,6 @@ The directory's 450 × 150 frontage thumbnail was inspected but not enlarged for
 
 ## Site integration
 
-All three Home & Living directories link to the guide in the matching language. The guide links back to Home & Living and to Ga Hing and Kuche + BaTH. It inherits the brand pages' heading-to-paragraph gap and aligned advice-card headings. Canonicals, language alternates, breadcrumbs, branch schema, image metadata and sitemap entries are generated from the route data.
+All three Home & Living directories link to the guide in the matching language. The guide links back to Home & Living. It inherits the brand pages' heading-to-paragraph gap and aligned advice-card headings. Canonicals, language alternates, breadcrumbs, branch schema, image metadata and sitemap entries are generated from the route data.
 
 Ask TPK Park receives the published guide and branch phone; its source-link allowlist includes all three new routes. Analytics uses bounded Jubin BMS referral labels, attributes its calls separately from park enquiries and respects existing privacy choices without transmitting phone numbers or query contents.

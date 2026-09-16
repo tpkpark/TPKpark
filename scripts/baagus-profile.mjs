@@ -52,13 +52,11 @@ export const baagusProfiles = {
         { number: "02", title: "Compare the fabrics", text: "Bring paint, flooring or upholstery samples if you have them. Compare colour, texture and how the fabric hangs. Explain where you want daylight, privacy or a darker room, and ask to see how different curtain and sheer combinations work together." },
         { number: "03", title: "Clarify the fitting", text: "Ask for a quotation that separates fabric, tracks, accessories and installation. If considering motorised curtains, confirm the controls and power requirements. Discuss the fitting schedule, care instructions, warranty terms and after-sales support." }
       ] },
-      { type: "businessVisit", kicker: "Plan your visit", title: "Find Baagus on Jalan TPK 2/8.", text: "The Bandar Kinrara showroom is at No. 7. V Haus Living and Kuche + BaTH are also on Jalan TPK 2/8, making it possible to compare furniture, curtains and kitchen or bathroom products along the same street.", addressLabel: "Kinrara showroom address", address, phoneLabel: "Baagus Kinrara enquiries", phoneDisplay: "+60 10 213 3173", note: "Published hours are Monday–Saturday, 10am–7pm, and Sunday, 10am–6pm. Confirm public-holiday hours and any appointment arrangements before travelling.", links: [
+      { type: "businessVisit", kicker: "Plan your visit", title: "Find Baagus on Jalan TPK 2/8.", text: "The Bandar Kinrara showroom is at No. 7.", addressLabel: "Kinrara showroom address", address, phoneLabel: "Baagus Kinrara enquiries", phoneDisplay: "+60 10 213 3173", note: "Published hours are Monday–Saturday, 10am–7pm, and Sunday, 10am–6pm. Confirm public-holiday hours and any appointment arrangements before travelling.", links: [
         { label: "Directions on Google Maps", url: directions },
         { label: "Directions on Waze", url: waze },
         { label: "Baagus Kinrara showroom details", url: showroom },
-        { label: "Explore Baagus blinds", url: blinds },
-        { label: "Furniture: V Haus Living", route: "vHausLiving" },
-        { label: "Kitchen & bathroom: Kuche + BaTH", route: "kucheBath" }
+        { label: "Explore Baagus blinds", url: blinds }
       ] }
     ],
     cta: { title: "Choose fabrics for your home.", text: "Browse Baagus’ curtains and sheers, save a few references and bring them with your room photos to start the conversation.", button: "Explore Baagus curtains", url: curtains }
@@ -81,13 +79,11 @@ export const baagusProfiles = {
         { number: "02", title: "Bandingkan fabrik", text: "Bawa sampel cat, lantai atau fabrik perabot jika ada. Bandingkan warna, tekstur dan cara fabrik jatuh apabila digantung. Terangkan ruang yang memerlukan cahaya siang, privasi atau suasana lebih gelap, dan lihat gabungan langsir dengan langsir nipis." },
         { number: "03", title: "Jelaskan pemasangan", text: "Minta sebut harga yang mengasingkan kos fabrik, rel, aksesori dan pemasangan. Jika mempertimbangkan langsir bermotor, sahkan kawalan serta keperluan bekalan kuasa. Bincangkan jadual pemasangan, cara penjagaan, syarat jaminan dan sokongan selepas jualan." }
       ] },
-      { type: "businessVisit", kicker: "Rancang lawatan", title: "Cari Baagus di Jalan TPK 2/8.", text: "Bilik pameran Bandar Kinrara terletak di No. 7. V Haus Living dan Kuche + BaTH juga berada di Jalan TPK 2/8, membolehkan anda membandingkan perabot, langsir serta produk dapur atau bilik mandi di jalan yang sama.", addressLabel: "Alamat bilik pameran Kinrara", address, phoneLabel: "Pertanyaan Baagus Kinrara", phoneDisplay: "+60 10 213 3173", note: "Waktu operasi yang disenaraikan ialah Isnin–Sabtu, 10 pagi–7 petang, dan Ahad, 10 pagi–6 petang. Sahkan waktu cuti umum dan aturan janji temu sebelum berkunjung.", links: [
+      { type: "businessVisit", kicker: "Rancang lawatan", title: "Cari Baagus di Jalan TPK 2/8.", text: "Bilik pameran Bandar Kinrara terletak di No. 7.", addressLabel: "Alamat bilik pameran Kinrara", address, phoneLabel: "Pertanyaan Baagus Kinrara", phoneDisplay: "+60 10 213 3173", note: "Waktu operasi yang disenaraikan ialah Isnin–Sabtu, 10 pagi–7 petang, dan Ahad, 10 pagi–6 petang. Sahkan waktu cuti umum dan aturan janji temu sebelum berkunjung.", links: [
         { label: "Arah melalui Google Maps", url: directions },
         { label: "Arah melalui Waze", url: waze },
         { label: "Maklumat bilik pameran Baagus Kinrara", url: showroom },
-        { label: "Terokai bidai Baagus", url: blinds },
-        { label: "Perabot: V Haus Living", route: "vHausLiving" },
-        { label: "Dapur & bilik mandi: Kuche + BaTH", route: "kucheBath" }
+        { label: "Terokai bidai Baagus", url: blinds }
       ] }
     ],
     cta: { title: "Pilih fabrik untuk rumah anda.", text: "Lihat pilihan langsir dan langsir nipis Baagus, simpan beberapa contoh dan bawa bersama foto ruang rumah untuk memulakan perbincangan.", button: "Terokai langsir Baagus", url: curtains }
@@ -110,13 +106,11 @@ export const baagusProfiles = {
         { number: "02", title: "比较面料效果", text: "如有油漆、地板或家具面料样本，可一并带上，比较颜色、质感与垂坠效果。说明哪些空间希望保留日光、加强隐私或减少光线，并了解不同窗帘与纱帘的搭配方式。" },
         { number: "03", title: "确认安装细节", text: "请对方分别列出面料、轨道、配件与安装费用。若考虑电动窗帘，确认控制方式及供电要求，再讨论安装时间、清洁保养方法、保修条款与售后服务。" }
       ] },
-      { type: "businessVisit", kicker: "到访安排", title: "在Jalan TPK 2/8找到Baagus。", text: "Bandar Kinrara展厅位于7号。V Haus Living和Kuche + BaTH也在Jalan TPK 2/8，可沿同一条街比较家具、窗帘及厨卫产品。", addressLabel: "Kinrara展厅地址", address, phoneLabel: "Baagus Kinrara咨询电话", phoneDisplay: "+60 10 213 3173", note: "公布的营业时间为星期一至星期六，上午10时至晚上7时；星期日为上午10时至下午6时。出发前请确认公共假期营业时间及预约安排。", links: [
+      { type: "businessVisit", kicker: "到访安排", title: "在Jalan TPK 2/8找到Baagus。", text: "Bandar Kinrara展厅位于7号。", addressLabel: "Kinrara展厅地址", address, phoneLabel: "Baagus Kinrara咨询电话", phoneDisplay: "+60 10 213 3173", note: "公布的营业时间为星期一至星期六，上午10时至晚上7时；星期日为上午10时至下午6时。出发前请确认公共假期营业时间及预约安排。", links: [
         { label: "使用Google Maps导航", url: directions },
         { label: "使用Waze导航", url: waze },
         { label: "Baagus Kinrara展厅资料", url: showroom },
-        { label: "浏览Baagus百叶帘", url: blinds },
-        { label: "家具：V Haus Living", route: "vHausLiving" },
-        { label: "厨房与卫浴：Kuche + BaTH", route: "kucheBath" }
+        { label: "浏览Baagus百叶帘", url: blinds }
       ] }
     ],
     cta: { title: "为家里挑选窗帘。", text: "先浏览Baagus的窗帘与纱帘，保存几款参考样式，再带上房间照片，到店讨论搭配选择。", button: "浏览Baagus窗帘", url: curtains }

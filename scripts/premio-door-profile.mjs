@@ -44,12 +44,10 @@ export const premioDoorProfiles = {
         { number: "02", title: "Compare the details", text: "Look at finishes and handles, and try the opening and locking mechanisms on the models available. Explain whether ventilation or privacy matters to you. Ask what is included, which features are optional and how the door should be maintained." },
         { number: "03", title: "Confirm installation", text: "Check the written quotation, production time and installation arrangements. Clarify whether removing the old door and frame, disposal and making good the surrounding wall are included. Confirm the warranty terms and who to contact for after-sales support." }
       ] },
-      { type: "businessVisit", kicker: "Plan your visit", title: "Find Premio Door on Jalan TPK 2/8.", text: "The Puchong showroom is at 25-G. For a wider renovation visit, Balens Design and Kuche + BaTH are also on Jalan TPK 2/8.", addressLabel: "Showroom address", address, phoneLabel: "Premio Puchong enquiries", phoneDisplay: "+60 16 525 5100", note: "Confirm opening hours and current displays directly with the Puchong showroom before visiting. Share the type of door and entrance you are considering so the team can help you prepare.", links: [
+      { type: "businessVisit", kicker: "Plan your visit", title: "Find Premio Door on Jalan TPK 2/8.", text: "The Puchong showroom is at 25-G.", addressLabel: "Showroom address", address, phoneLabel: "Premio Puchong enquiries", phoneDisplay: "+60 16 525 5100", note: "Confirm opening hours and current displays directly with the Puchong showroom before visiting. Share the type of door and entrance you are considering so the team can help you prepare.", links: [
         { label: "Directions on Google Maps", url: directions },
         { label: "Premio’s showroom directory", url: locations },
-        { label: "Explore Premio’s door series", url: collections },
-        { label: "Interior design: Balens Design", route: "balensDesign" },
-        { label: "Kitchen & bathroom: Kuche + BaTH", route: "kucheBath" }
+        { label: "Explore Premio’s door series", url: collections }
       ] }
     ],
     cta: { title: "Bring your entrance into the plan.", text: "Browse Premio’s door collections, save the styles you like and contact the Puchong showroom to discuss your requirements.", button: "Visit Premio’s website", url: website }
@@ -71,12 +69,10 @@ export const premioDoorProfiles = {
         { number: "02", title: "Bandingkan butiran", text: "Lihat kemasan dan pemegang, serta cuba mekanisme bukaan dan kunci pada model yang tersedia. Terangkan keperluan pengudaraan atau privasi anda. Tanya perkara yang termasuk, ciri pilihan dan cara penjagaan pintu." },
         { number: "03", title: "Sahkan pemasangan", text: "Semak sebut harga bertulis, tempoh pengeluaran dan urusan pemasangan. Perjelas sama ada penanggalan pintu serta bingkai lama, pelupusan dan pembaikan dinding sekeliling termasuk. Sahkan syarat waranti dan pihak untuk dihubungi bagi sokongan selepas jualan." }
       ] },
-      { type: "businessVisit", kicker: "Rancang lawatan", title: "Cari Premio Door di Jalan TPK 2/8.", text: "Bilik pameran Puchong terletak di 25-G. Untuk lawatan pengubahsuaian yang lebih menyeluruh, Balens Design dan Kuche + BaTH juga berada di Jalan TPK 2/8.", addressLabel: "Alamat bilik pameran", address, phoneLabel: "Pertanyaan Premio Puchong", phoneDisplay: "+60 16 525 5100", note: "Sahkan waktu operasi dan model pameran semasa terus dengan bilik pameran Puchong sebelum berkunjung. Kongsikan jenis pintu dan ruang masuk yang anda pertimbangkan supaya pasukan dapat membantu anda membuat persediaan.", links: [
+      { type: "businessVisit", kicker: "Rancang lawatan", title: "Cari Premio Door di Jalan TPK 2/8.", text: "Bilik pameran Puchong terletak di 25-G.", addressLabel: "Alamat bilik pameran", address, phoneLabel: "Pertanyaan Premio Puchong", phoneDisplay: "+60 16 525 5100", note: "Sahkan waktu operasi dan model pameran semasa terus dengan bilik pameran Puchong sebelum berkunjung. Kongsikan jenis pintu dan ruang masuk yang anda pertimbangkan supaya pasukan dapat membantu anda membuat persediaan.", links: [
         { label: "Arah melalui Google Maps", url: directions },
         { label: "Direktori bilik pameran Premio", url: locations },
-        { label: "Terokai siri pintu Premio", url: collections },
-        { label: "Reka bentuk dalaman: Balens Design", route: "balensDesign" },
-        { label: "Dapur & bilik mandi: Kuche + BaTH", route: "kucheBath" }
+        { label: "Terokai siri pintu Premio", url: collections }
       ] }
     ],
     cta: { title: "Masukkan pintu masuk dalam perancangan anda.", text: "Lihat koleksi pintu Premio, simpan reka bentuk yang anda minati dan hubungi bilik pameran Puchong untuk membincangkan keperluan anda.", button: "Laman web Premio", url: website }
@@ -98,12 +94,10 @@ export const premioDoorProfiles = {
         { number: "02", title: "比较使用细节", text: "现场查看饰面与把手，试用可供体验的开门和上锁机构，并说明通风或隐私方面的需要。了解标准配置、可选配件，以及日常清洁与保养方法。" },
         { number: "03", title: "确认安装安排", text: "查看书面报价、生产时间与安装安排，厘清拆除旧门和门框、清运及周围墙面修复是否包含在内。同时确认保修条款与售后服务的联系渠道。" }
       ] },
-      { type: "businessVisit", kicker: "到访安排", title: "在Jalan TPK 2/8找到Premio Door。", text: "蒲种展厅位于25-G号。如想一并了解其他装修选择，Balens Design与Kuche + BaTH也在Jalan TPK 2/8。", addressLabel: "展厅地址", address, phoneLabel: "联系Premio蒲种展厅", phoneDisplay: "+60 16 525 5100", note: "到访前请直接向蒲种展厅确认营业时间及当前展示的型号。联系时说明所考虑的门款与入口情况，让团队协助您做好准备。", links: [
+      { type: "businessVisit", kicker: "到访安排", title: "在Jalan TPK 2/8找到Premio Door。", text: "蒲种展厅位于25-G号。", addressLabel: "展厅地址", address, phoneLabel: "联系Premio蒲种展厅", phoneDisplay: "+60 16 525 5100", note: "到访前请直接向蒲种展厅确认营业时间及当前展示的型号。联系时说明所考虑的门款与入口情况，让团队协助您做好准备。", links: [
         { label: "使用Google Maps导航", url: directions },
         { label: "Premio展厅目录", url: locations },
-        { label: "查看Premio门款系列", url: collections },
-        { label: "室内设计：Balens Design", route: "balensDesign" },
-        { label: "厨房与卫浴：Kuche + BaTH", route: "kucheBath" }
+        { label: "查看Premio门款系列", url: collections }
       ] }
     ],
     cta: { title: "把入户门纳入整体规划。", text: "先浏览Premio的产品系列，保存喜欢的款式，再联系蒲种展厅讨论实际需求。", button: "前往Premio官网", url: website }

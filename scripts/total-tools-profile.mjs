@@ -45,12 +45,10 @@ export const totalToolsProfiles = {
         { number: "02", title: "Check the battery system", text: "If you already own cordless tools, note the exact battery and charger models. Confirm compatibility for each new tool and whether the price covers the tool alone or a kit with a battery and charger. Compare what each set includes." },
         { number: "03", title: "Ask about the extras", text: "Check which bits, blades or other accessories suit the chosen tool and material. Ask about protective equipment, replacement parts and servicing. Before buying, confirm the warranty terms, proof of purchase needed and after-sales contact." }
       ] },
-      { type: "businessVisit", kicker: "Plan your visit", title: "Find Total Tools on Jalan TPK 2/2.", text: "Look for the BestBuy Kinrara BK4 outlet at No. 6. Ga Hing and Lavino are also on Jalan TPK 2/2, so you can include kitchen, bathroom or furniture shopping in the same visit.", addressLabel: "Kinrara outlet address", address, phoneLabel: "Kinrara branch phone", phoneDisplay: "+60 10 290 8007", note: "Call ahead to confirm current opening hours, holiday arrangements and availability of the models or accessories you need.", links: [
+      { type: "businessVisit", kicker: "Plan your visit", title: "Find Total Tools on Jalan TPK 2/2.", text: "Look for the BestBuy Kinrara BK4 outlet at No. 6.", addressLabel: "Kinrara outlet address", address, phoneLabel: "Kinrara branch phone", phoneDisplay: "+60 10 290 8007", note: "Call ahead to confirm current opening hours, holiday arrangements and availability of the models or accessories you need.", links: [
         { label: "Directions on Google Maps", url: directions },
         { label: "Total Tools Malaysia website", url: website },
-        { label: "Kinrara branch listing", url: branchListing },
-        { label: "Kitchen & bathroom: Ga Hing", route: "gaHing" },
-        { label: "Furniture: Lavino", route: "lavino" }
+        { label: "Kinrara branch listing", url: branchListing }
       ] }
     ],
     cta: { title: "Plan your next project.", text: "Browse TOTAL’s tools and note the model numbers that interest you. Bring the list along to compare options and check what is available at Kinrara.", button: "Explore TOTAL tools", url: products }
@@ -73,12 +71,10 @@ export const totalToolsProfiles = {
         { number: "02", title: "Semak sistem bateri", text: "Jika anda sudah memiliki alat tanpa wayar, catat model bateri dan pengecas yang tepat. Sahkan keserasian bagi setiap alat baharu dan sama ada harga meliputi alat sahaja atau set bersama bateri dan pengecas. Bandingkan kandungan setiap set." },
         { number: "03", title: "Tanya tentang aksesori", text: "Semak mata gerudi, bilah atau aksesori lain yang sesuai dengan alat dan bahan pilihan. Tanya tentang peralatan perlindungan, alat ganti dan servis. Sebelum membeli, sahkan syarat jaminan, bukti pembelian yang diperlukan serta saluran selepas jualan." }
       ] },
-      { type: "businessVisit", kicker: "Rancang lawatan", title: "Cari Total Tools di Jalan TPK 2/2.", text: "Cari cawangan BestBuy Kinrara BK4 di No. 6. Ga Hing dan Lavino juga terletak di Jalan TPK 2/2, membolehkan anda melihat produk dapur, bilik mandi atau perabot dalam lawatan yang sama.", addressLabel: "Alamat cawangan Kinrara", address, phoneLabel: "Telefon cawangan Kinrara", phoneDisplay: "+60 10 290 8007", note: "Hubungi cawangan terlebih dahulu untuk mengesahkan waktu operasi semasa, aturan cuti umum serta ketersediaan model atau aksesori yang diperlukan.", links: [
+      { type: "businessVisit", kicker: "Rancang lawatan", title: "Cari Total Tools di Jalan TPK 2/2.", text: "Cari cawangan BestBuy Kinrara BK4 di No. 6.", addressLabel: "Alamat cawangan Kinrara", address, phoneLabel: "Telefon cawangan Kinrara", phoneDisplay: "+60 10 290 8007", note: "Hubungi cawangan terlebih dahulu untuk mengesahkan waktu operasi semasa, aturan cuti umum serta ketersediaan model atau aksesori yang diperlukan.", links: [
         { label: "Arah melalui Google Maps", url: directions },
         { label: "Laman web Total Tools Malaysia", url: website },
-        { label: "Penyenaraian cawangan Kinrara", url: branchListing },
-        { label: "Dapur & bilik mandi: Ga Hing", route: "gaHing" },
-        { label: "Perabot: Lavino", route: "lavino" }
+        { label: "Penyenaraian cawangan Kinrara", url: branchListing }
       ] }
     ],
     cta: { title: "Rancang projek seterusnya.", text: "Lihat rangkaian alat TOTAL dan catat nombor model yang menarik minat anda. Bawa senarai itu untuk membandingkan pilihan dan menyemak ketersediaannya di Kinrara.", button: "Terokai alat TOTAL", url: products }
@@ -101,12 +97,10 @@ export const totalToolsProfiles = {
         { number: "02", title: "确认电池兼容性", text: "如果已有充电式工具，请记下电池与充电器的准确型号。逐一确认新工具是否兼容，并问清价格是单机，还是包含电池及充电器的套装。比较各套装实际包含的物品。" },
         { number: "03", title: "了解配件与售后", text: "确认钻头、刀片或其他配件是否适合所选工具与材料，并询问防护用品、替换零件及维修服务。购买前，了解保修条款、所需购买凭证，以及售后服务的联系渠道。" }
       ] },
-      { type: "businessVisit", kicker: "到访安排", title: "在Jalan TPK 2/2找到Total Tools。", text: "BestBuy Kinrara BK4门店位于6号。Ga Hing和Lavino也在Jalan TPK 2/2，可在同一次行程中顺道了解厨卫产品或家具。", addressLabel: "Kinrara门店地址", address, phoneLabel: "Kinrara分店电话", phoneDisplay: "+60 10 290 8007", note: "出发前请致电确认当前营业时间、公共假期安排，以及所需型号或配件是否有货。", links: [
+      { type: "businessVisit", kicker: "到访安排", title: "在Jalan TPK 2/2找到Total Tools。", text: "BestBuy Kinrara BK4门店位于6号。", addressLabel: "Kinrara门店地址", address, phoneLabel: "Kinrara分店电话", phoneDisplay: "+60 10 290 8007", note: "出发前请致电确认当前营业时间、公共假期安排，以及所需型号或配件是否有货。", links: [
         { label: "使用Google Maps导航", url: directions },
         { label: "Total Tools马来西亚官网", url: website },
-        { label: "Kinrara分店资料", url: branchListing },
-        { label: "厨房与卫浴：Ga Hing", route: "gaHing" },
-        { label: "家具：Lavino", route: "lavino" }
+        { label: "Kinrara分店资料", url: branchListing }
       ] }
     ],
     cta: { title: "为下一项工程做好准备。", text: "先浏览TOTAL的工具，记下感兴趣的型号，再带着清单到Kinrara比较选择并确认供货情况。", button: "浏览TOTAL工具", url: products }

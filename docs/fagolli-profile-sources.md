@@ -8,7 +8,7 @@ Routes: `/home-living/fagolli/`, `/ms/home-living/fagolli/` and `/zh/home-living
 - The English page publishes telephone 011-5407 8187, a WhatsApp button to `https://wa.me/601154078187`, Monday–Friday 10am–6pm, and Saturday/Sunday by appointment only. The [Malay contact page](https://www.fagolli.com.my/ms/contact-us/) agrees on all of these details. These live pages were fetched directly because search snippets showed conflicting numbers.
 - All three guides consistently use +60 11 5407 8187 for telephone and WhatsApp. `HomeGoodsStore` schema records the showroom, legal name, address, weekday hours and WhatsApp contact point. Weekend appointments are visible in each language; no fixed weekend hours or closure are invented.
 - [Fagolli's official relocation announcement](https://www.facebook.com/fagolliofficial/posts/1178977340900536/) states that its Bukit Jalil showroom's last day was 20 February 2025, with the new Puchong showroom opening in March 2025 at 43-1. The [official showroom directions video](https://www.facebook.com/fagolliofficial/videos/2645116262532398/) also identifies this Puchong address. The guide's Google Maps link is an address search for the verified showroom, not a claimed official pin.
-- The existing TPK Park directory provides the Fagolli display name and Home & Living context. Premio Door and Kuche + BaTH are other verified guides on the same street.
+- The existing TPK Park directory provides the Fagolli display name and Home & Living context.
 
 ## Conflicting public details
 

@@ -27,7 +27,7 @@ The source does not specify whether this view is photography or a visualisation,
 
 ## Integration
 
-All three cluster directories link to the matching-language guide. Related visits connect to Kuche + BaTH and V Haus Living on Jalan TPK 2/8. Shared heading spacing and aligned advice cards are inherited.
+All three cluster directories link to the matching-language guide. Shared heading spacing and aligned advice cards are inherited.
 
 Canonical links, language alternates, breadcrumbs, page metadata, LocalBusiness identity and sitemap entries are generated from the route data. Ask TPK Park receives the public office details and appointment conditions. Its source-link allowlist includes the route in all three languages.
 

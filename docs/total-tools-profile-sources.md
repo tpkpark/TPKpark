@@ -19,7 +19,7 @@ Older official outlet posts publish 9:30am–7pm daily; Puchong Directory publis
 
 The [official Malaysian catalogue](https://www.totaltools.com.my/products) lists cordless tools, power tools, power sources, hand tools and accessories. The current website also links to corded tools and combination sets. The guide summarises the brand's range and asks visitors to confirm which models and accessories are available in Kinrara.
 
-Advice about intended tasks, materials, battery compatibility, tool-only versus kit contents, accessories and after-sales terms is original visitor guidance. It does not guarantee interchangeable batteries, stock, prices, warranty duration, repair availability or suitability for a particular job. No performance or safety claims are made. Ga Hing and Lavino have existing verified guides on Jalan TPK 2/2 and are linked as nearby stops.
+Advice about intended tasks, materials, battery compatibility, tool-only versus kit contents, accessories and after-sales terms is original visitor guidance. It does not guarantee interchangeable batteries, stock, prices, warranty duration, repair availability or suitability for a particular job. No performance or safety claims are made.
 
 ## Product image
 

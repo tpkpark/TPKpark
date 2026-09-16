@@ -35,10 +35,6 @@ function businessRouteIds(locale) {
   });
 }
 
-function businessIds(locale) {
-  return uniqueStrings(businessRouteIds(locale).map((routeId) => site[locale].pages[routeId].business["@id"]));
-}
-
 function directoryItems(locale, routeId) {
   const page = site[locale].pages[routeId];
   const directory = page?.blocks?.find((block) => block.type === "directory");
@@ -82,40 +78,30 @@ async function enhancePage(locale, routeId) {
   place.name = "Taman Perindustrian Kinrara";
   place.alternateName = uniqueStrings([
     ...(Array.isArray(place.alternateName) ? place.alternateName : []),
+    "TPK",
     "TPK Park",
     "Kinrara Industrial Park",
-    "Taman Perindustrian Kinrara",
     "金銮工业园"
   ]);
   place.description = placeDescriptions[locale];
   place.subjectOf = pillarRoutes.map((pillarRoute) => ({ "@id": `${absolute(locale, pillarRoute)}#webpage` }));
-  place.containsPlace = businessIds(locale).map((id) => ({ "@id": id }));
 
   const website = graph.find((node) => node?.["@id"] === websiteId);
   if (website) website.about = { "@id": placeId };
 
   if (page.business?.["@id"]) {
     const businessId = page.business["@id"];
-    let business = graph.find((node) => node?.["@id"] === businessId);
-    if (!business) {
-      business = structuredClone(page.business);
-      graph.push(business);
-    }
+    const business = graph.find((node) => node?.["@id"] === businessId);
+    if (!business) throw new Error(`${locale}/${routeId}: business entity not found`);
 
     business.containedInPlace = { "@id": placeId };
     business.mainEntityOfPage = locales.map((language) => ({ "@id": `${absolute(language, routeId)}#webpage` }));
-
-    webpage.about = [{ "@id": businessId }, { "@id": placeId }];
-    webpage.mainEntity = { "@id": businessId };
   }
 
   if (pillarRoutes.includes(routeId)) {
     const items = directoryItems(locale, routeId);
     const listId = `${url}#business-directory`;
 
-    webpage["@type"] = "CollectionPage";
-    webpage.about = { "@id": placeId };
-    webpage.mainEntity = { "@id": listId };
     webpage.hasPart = items.map((item) => ({ "@id": `${absolute(locale, item.routeId)}#webpage` }));
 
     const itemList = {
@@ -125,19 +111,12 @@ async function enhancePage(locale, routeId) {
       description: page.description,
       numberOfItems: items.length,
       about: { "@id": placeId },
-      itemListElement: items.map((item, index) => {
-        const childPage = site[locale].pages[item.routeId];
-        const childUrl = absolute(locale, item.routeId);
-        return {
-          "@type": "ListItem",
-          position: index + 1,
-          name: item.name,
-          url: childUrl,
-          item: childPage.business?.["@id"]
-            ? { "@id": childPage.business["@id"] }
-            : { "@id": `${childUrl}#webpage` }
-        };
-      })
+      itemListElement: items.map((item, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: item.name,
+        url: absolute(locale, item.routeId)
+      }))
     };
 
     const existingIndex = graph.findIndex((node) => node?.["@id"] === listId);

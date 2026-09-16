@@ -36,7 +36,7 @@ export const jubinBmsProfiles = {
     business: jubinBmsBusiness,
     datePublished: "2026-09-15",
     blocks: [
-      { type: "split", presentation: "renewal", title: "Start with the surfaces you live with.", text: "Jubin BMS’s range includes floor and wall tiles, mosaics, stone surfaces and bathroom fittings. At the showroom, compare the colours, textures and sizes of the samples on display. Bring a cabinet finish, paint swatch or room photo to see how your choices work together, and ask the Kinrara team about the products on your shortlist.", image, alt: "Large tile samples in different patterns at Jubin BMS Puchong Kinrara", caption: "Tile displays from Jubin BMS’s January 2026 Kinrara opening announcement. Image:", captionSource: imageSource, route: "homeLiving", linkLabel: "Explore Home & Living" },
+      { type: "split", title: "Start with the surfaces you live with.", text: "Jubin BMS’s range includes floor and wall tiles, mosaics, stone surfaces and bathroom fittings. At the showroom, compare the colours, textures and sizes of the samples on display. Bring a cabinet finish, paint swatch or room photo to see how your choices work together, and ask the Kinrara team about the products on your shortlist.", image, alt: "Large tile samples in different patterns at Jubin BMS Puchong Kinrara", route: "homeLiving", linkLabel: "Explore Home & Living" },
       { type: "cards", alignHeadings: true, kicker: "Before you choose", title: "Plan the room, then choose the tile.", items: [
         { number: "01", title: "Bring a room plan", text: "Note the floor and wall measurements, doorways and fixed fittings. Mark where each finish will go. Ask your tiler to confirm quantities and the allowance for cuts and spare tiles before ordering." },
         { number: "02", title: "Match the finish to its use", text: "Explain whether you are choosing for a wall, a living-room floor or a wet area. Ask about suitability, cleaning and upkeep. Compare colour and texture in person, and check your choices with your installer." },
@@ -60,7 +60,7 @@ export const jubinBmsProfiles = {
     business: jubinBmsBusiness,
     datePublished: "2026-09-15",
     blocks: [
-      { type: "split", presentation: "renewal", title: "Mulakan dengan kemasan ruang anda.", text: "Rangkaian Jubin BMS merangkumi jubin lantai dan dinding, mozek, permukaan batu serta kelengkapan bilik mandi. Di bilik pameran, bandingkan warna, tekstur dan saiz sampel yang dipamerkan. Bawa sampel kemasan kabinet, kad warna cat atau foto ruang untuk melihat padanannya, dan tanyakan pasukan Kinrara tentang produk dalam senarai pilihan anda.", image, alt: "Sampel jubin besar dengan pelbagai corak di Jubin BMS Puchong Kinrara", caption: "Pameran jubin dalam pengumuman pembukaan Kinrara oleh Jubin BMS pada Januari 2026. Imej:", captionSource: imageSource, route: "homeLiving", linkLabel: "Terokai Home & Living" },
+      { type: "split", title: "Mulakan dengan kemasan ruang anda.", text: "Rangkaian Jubin BMS merangkumi jubin lantai dan dinding, mozek, permukaan batu serta kelengkapan bilik mandi. Di bilik pameran, bandingkan warna, tekstur dan saiz sampel yang dipamerkan. Bawa sampel kemasan kabinet, kad warna cat atau foto ruang untuk melihat padanannya, dan tanyakan pasukan Kinrara tentang produk dalam senarai pilihan anda.", image, alt: "Sampel jubin besar dengan pelbagai corak di Jubin BMS Puchong Kinrara", route: "homeLiving", linkLabel: "Terokai Home & Living" },
       { type: "cards", alignHeadings: true, kicker: "Sebelum memilih", title: "Rancang ruang, kemudian pilih jubin.", items: [
         { number: "01", title: "Bawa pelan ruang", text: "Catat ukuran lantai dan dinding, pintu serta kelengkapan tetap. Tandakan lokasi setiap kemasan. Minta tukang jubin mengesahkan kuantiti serta lebihan untuk potongan dan simpanan sebelum membuat pesanan." },
         { number: "02", title: "Pilih mengikut kegunaan", text: "Terangkan sama ada jubin untuk dinding, lantai ruang tamu atau kawasan basah. Tanya tentang kesesuaian, pembersihan dan penjagaan. Bandingkan warna serta tekstur sendiri, kemudian semak pilihan dengan pemasang anda." },
@@ -84,7 +84,7 @@ export const jubinBmsProfiles = {
     business: jubinBmsBusiness,
     datePublished: "2026-09-15",
     blocks: [
-      { type: "split", presentation: "renewal", title: "从每天相伴的空间饰面开始。", text: "Jubin BMS的产品系列涵盖地砖、墙砖、马赛克、石材饰面及卫浴设备。到展厅后，可以比较样品的颜色、纹理与尺寸。带上橱柜饰面样板、油漆色卡或房间照片，看看不同材料如何搭配，再向金銮门店了解清单中的产品。", image, alt: "Jubin BMS蒲种金銮展厅内不同花纹的大尺寸瓷砖样品", caption: "Jubin BMS于2026年1月发布的金銮门店开业图像，展示店内瓷砖。图片来源：", captionSource: imageSource, route: "homeLiving", linkLabel: "查看家居生活品牌" },
+      { type: "split", title: "从每天相伴的空间饰面开始。", text: "Jubin BMS的产品系列涵盖地砖、墙砖、马赛克、石材饰面及卫浴设备。到展厅后，可以比较样品的颜色、纹理与尺寸。带上橱柜饰面样板、油漆色卡或房间照片，看看不同材料如何搭配，再向金銮门店了解清单中的产品。", image, alt: "Jubin BMS蒲种金銮展厅内不同花纹的大尺寸瓷砖样品", route: "homeLiving", linkLabel: "查看家居生活品牌" },
       { type: "cards", alignHeadings: true, kicker: "选砖之前", title: "先规划空间，再挑选瓷砖。", items: [
         { number: "01", title: "带上空间平面图", text: "记录地面与墙面的尺寸、门口及固定设备的位置，并标明各处想用的饰面。下单前，请铺砖师傅核算用量，以及切割损耗和备用砖所需的额外数量。" },
         { number: "02", title: "按使用位置选材", text: "说明瓷砖将用于墙面、客厅地面还是湿区，了解适用范围、清洁方法与日常保养。现场比较颜色和触感后，再请安装师傅确认是否符合实际需要。" },

@@ -125,6 +125,9 @@ for (const locale of locales) {
         if (!["profile", "publicRecord"].includes(routeId) && webPage?.about?.["@id"] !== placeId) fail(label, "WebPage subject does not reference Taman Perindustrian Kinrara");
         if (!["profile", "publicRecord"].includes(routeId) && webPage?.mainEntity?.["@id"] !== (page.business?.["@id"] || placeId)) fail(label, "WebPage main entity does not reference its business or place");
         if (page.business) {
+          const brandSplit = page.blocks?.find((block) => block.type === "split");
+          if (brandSplit?.presentation || brandSplit?.caption || brandSplit?.captionSource) fail(label, "Brand guides must use the MOTD-style edge-to-edge split without figure captions");
+          if (brandSplit && !html.includes('class="split section-sage"')) fail(label, "Brand guide split section is not using the standard edge-to-edge layout");
           const business = graph.find(entry => entry["@id"] === page.business["@id"]);
           const expected = {
             motd: { type: "Restaurant", url: "https://www.motdgroup.com/", phone: "+60166626951" },
@@ -172,7 +175,7 @@ for (const locale of locales) {
             if (visit?.contacts?.length !== 2 || !html.includes('href="tel:+60380750813"') || business?.contactPoint?.[1]?.telephone !== "+60380750813") fail(label, "Both verified Mazda branch lines must remain available");
             if (business?.openingHoursSpecification || business?.department || visit?.hours?.length) fail(label, "Do not infer Mazda hours or a department split from conflicting listings");
             if (business?.hasMap !== "https://waze.com/ul/hw2832g1br" || !html.includes('href="https://waze.com/ul/hw2832g1br"')) fail(label, "Mazda must retain its published Kinrara Waze destination");
-            if (business?.image !== `${origin}/assets/images/mazda-kinrara-exterior-1280.webp` || !page.heroAlt.includes("2016") || !page.blocks.find(block => block.type === "split")?.caption.includes("2016")) fail(label, "Mazda’s original branch photo must keep its archive date");
+            if (business?.image !== `${origin}/assets/images/mazda-kinrara-exterior-1280.webp` || !page.heroAlt.includes("2016")) fail(label, "Mazda’s original branch photo must keep its archive date");
           }
           if (routeId === "peroduaKinrara") {
             const service = business?.department;

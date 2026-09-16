@@ -38,7 +38,7 @@ export const premioDoorProfiles = {
     business: premioDoorBusiness,
     datePublished: "2026-09-16",
     blocks: [
-      { type: "split", presentation: "renewal", title: "Consider how your entrance looks and works.", text: "Premio’s collections include pivot, full-aluminium sliding, timber, aluminium and aluminium-timber door series. Use the showroom visit to discuss the opening style, panel finish and lock options that suit your entrance. Ask the Puchong team which models are on display and what can be customised for your project.", image, alt: "Premio’s blue showroom façade and glazed entrance at 25-G, Jalan TPK 2/8", caption: "The Puchong showroom, pictured in Premio’s official branch directory. Photo:", captionSource: imageSource, route: "homeLiving", linkLabel: "Explore Home & Living" },
+      { type: "split", title: "Consider how your entrance looks and works.", text: "Premio’s collections include pivot, full-aluminium sliding, timber, aluminium and aluminium-timber door series. Use the showroom visit to discuss the opening style, panel finish and lock options that suit your entrance. Ask the Puchong team which models are on display and what can be customised for your project.", image, alt: "Premio’s blue showroom façade and glazed entrance at 25-G, Jalan TPK 2/8", route: "homeLiving", linkLabel: "Explore Home & Living" },
       { type: "cards", alignHeadings: true, kicker: "Before you choose", title: "Plan the entrance, then choose the door.", items: [
         { number: "01", title: "Record the opening", text: "Bring photos and approximate width and height measurements, including the existing frame, floor level and space around the entrance. Note the direction the door opens. Ask the supplier to confirm the final site measurements before ordering." },
         { number: "02", title: "Compare the details", text: "Look at finishes and handles, and try the opening and locking mechanisms on the models available. Explain whether ventilation or privacy matters to you. Ask what is included, which features are optional and how the door should be maintained." },
@@ -63,7 +63,7 @@ export const premioDoorProfiles = {
     business: premioDoorBusiness,
     datePublished: "2026-09-16",
     blocks: [
-      { type: "split", presentation: "renewal", title: "Pertimbangkan rupa dan fungsi pintu masuk.", text: "Koleksi Premio merangkumi siri pintu pivot, gelangsar aluminium penuh, kayu, aluminium serta gabungan aluminium dan kayu. Gunakan lawatan ke bilik pameran untuk membincangkan cara bukaan, kemasan panel dan pilihan kunci yang sesuai dengan pintu masuk anda. Tanya pasukan Puchong tentang model yang dipamerkan serta pilihan yang boleh disesuaikan untuk projek anda.", image, alt: "Fasad biru dan pintu masuk kaca Premio di 25-G, Jalan TPK 2/8", caption: "Bilik pameran Puchong dalam direktori cawangan rasmi Premio. Foto:", captionSource: imageSource, route: "homeLiving", linkLabel: "Terokai Home & Living" },
+      { type: "split", title: "Pertimbangkan rupa dan fungsi pintu masuk.", text: "Koleksi Premio merangkumi siri pintu pivot, gelangsar aluminium penuh, kayu, aluminium serta gabungan aluminium dan kayu. Gunakan lawatan ke bilik pameran untuk membincangkan cara bukaan, kemasan panel dan pilihan kunci yang sesuai dengan pintu masuk anda. Tanya pasukan Puchong tentang model yang dipamerkan serta pilihan yang boleh disesuaikan untuk projek anda.", image, alt: "Fasad biru dan pintu masuk kaca Premio di 25-G, Jalan TPK 2/8", route: "homeLiving", linkLabel: "Terokai Home & Living" },
       { type: "cards", alignHeadings: true, kicker: "Sebelum memilih", title: "Rancang ruang masuk, kemudian pilih pintu.", items: [
         { number: "01", title: "Catat ukuran bukaan", text: "Bawa foto serta anggaran lebar dan tinggi, termasuk bingkai sedia ada, aras lantai dan ruang di sekeliling pintu masuk. Catat arah bukaan pintu. Minta pembekal mengesahkan ukuran akhir di tapak sebelum membuat pesanan." },
         { number: "02", title: "Bandingkan butiran", text: "Lihat kemasan dan pemegang, serta cuba mekanisme bukaan dan kunci pada model yang tersedia. Terangkan keperluan pengudaraan atau privasi anda. Tanya perkara yang termasuk, ciri pilihan dan cara penjagaan pintu." },
@@ -88,7 +88,7 @@ export const premioDoorProfiles = {
     business: premioDoorBusiness,
     datePublished: "2026-09-16",
     blocks: [
-      { type: "split", presentation: "renewal", title: "把外观与日常使用一起考虑。", text: "Premio的产品涵盖枢轴门、全铝推拉门、木门、铝门及铝木结合门系列。到展厅时，可以讨论适合自家入口的开门方式、门板饰面与门锁选项，并向蒲种团队了解当前展示的型号，以及哪些部分可以按项目需求定制。", image, alt: "Jalan TPK 2/8的25-G号Premio展厅，设有蓝色招牌与玻璃入口", caption: "Premio官方门店目录中的蒲种展厅照片。图片来源：", captionSource: imageSource, route: "homeLiving", linkLabel: "查看家居生活品牌" },
+      { type: "split", title: "把外观与日常使用一起考虑。", text: "Premio的产品涵盖枢轴门、全铝推拉门、木门、铝门及铝木结合门系列。到展厅时，可以讨论适合自家入口的开门方式、门板饰面与门锁选项，并向蒲种团队了解当前展示的型号，以及哪些部分可以按项目需求定制。", image, alt: "Jalan TPK 2/8的25-G号Premio展厅，设有蓝色招牌与玻璃入口", route: "homeLiving", linkLabel: "查看家居生活品牌" },
       { type: "cards", alignHeadings: true, kicker: "选门之前", title: "先了解入口，再选择门款。", items: [
         { number: "01", title: "记录门洞与空间", text: "准备照片及大致宽高尺寸，拍下现有门框、地面高度与入口周围的空间，并注明开门方向。下单前，请供应商到现场确认最终尺寸。" },
         { number: "02", title: "比较使用细节", text: "现场查看饰面与把手，试用可供体验的开门和上锁机构，并说明通风或隐私方面的需要。了解标准配置、可选配件，以及日常清洁与保养方法。" },

@@ -1,5 +1,9 @@
 // Locally hosted versions of approved imagery, shared by page content and preview metadata.
 export const imageAssets = {
+  "https://www.tpkpark.com/assets/images/toyokar-workshop-960.webp": {
+    src: "/assets/images/toyokar-workshop-960.webp", width: 960, height: 1280,
+    srcset: "/assets/images/toyokar-workshop-480.webp 480w, /assets/images/toyokar-workshop-960.webp 960w"
+  },
   "https://www.tpkpark.com/assets/images/jaecoo-technical-diagnostics-1280.webp": {
     src: "/assets/images/jaecoo-technical-diagnostics-1280.webp", width: 1280, height: 852,
     srcset: "/assets/images/jaecoo-technical-diagnostics-480.webp 480w, /assets/images/jaecoo-technical-diagnostics-1280.webp 1280w"

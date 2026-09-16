@@ -1,16 +1,18 @@
 // Compatibility wrapper around the original site data.
 // `site-data-base.mjs` preserves the existing public site; this module adds the
-// Happivilles Lifestyle profile and small directory updates without duplicating
-// the full site-data source.
+// Happivilles and Fadzil Enterprise profiles plus small directory updates without
+// duplicating the full site-data source.
 import * as base from "./site-data-base.mjs";
 import { happivillesProfiles } from "./happivilles-profile.mjs";
+import { fadzilEnterpriseProfiles } from "./fadzil-enterprise-profile.mjs";
 
 export const origin = base.origin;
 export const localeConfig = base.localeConfig;
 
 export const routeSlugs = {
   ...base.routeSlugs,
-  happivilles: "lifestyle/happivilles"
+  happivilles: "lifestyle/happivilles",
+  fadzilEnterprise: "automotive/fadzil-enterprise"
 };
 export const routeIds = Object.keys(routeSlugs);
 
@@ -18,17 +20,20 @@ export const seoTitles = {
   en: {
     ...base.seoTitles.en,
     happivilles: "Happivilles Puchong | Personal Development & Wellness | TPK Park",
-    kia4sService: "Kia Puchong Sales & Service | TPK Park"
+    kia4sService: "Kia Puchong Sales & Service | TPK Park",
+    fadzilEnterprise: "Fadzil Enterprise Puchong | Recond Car Sales | TPK Park"
   },
   ms: {
     ...base.seoTitles.ms,
     happivilles: "Happivilles Puchong | Pembangunan Diri & Kesejahteraan | TPK Park",
-    kia4sService: "Kia Puchong Jualan & Servis | TPK Park"
+    kia4sService: "Kia Puchong Jualan & Servis | TPK Park",
+    fadzilEnterprise: "Fadzil Enterprise Puchong | Jualan Kereta Recond | TPK Park"
   },
   zh: {
     ...base.seoTitles.zh,
     happivilles: "Happivilles快乐坊蒲种 | 个人成长与身心探索 | TPK Park",
-    kia4sService: "Kia Puchong蒲种 | 销售与维修 | TPK Park"
+    kia4sService: "Kia Puchong蒲种 | 销售与维修 | TPK Park",
+    fadzilEnterprise: "Fadzil Enterprise蒲种 | Recond进口车销售 | TPK Park"
   }
 };
 
@@ -37,7 +42,8 @@ export const routeLastModified = {
   ...base.routeLastModified,
   happivilles: "2026-09-17",
   automotive: "2026-09-17",
-  kia4sService: "2026-09-17"
+  kia4sService: "2026-09-17",
+  fadzilEnterprise: "2026-09-17"
 };
 
 export function routePath(locale, routeId) {
@@ -59,7 +65,8 @@ export const site = Object.fromEntries(
       ...data,
       pages: {
         ...data.pages,
-        happivilles: happivillesProfiles[locale]
+        happivilles: happivillesProfiles[locale],
+        fadzilEnterprise: fadzilEnterpriseProfiles[locale]
       }
     }
   ])
@@ -82,8 +89,14 @@ const fadzilCategory = {
 
 for (const locale of Object.keys(site)) {
   const directory = site[locale].pages.automotive.blocks.find(block => block.type === "directory");
-  if (directory && !directory.items.some(item => item[1] === "Fadzil Enterprise")) {
-    directory.items = [...directory.items, [fadzilCategory[locale], "Fadzil Enterprise"]];
+  if (directory) {
+    if (!directory.items.some(item => item[1] === "Fadzil Enterprise")) {
+      directory.items = [...directory.items, [fadzilCategory[locale], "Fadzil Enterprise", "fadzilEnterprise"]];
+    } else {
+      directory.items = directory.items.map(item =>
+        item[1] === "Fadzil Enterprise" ? [fadzilCategory[locale], item[1], "fadzilEnterprise"] : item
+      );
+    }
   }
 }
 

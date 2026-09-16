@@ -200,6 +200,25 @@ test("Jubin BMS referrals preserve the Kinrara contact and omit private URL cont
   assert.equal(page.basicSent().length, 6);
 });
 
+test("V Haus Living visits and calls use Puchong attribution and respect privacy choices", () => {
+  const page = client({ saved: "detailed", locale: "zh" });
+  page.clickLink("/zh/home-living/v-haus-living/");
+  page.clickLink("/ms/home-living/v-haus-living/", ".locale-nav");
+  page.clickLink("https://www.vhausliving.com/?email=private@example.com#private");
+  page.clickLink("https://www.vhausliving.com/contactus/branch/833211/?email=private@example.com");
+  page.clickLink("https://www.google.com/maps/dir/?api=1&destination=3.048802%2C101.637725&private=private@example.com");
+  page.clickLink("tel:+60127086389");
+  assert.deepEqual(page.basicSent().map(event => event.name), ["navigation_click", "language_switch", "outbound_click", "outbound_click", "directions_click", "tenant_contact_click"]);
+  assert.deepEqual(page.basicSent().map(event => event.data.target), ["/zh/home-living/v-haus-living/", "ms", "v-haus-living:website", "v-haus-living:visit", "about", "v-haus-living:phone"]);
+  assert.equal(page.sent().find(event => event[1] === "directions_click")[2].map_provider, "google");
+  assert.equal(page.sent().filter(event => event[1] === "contact_click").length, 0);
+  assert.equal(page.sent().at(-1)[2].tenant, "v-haus-living");
+  assert.doesNotMatch(JSON.stringify([page.sent(), page.basicSent()]), /private@example.com|#private|60127086389|3\.048802|101\.637725/);
+  page.controls.off.handlers.click();
+  page.clickLink("tel:+60127086389");
+  assert.equal(page.basicSent().length, 6);
+});
+
 test("detailed engagement counts milestones once and stops independently of basic statistics", () => {
   const page = client({ saved: "detailed" });
   page.focusForm(); page.focusForm();

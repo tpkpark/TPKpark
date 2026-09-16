@@ -116,6 +116,12 @@ test("business guides provide the correct public branch contacts in all three la
     assert.match(sources.jubinBms.texts[locale], /\+60 3 8074 8300/);
     assert.doesNotMatch(sources.jubinBms.texts[locale], /360 8888|725 1990|6272 2999/);
     assert.deepEqual(sourceLinks(["jubinBms"], locale).map(source => source.url), [routePath(locale, "jubinBms")]);
+    assert.match(sources.vHausLiving.texts[locale], /1, 3, 5, Jalan TPK 2\/8/);
+    assert.match(sources.vHausLiving.texts[locale], /\+60 12 708 6389/);
+    assert.match(sources.vHausLiving.texts[locale], /10:30/);
+    assert.match(sources.vHausLiving.texts[locale], /7:30/);
+    assert.doesNotMatch(sources.vHausLiving.texts[locale], /681 8961|1667 8389|2110 8389/);
+    assert.deepEqual(sourceLinks(["vHausLiving"], locale).map(source => source.url), [routePath(locale, "vHausLiving")]);
     assert.deepEqual(sourceLinks(["kucheBath"], locale).map(source => source.url), [routePath(locale, "kucheBath")]);
     assert.deepEqual(sourceLinks(["lavino"], locale).map(source => source.url), [routePath(locale, "lavino")]);
     assert.deepEqual(sourceLinks(["gaHing"], locale).map(source => source.url), [routePath(locale, "gaHing")]);

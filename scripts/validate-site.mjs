@@ -131,7 +131,8 @@ for (const locale of locales) {
             lavino: { type: "FurnitureStore", url: "https://www.lavino.com.my/", phone: "+60163391601" },
             gaHing: { type: "HomeGoodsStore", url: "https://gahing.com/", phone: "+60380809119" },
             kucheBath: { type: "HomeGoodsStore", url: "https://kbomy.com/", phone: "+60380791268" },
-            jubinBms: { type: "HomeGoodsStore", url: "https://www.jubinbms.com.my/", phone: "+60380748300" }
+            jubinBms: { type: "HomeGoodsStore", url: "https://www.jubinbms.com.my/", phone: "+60380748300" },
+            vHausLiving: { type: "FurnitureStore", url: "https://www.vhausliving.com/", phone: "+60127086389" }
           }[routeId];
           if (!expected || business?.["@type"] !== expected.type || business?.containedInPlace?.["@id"] !== placeId) fail(label, "Business profile must identify its business type and park location");
           if (business?.url !== expected?.url || business?.telephone !== expected?.phone) fail(label, "Business identity or branch contact is incorrect");
@@ -139,6 +140,12 @@ for (const locale of locales) {
           if (routeId === "lavino" && (business?.address?.streetAddress !== "6, Jalan TPK 2/2, Taman Perindustrian Kinrara" || business?.address?.postalCode !== "47100" || html.includes("+60166626951"))) fail(label, "Lavino must use its own branch address and contact");
           if (routeId === "gaHing" && (business?.address?.streetAddress !== "4, Jalan TPK 2/2, Taman Perindustrian Kinrara" || business?.address?.postalCode !== "47100" || /\+60163391601|\+60166626951/.test(html))) fail(label, "Ga Hing must use its own branch address and contact");
           if (routeId === "jubinBms" && (business?.address?.streetAddress !== "7, Jalan TPK 2/3, Taman Perindustrian Kinrara" || business?.address?.postalCode !== "47100" || /\+6073608888|\+60197251990|\+60362722999/.test(html))) fail(label, "Jubin BMS must use its Kinrara branch address and contact, not HQ or Kepong");
+          if (routeId === "vHausLiving") {
+            if (business?.address?.streetAddress !== "1, 3, 5, Jalan TPK 2/8, Bandar Kinrara 4" || business?.address?.postalCode !== "47100" || /\+60196818961|\+601116678389|\+601121108389/.test(html)) fail(label, "V Haus Living must use its Puchong branch address and contact");
+            const hours = business?.openingHoursSpecification?.[0];
+            const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+            if (hours?.opens !== "10:30" || hours?.closes !== "19:30" || days.some(day => !hours?.dayOfWeek?.includes(day))) fail(label, "V Haus Living must use the published daily Puchong opening hours");
+          }
         }
         if (routeId === "kucheBath") {
           const business = graph.find(entry => entry["@id"] === page.business["@id"]);

@@ -10,6 +10,7 @@ import { premioDoorProfiles } from "./premio-door-profile.mjs";
 import { klotProfiles } from "./klot-profile.mjs";
 import { dcMotoProfiles } from "./dc-moto-profile.mjs";
 import { fagolliProfiles } from "./fagolli-profile.mjs";
+import { totalToolsProfiles } from "./total-tools-profile.mjs";
 
 export const origin = "https://www.tpkpark.com";
 
@@ -28,6 +29,7 @@ export const routeSlugs = {
   klot: "home-living/klot",
   dcMoto: "home-living/dc-moto",
   fagolli: "home-living/fagolli",
+  totalTools: "home-living/total-tools",
   automotive: "automotive",
   lifestyle: "lifestyle",
   motd: "lifestyle/motd",
@@ -66,6 +68,7 @@ export const seoTitles = {
     klot: "KLOT Puchong | Cabinet Hardware & Storage | TPK Park",
     dcMoto: "DC Moto (DCMOTO) Puchong | Autogate Systems | TPK Park",
     fagolli: "Fagolli Puchong | Trackless Autogate Showroom | TPK Park",
+    totalTools: "Total Tools BestBuy Kinrara Puchong | TPK Park",
     automotive: "Automotive Sales & Services in Puchong | TPK Park",
     lifestyle: "Dining, Fitness & Lifestyle in Puchong | TPK Park",
     motd: "MOTD Bar & Dining at TPK Park, Puchong",
@@ -94,6 +97,7 @@ export const seoTitles = {
     klot: "KLOT Puchong | Kelengkapan Kabinet & Dapur | TPK Park",
     dcMoto: "DC Moto (DCMOTO) Puchong | Sistem Autogate | TPK Park",
     fagolli: "Fagolli Puchong | Pagar Automatik Tanpa Rel | TPK Park",
+    totalTools: "Total Tools BestBuy Kinrara Puchong | Alat & Aksesori | TPK Park",
     automotive: "Jualan & Servis Automotif di Puchong | TPK Park",
     lifestyle: "Makan, Kecergasan & Lifestyle di Puchong | TPK Park",
     motd: "MOTD Bar & Dining di TPK Park, Puchong",
@@ -122,6 +126,7 @@ export const seoTitles = {
     klot: "KLOT蒲种橱柜五金与厨房收纳 | TPK Park",
     dcMoto: "DC Moto（DCMOTO）蒲种自动门闸体验与服务中心 | TPK Park",
     fagolli: "Fagolli蒲种无轨自动门闸展厅 | TPK Park",
+    totalTools: "Total Tools蒲种金銮工具与配件 | BestBuy Kinrara | TPK Park",
     automotive: "蒲种汽车销售、维修与美容服务 | TPK Park",
     lifestyle: "蒲种餐饮、运动与生活配套 | TPK Park",
     motd: "MOTD蒲种餐酒馆、炭烤与现场音乐 | TPK Park",
@@ -155,6 +160,7 @@ const routeLastModifiedOverrides = {
   klot: "2026-09-16",
   dcMoto: "2026-09-16",
   fagolli: "2026-09-16",
+  totalTools: "2026-09-16",
   automotive: "2026-09-15",
   milestones: "2026-09-15",
   lifestyle: "2026-09-15",
@@ -1682,14 +1688,14 @@ const zhPages = {
 };
 
 export const site = {
-  en: { ...common.en, pages: { ...enPages, motd: motdProfiles.en, lavino: lavinoProfiles.en, gaHing: gaHingProfiles.en, kucheBath: kucheBathProfiles.en, jubinBms: jubinBmsProfiles.en, vHausLiving: vHausLivingProfiles.en, balensDesign: balensDesignProfiles.en, builtop: builtopProfiles.en, premioDoor: premioDoorProfiles.en, klot: klotProfiles.en, dcMoto: dcMotoProfiles.en, fagolli: fagolliProfiles.en } },
-  ms: { ...common.ms, pages: { ...msPages, motd: motdProfiles.ms, lavino: lavinoProfiles.ms, gaHing: gaHingProfiles.ms, kucheBath: kucheBathProfiles.ms, jubinBms: jubinBmsProfiles.ms, vHausLiving: vHausLivingProfiles.ms, balensDesign: balensDesignProfiles.ms, builtop: builtopProfiles.ms, premioDoor: premioDoorProfiles.ms, klot: klotProfiles.ms, dcMoto: dcMotoProfiles.ms, fagolli: fagolliProfiles.ms } },
-  zh: { ...common.zh, pages: { ...zhPages, motd: motdProfiles.zh, lavino: lavinoProfiles.zh, gaHing: gaHingProfiles.zh, kucheBath: kucheBathProfiles.zh, jubinBms: jubinBmsProfiles.zh, vHausLiving: vHausLivingProfiles.zh, balensDesign: balensDesignProfiles.zh, builtop: builtopProfiles.zh, premioDoor: premioDoorProfiles.zh, klot: klotProfiles.zh, dcMoto: dcMotoProfiles.zh, fagolli: fagolliProfiles.zh } }
+  en: { ...common.en, pages: { ...enPages, motd: motdProfiles.en, lavino: lavinoProfiles.en, gaHing: gaHingProfiles.en, kucheBath: kucheBathProfiles.en, jubinBms: jubinBmsProfiles.en, vHausLiving: vHausLivingProfiles.en, balensDesign: balensDesignProfiles.en, builtop: builtopProfiles.en, premioDoor: premioDoorProfiles.en, klot: klotProfiles.en, dcMoto: dcMotoProfiles.en, fagolli: fagolliProfiles.en, totalTools: totalToolsProfiles.en } },
+  ms: { ...common.ms, pages: { ...msPages, motd: motdProfiles.ms, lavino: lavinoProfiles.ms, gaHing: gaHingProfiles.ms, kucheBath: kucheBathProfiles.ms, jubinBms: jubinBmsProfiles.ms, vHausLiving: vHausLivingProfiles.ms, balensDesign: balensDesignProfiles.ms, builtop: builtopProfiles.ms, premioDoor: premioDoorProfiles.ms, klot: klotProfiles.ms, dcMoto: dcMotoProfiles.ms, fagolli: fagolliProfiles.ms, totalTools: totalToolsProfiles.ms } },
+  zh: { ...common.zh, pages: { ...zhPages, motd: motdProfiles.zh, lavino: lavinoProfiles.zh, gaHing: gaHingProfiles.zh, kucheBath: kucheBathProfiles.zh, jubinBms: jubinBmsProfiles.zh, vHausLiving: vHausLivingProfiles.zh, balensDesign: balensDesignProfiles.zh, builtop: builtopProfiles.zh, premioDoor: premioDoorProfiles.zh, klot: klotProfiles.zh, dcMoto: dcMotoProfiles.zh, fagolli: fagolliProfiles.zh, totalTools: totalToolsProfiles.zh } }
 };
 
 // Link each business profile from its own cluster directory.
 for (const locale of Object.keys(site)) {
-  for (const [parent, name, route] of [["lifestyle", "m.o.t.d", "motd"], ["homeLiving", "Lavino", "lavino"], ["homeLiving", "Ga Hing", "gaHing"], ["homeLiving", "Kuche + BaTH", "kucheBath"], ["homeLiving", "Jubin BMS", "jubinBms"], ["homeLiving", "V Haus Living", "vHausLiving"], ["homeLiving", "Balens Design", "balensDesign"], ["homeLiving", "BUILTOP", "builtop"], ["homeLiving", "Premio Door", "premioDoor"], ["homeLiving", "KLOT", "klot"], ["homeLiving", "DC Moto", "dcMoto"], ["homeLiving", "Fagolli", "fagolli"]]) {
+  for (const [parent, name, route] of [["lifestyle", "m.o.t.d", "motd"], ["homeLiving", "Lavino", "lavino"], ["homeLiving", "Ga Hing", "gaHing"], ["homeLiving", "Kuche + BaTH", "kucheBath"], ["homeLiving", "Jubin BMS", "jubinBms"], ["homeLiving", "V Haus Living", "vHausLiving"], ["homeLiving", "Balens Design", "balensDesign"], ["homeLiving", "BUILTOP", "builtop"], ["homeLiving", "Premio Door", "premioDoor"], ["homeLiving", "KLOT", "klot"], ["homeLiving", "DC Moto", "dcMoto"], ["homeLiving", "Fagolli", "fagolli"], ["homeLiving", "Total Tools", "totalTools"]]) {
     const directory = site[locale].pages[parent].blocks.find(block => block.type === "directory");
     directory.items = directory.items.map(item => item[1] === name ? [...item, route] : item);
   }

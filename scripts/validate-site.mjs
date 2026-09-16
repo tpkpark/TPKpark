@@ -138,11 +138,18 @@ for (const locale of locales) {
             premioDoor: { type: "HomeGoodsStore", url: "https://premiodoor.com.my/", phone: "+60165255100" },
             klot: { type: "HomeGoodsStore", url: "https://www.klot.com.my/", phone: "+60183403828" },
             dcMoto: { type: "LocalBusiness", url: "https://www.dcmoto.my/", phone: "+601156279623", contactUrl: "https://wa.me/601156279623" },
-            fagolli: { type: "HomeGoodsStore", url: "https://www.fagolli.com.my/", phone: "+601154078187" }
+            fagolli: { type: "HomeGoodsStore", url: "https://www.fagolli.com.my/", phone: "+601154078187" },
+            totalTools: { type: "HardwareStore", url: "https://www.totaltools.com.my/", phone: "+60102908007" }
           }[routeId];
           if (!expected || business?.["@type"] !== expected.type || business?.containedInPlace?.["@id"] !== placeId) fail(label, "Business profile must identify its business type and park location");
           if (business?.url !== expected?.url || business?.telephone !== expected?.phone) fail(label, "Business identity or branch contact is incorrect");
           if (!html.includes(`href="${expected?.contactUrl || `tel:${expected?.phone}`}"`)) fail(label, "Visible business contact does not match its published contact channel");
+          if (routeId === "totalTools") {
+            if (business?.address?.streetAddress !== "6, Jalan TPK 2/2, Taman Perindustrian Kinrara, Seksyen 2" || business?.address?.postalCode !== "47100" || /\+601126237882|\+601116174342|Jalan BPU 1/.test(html)) fail(label, "Total Tools must use the Kinrara branch details rather than the national office or Puchong Utama");
+            if (business?.openingHoursSpecification || business?.openingHours) fail(label, "Total Tools must not publish conflicting hours as confirmed branch hours");
+            if (business?.hasMap !== "https://maps.app.goo.gl/a5rv2mVYV5JwENgX6" || !html.includes('href="https://maps.app.goo.gl/a5rv2mVYV5JwENgX6"')) fail(label, "Total Tools must retain the official Kinrara map link");
+            if (business?.image) fail(label, "The TOTAL product image must not be presented as a photo of the Kinrara premises");
+          }
           if (routeId === "fagolli") {
             if (business?.legalName !== "Digicraft MSC Sdn. Bhd." || business?.address?.streetAddress !== "43-1, Jalan TPK 2/8, Taman Perindustrian Kinrara, Seksyen 2" || business?.address?.postalCode !== "47180" || /\+601116328187|\+601111178187|E9-1/.test(html)) fail(label, "Fagolli must use the current English/Malay Puchong contact listing consistently");
             const hours = business?.openingHoursSpecification;

@@ -337,6 +337,27 @@ test("Fagolli calls and WhatsApp remain tenant enquiries without contact or mess
   assert.equal(page.basicSent().length, 9);
 });
 
+test("Total Tools referrals preserve consent and keep branch contacts out of analytics data", () => {
+  const page = client({ saved: "detailed", locale: "en" });
+  page.clickLink("/home-living/total-tools/");
+  page.clickLink("/zh/home-living/total-tools/", ".locale-nav");
+  page.clickLink("https://www.totaltools.com.my/?email=private@example.com#private");
+  page.clickLink("https://www.totaltools.com.my/products?search=private@example.com");
+  page.clickLink("https://www.totaltools.com.my/stores?address=private@example.com");
+  page.clickLink("https://maps.app.goo.gl/a5rv2mVYV5JwENgX6?email=private@example.com");
+  page.clickLink("https://biz.puchong.co/businesses/total-one-stop-tools-station-bestbuy-kinrara-bk4-bhk82/?email=private@example.com");
+  page.clickLink("tel:+60102908007");
+  assert.deepEqual(page.basicSent().map(event => event.name), ["navigation_click", "language_switch", "outbound_click", "outbound_click", "outbound_click", "directions_click", "outbound_click", "tenant_contact_click"]);
+  assert.deepEqual(page.basicSent().map(event => event.data.target), ["/home-living/total-tools/", "zh", "total-tools:website", "total-tools:products", "total-tools:visit", "about", "biz.puchong.co", "total-tools:phone"]);
+  assert.equal(page.sent().filter(event => event[1] === "contact_click").length, 0);
+  assert.deepEqual(page.sent().filter(event => event[1] === "tenant_contact_click").map(event => [event[2].tenant, event[2].contact_method]), [["total-tools", "phone"]]);
+  assert.doesNotMatch(JSON.stringify([page.sent(), page.basicSent()]), /private@example.com|#private|60102908007|a5rv2mVYV5JwENgX6|bhk82|search=|address=/);
+  page.controls.off.handlers.click();
+  page.clickLink("tel:+60102908007");
+  page.clickLink("https://www.totaltools.com.my/products");
+  assert.equal(page.basicSent().length, 8);
+});
+
 test("detailed engagement counts milestones once and stops independently of basic statistics", () => {
   const page = client({ saved: "detailed" });
   page.focusForm(); page.focusForm();

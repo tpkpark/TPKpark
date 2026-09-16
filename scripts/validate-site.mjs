@@ -156,11 +156,21 @@ for (const locale of locales) {
             jaecooServiceCentre: { type: "AutoRepair", url: "https://omodajaecoo.com.my/dealer-locator", phone: "+60193988817", contactUrl: "https://wa.me/60193988817" },
             toyokar: { type: "AutoRepair", url: "https://www.toyokar.my/", phone: "+60123856228", contactUrl: "https://wa.me/60123856228" },
             jazminaBistro: { type: "Restaurant", contactUrl: "https://www.foodpanda.my/restaurant/rlie/jazmina-bistro-rlie" },
-            nuarina: { type: "Restaurant", phone: "+60122282290" }
+            nuarina: { type: "Restaurant", phone: "+60122282290" },
+            yummyNyonya: { type: "Restaurant", phone: "+601111631126" }
           }[routeId];
           if (!expected || business?.["@type"] !== expected.type || business?.containedInPlace?.["@id"] !== placeId) fail(label, "Business profile must identify its business type and park location");
           if (business?.url !== expected?.url || business?.telephone !== expected?.phone) fail(label, "Business identity or branch contact is incorrect");
           if (!html.includes(`href="${expected?.contactUrl || `tel:${expected?.phone}`}"`)) fail(label, "Visible business contact does not match its published contact channel");
+          if (routeId === "yummyNyonya") {
+            const split = page.blocks.find(block => block.type === "split");
+            if (business?.address?.streetAddress !== "43G, Jalan TPK 2/8, Taman Perindustrian Kinrara" || business?.address?.postalCode !== "47180") fail(label, "Yummy Nyonya Kitchen must retain the verified No. 43G Jalan TPK 2/8 address");
+            if (business?.telephone !== "+601111631126" || business?.url || business?.image || business?.openingHoursSpecification || business?.openingHours) fail(label, "Yummy Nyonya Kitchen must retain its verified phone without inferring a website, schema image or disputed hours");
+            if (business?.contactPoint?.[1]?.telephone !== "+60108912102") fail(label, "Yummy Nyonya Kitchen alternate public line is missing");
+            if (page.heroImage !== "https://i.imgur.com/Z5h4hmH.jpg" || split?.image !== "https://i.imgur.com/Z5h4hmH.jpg") fail(label, "Yummy Nyonya Kitchen must use the TPK Park Lifestyle contextual image until a branch photo is verified");
+            if (!html.includes('href="tel:+601111631126"') || !html.includes('href="tel:+60108912102"')) fail(label, "Yummy Nyonya Kitchen public phone lines must remain visible");
+            if (locale === "en" && (!html.includes("exact published hours currently differ") || !html.includes("older directories incorrectly show Jalan TPK 2/7"))) fail(label, "Yummy Nyonya Kitchen must preserve the public-source timing and address cautions");
+          }
           if (routeId === "nuarina") {
             const split = page.blocks.find(block => block.type === "split");
             if (business?.address?.streetAddress !== "41G, Jalan TPK 2/8, Taman Perindustrian Kinrara" || business?.address?.postalCode !== "47180") fail(label, "Nuarina must retain its verified No. 41G TPK Park address");

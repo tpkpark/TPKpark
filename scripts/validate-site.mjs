@@ -134,7 +134,8 @@ for (const locale of locales) {
             jubinBms: { type: "HomeGoodsStore", url: "https://www.jubinbms.com.my/", phone: "+60380748300" },
             vHausLiving: { type: "FurnitureStore", url: "https://www.vhausliving.com/", phone: "+60127086389" },
             balensDesign: { type: "LocalBusiness", url: "https://balensdesign.com/", phone: "+60173388535" },
-            builtop: { type: "LocalBusiness", url: "https://www.builtopmalaysia.com/", phone: "+601126838848" }
+            builtop: { type: "LocalBusiness", url: "https://www.builtopmalaysia.com/", phone: "+601126838848" },
+            premioDoor: { type: "HomeGoodsStore", url: "https://premiodoor.com.my/", phone: "+60165255100" }
           }[routeId];
           if (!expected || business?.["@type"] !== expected.type || business?.containedInPlace?.["@id"] !== placeId) fail(label, "Business profile must identify its business type and park location");
           if (business?.url !== expected?.url || business?.telephone !== expected?.phone) fail(label, "Business identity or branch contact is incorrect");
@@ -142,6 +143,11 @@ for (const locale of locales) {
           if (routeId === "lavino" && (business?.address?.streetAddress !== "6, Jalan TPK 2/2, Taman Perindustrian Kinrara" || business?.address?.postalCode !== "47100" || html.includes("+60166626951"))) fail(label, "Lavino must use its own branch address and contact");
           if (routeId === "gaHing" && (business?.address?.streetAddress !== "4, Jalan TPK 2/2, Taman Perindustrian Kinrara" || business?.address?.postalCode !== "47100" || /\+60163391601|\+60166626951/.test(html))) fail(label, "Ga Hing must use its own branch address and contact");
           if (routeId === "jubinBms" && (business?.address?.streetAddress !== "7, Jalan TPK 2/3, Taman Perindustrian Kinrara" || business?.address?.postalCode !== "47100" || /\+6073608888|\+60197251990|\+60362722999/.test(html))) fail(label, "Jubin BMS must use its Kinrara branch address and contact, not HQ or Kepong");
+          if (routeId === "premioDoor") {
+            if (business?.address?.streetAddress !== "25-G, Jalan TPK 2/8, Seksyen 2, Taman Perindustrian Kinrara" || business?.address?.postalCode !== "47180" || /\+60162565100|\+60168269100/.test(html)) fail(label, "Premio Door must use its Puchong branch address and phone");
+            if (business?.openingHoursSpecification || business?.openingHours) fail(label, "Premio Door must not publish unverified opening hours");
+            if (business?.image !== "https://www.tpkpark.com/assets/images/premio-door-puchong-1000.webp" || !html.includes('src="/assets/images/premio-door-puchong-1000.webp"')) fail(label, "Premio Door must use the verified Puchong showroom photo");
+          }
           if (routeId === "builtop") {
             if (business?.legalName !== "Builtop Group Sdn. Bhd." || business?.address?.streetAddress !== "13-1, Jalan TPK 2/8, Taman Perindustrian Kinrara" || business?.address?.postalCode !== "47100" || /\+60102423593|\+60173388535/.test(html)) fail(label, "BUILTOP must use its official Group identity, Puchong address and contact");
             if (business?.openingHoursSpecification || business?.openingHours) fail(label, "BUILTOP must not publish unverified office hours");

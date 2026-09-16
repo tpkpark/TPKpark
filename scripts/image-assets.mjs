@@ -1,5 +1,9 @@
 // Locally hosted versions of approved imagery, shared by page content and preview metadata.
 export const imageAssets = {
+  "https://www.tpkpark.com/assets/images/premio-door-puchong-1000.webp": {
+    src: "/assets/images/premio-door-puchong-1000.webp", width: 1000, height: 900,
+    srcset: "/assets/images/premio-door-puchong-480.webp 480w, /assets/images/premio-door-puchong-1000.webp 1000w"
+  },
   "https://www.tpkpark.com/assets/images/jubin-bms-puchong-960.webp": {
     src: "/assets/images/jubin-bms-puchong-960.webp", width: 960, height: 540,
     srcset: "/assets/images/jubin-bms-puchong-480.webp 480w, /assets/images/jubin-bms-puchong-960.webp 960w"

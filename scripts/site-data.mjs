@@ -14,6 +14,7 @@ import { totalToolsProfiles } from "./total-tools-profile.mjs";
 import { baagusProfiles } from "./baagus-profile.mjs";
 import { mkCurtainProfiles } from "./mk-curtain-profile.mjs";
 import { signatureProfiles } from "./signature-profile.mjs";
+import { chooseInteriorProfiles } from "./choose-interior-profile.mjs";
 
 export const origin = "https://www.tpkpark.com";
 
@@ -36,6 +37,7 @@ export const routeSlugs = {
   baagus: "home-living/baagus",
   mkCurtain: "home-living/mk-curtain",
   signature: "home-living/signature",
+  chooseInterior: "home-living/choose-interior",
   automotive: "automotive",
   lifestyle: "lifestyle",
   motd: "lifestyle/motd",
@@ -78,6 +80,7 @@ export const seoTitles = {
     baagus: "Baagus Bandar Kinrara Puchong | Curtains & Blinds | TPK Park",
     mkCurtain: "MK Curtain TPK Park Puchong | Curtains, Blinds & Wallpaper",
     signature: "Signature Bandar Kinrara | Kitchens & Wardrobes | TPK Park",
+    chooseInterior: "Choose Interior Puchong | Interior Design & Renovation | TPK Park",
     automotive: "Automotive Sales & Services in Puchong | TPK Park",
     lifestyle: "Dining, Fitness & Lifestyle in Puchong | TPK Park",
     motd: "MOTD Bar & Dining at TPK Park, Puchong",
@@ -110,6 +113,7 @@ export const seoTitles = {
     baagus: "Baagus Bandar Kinrara Puchong | Langsir & Bidai | TPK Park",
     mkCurtain: "MK Curtain TPK Park Puchong | Langsir, Bidai & Kertas Dinding",
     signature: "Signature Bandar Kinrara | Dapur & Almari Pakaian | TPK Park",
+    chooseInterior: "Choose Interior Puchong | Reka Bentuk Dalaman | TPK Park",
     automotive: "Jualan & Servis Automotif di Puchong | TPK Park",
     lifestyle: "Makan, Kecergasan & Lifestyle di Puchong | TPK Park",
     motd: "MOTD Bar & Dining di TPK Park, Puchong",
@@ -142,6 +146,7 @@ export const seoTitles = {
     baagus: "Baagus蒲种金銮窗帘、纱帘与百叶帘展厅 | TPK Park",
     mkCurtain: "MK Curtain蒲种TPK Park展厅 | 窗帘、卷帘与墙纸",
     signature: "Signature蒲种金銮厨房橱柜与衣柜展厅 | TPK Park",
+    chooseInterior: "Choose Interior蒲种室内设计与装修 | TPK Park",
     automotive: "蒲种汽车销售、维修与美容服务 | TPK Park",
     lifestyle: "蒲种餐饮、运动与生活配套 | TPK Park",
     motd: "MOTD蒲种餐酒馆、炭烤与现场音乐 | TPK Park",
@@ -179,6 +184,7 @@ const routeLastModifiedOverrides = {
   baagus: "2026-09-16",
   mkCurtain: "2026-09-16",
   signature: "2026-09-16",
+  chooseInterior: "2026-09-16",
   automotive: "2026-09-15",
   milestones: "2026-09-15",
   lifestyle: "2026-09-15",
@@ -1706,14 +1712,14 @@ const zhPages = {
 };
 
 export const site = {
-  en: { ...common.en, pages: { ...enPages, motd: motdProfiles.en, lavino: lavinoProfiles.en, gaHing: gaHingProfiles.en, kucheBath: kucheBathProfiles.en, jubinBms: jubinBmsProfiles.en, vHausLiving: vHausLivingProfiles.en, balensDesign: balensDesignProfiles.en, builtop: builtopProfiles.en, premioDoor: premioDoorProfiles.en, klot: klotProfiles.en, dcMoto: dcMotoProfiles.en, fagolli: fagolliProfiles.en, totalTools: totalToolsProfiles.en, baagus: baagusProfiles.en, mkCurtain: mkCurtainProfiles.en, signature: signatureProfiles.en } },
-  ms: { ...common.ms, pages: { ...msPages, motd: motdProfiles.ms, lavino: lavinoProfiles.ms, gaHing: gaHingProfiles.ms, kucheBath: kucheBathProfiles.ms, jubinBms: jubinBmsProfiles.ms, vHausLiving: vHausLivingProfiles.ms, balensDesign: balensDesignProfiles.ms, builtop: builtopProfiles.ms, premioDoor: premioDoorProfiles.ms, klot: klotProfiles.ms, dcMoto: dcMotoProfiles.ms, fagolli: fagolliProfiles.ms, totalTools: totalToolsProfiles.ms, baagus: baagusProfiles.ms, mkCurtain: mkCurtainProfiles.ms, signature: signatureProfiles.ms } },
-  zh: { ...common.zh, pages: { ...zhPages, motd: motdProfiles.zh, lavino: lavinoProfiles.zh, gaHing: gaHingProfiles.zh, kucheBath: kucheBathProfiles.zh, jubinBms: jubinBmsProfiles.zh, vHausLiving: vHausLivingProfiles.zh, balensDesign: balensDesignProfiles.zh, builtop: builtopProfiles.zh, premioDoor: premioDoorProfiles.zh, klot: klotProfiles.zh, dcMoto: dcMotoProfiles.zh, fagolli: fagolliProfiles.zh, totalTools: totalToolsProfiles.zh, baagus: baagusProfiles.zh, mkCurtain: mkCurtainProfiles.zh, signature: signatureProfiles.zh } }
+  en: { ...common.en, pages: { ...enPages, motd: motdProfiles.en, lavino: lavinoProfiles.en, gaHing: gaHingProfiles.en, kucheBath: kucheBathProfiles.en, jubinBms: jubinBmsProfiles.en, vHausLiving: vHausLivingProfiles.en, balensDesign: balensDesignProfiles.en, builtop: builtopProfiles.en, premioDoor: premioDoorProfiles.en, klot: klotProfiles.en, dcMoto: dcMotoProfiles.en, fagolli: fagolliProfiles.en, totalTools: totalToolsProfiles.en, baagus: baagusProfiles.en, mkCurtain: mkCurtainProfiles.en, signature: signatureProfiles.en, chooseInterior: chooseInteriorProfiles.en } },
+  ms: { ...common.ms, pages: { ...msPages, motd: motdProfiles.ms, lavino: lavinoProfiles.ms, gaHing: gaHingProfiles.ms, kucheBath: kucheBathProfiles.ms, jubinBms: jubinBmsProfiles.ms, vHausLiving: vHausLivingProfiles.ms, balensDesign: balensDesignProfiles.ms, builtop: builtopProfiles.ms, premioDoor: premioDoorProfiles.ms, klot: klotProfiles.ms, dcMoto: dcMotoProfiles.ms, fagolli: fagolliProfiles.ms, totalTools: totalToolsProfiles.ms, baagus: baagusProfiles.ms, mkCurtain: mkCurtainProfiles.ms, signature: signatureProfiles.ms, chooseInterior: chooseInteriorProfiles.ms } },
+  zh: { ...common.zh, pages: { ...zhPages, motd: motdProfiles.zh, lavino: lavinoProfiles.zh, gaHing: gaHingProfiles.zh, kucheBath: kucheBathProfiles.zh, jubinBms: jubinBmsProfiles.zh, vHausLiving: vHausLivingProfiles.zh, balensDesign: balensDesignProfiles.zh, builtop: builtopProfiles.zh, premioDoor: premioDoorProfiles.zh, klot: klotProfiles.zh, dcMoto: dcMotoProfiles.zh, fagolli: fagolliProfiles.zh, totalTools: totalToolsProfiles.zh, baagus: baagusProfiles.zh, mkCurtain: mkCurtainProfiles.zh, signature: signatureProfiles.zh, chooseInterior: chooseInteriorProfiles.zh } }
 };
 
 // Link each business profile from its own cluster directory.
 for (const locale of Object.keys(site)) {
-  for (const [parent, name, route] of [["lifestyle", "m.o.t.d", "motd"], ["homeLiving", "Lavino", "lavino"], ["homeLiving", "Ga Hing", "gaHing"], ["homeLiving", "Kuche + BaTH", "kucheBath"], ["homeLiving", "Jubin BMS", "jubinBms"], ["homeLiving", "V Haus Living", "vHausLiving"], ["homeLiving", "Balens Design", "balensDesign"], ["homeLiving", "BUILTOP", "builtop"], ["homeLiving", "Premio Door", "premioDoor"], ["homeLiving", "KLOT", "klot"], ["homeLiving", "DC Moto", "dcMoto"], ["homeLiving", "Fagolli", "fagolli"], ["homeLiving", "Total Tools", "totalTools"], ["homeLiving", "Baagus", "baagus"], ["homeLiving", "MK Curtain", "mkCurtain"], ["homeLiving", "Signature", "signature"]]) {
+  for (const [parent, name, route] of [["lifestyle", "m.o.t.d", "motd"], ["homeLiving", "Lavino", "lavino"], ["homeLiving", "Ga Hing", "gaHing"], ["homeLiving", "Kuche + BaTH", "kucheBath"], ["homeLiving", "Jubin BMS", "jubinBms"], ["homeLiving", "V Haus Living", "vHausLiving"], ["homeLiving", "Balens Design", "balensDesign"], ["homeLiving", "BUILTOP", "builtop"], ["homeLiving", "Premio Door", "premioDoor"], ["homeLiving", "KLOT", "klot"], ["homeLiving", "DC Moto", "dcMoto"], ["homeLiving", "Fagolli", "fagolli"], ["homeLiving", "Total Tools", "totalTools"], ["homeLiving", "Baagus", "baagus"], ["homeLiving", "MK Curtain", "mkCurtain"], ["homeLiving", "Signature", "signature"], ["homeLiving", "Choose Interior", "chooseInterior"]]) {
     const directory = site[locale].pages[parent].blocks.find(block => block.type === "directory");
     directory.items = directory.items.map(item => item[1] === name ? [...item, route] : item);
   }

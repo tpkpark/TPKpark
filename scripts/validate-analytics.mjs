@@ -420,6 +420,24 @@ test("Signature links retain tenant attribution and exclude contact and query co
   assert.equal(page.basicSent().length, 8);
 });
 
+test("Choose Interior enquiries remain distinct from park social links and exclude query contents", () => {
+  const page = client({ saved: "detailed", locale: "en" });
+  page.clickLink("/home-living/choose-interior/");
+  page.clickLink("/zh/home-living/choose-interior/", ".locale-nav");
+  page.clickLink("https://www.instagram.com/chooseinterior.cid/?email=private@example.com#private");
+  page.clickLink("https://www.instagram.com/chooseinterior.cid/p/CnQv4oOP5gF/?message=private@example.com");
+  page.clickLink("https://www.google.com/maps/search/?api=1&query=21-1+Jalan+TPK+2%2F8&email=private@example.com");
+  page.clickLink("https://www.instagram.com/tpkpark/");
+  assert.deepEqual(page.basicSent().map(event => event.data.target), ["/home-living/choose-interior/", "zh", "choose-interior:instagram", "choose-interior:portfolio", "about", "instagram"]);
+  assert.deepEqual(page.sent().filter(event => event[1] === "tenant_contact_click").map(event => [event[2].tenant, event[2].contact_method]), [["choose-interior", "instagram"]]);
+  assert.equal(page.sent().filter(event => event[1] === "social_click").length, 1);
+  assert.doesNotMatch(JSON.stringify([page.sent(), page.basicSent()]), /private@example.com|#private|CnQv4oOP5gF|21-1|email=|message=|query=/);
+  page.controls.off.handlers.click();
+  page.clickLink("https://www.instagram.com/chooseinterior.cid/");
+  page.clickLink("https://www.instagram.com/chooseinterior.cid/p/CnQv4oOP5gF/");
+  assert.equal(page.basicSent().length, 6);
+});
+
 test("detailed engagement counts milestones once and stops independently of basic statistics", () => {
   const page = client({ saved: "detailed" });
   page.focusForm(); page.focusForm();

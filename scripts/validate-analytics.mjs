@@ -257,6 +257,25 @@ test("BUILTOP project referrals remain separate from park enquiries and exclude 
   assert.equal(page.basicSent().length, 7);
 });
 
+test("Premio Door referrals use the branch contact and exclude private URL data", () => {
+  const page = client({ saved: "detailed", locale: "en" });
+  page.clickLink("/home-living/premio-door/");
+  page.clickLink("/zh/home-living/premio-door/", ".locale-nav");
+  page.clickLink("https://premiodoor.com.my/?email=private@example.com#private");
+  page.clickLink("https://premiodoor.com.my/location.php?email=private@example.com");
+  page.clickLink("https://premiodoor.com.my/productSeries.php?email=private@example.com");
+  page.clickLink("https://www.google.com/maps/dir/?api=1&destination=Premio+25-G+Jalan+TPK+2%2F8&private=private@example.com");
+  page.clickLink("tel:+60165255100");
+  assert.deepEqual(page.basicSent().map(event => event.name), ["navigation_click", "language_switch", "outbound_click", "outbound_click", "outbound_click", "directions_click", "tenant_contact_click"]);
+  assert.deepEqual(page.basicSent().map(event => event.data.target), ["/home-living/premio-door/", "zh", "premio-door:website", "premio-door:visit", "premio-door:collections", "about", "premio-door:phone"]);
+  assert.equal(page.sent().filter(event => event[1] === "contact_click").length, 0);
+  assert.equal(page.sent().at(-1)[2].tenant, "premio-door");
+  assert.doesNotMatch(JSON.stringify([page.sent(), page.basicSent()]), /private@example.com|#private|60165255100|25-G|destination=/);
+  page.controls.off.handlers.click();
+  page.clickLink("tel:+60165255100");
+  assert.equal(page.basicSent().length, 7);
+});
+
 test("detailed engagement counts milestones once and stops independently of basic statistics", () => {
   const page = client({ saved: "detailed" });
   page.focusForm(); page.focusForm();

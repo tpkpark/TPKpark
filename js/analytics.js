@@ -214,7 +214,7 @@
   });
 
   const knownSpaces = ["shop-showroom", "detached-building", "semi-detached", "terrace-waitlist"];
-  const pagePath = /^\/(?:ms\/|zh\/)?(?:about|home-living(?:\/(?:lavino|ga-hing|kuche-bath|jubin-bms|v-haus-living|balens-design|builtop|premio-door|klot))?|automotive|lifestyle(?:\/motd)?|leasing(?:\/(?:shop-showroom|detached-building|semi-detached))?|news|milestones|wong-shung-yen(?:\/public-record)?|contact)?\/?$/;
+  const pagePath = /^\/(?:ms\/|zh\/)?(?:about|home-living(?:\/(?:lavino|ga-hing|kuche-bath|jubin-bms|v-haus-living|balens-design|builtop|premio-door|klot|dc-moto))?|automotive|lifestyle(?:\/motd)?|leasing(?:\/(?:shop-showroom|detached-building|semi-detached))?|news|milestones|wong-shung-yen(?:\/public-record)?|contact)?\/?$/;
   const socialHosts = { "www.facebook.com": "facebook", "www.instagram.com": "instagram", "www.tiktok.com": "tiktok", "www.xiaohongshu.com": "xiaohongshu", "www.rednote.com": "xiaohongshu" };
 
   document.addEventListener("click", event => {
@@ -258,6 +258,8 @@
             click(name, { destination_path: url.pathname }, url.pathname);
           }
         }
+      } else if (url.hostname === "wa.me" && /^\/601156279623\/?$/.test(url.pathname)) {
+        click("tenant_contact_click", { contact_method: "whatsapp", tenant: "dc-moto" }, "dc-moto:whatsapp");
       } else if ((url.hostname === "www.google.com" && url.pathname.startsWith("/maps")) || url.hostname === "maps.app.goo.gl" || (url.hostname === "goo.gl" && url.pathname.startsWith("/maps/"))) {
         click("directions_click", { map_provider: "google" }, config.route);
       } else if (["www.waze.com", "waze.com"].includes(url.hostname) && url.pathname.startsWith("/live-map/directions")) {
@@ -291,6 +293,10 @@
         const path = url.pathname.replace(/\/$/, "") || "/";
         const destination = { "/pages/contact-us": "visit", "/pages/location": "visit", "/pages/catalog-1": "catalogue" }[path] || "website";
         click("outbound_click", { link_domain: "www.klot.com.my" }, "klot:" + destination);
+      } else if (["www.dcmoto.my", "dcmoto.my"].includes(url.hostname)) {
+        const path = url.pathname.replace(/\/$/, "") || "/";
+        const destination = { "/contact-us": "visit", "/user-support-guide": "support", "/products/gfm975": "products", "/products/gfm925": "products" }[path] || "website";
+        click("outbound_click", { link_domain: "www.dcmoto.my" }, "dc-moto:" + destination);
       } else if (["www.motdgroup.com", "motdgroup.com"].includes(url.hostname)) {
         const path = url.pathname.replace(/^\/zh(?=\/|$)/, "").replace(/\/$/, "") || "/";
         const destination = { "/": "home", "/menu": "menu", "/live-house": "live_music", "/contact-us": "visit" }[path] || "website";

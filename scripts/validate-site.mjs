@@ -132,7 +132,8 @@ for (const locale of locales) {
             gaHing: { type: "HomeGoodsStore", url: "https://gahing.com/", phone: "+60380809119" },
             kucheBath: { type: "HomeGoodsStore", url: "https://kbomy.com/", phone: "+60380791268" },
             jubinBms: { type: "HomeGoodsStore", url: "https://www.jubinbms.com.my/", phone: "+60380748300" },
-            vHausLiving: { type: "FurnitureStore", url: "https://www.vhausliving.com/", phone: "+60127086389" }
+            vHausLiving: { type: "FurnitureStore", url: "https://www.vhausliving.com/", phone: "+60127086389" },
+            balensDesign: { type: "LocalBusiness", url: "https://balensdesign.com/", phone: "+60173388535" }
           }[routeId];
           if (!expected || business?.["@type"] !== expected.type || business?.containedInPlace?.["@id"] !== placeId) fail(label, "Business profile must identify its business type and park location");
           if (business?.url !== expected?.url || business?.telephone !== expected?.phone) fail(label, "Business identity or branch contact is incorrect");
@@ -140,6 +141,14 @@ for (const locale of locales) {
           if (routeId === "lavino" && (business?.address?.streetAddress !== "6, Jalan TPK 2/2, Taman Perindustrian Kinrara" || business?.address?.postalCode !== "47100" || html.includes("+60166626951"))) fail(label, "Lavino must use its own branch address and contact");
           if (routeId === "gaHing" && (business?.address?.streetAddress !== "4, Jalan TPK 2/2, Taman Perindustrian Kinrara" || business?.address?.postalCode !== "47100" || /\+60163391601|\+60166626951/.test(html))) fail(label, "Ga Hing must use its own branch address and contact");
           if (routeId === "jubinBms" && (business?.address?.streetAddress !== "7, Jalan TPK 2/3, Taman Perindustrian Kinrara" || business?.address?.postalCode !== "47100" || /\+6073608888|\+60197251990|\+60362722999/.test(html))) fail(label, "Jubin BMS must use its Kinrara branch address and contact, not HQ or Kepong");
+          if (routeId === "balensDesign") {
+            if (business?.address?.streetAddress !== "25-1, Jalan TPK 2/8, Taman Perindustrian Kinrara" || business?.address?.postalCode !== "47180" || /\+60129892020/.test(html)) fail(label, "Balens Design must use its office address and current official phone");
+            const hours = business?.openingHoursSpecification?.[0];
+            const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+            if (hours?.opens !== "09:00" || hours?.closes !== "18:00" || hours?.dayOfWeek?.length !== 5 || days.some(day => !hours?.dayOfWeek?.includes(day))) fail(label, "Balens Design must distinguish weekday hours from appointment-only days");
+            const appointment = { en: "Saturdays, Sundays and public holidays are by appointment only", ms: "Sabtu, Ahad dan cuti umum adalah melalui janji temu sahaja", zh: "星期六、星期日及公共假期仅接受预约" }[locale];
+            if (!html.includes(appointment)) fail(label, "Balens Design must explain weekend and public-holiday appointments");
+          }
           if (routeId === "vHausLiving") {
             if (business?.address?.streetAddress !== "1, 3, 5, Jalan TPK 2/8, Bandar Kinrara 4" || business?.address?.postalCode !== "47100" || /\+60196818961|\+601116678389|\+601121108389/.test(html)) fail(label, "V Haus Living must use its Puchong branch address and contact");
             const hours = business?.openingHoursSpecification?.[0];

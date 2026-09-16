@@ -219,6 +219,25 @@ test("V Haus Living visits and calls use Puchong attribution and respect privacy
   assert.equal(page.basicSent().length, 6);
 });
 
+test("Balens Design consultation referrals remain separate from park enquiries and exclude private URL data", () => {
+  const page = client({ saved: "detailed", locale: "en" });
+  page.clickLink("/home-living/balens-design/");
+  page.clickLink("/zh/home-living/balens-design/", ".locale-nav");
+  page.clickLink("https://balensdesign.com/?email=private@example.com#private");
+  page.clickLink("https://balensdesign.com/contact-us?email=private@example.com");
+  page.clickLink("https://balensdesign.com/projects/?email=private@example.com");
+  page.clickLink("https://www.google.com/maps/dir/?api=1&destination=Balens+Design+25-1+Jalan+TPK+2%2F8&private=private@example.com");
+  page.clickLink("tel:+60173388535");
+  assert.deepEqual(page.basicSent().map(event => event.name), ["navigation_click", "language_switch", "outbound_click", "outbound_click", "outbound_click", "directions_click", "tenant_contact_click"]);
+  assert.deepEqual(page.basicSent().map(event => event.data.target), ["/home-living/balens-design/", "zh", "balens-design:website", "balens-design:visit", "balens-design:projects", "about", "balens-design:phone"]);
+  assert.equal(page.sent().filter(event => event[1] === "contact_click").length, 0);
+  assert.equal(page.sent().at(-1)[2].tenant, "balens-design");
+  assert.doesNotMatch(JSON.stringify([page.sent(), page.basicSent()]), /private@example.com|#private|60173388535|25-1|destination=/);
+  page.controls.off.handlers.click();
+  page.clickLink("tel:+60173388535");
+  assert.equal(page.basicSent().length, 7);
+});
+
 test("detailed engagement counts milestones once and stops independently of basic statistics", () => {
   const page = client({ saved: "detailed" });
   page.focusForm(); page.focusForm();

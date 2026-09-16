@@ -144,11 +144,20 @@ for (const locale of locales) {
             mkCurtain: { type: "HomeGoodsStore", url: "https://www.mk.com.my/", phone: "+60380747210" },
             signature: { type: "HomeGoodsStore", url: "https://signature.my/", phone: "+60168133182" },
             chooseInterior: { type: "LocalBusiness", url: "https://www.instagram.com/chooseinterior.cid/", contactUrl: "https://www.instagram.com/chooseinterior.cid/" },
-            peroduaKinrara: { type: "AutoDealer", url: "https://www.perodua3skinrara.com/", phone: "+60332912266" }
+            peroduaKinrara: { type: "AutoDealer", url: "https://www.perodua3skinrara.com/", phone: "+60332912266" },
+            mazdaKinrara: { type: "AutoDealer", url: "https://www.facebook.com/MazdaPersadaAuto/", phone: "+60380750812" }
           }[routeId];
           if (!expected || business?.["@type"] !== expected.type || business?.containedInPlace?.["@id"] !== placeId) fail(label, "Business profile must identify its business type and park location");
           if (business?.url !== expected?.url || business?.telephone !== expected?.phone) fail(label, "Business identity or branch contact is incorrect");
           if (!html.includes(`href="${expected?.contactUrl || `tel:${expected?.phone}`}"`)) fail(label, "Visible business contact does not match its published contact channel");
+          if (routeId === "mazdaKinrara") {
+            const visit = page.blocks.find(block => block.type === "businessVisit");
+            if (business?.legalName !== "Persada Auto Sdn Bhd" || business?.address?.streetAddress !== "8, Jalan TPK 2/2, Taman Perindustrian Kinrara, Seksyen 2" || business?.address?.postalCode !== "47180" || /Kota Damansara|6142 1662|Jalan TPK 2\/3/.test(html)) fail(label, "Mazda must retain the Puchong Kinrara branch identity and address");
+            if (visit?.contacts?.length !== 2 || !html.includes('href="tel:+60380750813"') || business?.contactPoint?.[1]?.telephone !== "+60380750813") fail(label, "Both verified Mazda branch lines must remain available");
+            if (business?.openingHoursSpecification || business?.department || visit?.hours?.length) fail(label, "Do not infer Mazda hours or a department split from conflicting listings");
+            if (business?.hasMap !== "https://waze.com/ul/hw2832g1br" || !html.includes('href="https://waze.com/ul/hw2832g1br"')) fail(label, "Mazda must retain its published Kinrara Waze destination");
+            if (business?.image !== `${origin}/assets/images/mazda-kinrara-exterior-1280.webp` || !page.heroAlt.includes("2016") || !page.blocks.find(block => block.type === "split")?.caption.includes("2016")) fail(label, "Mazda’s original branch photo must keep its archive date");
+          }
           if (routeId === "peroduaKinrara") {
             const service = business?.department;
             const visit = page.blocks.find(block => block.type === "businessVisit");

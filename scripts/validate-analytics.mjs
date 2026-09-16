@@ -594,6 +594,27 @@ test("Toyokar enquiries keep vehicle details, messages and email contents out of
   assert.equal(page.basicSent().length, 9);
 });
 
+test("99 Speedmart store locator, directions and customer service retain tenant attribution without private data", () => {
+  const page = client({ saved: "detailed", locale: "en" });
+  page.clickLink("/lifestyle/99-speedmart/");
+  page.clickLink("/zh/lifestyle/99-speedmart/", ".locale-nav");
+  page.clickLink("https://99speedmart.com.my/?email=private@example.com#private");
+  page.clickLink("https://99speedmart.com.my/store-locations/?query=PRIVATE123");
+  page.clickLink("https://99speedmart.com.my/Speedpoint/?account=PRIVATE123");
+  page.clickLink("https://www.google.com/maps/search/?api=1&query=PRIVATE123&query_place_id=PRIVATE123");
+  page.clickLink("tel:+60105000099");
+  page.clickLink("mailto:customer_service@99speedmart.com.my?subject=PRIVATE123");
+  assert.deepEqual(page.basicSent().map(event => event.name), ["navigation_click", "language_switch", "outbound_click", "outbound_click", "outbound_click", "directions_click", "tenant_contact_click", "tenant_contact_click"]);
+  assert.deepEqual(page.basicSent().slice(2, 5).map(event => event.data.target), ["99-speedmart:website", "99-speedmart:store_locator", "99-speedmart:speedpoint"]);
+  assert.equal(page.basicSent().at(-2).data.target, "99-speedmart:customer-service");
+  assert.equal(page.basicSent().at(-1).data.target, "99-speedmart:email");
+  assert.equal(page.sent().filter(event => event[1] === "contact_click").length, 0);
+  assert.doesNotMatch(JSON.stringify([page.sent(), page.basicSent()]), /PRIVATE123|private@example.com|60105000099|customer_service/);
+  page.controls.off.handlers.click();
+  page.clickLink("tel:+60105000099");
+  assert.equal(page.basicSent().length, 8);
+});
+
 test("Forsee Lens website, directions and contacts retain tenant attribution without private data", () => {
   const page = client({ saved: "detailed", locale: "en" });
   page.clickLink("/lifestyle/forsee-lens/");

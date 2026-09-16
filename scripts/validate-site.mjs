@@ -159,11 +159,23 @@ for (const locale of locales) {
             nuarina: { type: "Restaurant", phone: "+60122282290" },
             yummyNyonya: { type: "Restaurant", phone: "+601111631126" },
             optimumSwimSchool: { type: "SportsActivityLocation", url: "https://optimumswimschool.com/", phone: "+60192848138" },
-            acesGymnasticAcademy: { type: "SportsActivityLocation", url: "https://www.facebook.com/Acesgymnasticacademy", phone: "+60103658213" }
+            acesGymnasticAcademy: { type: "SportsActivityLocation", url: "https://www.facebook.com/Acesgymnasticacademy", phone: "+60103658213" },
+            forseeLens: { type: "LocalBusiness", url: "https://forseelens.com/", phone: "+60378000373" }
           }[routeId];
           if (!expected || business?.["@type"] !== expected.type || business?.containedInPlace?.["@id"] !== placeId) fail(label, "Business profile must identify its business type and park location");
           if (business?.url !== expected?.url || business?.telephone !== expected?.phone) fail(label, "Business identity or branch contact is incorrect");
           if (!html.includes(`href="${expected?.contactUrl || `tel:${expected?.phone}`}"`)) fail(label, "Visible business contact does not match its published contact channel");
+          if (routeId === "forseeLens") {
+            const split = page.blocks.find(block => block.type === "split");
+            if (business?.address?.streetAddress !== "71, Jalan TPK 2/8, Taman Perindustrian Kinrara" || business?.address?.postalCode !== "47180") fail(label, "Forsee Lens must retain the verified No. 71 Jalan TPK 2/8 address");
+            if (business?.telephone !== "+60378000373" || business?.email !== "cs_forsee@forsee.com.my" || business?.parentOrganization?.name !== "Eyepoint Technology Sdn Bhd") fail(label, "Forsee Lens must retain its official contact identity and Eyepoint Technology relationship");
+            if (business?.image || business?.openingHoursSpecification || business?.openingHours) fail(label, "Forsee Lens must not infer a premises image or unpublished opening hours");
+            if (business?.contactPoint?.[1]?.telephone !== "+60162057917" || business?.contactPoint?.[1]?.url !== "https://wa.me/60162057917") fail(label, "Forsee Lens must retain its official WhatsApp contact");
+            if (page.heroImage !== "https://i.imgur.com/Z5h4hmH.jpg" || split?.image !== "https://i.imgur.com/Z5h4hmH.jpg") fail(label, "Forsee Lens must keep the TPK Park Lifestyle image explicitly contextual until a verified branch photograph is available");
+            if (!html.includes('href="tel:+60378000373"') || !html.includes('href="mailto:cs_forsee@forsee.com.my"') || !html.includes('href="https://wa.me/60162057917"') || !html.includes('href="https://forseelens.com/"')) fail(label, "Forsee Lens public contacts and official website must remain visible");
+            const hoursCaution = { en: "Not published on the current official site", ms: "Tidak diterbitkan pada laman rasmi semasa", zh: "现行官网没有公布固定时段" }[locale];
+            if (!html.includes(hoursCaution)) fail(label, "Forsee Lens must preserve the opening-hours caution");
+          }
           if (routeId === "acesGymnasticAcademy") {
             const split = page.blocks.find(block => block.type === "split");
             const hours = business?.openingHoursSpecification;

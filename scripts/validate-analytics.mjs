@@ -594,6 +594,29 @@ test("Toyokar enquiries keep vehicle details, messages and email contents out of
   assert.equal(page.basicSent().length, 9);
 });
 
+test("Forsee Lens website, directions and contacts retain tenant attribution without private data", () => {
+  const page = client({ saved: "detailed", locale: "en" });
+  page.clickLink("/lifestyle/forsee-lens/");
+  page.clickLink("/zh/lifestyle/forsee-lens/", ".locale-nav");
+  page.clickLink("https://forseelens.com/?email=private@example.com#private");
+  page.clickLink("https://forseelens.com/post-listing?name=PRIVATE123");
+  page.clickLink("https://forseelens.com/myoboostplus?name=PRIVATE123");
+  page.clickLink("https://www.google.com/maps/search/?api=1&query=Forsee+PRIVATE123");
+  page.clickLink("tel:+60378000373");
+  page.clickLink("mailto:cs_forsee@forsee.com.my?subject=PRIVATE123");
+  page.clickLink("https://wa.me/60162057917?text=PRIVATE123");
+  assert.deepEqual(page.basicSent().map(event => event.name), ["navigation_click", "language_switch", "outbound_click", "outbound_click", "outbound_click", "directions_click", "tenant_contact_click", "tenant_contact_click", "tenant_contact_click"]);
+  assert.deepEqual(page.basicSent().slice(2, 5).map(event => event.data.target), ["forsee-lens:website", "forsee-lens:lens_selector", "forsee-lens:myoboost_plus"]);
+  assert.equal(page.basicSent().at(-3).data.target, "forsee-lens:phone");
+  assert.equal(page.basicSent().at(-2).data.target, "forsee-lens:email");
+  assert.equal(page.basicSent().at(-1).data.target, "forsee-lens:whatsapp");
+  assert.equal(page.sent().filter(event => event[1] === "contact_click").length, 0);
+  assert.doesNotMatch(JSON.stringify([page.sent(), page.basicSent()]), /PRIVATE123|private@example.com|60378000373|60162057917|cs_forsee/);
+  page.controls.off.handlers.click();
+  page.clickLink("tel:+60378000373");
+  assert.equal(page.basicSent().length, 9);
+});
+
 test("Aces Gymnastic Academy maps, Facebook and calls retain tenant attribution without private data", () => {
   const page = client({ saved: "detailed", locale: "en" });
   page.clickLink("/lifestyle/aces-gymnastic-academy/");

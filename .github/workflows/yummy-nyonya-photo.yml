@@ -1,3 +1,4 @@
+# Retry after all photograph chunks are present.
 name: Finalise Yummy Nyonya Kitchen photo
 
 on:
@@ -41,7 +42,6 @@ jobs:
           import re
 
           image = 'https://www.tpkpark.com/assets/images/yummy-nyonya-kitchen-tpk-800.webp'
-
           p = Path('scripts/yummy-nyonya-profile.mjs')
           s = p.read_text()
           old = 'const image = "https://i.imgur.com/Z5h4hmH.jpg";'

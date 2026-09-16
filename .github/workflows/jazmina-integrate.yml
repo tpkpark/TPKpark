@@ -6,6 +6,11 @@ on:
       - codex/jazmina-bistro-guide
     paths:
       - .github/workflows/jazmina-integrate.yml
+  pull_request:
+    branches:
+      - main
+    paths:
+      - .github/workflows/jazmina-integrate.yml
 
 permissions:
   contents: write

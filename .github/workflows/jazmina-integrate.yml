@@ -1,4 +1,4 @@
-name: Integrate Jazmina Bistro guide
+name: Finalize Jazmina Bistro guide
 
 on:
   push:
@@ -6,17 +6,12 @@ on:
       - codex/jazmina-bistro-guide
     paths:
       - .github/workflows/jazmina-integrate.yml
-  pull_request:
-    branches:
-      - main
-    paths:
-      - .github/workflows/jazmina-integrate.yml
 
 permissions:
   contents: write
 
 jobs:
-  integrate:
+  finalize:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -27,7 +22,7 @@ jobs:
         with:
           node-version: 22
           cache: npm
-      - name: Integrate Jazmina Bistro into shared site data
+      - name: Add Jazmina regression checks and tidy documentation
         shell: bash
         run: |
           python - <<'PY'
@@ -39,100 +34,49 @@ jobs:
                   raise SystemExit(f"{label}: expected one match, found {count}")
               return text.replace(old, new, 1)
 
-          p = Path('scripts/site-data.mjs')
-          s = p.read_text()
-          s = replace_once(s,
-              'import { toyokarProfiles } from "./toyokar-profile.mjs";\n',
-              'import { toyokarProfiles } from "./toyokar-profile.mjs";\nimport { jazminaBistroProfiles } from "./jazmina-bistro-profile.mjs";\n',
-              'profile import')
-          s = replace_once(s,
-              '  lifestyle: "lifestyle",\n  motd: "lifestyle/motd",\n',
-              '  lifestyle: "lifestyle",\n  motd: "lifestyle/motd",\n  jazminaBistro: "lifestyle/jazmina-bistro",\n',
-              'route slug')
-          s = replace_once(s,
-              '    motd: "MOTD Bar & Dining at TPK Park, Puchong",\n',
-              '    motd: "MOTD Bar & Dining at TPK Park, Puchong",\n    jazminaBistro: "Jazmina Bistro Puchong Kinrara | Dining | TPK Park",\n',
-              'English SEO')
-          s = replace_once(s,
-              '    motd: "MOTD Bar & Dining di TPK Park, Puchong",\n',
-              '    motd: "MOTD Bar & Dining di TPK Park, Puchong",\n    jazminaBistro: "Jazmina Bistro Puchong Kinrara | Makan & Minum | TPK Park",\n',
-              'Malay SEO')
-          s = replace_once(s,
-              '    motd: "MOTD蒲种餐酒馆、炭烤与现场音乐 | TPK Park",\n',
-              '    motd: "MOTD蒲种餐酒馆、炭烤与现场音乐 | TPK Park",\n    jazminaBistro: "Jazmina Bistro蒲种金銮 | 日常餐饮 | TPK Park",\n',
-              'Chinese SEO')
-          s = replace_once(s,
-              '  lifestyle: "2026-09-15",\n  motd: "2026-09-15",\n',
-              '  lifestyle: "2026-09-15",\n  motd: "2026-09-15",\n  jazminaBistro: "2026-09-16",\n',
-              'last modified')
-          s = replace_once(s,
-              'pages: { ...enPages, motd: motdProfiles.en,',
-              'pages: { ...enPages, motd: motdProfiles.en, jazminaBistro: jazminaBistroProfiles.en,',
-              'English page map')
-          s = replace_once(s,
-              'pages: { ...msPages, motd: motdProfiles.ms,',
-              'pages: { ...msPages, motd: motdProfiles.ms, jazminaBistro: jazminaBistroProfiles.ms,',
-              'Malay page map')
-          s = replace_once(s,
-              'pages: { ...zhPages, motd: motdProfiles.zh,',
-              'pages: { ...zhPages, motd: motdProfiles.zh, jazminaBistro: jazminaBistroProfiles.zh,',
-              'Chinese page map')
-          s = replace_once(s,
-              '[["lifestyle", "m.o.t.d", "motd"],',
-              '[["lifestyle", "m.o.t.d", "motd"], ["lifestyle", "Jazmina Bistro", "jazminaBistro"],',
-              'directory route')
-          p.write_text(s)
-
-          p = Path('js/analytics.js')
-          s = p.read_text()
-          s = replace_once(s,
-              'lifestyle(?:\\/motd)?',
-              'lifestyle(?:\\/(?:motd|jazmina-bistro))?',
-              'analytics route allowlist')
-          marker = '      } else if (["www.toyokar.my", "toyokar.my"].includes(url.hostname)) {'
-          insertion = '''      } else if (["www.foodpanda.my", "foodpanda.my"].includes(url.hostname) && /^\\/restaurant\\/rlie\\/jazmina-bistro-rlie\\/?$/.test(url.pathname)) {\n        click("outbound_click", { link_domain: "www.foodpanda.my" }, "jazmina-bistro:menu");\n'''
-          if insertion.strip() not in s:
-              if marker not in s:
-                  raise SystemExit('analytics outbound insertion point not found')
-              s = s.replace(marker, insertion + marker, 1)
-          p.write_text(s)
-
-          p = Path('js/ask-tpk.js')
-          s = p.read_text()
-          s = replace_once(s,
-              'lifestyle\\/(?:motd\\/)?',
-              'lifestyle\\/(?:(?:motd|jazmina-bistro)\\/)?',
-              'assistant source allowlist')
-          p.write_text(s)
-
           p = Path('scripts/validate-site.mjs')
           s = p.read_text()
-          s = replace_once(s,
-              '            toyokar: { type: "AutoRepair", url: "https://www.toyokar.my/", phone: "+60123856228", contactUrl: "https://wa.me/60123856228" }\n',
-              '            toyokar: { type: "AutoRepair", url: "https://www.toyokar.my/", phone: "+60123856228", contactUrl: "https://wa.me/60123856228" },\n            jazminaBistro: { type: "Restaurant", contactUrl: "https://www.foodpanda.my/restaurant/rlie/jazmina-bistro-rlie" }\n',
-              'site validator business map')
+          marker = '          if (routeId === "mazdaKinrara") {\n'
+          block = '''          if (routeId === "jazminaBistro") {\n            const hours = business?.openingHoursSpecification;\n            const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];\n            const visibleHours = { en: "Open 24 hours", ms: "Dibuka 24 jam", zh: "24小时营业" }[locale];\n            if (business?.address?.streetAddress !== "23G, Jalan TPK 2/8, Taman Perindustrian Kinrara, Seksyen 2" || business?.address?.postalCode !== "47180") fail(label, "Jazmina Bistro must retain its confirmed TPK Park address");\n            if (business?.telephone || business?.url || business?.image) fail(label, "Jazmina Bistro must not infer an unverified branch phone, website or premises photograph");\n            if (hours?.length !== 1 || hours[0]?.opens !== "00:00" || hours[0]?.closes !== "23:59" || hours[0]?.dayOfWeek?.length !== 7 || days.some(day => !hours[0]?.dayOfWeek?.includes(day))) fail(label, "Jazmina Bistro must remain published as open 24 hours daily");\n            if (!html.includes(visibleHours) || !html.includes('href="https://www.foodpanda.my/restaurant/rlie/jazmina-bistro-rlie"')) fail(label, "Jazmina Bistro hours and public menu link must remain visible");\n          }\n'''
+          if block.strip() not in s:
+              s = replace_once(s, marker, block + marker, 'Jazmina site validation')
+          p.write_text(s)
+
+          p = Path('scripts/validate-assistant.mjs')
+          s = p.read_text()
+          marker = '    assert.match(sources.motd.texts[locale], /\\+60 16 662 6951/);\n'
+          block = '''    assert.match(sources.jazminaBistro.texts[locale], /23G, Jalan TPK 2\\/8/);\n    assert.match(sources.jazminaBistro.texts[locale], { en: /Open 24 hours/, ms: /Dibuka 24 jam/, zh: /24小时营业/ }[locale]);\n    assert.doesNotMatch(sources.jazminaBistro.texts[locale], /8066 4702|03-8066/);\n    assert.deepEqual(sourceLinks(["jazminaBistro"], locale).map(source => source.url), [routePath(locale, "jazminaBistro")]);\n'''
+          if block.strip() not in s:
+              s = replace_once(s, marker, marker + block, 'Jazmina assistant validation')
+          p.write_text(s)
+
+          p = Path('scripts/validate-analytics.mjs')
+          s = p.read_text()
+          marker = 'test("detailed engagement counts milestones once and stops independently of basic statistics", () => {\n'
+          block = '''test("Jazmina Bistro menu and directions stay attributable without leaking URL details", () => {\n  const page = client({ saved: "detailed", locale: "en" });\n  page.clickLink("/lifestyle/jazmina-bistro/");\n  page.clickLink("/ms/lifestyle/jazmina-bistro/", ".locale-nav");\n  page.clickLink("https://www.foodpanda.my/restaurant/rlie/jazmina-bistro-rlie?order=PRIVATE123&email=private@example.com#private");\n  page.clickLink("https://www.google.com/maps/search/?api=1&query=Jazmina+Bistro+PRIVATE123");\n  page.clickLink("https://www.waze.com/ul?q=Jazmina%20Bistro%20PRIVATE123&navigate=yes");\n  assert.deepEqual(page.basicSent().map(event => event.data.target), ["/lifestyle/jazmina-bistro/", "ms", "jazmina-bistro:menu", "about", "about"]);\n  assert.deepEqual(page.sent().filter(event => event[1] === "directions_click").map(event => event[2].map_provider), ["google", "waze"]);\n  assert.doesNotMatch(JSON.stringify([page.sent(), page.basicSent()]), /PRIVATE123|private@example.com|#private|order=|query=/);\n  page.controls.off.handlers.click();\n  page.clickLink("https://www.foodpanda.my/restaurant/rlie/jazmina-bistro-rlie?order=PRIVATE123");\n  assert.equal(page.basicSent().length, 5);\n});\n\n'''
+          if block.strip() not in s:
+              s = replace_once(s, marker, block + marker, 'Jazmina analytics validation')
           p.write_text(s)
 
           p = Path('README.md')
           s = p.read_text()
-          s = s.replace('generates 39 routes for each language (117 HTML pages)', 'generates 40 routes for each language (120 HTML pages)', 1)
-          s = s.replace('and Toyokar business guides.', 'Toyokar and Jazmina Bistro business guides.', 1)
-          s = s.replace('and `scripts/toyokar-profile.mjs`; each supplies', ', `scripts/toyokar-profile.mjs` and `scripts/jazmina-bistro-profile.mjs`; each supplies', 1)
-          s = s.replace('and [Toyokar guide sources](docs/toyokar-profile-sources.md).', ', [Toyokar guide sources](docs/toyokar-profile-sources.md) and [Jazmina Bistro guide sources](docs/jazmina-bistro-profile-sources.md).', 1)
-          s = s.replace('The sitemap contains all 120 canonical pages.', 'The sitemap contains all 123 canonical pages.', 1)
+          s = s.replace('Jaecoo Service Centre Toyokar and Jazmina Bistro business guides.', 'Jaecoo Service Centre, Toyokar and Jazmina Bistro business guides.', 1)
+          s = s.replace('bringing the total to 120.', 'bringing the total to 123.', 1)
+          s = s.replace('`scripts/jaecoo-service-centre-profile.mjs` , `scripts/toyokar-profile.mjs`', '`scripts/jaecoo-service-centre-profile.mjs`, `scripts/toyokar-profile.mjs`', 1)
+          s = s.replace('[Jaecoo Service Centre guide sources](docs/jaecoo-service-centre-profile-sources.md) , [Toyokar guide sources]', '[Jaecoo Service Centre guide sources](docs/jaecoo-service-centre-profile-sources.md), [Toyokar guide sources]', 1)
           p.write_text(s)
           PY
       - name: Install dependencies
         run: npm ci
-      - name: Validate full site
+      - name: Run full validation suite
         env:
           TPK_AI_ENABLED: '1'
         run: npm test
-      - name: Commit integrated guide
+      - name: Commit validated refinements
         run: |
           git config user.name "TPK Park site automation"
           git config user.email "actions@users.noreply.github.com"
-          git add scripts/site-data.mjs js/analytics.js js/ask-tpk.js scripts/validate-site.mjs README.md
+          git add scripts/validate-site.mjs scripts/validate-assistant.mjs scripts/validate-analytics.mjs README.md
           git diff --cached --check
-          git commit -m "Integrate Jazmina Bistro guide [jazmina-integrated]"
+          git commit -m "Validate Jazmina Bistro 24-hour guide"
           git push origin HEAD:codex/jazmina-bistro-guide

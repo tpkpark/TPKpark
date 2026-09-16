@@ -214,7 +214,7 @@
   });
 
   const knownSpaces = ["shop-showroom", "detached-building", "semi-detached", "terrace-waitlist"];
-  const pagePath = /^\/(?:ms\/|zh\/)?(?:about|home-living(?:\/(?:lavino|ga-hing|kuche-bath|jubin-bms|v-haus-living|balens-design|builtop|premio-door|klot|dc-moto|fagolli|total-tools|baagus|mk-curtain|signature|choose-interior))?|automotive(?:\/(?:perodua-3s-kinrara|mazda-kinrara|kia-4s-service|techtrics-auto|techtra-automotive-academy|jon-detailing|jaecoo-service-centre|toyokar))?|lifestyle(?:\/motd)?|leasing(?:\/(?:shop-showroom|detached-building|semi-detached))?|news|milestones|wong-shung-yen(?:\/public-record)?|contact)?\/?$/;
+  const pagePath = /^\/(?:ms\/|zh\/)?(?:about|home-living(?:\/(?:lavino|ga-hing|kuche-bath|jubin-bms|v-haus-living|balens-design|builtop|premio-door|klot|dc-moto|fagolli|total-tools|baagus|mk-curtain|signature|choose-interior))?|automotive(?:\/(?:perodua-3s-kinrara|mazda-kinrara|kia-4s-service|techtrics-auto|techtra-automotive-academy|jon-detailing|jaecoo-service-centre|toyokar))?|lifestyle(?:\/(?:motd|jazmina-bistro))?|leasing(?:\/(?:shop-showroom|detached-building|semi-detached))?|news|milestones|wong-shung-yen(?:\/public-record)?|contact)?\/?$/;
   const socialHosts = { "www.facebook.com": "facebook", "www.instagram.com": "instagram", "www.tiktok.com": "tiktok", "www.xiaohongshu.com": "xiaohongshu", "www.rednote.com": "xiaohongshu" };
 
   document.addEventListener("click", event => {
@@ -346,6 +346,8 @@
       } else if (["www.perodua3skinrara.com", "perodua3skinrara.com"].includes(url.hostname)) {
         const destination = /^\/onlineservicebooking\/?$/.test(url.pathname) ? "service_booking" : "website";
         click("outbound_click", { link_domain: "www.perodua3skinrara.com" }, "perodua-3s-kinrara:" + destination);
+      } else if (["www.foodpanda.my", "foodpanda.my"].includes(url.hostname) && /^\/restaurant\/rlie\/jazmina-bistro-rlie\/?$/.test(url.pathname)) {
+        click("outbound_click", { link_domain: "www.foodpanda.my" }, "jazmina-bistro:menu");
       } else if (["www.toyokar.my", "toyokar.my"].includes(url.hostname)) {
         const destination = /^\/gallery\/?$/.test(url.pathname) ? "gallery" : "website";
         click("outbound_click", { link_domain: "www.toyokar.my" }, "toyokar:" + destination);

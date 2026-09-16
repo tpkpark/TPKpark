@@ -9,6 +9,7 @@ import { builtopProfiles } from "./builtop-profile.mjs";
 import { premioDoorProfiles } from "./premio-door-profile.mjs";
 import { klotProfiles } from "./klot-profile.mjs";
 import { dcMotoProfiles } from "./dc-moto-profile.mjs";
+import { fagolliProfiles } from "./fagolli-profile.mjs";
 
 export const origin = "https://www.tpkpark.com";
 
@@ -26,6 +27,7 @@ export const routeSlugs = {
   premioDoor: "home-living/premio-door",
   klot: "home-living/klot",
   dcMoto: "home-living/dc-moto",
+  fagolli: "home-living/fagolli",
   automotive: "automotive",
   lifestyle: "lifestyle",
   motd: "lifestyle/motd",
@@ -63,6 +65,7 @@ export const seoTitles = {
     premioDoor: "Premio Door Puchong | Safety Doors & Showroom | TPK Park",
     klot: "KLOT Puchong | Cabinet Hardware & Storage | TPK Park",
     dcMoto: "DC Moto (DCMOTO) Puchong | Autogate Systems | TPK Park",
+    fagolli: "Fagolli Puchong | Trackless Autogate Showroom | TPK Park",
     automotive: "Automotive Sales & Services in Puchong | TPK Park",
     lifestyle: "Dining, Fitness & Lifestyle in Puchong | TPK Park",
     motd: "MOTD Bar & Dining at TPK Park, Puchong",
@@ -90,6 +93,7 @@ export const seoTitles = {
     premioDoor: "Premio Door Puchong | Pintu Keselamatan | TPK Park",
     klot: "KLOT Puchong | Kelengkapan Kabinet & Dapur | TPK Park",
     dcMoto: "DC Moto (DCMOTO) Puchong | Sistem Autogate | TPK Park",
+    fagolli: "Fagolli Puchong | Pagar Automatik Tanpa Rel | TPK Park",
     automotive: "Jualan & Servis Automotif di Puchong | TPK Park",
     lifestyle: "Makan, Kecergasan & Lifestyle di Puchong | TPK Park",
     motd: "MOTD Bar & Dining di TPK Park, Puchong",
@@ -117,6 +121,7 @@ export const seoTitles = {
     premioDoor: "Premio Door蒲种安全门与入户门展厅 | TPK Park",
     klot: "KLOT蒲种橱柜五金与厨房收纳 | TPK Park",
     dcMoto: "DC Moto（DCMOTO）蒲种自动门闸体验与服务中心 | TPK Park",
+    fagolli: "Fagolli蒲种无轨自动门闸展厅 | TPK Park",
     automotive: "蒲种汽车销售、维修与美容服务 | TPK Park",
     lifestyle: "蒲种餐饮、运动与生活配套 | TPK Park",
     motd: "MOTD蒲种餐酒馆、炭烤与现场音乐 | TPK Park",
@@ -149,6 +154,7 @@ const routeLastModifiedOverrides = {
   premioDoor: "2026-09-16",
   klot: "2026-09-16",
   dcMoto: "2026-09-16",
+  fagolli: "2026-09-16",
   automotive: "2026-09-15",
   milestones: "2026-09-15",
   lifestyle: "2026-09-15",
@@ -763,7 +769,7 @@ const enPages = {
         ["Furniture", "Lavino"], ["Kitchen, Bath & Tiles", "Ga Hing"], ["Kitchen & Bath", "Kuche + BaTH"], ["Tiles & Surfaces", "Jubin BMS"],
         ["Kitchen & Home Solutions", "Signature"], ["Curtains", "MK Curtain"], ["Curtains", "Baagus"], ["Tools", "Total Tools"],
         ["Furniture", "V Haus Living"], ["Design & Build", "Balens Design"], ["Build Solutions", "BUILTOP"], ["Door & Gate", "Premio Door"],
-        ["Interior Design", "Choose Interior"], ["Cabinet Hardware", "KLOT"], ["Autogate Systems", "DC Moto"], ["Door & Gate", "Fagolli"]
+        ["Interior Design", "Choose Interior"], ["Cabinet Hardware", "KLOT"], ["Autogate Systems", "DC Moto"], ["Trackless Autogates", "Fagolli"]
       ] },
       { type: "cards", kicker: "Plan a visit", title: "From first idea to final detail", text: "Use the cluster as a starting point, then confirm individual stock, appointments and hours directly with each business.", items: [
         { number: "01", title: "Compare", text: "See materials and finishes in person before making a decision." },
@@ -1109,7 +1115,7 @@ const msPages = {
         { value: "16", label: "perniagaan dalam kluster yang diiktiraf pada 2026" }, { value: "96,728", label: "kaki persegi keseluruhan perniagaan yang diiktiraf" }, { value: "8", label: "kategori dalam penilaian" }
       ] },
       { type: "directory", kicker: "Campuran perniagaan", title: "Perjalanan renovasi yang praktikal", text: "Nama penyewa dan waktu operasi boleh berubah; hubungi setiap perniagaan sebelum berkunjung.", items: [
-        ["Perabot", "Lavino"], ["Dapur, Bilik Mandi & Jubin", "Ga Hing"], ["Dapur & Bilik Mandi", "Kuche + BaTH"], ["Jubin & Permukaan", "Jubin BMS"], ["Penyelesaian Dapur & Rumah", "Signature"], ["Langsir", "MK Curtain"], ["Langsir", "Baagus"], ["Peralatan", "Total Tools"], ["Perabot", "V Haus Living"], ["Reka Bentuk & Bina", "Balens Design"], ["Penyelesaian Binaan", "BUILTOP"], ["Pintu & Pagar", "Premio Door"], ["Reka Bentuk Dalaman", "Choose Interior"], ["Kelengkapan Kabinet", "KLOT"], ["Sistem Pagar Automatik", "DC Moto"], ["Pintu & Pagar", "Fagolli"]
+        ["Perabot", "Lavino"], ["Dapur, Bilik Mandi & Jubin", "Ga Hing"], ["Dapur & Bilik Mandi", "Kuche + BaTH"], ["Jubin & Permukaan", "Jubin BMS"], ["Penyelesaian Dapur & Rumah", "Signature"], ["Langsir", "MK Curtain"], ["Langsir", "Baagus"], ["Peralatan", "Total Tools"], ["Perabot", "V Haus Living"], ["Reka Bentuk & Bina", "Balens Design"], ["Penyelesaian Binaan", "BUILTOP"], ["Pintu & Pagar", "Premio Door"], ["Reka Bentuk Dalaman", "Choose Interior"], ["Kelengkapan Kabinet", "KLOT"], ["Sistem Pagar Automatik", "DC Moto"], ["Pagar Automatik Tanpa Rel", "Fagolli"]
       ] },
       { type: "cards", kicker: "Rancang kunjungan", title: "Daripada idea awal hingga perincian akhir", text: "Gunakan kluster ini sebagai titik mula, kemudian sahkan stok, janji temu dan waktu secara terus.", items: [
         { number: "01", title: "Bandingkan", text: "Lihat bahan dan kemasan secara fizikal sebelum membuat keputusan." }, { number: "02", title: "Selaraskan", text: "Bawa ukuran, rujukan dan garis masa projek anda." }, { number: "03", title: "Sahkan", text: "Semak sebut harga, jaminan, penghantaran dan pemasangan dengan peruncit." }
@@ -1421,7 +1427,7 @@ const zhPages = {
     cta: { title: "让您的展厅加入TPK Park。", text: "了解适合家居、装修及专业零售业务的商铺与展厅。", button: "查看商铺与展厅", route: "leasingShop" },
     blocks: [
       { type: "stats", route: "milestones", linkLabel: "了解2026家居生活集群认证", items: [{ value: "16", label: "2026年获认证集群内的企业" }, { value: "96,728", label: "获认证企业总平方英尺" }, { value: "8", label: "评估涵盖的类别" }] },
-      { type: "directory", kicker: "业态组合", title: "实用的装修采购路线", text: "租户及营业信息可能变更，出发前请直接向商家确认。", items: [["家具", "Lavino"], ["厨房、卫浴与瓷砖", "Ga Hing"], ["厨卫", "Kuche + BaTH"], ["瓷砖与表面", "Jubin BMS"], ["厨房与家居方案", "Signature"], ["窗帘", "MK Curtain"], ["窗帘", "Baagus"], ["工具", "Total Tools"], ["家具", "V Haus Living"], ["设计与施工", "Balens Design"], ["建筑方案", "BUILTOP"], ["门与门闸", "Premio Door"], ["室内设计", "Choose Interior"], ["橱柜五金", "KLOT"], ["自动门闸系统", "DC Moto"], ["门与门闸", "Fagolli"]] },
+      { type: "directory", kicker: "业态组合", title: "实用的装修采购路线", text: "租户及营业信息可能变更，出发前请直接向商家确认。", items: [["家具", "Lavino"], ["厨房、卫浴与瓷砖", "Ga Hing"], ["厨卫", "Kuche + BaTH"], ["瓷砖与表面", "Jubin BMS"], ["厨房与家居方案", "Signature"], ["窗帘", "MK Curtain"], ["窗帘", "Baagus"], ["工具", "Total Tools"], ["家具", "V Haus Living"], ["设计与施工", "Balens Design"], ["建筑方案", "BUILTOP"], ["门与门闸", "Premio Door"], ["室内设计", "Choose Interior"], ["橱柜五金", "KLOT"], ["自动门闸系统", "DC Moto"], ["无轨自动门闸", "Fagolli"]] },
       { type: "cards", kicker: "规划行程", title: "从第一步灵感到最后细节", text: "可先从集群寻找方向，再直接确认库存、预约及营业时间。", items: [
         { number: "01", title: "比较", text: "亲自查看材料与饰面后再作决定。" }, { number: "02", title: "协调", text: "带上尺寸、参考图片及项目时间表。" }, { number: "03", title: "确认", text: "向商家确认报价、保修、送货及安装安排。" }
       ] }
@@ -1676,14 +1682,14 @@ const zhPages = {
 };
 
 export const site = {
-  en: { ...common.en, pages: { ...enPages, motd: motdProfiles.en, lavino: lavinoProfiles.en, gaHing: gaHingProfiles.en, kucheBath: kucheBathProfiles.en, jubinBms: jubinBmsProfiles.en, vHausLiving: vHausLivingProfiles.en, balensDesign: balensDesignProfiles.en, builtop: builtopProfiles.en, premioDoor: premioDoorProfiles.en, klot: klotProfiles.en, dcMoto: dcMotoProfiles.en } },
-  ms: { ...common.ms, pages: { ...msPages, motd: motdProfiles.ms, lavino: lavinoProfiles.ms, gaHing: gaHingProfiles.ms, kucheBath: kucheBathProfiles.ms, jubinBms: jubinBmsProfiles.ms, vHausLiving: vHausLivingProfiles.ms, balensDesign: balensDesignProfiles.ms, builtop: builtopProfiles.ms, premioDoor: premioDoorProfiles.ms, klot: klotProfiles.ms, dcMoto: dcMotoProfiles.ms } },
-  zh: { ...common.zh, pages: { ...zhPages, motd: motdProfiles.zh, lavino: lavinoProfiles.zh, gaHing: gaHingProfiles.zh, kucheBath: kucheBathProfiles.zh, jubinBms: jubinBmsProfiles.zh, vHausLiving: vHausLivingProfiles.zh, balensDesign: balensDesignProfiles.zh, builtop: builtopProfiles.zh, premioDoor: premioDoorProfiles.zh, klot: klotProfiles.zh, dcMoto: dcMotoProfiles.zh } }
+  en: { ...common.en, pages: { ...enPages, motd: motdProfiles.en, lavino: lavinoProfiles.en, gaHing: gaHingProfiles.en, kucheBath: kucheBathProfiles.en, jubinBms: jubinBmsProfiles.en, vHausLiving: vHausLivingProfiles.en, balensDesign: balensDesignProfiles.en, builtop: builtopProfiles.en, premioDoor: premioDoorProfiles.en, klot: klotProfiles.en, dcMoto: dcMotoProfiles.en, fagolli: fagolliProfiles.en } },
+  ms: { ...common.ms, pages: { ...msPages, motd: motdProfiles.ms, lavino: lavinoProfiles.ms, gaHing: gaHingProfiles.ms, kucheBath: kucheBathProfiles.ms, jubinBms: jubinBmsProfiles.ms, vHausLiving: vHausLivingProfiles.ms, balensDesign: balensDesignProfiles.ms, builtop: builtopProfiles.ms, premioDoor: premioDoorProfiles.ms, klot: klotProfiles.ms, dcMoto: dcMotoProfiles.ms, fagolli: fagolliProfiles.ms } },
+  zh: { ...common.zh, pages: { ...zhPages, motd: motdProfiles.zh, lavino: lavinoProfiles.zh, gaHing: gaHingProfiles.zh, kucheBath: kucheBathProfiles.zh, jubinBms: jubinBmsProfiles.zh, vHausLiving: vHausLivingProfiles.zh, balensDesign: balensDesignProfiles.zh, builtop: builtopProfiles.zh, premioDoor: premioDoorProfiles.zh, klot: klotProfiles.zh, dcMoto: dcMotoProfiles.zh, fagolli: fagolliProfiles.zh } }
 };
 
 // Link each business profile from its own cluster directory.
 for (const locale of Object.keys(site)) {
-  for (const [parent, name, route] of [["lifestyle", "m.o.t.d", "motd"], ["homeLiving", "Lavino", "lavino"], ["homeLiving", "Ga Hing", "gaHing"], ["homeLiving", "Kuche + BaTH", "kucheBath"], ["homeLiving", "Jubin BMS", "jubinBms"], ["homeLiving", "V Haus Living", "vHausLiving"], ["homeLiving", "Balens Design", "balensDesign"], ["homeLiving", "BUILTOP", "builtop"], ["homeLiving", "Premio Door", "premioDoor"], ["homeLiving", "KLOT", "klot"], ["homeLiving", "DC Moto", "dcMoto"]]) {
+  for (const [parent, name, route] of [["lifestyle", "m.o.t.d", "motd"], ["homeLiving", "Lavino", "lavino"], ["homeLiving", "Ga Hing", "gaHing"], ["homeLiving", "Kuche + BaTH", "kucheBath"], ["homeLiving", "Jubin BMS", "jubinBms"], ["homeLiving", "V Haus Living", "vHausLiving"], ["homeLiving", "Balens Design", "balensDesign"], ["homeLiving", "BUILTOP", "builtop"], ["homeLiving", "Premio Door", "premioDoor"], ["homeLiving", "KLOT", "klot"], ["homeLiving", "DC Moto", "dcMoto"], ["homeLiving", "Fagolli", "fagolli"]]) {
     const directory = site[locale].pages[parent].blocks.find(block => block.type === "directory");
     directory.items = directory.items.map(item => item[1] === name ? [...item, route] : item);
   }

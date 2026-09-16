@@ -144,6 +144,10 @@ test("business guides provide the correct public branch contacts in all three la
     assert.match(sources.jazminaBistro.texts[locale], { en: /Open 24 hours/, ms: /Dibuka 24 jam/, zh: /24小时营业/ }[locale]);
     assert.doesNotMatch(sources.jazminaBistro.texts[locale], /8066 4702|03-8066/);
     assert.deepEqual(sourceLinks(["jazminaBistro"], locale).map(source => source.url), [routePath(locale, "jazminaBistro")]);
+    assert.match(sources.nuarina.texts[locale], /41G, Jalan TPK 2\/8/);
+    assert.match(sources.nuarina.texts[locale], /\+60 12 228 2290/);
+    assert.match(sources.nuarina.texts[locale], /Nasi Lemak/);
+    assert.deepEqual(sourceLinks(["nuarina"], locale).map(source => source.url), [routePath(locale, "nuarina")]);
     assert.match(sources.gaHing.texts[locale], /4, Jalan TPK 2\/2/);
     assert.match(sources.gaHing.texts[locale], /\+60 3 8080 9119/);
     assert.doesNotMatch(sources.gaHing.texts[locale], /339 1601|662 6951/);

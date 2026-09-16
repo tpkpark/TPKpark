@@ -594,6 +594,26 @@ test("Toyokar enquiries keep vehicle details, messages and email contents out of
   assert.equal(page.basicSent().length, 9);
 });
 
+test("Nuarina menu, maps and calls stay attributable without leaking visitor data", () => {
+  const page = client({ saved: "detailed", locale: "en" });
+  page.clickLink("/lifestyle/nasi-lemak-nuarina/");
+  page.clickLink("/ms/lifestyle/nasi-lemak-nuarina/", ".locale-nav");
+  page.clickLink("https://www.foodpanda.my/restaurant/qq2q/nasi-lemak-nuarina-since-2010?order=PRIVATE123&email=private@example.com#private");
+  page.clickLink("https://m.me/aafiyah2018?ref=private@example.com");
+  page.clickLink("https://maps.app.goo.gl/G3W9LGDYd4kUX9qW9?private=private@example.com");
+  page.clickLink("https://www.waze.com/ul?q=Nasi%20Lemak%20PRIVATE123&navigate=yes");
+  page.clickLink("tel:+60122282290");
+  assert.deepEqual(page.basicSent().map(event => event.name), ["navigation_click", "language_switch", "outbound_click", "outbound_click", "directions_click", "directions_click", "tenant_contact_click"]);
+  assert.equal(page.basicSent()[2].data.target, "nasi-lemak-nuarina:menu");
+  assert.equal(page.basicSent()[3].data.target, "nasi-lemak-nuarina:facebook");
+  assert.equal(page.basicSent().at(-1).data.target, "nasi-lemak-nuarina:phone");
+  assert.equal(page.sent().at(-1)[2].tenant, "nasi-lemak-nuarina");
+  assert.doesNotMatch(JSON.stringify([page.sent(), page.basicSent()]), /PRIVATE123|private@example.com|60122282290|G3W9LG/);
+  page.controls.off.handlers.click();
+  page.clickLink("tel:+60122282290");
+  assert.equal(page.basicSent().length, 7);
+});
+
 test("Jazmina Bistro menu and directions stay attributable without leaking URL details", () => {
   const page = client({ saved: "detailed", locale: "en" });
   page.clickLink("/lifestyle/jazmina-bistro/");

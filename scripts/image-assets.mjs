@@ -1,5 +1,9 @@
 // Locally hosted versions of approved imagery, shared by page content and preview metadata.
 export const imageAssets = {
+  "https://www.tpkpark.com/assets/images/total-tools-cordless-drill-1250.webp": {
+    src: "/assets/images/total-tools-cordless-drill-1250.webp", width: 1250, height: 840,
+    srcset: "/assets/images/total-tools-cordless-drill-480.webp 480w, /assets/images/total-tools-cordless-drill-1250.webp 1250w"
+  },
   "https://www.tpkpark.com/assets/images/fagolli-trackless-gate-1440.webp": {
     src: "/assets/images/fagolli-trackless-gate-1440.webp", width: 1440, height: 1212,
     srcset: "/assets/images/fagolli-trackless-gate-480.webp 480w, /assets/images/fagolli-trackless-gate-1440.webp 1440w"

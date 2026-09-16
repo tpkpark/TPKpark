@@ -156,6 +156,10 @@ test("business guides provide the correct public branch contacts in all three la
     assert.match(sources.optimumSwimSchool.texts[locale], /\+60 19 284 8138/);
     assert.match(sources.optimumSwimSchool.texts[locale], /Optimum Swim School/);
     assert.deepEqual(sourceLinks(["optimumSwimSchool"], locale).map(source => source.url), [routePath(locale, "optimumSwimSchool")]);
+    assert.match(sources.acesGymnasticAcademy.texts[locale], /11-1, Jalan TPK 2\/8/);
+    assert.match(sources.acesGymnasticAcademy.texts[locale], /\+60 10 365 8213/);
+    assert.match(sources.acesGymnasticAcademy.texts[locale], /Aces Gymnastic Academy/);
+    assert.deepEqual(sourceLinks(["acesGymnasticAcademy"], locale).map(source => source.url), [routePath(locale, "acesGymnasticAcademy")]);
     assert.match(sources.gaHing.texts[locale], /4, Jalan TPK 2\/2/);
     assert.match(sources.gaHing.texts[locale], /\+60 3 8080 9119/);
     assert.doesNotMatch(sources.gaHing.texts[locale], /339 1601|662 6951/);

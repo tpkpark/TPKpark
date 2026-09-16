@@ -594,6 +594,23 @@ test("Toyokar enquiries keep vehicle details, messages and email contents out of
   assert.equal(page.basicSent().length, 9);
 });
 
+test("Aces Gymnastic Academy maps, Facebook and calls retain tenant attribution without private data", () => {
+  const page = client({ saved: "detailed", locale: "en" });
+  page.clickLink("/lifestyle/aces-gymnastic-academy/");
+  page.clickLink("/zh/lifestyle/aces-gymnastic-academy/", ".locale-nav");
+  page.clickLink("https://www.google.com/maps/search/?api=1&query=Aces+PRIVATE123&query_place_id=PRIVATE123");
+  page.clickLink("https://www.waze.com/live-map/directions/my/selangor/puchong/aces-gymnastics-academy?to=place.PRIVATE123&message=private@example.com");
+  page.clickLink("https://www.facebook.com/Acesgymnasticacademy?ref=PRIVATE123");
+  page.clickLink("tel:+60103658213");
+  assert.deepEqual(page.basicSent().map(event => event.name), ["navigation_click", "language_switch", "directions_click", "directions_click", "social_click", "tenant_contact_click"]);
+  assert.deepEqual(page.basicSent().map(event => event.data.target), ["/lifestyle/aces-gymnastic-academy/", "zh", "about", "about", "aces-gymnastic-academy:facebook", "aces-gymnastic-academy:phone"]);
+  assert.equal(page.sent().filter(event => event[1] === "contact_click").length, 0);
+  assert.doesNotMatch(JSON.stringify([page.sent(), page.basicSent()]), /PRIVATE123|private@example.com|60103658213/);
+  page.controls.off.handlers.click();
+  page.clickLink("tel:+60103658213");
+  assert.equal(page.basicSent().length, 6);
+});
+
 test("Optimum Swim School programme, directions and branch contacts remain attributable without private data", () => {
   const page = client({ saved: "detailed", locale: "en" });
   page.clickLink("/lifestyle/optimum-swim-school/");

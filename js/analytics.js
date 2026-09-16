@@ -214,7 +214,7 @@
   });
 
   const knownSpaces = ["shop-showroom", "detached-building", "semi-detached", "terrace-waitlist"];
-  const pagePath = /^\/(?:ms\/|zh\/)?(?:about|home-living(?:\/(?:lavino|ga-hing|kuche-bath|jubin-bms|v-haus-living|balens-design|builtop|premio-door|klot|dc-moto|fagolli|total-tools|baagus|mk-curtain|signature|choose-interior))?|automotive(?:\/(?:perodua-3s-kinrara|mazda-kinrara|kia-4s-service|techtrics-auto|techtra-automotive-academy|jon-detailing|jaecoo-service-centre|toyokar))?|lifestyle(?:\/(?:motd|jazmina-bistro|nasi-lemak-nuarina|yummy-nyonya-kitchen|optimum-swim-school))?|leasing(?:\/(?:shop-showroom|detached-building|semi-detached))?|news|milestones|wong-shung-yen(?:\/public-record)?|contact)?\/?$/;
+  const pagePath = /^\/(?:ms\/|zh\/)?(?:about|home-living(?:\/(?:lavino|ga-hing|kuche-bath|jubin-bms|v-haus-living|balens-design|builtop|premio-door|klot|dc-moto|fagolli|total-tools|baagus|mk-curtain|signature|choose-interior))?|automotive(?:\/(?:perodua-3s-kinrara|mazda-kinrara|kia-4s-service|techtrics-auto|techtra-automotive-academy|jon-detailing|jaecoo-service-centre|toyokar))?|lifestyle(?:\/(?:motd|jazmina-bistro|nasi-lemak-nuarina|yummy-nyonya-kitchen|optimum-swim-school|aces-gymnastic-academy))?|leasing(?:\/(?:shop-showroom|detached-building|semi-detached))?|news|milestones|wong-shung-yen(?:\/public-record)?|contact)?\/?$/;
   const socialHosts = { "www.facebook.com": "facebook", "www.instagram.com": "instagram", "www.tiktok.com": "tiktok", "www.xiaohongshu.com": "xiaohongshu", "www.rednote.com": "xiaohongshu" };
 
   document.addEventListener("click", event => {
@@ -229,6 +229,7 @@
     if (href === "tel:+60108912102") return click("tenant_contact_click", { contact_method: "phone", tenant: "yummy-nyonya-kitchen" }, "yummy-nyonya-kitchen:phone-alt");
     if (href === "tel:+60192848138") return click("tenant_contact_click", { contact_method: "phone", tenant: "optimum-swim-school" }, "optimum-swim-school:phone");
     if (href === "tel:+60134808138") return click("tenant_contact_click", { contact_method: "phone", tenant: "optimum-swim-school" }, "optimum-swim-school:phone-alt");
+    if (href === "tel:+60103658213") return click("tenant_contact_click", { contact_method: "phone", tenant: "aces-gymnastic-academy" }, "aces-gymnastic-academy:phone");
     if (href === "tel:+60163391601") return click("tenant_contact_click", { contact_method: "phone", tenant: "lavino" }, "lavino:phone");
     if (href === "tel:+60380809119") return click("tenant_contact_click", { contact_method: "phone", tenant: "ga-hing" }, "ga-hing:phone");
     if (href === "tel:+60380791268") return click("tenant_contact_click", { contact_method: "phone", tenant: "kuche-bath" }, "kuche-bath:phone");
@@ -396,6 +397,8 @@
         click("tenant_contact_click", { contact_method: "instagram", tenant: "choose-interior" }, "choose-interior:instagram");
       } else if (["www.instagram.com", "instagram.com"].includes(url.hostname) && /^\/chooseinterior\.cid\/p\/CnQv4oOP5gF\/?$/.test(url.pathname)) {
         click("outbound_click", { link_domain: "www.instagram.com" }, "choose-interior:portfolio");
+      } else if (["www.facebook.com", "facebook.com"].includes(url.hostname) && /^\/Acesgymnasticacademy\/?$/i.test(url.pathname)) {
+        click("social_click", { network: "facebook", tenant: "aces-gymnastic-academy" }, "aces-gymnastic-academy:facebook");
       } else if (socialHosts[url.hostname]) {
         click("social_click", { network: socialHosts[url.hostname] }, socialHosts[url.hostname]);
       } else {

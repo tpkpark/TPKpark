@@ -135,11 +135,20 @@ for (const locale of locales) {
             vHausLiving: { type: "FurnitureStore", url: "https://www.vhausliving.com/", phone: "+60127086389" },
             balensDesign: { type: "LocalBusiness", url: "https://balensdesign.com/", phone: "+60173388535" },
             builtop: { type: "LocalBusiness", url: "https://www.builtopmalaysia.com/", phone: "+601126838848" },
-            premioDoor: { type: "HomeGoodsStore", url: "https://premiodoor.com.my/", phone: "+60165255100" }
+            premioDoor: { type: "HomeGoodsStore", url: "https://premiodoor.com.my/", phone: "+60165255100" },
+            klot: { type: "HomeGoodsStore", url: "https://www.klot.com.my/", phone: "+60183403828" }
           }[routeId];
           if (!expected || business?.["@type"] !== expected.type || business?.containedInPlace?.["@id"] !== placeId) fail(label, "Business profile must identify its business type and park location");
           if (business?.url !== expected?.url || business?.telephone !== expected?.phone) fail(label, "Business identity or branch contact is incorrect");
           if (!html.includes(`href="tel:${expected?.phone}"`)) fail(label, "Visible business contact does not match its branch telephone");
+          if (routeId === "klot") {
+            if (business?.legalName !== "KLOT Resources (M) Sdn. Bhd." || business?.address?.streetAddress !== "23-1, Jalan TPK 2/8, Taman Perindustrian Kinrara, Seksyen 2" || business?.address?.postalCode !== "47180" || /\+60167135100/.test(html)) fail(label, "KLOT must use its current official address and contact");
+            const hours = business?.openingHoursSpecification;
+            const weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+            if (hours?.length !== 2 || hours[0]?.opens !== "08:30" || hours[0]?.closes !== "17:30" || hours[0]?.dayOfWeek?.length !== 5 || weekdays.some(day => !hours[0]?.dayOfWeek?.includes(day)) || hours[1]?.opens !== "08:30" || hours[1]?.closes !== "14:00" || hours[1]?.dayOfWeek?.length !== 1 || hours[1]?.dayOfWeek?.[0] !== "Saturday") fail(label, "KLOT must distinguish weekday and Saturday hours");
+            const closed = { en: "Closed on Sunday", ms: "Tutup pada hari Ahad", zh: "星期日休息" }[locale];
+            if (!html.includes(closed)) fail(label, "KLOT must make its Sunday closure visible");
+          }
           if (routeId === "lavino" && (business?.address?.streetAddress !== "6, Jalan TPK 2/2, Taman Perindustrian Kinrara" || business?.address?.postalCode !== "47100" || html.includes("+60166626951"))) fail(label, "Lavino must use its own branch address and contact");
           if (routeId === "gaHing" && (business?.address?.streetAddress !== "4, Jalan TPK 2/2, Taman Perindustrian Kinrara" || business?.address?.postalCode !== "47100" || /\+60163391601|\+60166626951/.test(html))) fail(label, "Ga Hing must use its own branch address and contact");
           if (routeId === "jubinBms" && (business?.address?.streetAddress !== "7, Jalan TPK 2/3, Taman Perindustrian Kinrara" || business?.address?.postalCode !== "47100" || /\+6073608888|\+60197251990|\+60362722999/.test(html))) fail(label, "Jubin BMS must use its Kinrara branch address and contact, not HQ or Kepong");

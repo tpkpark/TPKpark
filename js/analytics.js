@@ -214,7 +214,7 @@
   });
 
   const knownSpaces = ["shop-showroom", "detached-building", "semi-detached", "terrace-waitlist"];
-  const pagePath = /^\/(?:ms\/|zh\/)?(?:about|home-living(?:\/(?:lavino|ga-hing|kuche-bath|jubin-bms|v-haus-living|balens-design|builtop|premio-door))?|automotive|lifestyle(?:\/motd)?|leasing(?:\/(?:shop-showroom|detached-building|semi-detached))?|news|milestones|wong-shung-yen(?:\/public-record)?|contact)?\/?$/;
+  const pagePath = /^\/(?:ms\/|zh\/)?(?:about|home-living(?:\/(?:lavino|ga-hing|kuche-bath|jubin-bms|v-haus-living|balens-design|builtop|premio-door|klot))?|automotive|lifestyle(?:\/motd)?|leasing(?:\/(?:shop-showroom|detached-building|semi-detached))?|news|milestones|wong-shung-yen(?:\/public-record)?|contact)?\/?$/;
   const socialHosts = { "www.facebook.com": "facebook", "www.instagram.com": "instagram", "www.tiktok.com": "tiktok", "www.xiaohongshu.com": "xiaohongshu", "www.rednote.com": "xiaohongshu" };
 
   document.addEventListener("click", event => {
@@ -232,6 +232,7 @@
     if (href === "tel:+60173388535") return click("tenant_contact_click", { contact_method: "phone", tenant: "balens-design" }, "balens-design:phone");
     if (href === "tel:+601126838848") return click("tenant_contact_click", { contact_method: "phone", tenant: "builtop" }, "builtop:phone");
     if (href === "tel:+60165255100") return click("tenant_contact_click", { contact_method: "phone", tenant: "premio-door" }, "premio-door:phone");
+    if (href === "tel:+60183403828") return click("tenant_contact_click", { contact_method: "phone", tenant: "klot" }, "klot:phone");
     if (href.startsWith("tel:")) return click("contact_click", { contact_method: "phone" }, "phone");
     if (href.startsWith("mailto:")) return click("contact_click", { contact_method: "email" }, fromAssistant && link.closest(".ask-tpk-email") ? "email_draft" : "email");
     try {
@@ -286,6 +287,10 @@
       } else if (["www.premiodoor.com.my", "premiodoor.com.my"].includes(url.hostname)) {
         const destination = { "/location.php": "visit", "/productSeries.php": "collections" }[url.pathname] || "website";
         click("outbound_click", { link_domain: "premiodoor.com.my" }, "premio-door:" + destination);
+      } else if (["www.klot.com.my", "klot.com.my"].includes(url.hostname)) {
+        const path = url.pathname.replace(/\/$/, "") || "/";
+        const destination = { "/pages/contact-us": "visit", "/pages/location": "visit", "/pages/catalog-1": "catalogue" }[path] || "website";
+        click("outbound_click", { link_domain: "www.klot.com.my" }, "klot:" + destination);
       } else if (["www.motdgroup.com", "motdgroup.com"].includes(url.hostname)) {
         const path = url.pathname.replace(/^\/zh(?=\/|$)/, "").replace(/\/$/, "") || "/";
         const destination = { "/": "home", "/menu": "menu", "/live-house": "live_music", "/contact-us": "visit" }[path] || "website";

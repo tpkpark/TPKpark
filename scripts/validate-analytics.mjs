@@ -516,6 +516,26 @@ test("Techtrics workshop actions exclude enquiry details from analytics and resp
   assert.equal(page.basicSent().length, 8);
 });
 
+test("Techtra course enquiries keep contact and student details out of analytics and respect opt-out", () => {
+  const page = client({ saved: "detailed", locale: "en" });
+  page.clickLink("/automotive/techtra-automotive-academy/");
+  page.clickLink("/ms/automotive/techtra-automotive-academy/", ".locale-nav");
+  page.clickLink("tel:+60182886565");
+  page.clickLink("tel:+60183886565");
+  page.clickLink("mailto:enquiry@techtraacademy.my?subject=PRIVATE123&body=private@example.com");
+  page.clickLink("https://wa.me/60182886565?text=PRIVATE123%20private@example.com");
+  page.clickLink("https://techtra.edu.my/?email=private@example.com#private");
+  page.clickLink("https://techtra.edu.my/automotive-technology-courses/?student=PRIVATE123");
+  page.clickLink("https://techtra.edu.my/wp-content/uploads/2023/02/Techtra-Automotive-Academy-Malaysia-11-min.jpg");
+  assert.deepEqual(page.basicSent().map(event => event.data.target), ["/automotive/techtra-automotive-academy/", "ms", "techtra-automotive-academy:phone", "techtra-automotive-academy:phone", "techtra-automotive-academy:email", "techtra-automotive-academy:whatsapp", "techtra-automotive-academy:website", "techtra-automotive-academy:courses", "techtra-automotive-academy:photo"]);
+  assert.deepEqual(page.sent().filter(event => event[1] === "tenant_contact_click").map(event => event[2].contact_method), ["phone", "phone", "email", "whatsapp"]);
+  assert.doesNotMatch(JSON.stringify([page.sent(), page.basicSent()]), /182886565|183886565|enquiry@|private@example.com|PRIVATE123|#private/);
+  page.controls.off.handlers.click();
+  page.clickLink("tel:+60182886565");
+  page.clickLink("https://wa.me/60182886565?text=PRIVATE123");
+  assert.equal(page.basicSent().length, 9);
+});
+
 test("detailed engagement counts milestones once and stops independently of basic statistics", () => {
   const page = client({ saved: "detailed" });
   page.focusForm(); page.focusForm();

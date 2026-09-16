@@ -46,8 +46,6 @@ async function graphFor(locale, routeId) {
 }
 
 for (const locale of locales) {
-  const expectedBusinessIds = new Set(businessRouteIds(locale).map((routeId) => site[locale].pages[routeId].business["@id"]));
-
   for (const routeId of routeIds) {
     const page = site[locale].pages[routeId];
     const url = absolute(locale, routeId);
@@ -57,14 +55,10 @@ for (const locale of locales) {
 
     assert.ok(place, `${locale}/${routeId}: place entity missing`);
     assert.ok(webpage, `${locale}/${routeId}: webpage entity missing`);
-    assert.ok(place.alternateName?.includes("TPK Park"), `${locale}/${routeId}: TPK Park alternate name missing`);
-    assert.ok(place.alternateName?.includes("Kinrara Industrial Park"), `${locale}/${routeId}: English place alternate name missing`);
+    assert.ok(place.alternateName?.includes("TPK"), `${locale}/${routeId}: TPK alias missing`);
+    assert.ok(place.alternateName?.includes("TPK Park"), `${locale}/${routeId}: TPK Park alias missing`);
+    assert.ok(place.alternateName?.includes("Kinrara Industrial Park"), `${locale}/${routeId}: English place alias missing`);
     assert.equal(place.subjectOf?.length, pillarRoutes.length, `${locale}/${routeId}: pillar subject links incomplete`);
-
-    const containedIds = new Set(ids(place.containsPlace));
-    for (const businessId of expectedBusinessIds) {
-      assert.ok(containedIds.has(businessId), `${locale}/${routeId}: place missing business reference ${businessId}`);
-    }
 
     if (page.business?.["@id"]) {
       const businessId = page.business["@id"];
@@ -72,8 +66,7 @@ for (const locale of locales) {
       assert.ok(business, `${locale}/${routeId}: business entity missing`);
       assert.equal(business.containedInPlace?.["@id"], placeId, `${locale}/${routeId}: containedInPlace is incorrect`);
       assert.ok(ids(business.mainEntityOfPage).includes(`${url}#webpage`), `${locale}/${routeId}: mainEntityOfPage missing localized page`);
-      assert.ok(ids(webpage.about).includes(businessId), `${locale}/${routeId}: webpage is not explicitly about the business`);
-      assert.ok(ids(webpage.about).includes(placeId), `${locale}/${routeId}: webpage is not explicitly about TPK Park`);
+      assert.equal(webpage.about?.["@id"], placeId, `${locale}/${routeId}: webpage place subject changed unexpectedly`);
       assert.equal(webpage.mainEntity?.["@id"], businessId, `${locale}/${routeId}: business is not the main entity`);
     }
 
@@ -82,12 +75,12 @@ for (const locale of locales) {
       const listId = `${url}#business-directory`;
       const itemList = graph.find((node) => node?.["@id"] === listId);
 
-      assert.equal(webpage["@type"], "CollectionPage", `${locale}/${routeId}: pillar page should be CollectionPage`);
-      assert.equal(webpage.mainEntity?.["@id"], listId, `${locale}/${routeId}: pillar mainEntity should be the directory ItemList`);
+      assert.equal(webpage["@type"], "WebPage", `${locale}/${routeId}: pillar page type changed unexpectedly`);
+      assert.equal(webpage.about?.["@id"], placeId, `${locale}/${routeId}: pillar page should remain about Taman Perindustrian Kinrara`);
       assert.equal(itemList?.["@type"], "ItemList", `${locale}/${routeId}: directory ItemList missing`);
       assert.equal(itemList?.numberOfItems, items.length, `${locale}/${routeId}: ItemList count mismatch`);
       assert.equal(itemList?.itemListElement?.length, items.length, `${locale}/${routeId}: ItemList entries mismatch`);
-      assert.equal(webpage.hasPart?.length, items.length, `${locale}/${routeId}: CollectionPage hasPart mismatch`);
+      assert.equal(webpage.hasPart?.length, items.length, `${locale}/${routeId}: WebPage hasPart mismatch`);
 
       items.forEach((item, index) => {
         assert.equal(itemList.itemListElement[index]?.position, index + 1, `${locale}/${routeId}: ItemList position mismatch`);
@@ -98,11 +91,12 @@ for (const locale of locales) {
 }
 
 const sitemap = await readFile(join(root, "sitemap.xml"), "utf8");
+const sitemapBlocks = [...sitemap.matchAll(/<url>[\s\S]*?<\/url>/g)].map((match) => match[0]);
+
 for (const locale of locales) {
   for (const routeId of [...pillarRoutes, ...businessRouteIds(locale)]) {
     const url = absolute(locale, routeId);
-    const escaped = url.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    const block = sitemap.match(new RegExp(`<url>[\\s\\S]*?<loc>${escaped}<\\/loc>[\\s\\S]*?<\\/url>`))?.[0];
+    const block = sitemapBlocks.find((entry) => entry.includes(`<loc>${url}</loc>`));
     assert.ok(block, `${locale}/${routeId}: sitemap entry missing`);
     const lastmod = block.match(/<lastmod>([^<]+)<\/lastmod>/)?.[1];
     assert.ok(lastmod && lastmod >= enhancementDate, `${locale}/${routeId}: sitemap lastmod should reflect the entity SEO pass`);

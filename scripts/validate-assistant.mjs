@@ -122,6 +122,11 @@ test("business guides provide the correct public branch contacts in all three la
     assert.match(sources.vHausLiving.texts[locale], /7:30/);
     assert.doesNotMatch(sources.vHausLiving.texts[locale], /681 8961|1667 8389|2110 8389/);
     assert.deepEqual(sourceLinks(["vHausLiving"], locale).map(source => source.url), [routePath(locale, "vHausLiving")]);
+    assert.match(sources.balensDesign.texts[locale], /25-1, Jalan TPK 2\/8/);
+    assert.match(sources.balensDesign.texts[locale], /\+60 17 338 8535/);
+    assert.doesNotMatch(sources.balensDesign.texts[locale], /989 2020|708 6389/);
+    assert.match(sources.balensDesign.texts[locale], { en: /Saturdays, Sundays and public holidays are by appointment only/, ms: /Sabtu, Ahad dan cuti umum adalah melalui janji temu sahaja/, zh: /星期六、星期日及公共假期仅接受预约/ }[locale]);
+    assert.deepEqual(sourceLinks(["balensDesign"], locale).map(source => source.url), [routePath(locale, "balensDesign")]);
     assert.deepEqual(sourceLinks(["kucheBath"], locale).map(source => source.url), [routePath(locale, "kucheBath")]);
     assert.deepEqual(sourceLinks(["lavino"], locale).map(source => source.url), [routePath(locale, "lavino")]);
     assert.deepEqual(sourceLinks(["gaHing"], locale).map(source => source.url), [routePath(locale, "gaHing")]);

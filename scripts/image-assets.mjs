@@ -1,5 +1,9 @@
 // Locally hosted versions of approved imagery, shared by page content and preview metadata.
 export const imageAssets = {
+  "https://www.tpkpark.com/assets/images/signature-kitchen-island-1000.webp": {
+    src: "/assets/images/signature-kitchen-island-1000.webp", width: 1000, height: 1000,
+    srcset: "/assets/images/signature-kitchen-island-480.webp 480w, /assets/images/signature-kitchen-island-1000.webp 1000w"
+  },
   "https://www.tpkpark.com/assets/images/mk-curtain-tpk-showroom-1440.webp": {
     src: "/assets/images/mk-curtain-tpk-showroom-1440.webp", width: 1440, height: 1440,
     srcset: "/assets/images/mk-curtain-tpk-showroom-480.webp 480w, /assets/images/mk-curtain-tpk-showroom-1440.webp 1440w"

@@ -400,6 +400,26 @@ test("MK Curtain enquiries respect consent and exclude phone and query contents 
   assert.equal(page.basicSent().length, 7);
 });
 
+test("Signature links retain tenant attribution and exclude contact and query contents from analytics", () => {
+  const page = client({ saved: "detailed", locale: "en" });
+  page.clickLink("/home-living/signature/");
+  page.clickLink("/ms/home-living/signature/", ".locale-nav");
+  page.clickLink("https://signature.my/?email=private@example.com#private");
+  page.clickLink("https://signature.my/locate-a-showroom/?address=private@example.com");
+  page.clickLink("https://signature.my/kitchens/?message=private@example.com");
+  page.clickLink("https://www.signature.my/wardrobes/?email=private@example.com");
+  page.clickLink("https://maps.app.goo.gl/4SZVDi8fQY6deuf97?email=private@example.com#private");
+  page.clickLink("tel:+60168133182");
+  assert.deepEqual(page.basicSent().map(event => event.data.target), ["/home-living/signature/", "ms", "signature:website", "signature:visit", "signature:kitchens", "signature:wardrobes", "about", "signature:phone"]);
+  assert.equal(page.sent().filter(event => event[1] === "contact_click").length, 0);
+  assert.deepEqual(page.sent().filter(event => event[1] === "tenant_contact_click").map(event => [event[2].tenant, event[2].contact_method]), [["signature", "phone"]]);
+  assert.doesNotMatch(JSON.stringify([page.sent(), page.basicSent()]), /private@example.com|#private|60168133182|4SZVDi8fQY6deuf97|address=|message=/);
+  page.controls.off.handlers.click();
+  page.clickLink("tel:+60168133182");
+  page.clickLink("https://signature.my/kitchens/");
+  assert.equal(page.basicSent().length, 8);
+});
+
 test("detailed engagement counts milestones once and stops independently of basic statistics", () => {
   const page = client({ saved: "detailed" });
   page.focusForm(); page.focusForm();

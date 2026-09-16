@@ -3,7 +3,7 @@ const facebook = "https://www.facebook.com/Acesgymnasticacademy";
 const directions = "https://www.google.com/maps/search/?api=1&query=Aces+Gymnastics+Academy&query_place_id=ChIJGTa-2l-zzTEROuSOVRTdLYM";
 const waze = "https://www.waze.com/live-map/directions/my/selangor/puchong/aces-gymnastics-academy?to=place.ChIJGTa-2l-zzTEROuSOVRTdLYM";
 const image = "https://i.imgur.com/Z5h4hmH.jpg";
-const academyPhoto = "/assets/images/aces-gymnastics-academy-training.svg";
+const academyPhoto = "/assets/images/aces-gymnastics-academy-entrance.webp";
 const address = "11-1, Jalan TPK 2/8, Taman Perindustrian Kinrara, 47180 Puchong, Selangor";
 
 export const acesGymnasticAcademyBusiness = {
@@ -45,7 +45,7 @@ export const acesGymnasticAcademyProfiles = {
     business: acesGymnasticAcademyBusiness,
     datePublished: "2026-09-16",
     blocks: [
-      { type: "split", title: "Build the fundamentals.", text: "Aces’ published class material centres on artistic gymnastics for boys and girls, with training framed around strength, coordination, balance, movement skills, discipline and confidence. Current levels, age groups and class places can change, so contact the academy directly before enrolling.", image: academyPhoto, alt: "Gymnast training at Aces Gymnastic Academy in Puchong", route: "lifestyle", linkLabel: "Explore Lifestyle" },
+      { type: "split", title: "Build the fundamentals.", text: "Aces’ published class material centres on artistic gymnastics for boys and girls, with training framed around strength, coordination, balance, movement skills, discipline and confidence. Current levels, age groups and class places can change, so contact the academy directly before enrolling.", image: academyPhoto, alt: "Aces Gymnastic Academy entrance at TPK Park with glass-door signage and promotional banner", route: "lifestyle", linkLabel: "Explore Lifestyle" },
       { type: "cards", alignHeadings: true, kicker: "Training focus", title: "Gymnastics with a clear progression mindset.", items: [
         { number: "01", title: "Artistic gymnastics", text: "Aces’ published materials list artistic gymnastics classes for boys and girls. Ask the academy which current class best matches the student’s age and experience." },
         { number: "02", title: "Movement foundations", text: "The academy’s own material highlights strength, body movement skills, coordination, balance and discipline as core training themes rather than promising a particular competitive outcome." },
@@ -82,7 +82,7 @@ export const acesGymnasticAcademyProfiles = {
     business: acesGymnasticAcademyBusiness,
     datePublished: "2026-09-16",
     blocks: [
-      { type: "split", title: "Bina asas yang kukuh.", text: "Bahan kelas yang diterbitkan Aces memberi tumpuan kepada gimnastik artistik untuk lelaki dan perempuan, dengan latihan berkaitan kekuatan, koordinasi, keseimbangan, kemahiran pergerakan, disiplin dan keyakinan. Tahap, kumpulan umur dan tempat kelas semasa boleh berubah, jadi hubungi akademi sebelum mendaftar.", image: academyPhoto, alt: "Atlet gimnastik berlatih di Aces Gymnastic Academy, Puchong", route: "lifestyle", linkLabel: "Terokai Lifestyle" },
+      { type: "split", title: "Bina asas yang kukuh.", text: "Bahan kelas yang diterbitkan Aces memberi tumpuan kepada gimnastik artistik untuk lelaki dan perempuan, dengan latihan berkaitan kekuatan, koordinasi, keseimbangan, kemahiran pergerakan, disiplin dan keyakinan. Tahap, kumpulan umur dan tempat kelas semasa boleh berubah, jadi hubungi akademi sebelum mendaftar.", image: academyPhoto, alt: "Pintu masuk Aces Gymnastic Academy di TPK Park dengan papan tanda pada pintu kaca dan bunting promosi", route: "lifestyle", linkLabel: "Terokai Lifestyle" },
       { type: "cards", alignHeadings: true, kicker: "Fokus latihan", title: "Gimnastik dengan perkembangan yang berperingkat.", items: [
         { number: "01", title: "Gimnastik artistik", text: "Bahan terbitan Aces menyenaraikan kelas gimnastik artistik untuk lelaki dan perempuan. Tanya akademi kelas semasa yang sesuai dengan umur dan pengalaman pelajar." },
         { number: "02", title: "Asas pergerakan", text: "Bahan Aces menonjolkan kekuatan, kemahiran pergerakan badan, koordinasi, keseimbangan dan disiplin sebagai tema latihan utama tanpa menjanjikan hasil pertandingan tertentu." },
@@ -119,7 +119,7 @@ export const acesGymnasticAcademyProfiles = {
     business: acesGymnasticAcademyBusiness,
     datePublished: "2026-09-16",
     blocks: [
-      { type: "split", title: "从基本功开始。", text: "Aces已发布的课程资料以男孩及女孩的竞技体操为主，并把力量、协调、平衡、身体动作技巧、纪律与自信列为训练重点。现有级别、年龄组及课程名额可能调整，报名之前应直接向学院确认。", image: academyPhoto, alt: "体操学员在蒲种Aces Gymnastic Academy训练", route: "lifestyle", linkLabel: "查看生活品味" },
+      { type: "split", title: "从基本功开始。", text: "Aces已发布的课程资料以男孩及女孩的竞技体操为主，并把力量、协调、平衡、身体动作技巧、纪律与自信列为训练重点。现有级别、年龄组及课程名额可能调整，报名之前应直接向学院确认。", image: academyPhoto, alt: "TPK Park内Aces Gymnastic Academy的入口，附有玻璃门招牌与宣传立牌", route: "lifestyle", linkLabel: "查看生活品味" },
       { type: "cards", alignHeadings: true, kicker: "训练重点", title: "循序建立体操基础。", items: [
         { number: "01", title: "竞技体操", text: "Aces已发布的资料列有男孩及女孩竞技体操课程。可直接向学院查询目前适合不同年龄与经验程度的班级。" },
         { number: "02", title: "动作基础", text: "Aces的资料强调力量、身体动作技巧、协调、平衡及纪律等训练主题，并不把某一项比赛成绩作为保证。" },

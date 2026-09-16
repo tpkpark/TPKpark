@@ -32,9 +32,10 @@ Checked 16 September 2026. Scope: Forsee Lens / Forsee Vision Care at Taman Peri
 ## Photography
 
 - No current photograph could be confidently verified as a branch-specific photograph of the No. 71 Forsee premises during this review.
-- The existing TPK Park Lifestyle frontage image is therefore used only as **contextual park imagery** in the hero and first visual section. Alt text explicitly describes it as TPK Park context rather than a Forsee storefront or lens-lab photograph.
-- The LocalBusiness schema deliberately omits an `image` field until a verified Forsee branch photograph is available.
-- The previous TPK Park directory contained a Forsee brand image (`https://i.imgur.com/WPQsRdL.jpg`), but it appears to be branding/logo material rather than a premises photograph and is not used as the large split-section image.
+- The guide now uses a **Forsee-branded eyewear/product photograph supplied by the user**, showing a pair of glasses displayed on Forsee packaging and brochure material.
+- The photograph is treated as **brand/product imagery**, not as a photograph of the No. 71 premises, and the localized alt text describes only what is visibly shown.
+- The LocalBusiness schema deliberately omits an `image` field rather than representing the product photograph as a branch-specific premises image.
+- The previous TPK Park directory contained a Forsee brand image (`https://i.imgur.com/WPQsRdL.jpg`), but the newer supplied photograph is more suitable as the large profile image.
 
 ## Integration and privacy
 

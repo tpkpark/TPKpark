@@ -536,6 +536,24 @@ test("Techtra course enquiries keep contact and student details out of analytics
   assert.equal(page.basicSent().length, 9);
 });
 
+test("Jon Detailing enquiries exclude contact details and URL queries from analytics and respect opt-out", () => {
+  const page = client({ saved: "detailed", locale: "en" });
+  page.clickLink("/automotive/jon-detailing/");
+  page.clickLink("/zh/automotive/jon-detailing/", ".locale-nav");
+  page.clickLink("tel:+60126844034");
+  page.clickLink("https://www.facebook.com/jondetailing/?message=PRIVATE123&email=private@example.com#private");
+  page.clickLink("https://www.facebook.com/photo/?fbid=1905956784132823&set=pcb.1905956880799480&message=PRIVATE123#private");
+  page.clickLink("https://www.google.com/maps/search/?api=1&query=Jon+Detailing+PRIVATE123");
+  page.clickLink("https://www.waze.com/live-map/directions/my/selangor/puchong/jon-detailing?to=place.ChIJxwp1ZmxKzDERodc0zzgPgF8&message=PRIVATE123");
+  assert.deepEqual(page.basicSent().map(event => event.data.target), ["/automotive/jon-detailing/", "zh", "jon-detailing:phone", "jon-detailing:facebook", "jon-detailing:photo", "about", "about"]);
+  assert.deepEqual(page.sent().filter(event => event[1] === "tenant_contact_click").map(event => event[2].contact_method), ["phone", "facebook"]);
+  assert.doesNotMatch(JSON.stringify([page.sent(), page.basicSent()]), /126844034|1905956784132823|1905956880799480|private@example.com|PRIVATE123|#private/);
+  page.controls.off.handlers.click();
+  page.clickLink("tel:+60126844034");
+  page.clickLink("https://www.facebook.com/jondetailing/?message=PRIVATE123");
+  assert.equal(page.basicSent().length, 7);
+});
+
 test("detailed engagement counts milestones once and stops independently of basic statistics", () => {
   const page = client({ saved: "detailed" });
   page.focusForm(); page.focusForm();

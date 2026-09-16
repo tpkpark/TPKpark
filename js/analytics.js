@@ -214,7 +214,7 @@
   });
 
   const knownSpaces = ["shop-showroom", "detached-building", "semi-detached", "terrace-waitlist"];
-  const pagePath = /^\/(?:ms\/|zh\/)?(?:about|home-living(?:\/(?:lavino|ga-hing|kuche-bath|jubin-bms|v-haus-living|balens-design|builtop|premio-door|klot|dc-moto|fagolli|total-tools|baagus|mk-curtain|signature|choose-interior))?|automotive(?:\/(?:perodua-3s-kinrara|mazda-kinrara|kia-4s-service|techtrics-auto|techtra-automotive-academy))?|lifestyle(?:\/motd)?|leasing(?:\/(?:shop-showroom|detached-building|semi-detached))?|news|milestones|wong-shung-yen(?:\/public-record)?|contact)?\/?$/;
+  const pagePath = /^\/(?:ms\/|zh\/)?(?:about|home-living(?:\/(?:lavino|ga-hing|kuche-bath|jubin-bms|v-haus-living|balens-design|builtop|premio-door|klot|dc-moto|fagolli|total-tools|baagus|mk-curtain|signature|choose-interior))?|automotive(?:\/(?:perodua-3s-kinrara|mazda-kinrara|kia-4s-service|techtrics-auto|techtra-automotive-academy|jon-detailing))?|lifestyle(?:\/motd)?|leasing(?:\/(?:shop-showroom|detached-building|semi-detached))?|news|milestones|wong-shung-yen(?:\/public-record)?|contact)?\/?$/;
   const socialHosts = { "www.facebook.com": "facebook", "www.instagram.com": "instagram", "www.tiktok.com": "tiktok", "www.xiaohongshu.com": "xiaohongshu", "www.rednote.com": "xiaohongshu" };
 
   document.addEventListener("click", event => {
@@ -238,6 +238,7 @@
     if (href === "tel:+60102133173") return click("tenant_contact_click", { contact_method: "phone", tenant: "baagus" }, "baagus:phone");
     if (href === "tel:+60380747210") return click("tenant_contact_click", { contact_method: "phone", tenant: "mk-curtain" }, "mk-curtain:phone");
     if (href === "tel:+60168133182") return click("tenant_contact_click", { contact_method: "phone", tenant: "signature" }, "signature:phone");
+    if (href === "tel:+60126844034") return click("tenant_contact_click", { contact_method: "phone", tenant: "jon-detailing" }, "jon-detailing:phone");
     if (["tel:+60182886565", "tel:+60183886565"].includes(href)) return click("tenant_contact_click", { contact_method: "phone", tenant: "techtra-automotive-academy" }, "techtra-automotive-academy:phone");
     if (/^mailto:enquiry@techtraacademy\.my(?:[?#]|$)/i.test(href)) return click("tenant_contact_click", { contact_method: "email", tenant: "techtra-automotive-academy" }, "techtra-automotive-academy:email");
     if (["tel:+60358916661", "tel:+60124496696"].includes(href)) return click("tenant_contact_click", { contact_method: "phone", tenant: "techtrics-auto" }, "techtrics-auto:phone");
@@ -353,6 +354,10 @@
         const path = url.pathname.replace(/\/$/, "") || "/";
         const destination = { "/find-a-dealer": "dealer_locator", "/mazda-connect-test-drive-page": "test_drive" }[path] || "website";
         click("outbound_click", { link_domain: "mazda.com.my" }, "mazda-kinrara:" + destination);
+      } else if (["www.facebook.com", "facebook.com"].includes(url.hostname) && /^\/jondetailing\/?$/.test(url.pathname)) {
+        click("tenant_contact_click", { contact_method: "facebook", tenant: "jon-detailing" }, "jon-detailing:facebook");
+      } else if (["www.facebook.com", "facebook.com"].includes(url.hostname) && /^\/photo\/?$/.test(url.pathname) && url.searchParams.get("fbid") === "1905956784132823") {
+        click("outbound_click", { link_domain: "www.facebook.com" }, "jon-detailing:photo");
       } else if (["www.facebook.com", "facebook.com"].includes(url.hostname) && /^\/MazdaPersadaAuto\/?$/.test(url.pathname)) {
         click("tenant_contact_click", { contact_method: "facebook", tenant: "mazda-kinrara" }, "mazda-kinrara:facebook");
       } else if (["www.motdgroup.com", "motdgroup.com"].includes(url.hostname)) {

@@ -262,7 +262,7 @@ import { loadSession, saveSession, clearSession, boundedTurns, requestMessages, 
     if (typeof source?.url !== "string" || typeof source.title !== "string") return null;
     try {
       const url = new URL(source.url, location.origin);
-      if (url.origin !== location.origin || !/^\/(?:ms\/|zh\/)?(?:about\/|home-living\/(?:(?:lavino|ga-hing|kuche-bath|jubin-bms|v-haus-living|balens-design|builtop|premio-door|klot|dc-moto|fagolli|total-tools)\/)?|automotive\/|lifestyle\/(?:motd\/)?|leasing\/(?:shop-showroom\/|detached-building\/|semi-detached\/)?|contact\/|milestones\/|news\/|wong-shung-yen\/(?:public-record\/)?)?$/.test(url.pathname) || url.search || url.hash) return null;
+      if (url.origin !== location.origin || !/^\/(?:ms\/|zh\/)?(?:about\/|home-living\/(?:(?:lavino|ga-hing|kuche-bath|jubin-bms|v-haus-living|balens-design|builtop|premio-door|klot|dc-moto|fagolli|total-tools|baagus)\/)?|automotive\/|lifestyle\/(?:motd\/)?|leasing\/(?:shop-showroom\/|detached-building\/|semi-detached\/)?|contact\/|milestones\/|news\/|wong-shung-yen\/(?:public-record\/)?)?$/.test(url.pathname) || url.search || url.hash) return null;
       return { ...source, id: sourceIdsByPath.get(url.pathname), url: url.pathname };
     } catch { return null; }
   }

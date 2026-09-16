@@ -165,9 +165,9 @@ for (const locale of locales) {
           if (routeId === "yummyNyonya") {
             const split = page.blocks.find(block => block.type === "split");
             if (business?.address?.streetAddress !== "43G, Jalan TPK 2/8, Taman Perindustrian Kinrara" || business?.address?.postalCode !== "47180") fail(label, "Yummy Nyonya Kitchen must retain the verified No. 43G Jalan TPK 2/8 address");
-            if (business?.telephone !== "+601111631126" || business?.url || business?.image || business?.openingHoursSpecification || business?.openingHours) fail(label, "Yummy Nyonya Kitchen must retain its verified phone without inferring a website, schema image or disputed hours");
+            if (business?.telephone !== "+601111631126" || business?.url || business?.image !== `${origin}/assets/images/yummy-nyonya-kitchen-tpk-800.webp` || business?.openingHoursSpecification || business?.openingHours) fail(label, "Yummy Nyonya Kitchen must retain its verified phone and branch photo without inferring a website or disputed hours");
             if (business?.contactPoint?.[1]?.telephone !== "+60108912102") fail(label, "Yummy Nyonya Kitchen alternate public line is missing");
-            if (page.heroImage !== "https://i.imgur.com/Z5h4hmH.jpg" || split?.image !== "https://i.imgur.com/Z5h4hmH.jpg") fail(label, "Yummy Nyonya Kitchen must use the TPK Park Lifestyle contextual image until a branch photo is verified");
+            if (page.heroImage !== `${origin}/assets/images/yummy-nyonya-kitchen-tpk-800.webp` || split?.image !== `${origin}/assets/images/yummy-nyonya-kitchen-tpk-800.webp`) fail(label, "Yummy Nyonya Kitchen must use the verified branch storefront photograph");
             if (!html.includes('href="tel:+601111631126"') || !html.includes('href="tel:+60108912102"')) fail(label, "Yummy Nyonya Kitchen public phone lines must remain visible");
             if (locale === "en" && (!html.includes("exact published hours currently differ") || !html.includes("older directories incorrectly show Jalan TPK 2/7"))) fail(label, "Yummy Nyonya Kitchen must preserve the public-source timing and address cautions");
           }

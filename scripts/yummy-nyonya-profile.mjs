@@ -1,7 +1,7 @@
 // Source verification and editorial boundaries: docs/yummy-nyonya-profile-sources.md.
 const directions = "https://www.google.com/maps/search/?api=1&query=Yummy+Nyonya+Kitchen+43G+Jalan+TPK+2%2F8+Puchong";
 const waze = "https://www.waze.com/live-map/directions/yummy-nyonya-kitchen-jalan-tpk-28-puchong?to=place.w.66584606.666108209.5814230";
-const image = "https://i.imgur.com/Z5h4hmH.jpg";
+const image = "https://www.tpkpark.com/assets/images/yummy-nyonya-kitchen-tpk-800.webp";
 const address = "43G, Jalan TPK 2/8, Taman Perindustrian Kinrara, 47180 Puchong, Selangor";
 
 export const yummyNyonyaBusiness = {
@@ -10,6 +10,7 @@ export const yummyNyonyaBusiness = {
   name: "Yummy Nyonya Kitchen",
   telephone: "+601111631126",
   hasMap: directions,
+  image,
   address: {
     "@type": "PostalAddress",
     streetAddress: "43G, Jalan TPK 2/8, Taman Perindustrian Kinrara",
@@ -34,11 +35,11 @@ export const yummyNyonyaProfiles = {
     lead: "Yummy Nyonya Kitchen is a daytime restaurant at No. 43G, Jalan TPK 2/8, serving the TPK Park community from the Lifestyle cluster. Public listings describe it as a restaurant associated with breakfast and brunch, while the business name positions its cooking around Nyonya-style Malaysian food.",
     image,
     heroImage: image,
-    heroAlt: "TPK Park Lifestyle frontage in Puchong, used as contextual imagery for the Yummy Nyonya Kitchen guide",
+    heroAlt: "Yummy Nyonya Kitchen storefront at 43G, Jalan TPK 2/8, TPK Park, Puchong",
     business: yummyNyonyaBusiness,
     datePublished: "2026-09-16",
     blocks: [
-      { type: "split", title: "A daytime Nyonya stop.", text: "Yummy Nyonya Kitchen is set up for a practical daytime meal, whether you are starting early, taking a break between appointments or stopping for lunch. Current public directories categorise it under restaurants and breakfast or brunch. Menu choices can change, so call ahead if you are looking for a particular dish.", image, alt: "Lifestyle frontage at TPK Park in Puchong", route: "lifestyle", linkLabel: "Explore Lifestyle" },
+      { type: "split", title: "A daytime Nyonya stop.", text: "Yummy Nyonya Kitchen is set up for a practical daytime meal, whether you are starting early, taking a break between appointments or stopping for lunch. Current public directories categorise it under restaurants and breakfast or brunch. Menu choices can change, so call ahead if you are looking for a particular dish.", image, alt: "Yummy Nyonya Kitchen storefront at TPK Park, Puchong", route: "lifestyle", linkLabel: "Explore Lifestyle" },
       { type: "cards", alignHeadings: true, kicker: "Plan your meal", title: "Keep the visit simple.", items: [
         { number: "01", title: "Breakfast & brunch", text: "Current business directories place Yummy Nyonya Kitchen in the restaurant and breakfast or brunch categories, making it a natural daytime dining option within the park." },
         { number: "02", title: "Nyonya-style local cooking", text: "The restaurant trades as Yummy Nyonya Kitchen. For a particular Nyonya dish, daily special or takeaway request, check directly with the restaurant rather than relying on an old third-party menu." },
@@ -70,11 +71,11 @@ export const yummyNyonyaProfiles = {
     lead: "Yummy Nyonya Kitchen ialah restoran waktu siang di No. 43G, Jalan TPK 2/8, dalam kluster Lifestyle TPK Park. Penyenaraian awam mengkategorikannya sebagai restoran yang berkaitan dengan sarapan dan brunch, manakala nama perniagaannya menampilkan sajian Malaysia gaya Nyonya.",
     image,
     heroImage: image,
-    heroAlt: "Bahagian hadapan kluster Lifestyle TPK Park di Puchong, digunakan sebagai imej konteks untuk panduan Yummy Nyonya Kitchen",
+    heroAlt: "Kedai Yummy Nyonya Kitchen di 43G, Jalan TPK 2/8, TPK Park, Puchong",
     business: yummyNyonyaBusiness,
     datePublished: "2026-09-16",
     blocks: [
-      { type: "split", title: "Persinggahan Nyonya pada waktu siang.", text: "Yummy Nyonya Kitchen sesuai untuk hidangan praktikal pada waktu siang, sama ada memulakan hari lebih awal, berehat di antara urusan atau singgah makan tengah hari. Direktori awam semasa mengkategorikannya di bawah restoran serta sarapan atau brunch. Pilihan menu boleh berubah, jadi telefon dahulu jika anda mencari hidangan tertentu.", image, alt: "Bahagian hadapan Lifestyle TPK Park di Puchong", route: "lifestyle", linkLabel: "Terokai Lifestyle" },
+      { type: "split", title: "Persinggahan Nyonya pada waktu siang.", text: "Yummy Nyonya Kitchen sesuai untuk hidangan praktikal pada waktu siang, sama ada memulakan hari lebih awal, berehat di antara urusan atau singgah makan tengah hari. Direktori awam semasa mengkategorikannya di bawah restoran serta sarapan atau brunch. Pilihan menu boleh berubah, jadi telefon dahulu jika anda mencari hidangan tertentu.", image, alt: "Kedai Yummy Nyonya Kitchen di TPK Park, Puchong", route: "lifestyle", linkLabel: "Terokai Lifestyle" },
       { type: "cards", alignHeadings: true, kicker: "Rancang waktu makan", title: "Pastikan kunjungan ringkas dan mudah.", items: [
         { number: "01", title: "Sarapan & brunch", text: "Direktori perniagaan semasa meletakkan Yummy Nyonya Kitchen dalam kategori restoran serta sarapan atau brunch, sesuai sebagai pilihan makan waktu siang di taman ini." },
         { number: "02", title: "Masakan tempatan gaya Nyonya", text: "Restoran ini beroperasi dengan nama Yummy Nyonya Kitchen. Untuk hidangan Nyonya tertentu, hidangan harian atau permintaan bungkus, semak terus dengan restoran dan bukan bergantung pada menu pihak ketiga yang lama." },
@@ -106,11 +107,11 @@ export const yummyNyonyaProfiles = {
     lead: "Yummy Nyonya Kitchen位于Jalan TPK 2/8的43G，是TPK Park生活品味集群内的日间餐馆。现有公开资料将其归入餐厅及早餐或早午餐类别，而店名本身则以娘惹风味的马来西亚料理为定位。",
     image,
     heroImage: image,
-    heroAlt: "蒲种TPK Park生活品味区的街景，作为Yummy Nyonya Kitchen页面的园区背景图片",
+    heroAlt: "蒲种TPK Park Jalan TPK 2/8 43G的Yummy Nyonya Kitchen店面",
     business: yummyNyonyaBusiness,
     datePublished: "2026-09-16",
     blocks: [
-      { type: "split", title: "白天，来一顿娘惹风味。", text: "Yummy Nyonya Kitchen适合安排一顿简单的日间餐饮，无论是较早开始一天、办事之间休息，或中午顺路吃一顿。现有公开目录把它归类为餐厅及早餐或早午餐。每日菜色可能调整，如想吃特定料理，出发前直接致电餐厅会较稳妥。", image, alt: "蒲种TPK Park生活品味区街景", route: "lifestyle", linkLabel: "查看生活品味" },
+      { type: "split", title: "白天，来一顿娘惹风味。", text: "Yummy Nyonya Kitchen适合安排一顿简单的日间餐饮，无论是较早开始一天、办事之间休息，或中午顺路吃一顿。现有公开目录把它归类为餐厅及早餐或早午餐。每日菜色可能调整，如想吃特定料理，出发前直接致电餐厅会较稳妥。", image, alt: "蒲种TPK Park的Yummy Nyonya Kitchen店面", route: "lifestyle", linkLabel: "查看生活品味" },
       { type: "cards", alignHeadings: true, kicker: "用餐安排", title: "简单安排一趟日间用餐。", items: [
         { number: "01", title: "早餐与早午餐", text: "现有商业目录把Yummy Nyonya Kitchen列在餐厅及早餐或早午餐类别，适合作为园区内的日间餐饮选择。" },
         { number: "02", title: "娘惹风味本地料理", text: "餐厅以Yummy Nyonya Kitchen为店名。若想确认某一道娘惹菜、当日菜色或外带安排，请直接向餐厅查询，不宜依赖旧的第三方菜单。" },

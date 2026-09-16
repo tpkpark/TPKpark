@@ -29,10 +29,10 @@ Checked 16 September 2026. Scope: Yummy Nyonya Kitchen at Taman Perindustrian Ki
 
 ## Photography
 
-- Image search did not surface a photograph that could be confidently attributed to the TPK Park branch. Results were dominated by unrelated Nyonya restaurants.
-- Until a verified branch photograph is available, the guide uses the existing TPK Park Lifestyle frontage image (`https://i.imgur.com/Z5h4hmH.jpg`, locally optimised by the site image pipeline) as contextual park imagery.
-- Alt text explicitly describes the image as TPK Park/Lifestyle context rather than as a Yummy Nyonya Kitchen storefront. The Restaurant schema does not include an `image` field.
-
+- TPK Park management supplied a photograph of the Yummy Nyonya Kitchen premises on 16 September 2026. The photograph visibly shows the `YUMMY NYONYA KITCHEN / 好吃茶餐室` signage and the TPK Park awning, making it branch-specific first-party evidence.
+- The supplied photograph is used as the guide's hero and first visual-section image. It is resized and encoded as WebP for delivery only; no AI redraw, object replacement or stylistic alteration is used.
+- The standard brand-guide layout displays the photograph edge-to-edge beside the copy, without a separate image caption.
+- Because the photograph is now verified for this branch, the Restaurant schema may include the same local image URL.
 ## Integration and privacy
 
 - Add the guide to the three Lifestyle directories, localised SEO titles, canonical/hreflang links, sitemap and Restaurant schema.

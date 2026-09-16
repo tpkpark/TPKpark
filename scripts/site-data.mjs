@@ -22,6 +22,7 @@ import { techtricsAutoProfiles } from "./techtrics-auto-profile.mjs";
 import { techtraAcademyProfiles } from "./techtra-automotive-academy-profile.mjs";
 import { jonDetailingProfiles } from "./jon-detailing-profile.mjs";
 import { jaecooServiceCentreProfiles } from "./jaecoo-service-centre-profile.mjs";
+import { toyokarProfiles } from "./toyokar-profile.mjs";
 
 export const origin = "https://www.tpkpark.com";
 
@@ -53,6 +54,7 @@ export const routeSlugs = {
   techtraAcademy: "automotive/techtra-automotive-academy",
   jonDetailing: "automotive/jon-detailing",
   jaecooServiceCentre: "automotive/jaecoo-service-centre",
+  toyokar: "automotive/toyokar",
   lifestyle: "lifestyle",
   motd: "lifestyle/motd",
   leasing: "leasing",
@@ -103,6 +105,7 @@ export const seoTitles = {
     techtraAcademy: "Techtra Automotive Academy Puchong | Courses | TPK Park",
     jonDetailing: "Jon Detailing Puchong | Car Detailing | TPK Park",
     jaecooServiceCentre: "Jaecoo Service Centre Puchong Kinrara | TPK Park",
+    toyokar: "Toyokar Puchong Kinrara | Car Servicing & Repairs | TPK Park",
     lifestyle: "Dining, Fitness & Lifestyle in Puchong | TPK Park",
     motd: "MOTD Bar & Dining at TPK Park, Puchong",
     leasing: "Shops, Showrooms & Buildings for Rent in Puchong | TPK Park",
@@ -143,6 +146,7 @@ export const seoTitles = {
     techtraAcademy: "Techtra Automotive Academy Puchong | Kursus | TPK Park",
     jonDetailing: "Jon Detailing Puchong | Penjagaan Kereta | TPK Park",
     jaecooServiceCentre: "Pusat Servis Jaecoo Puchong Kinrara | TPK Park",
+    toyokar: "Toyokar Puchong Kinrara | Servis & Pembaikan Kereta | TPK Park",
     lifestyle: "Makan, Kecergasan & Lifestyle di Puchong | TPK Park",
     motd: "MOTD Bar & Dining di TPK Park, Puchong",
     leasing: "Kedai & Bangunan untuk Disewa di Puchong | TPK Park",
@@ -183,6 +187,7 @@ export const seoTitles = {
     techtraAcademy: "Techtra Automotive Academy蒲种 | 汽车技术培训 | TPK Park",
     jonDetailing: "Jon Detailing蒲种金銮 | 汽车美容护理 | TPK Park",
     jaecooServiceCentre: "Jaecoo蒲种金銮服务中心 | 保养与售后咨询 | TPK Park",
+    toyokar: "Toyokar蒲种金銮 | 汽车保养与维修 | TPK Park",
     lifestyle: "蒲种餐饮、运动与生活配套 | TPK Park",
     motd: "MOTD蒲种餐酒馆、炭烤与现场音乐 | TPK Park",
     leasing: "蒲种金銮工业园商铺、展厅与整栋物业出租 | TPK Park",
@@ -228,6 +233,7 @@ const routeLastModifiedOverrides = {
   techtraAcademy: "2026-09-16",
   jonDetailing: "2026-09-16",
   jaecooServiceCentre: "2026-09-16",
+  toyokar: "2026-09-16",
   milestones: "2026-09-15",
   lifestyle: "2026-09-15",
   motd: "2026-09-15",
@@ -1754,14 +1760,14 @@ const zhPages = {
 };
 
 export const site = {
-  en: { ...common.en, pages: { ...enPages, motd: motdProfiles.en, lavino: lavinoProfiles.en, gaHing: gaHingProfiles.en, kucheBath: kucheBathProfiles.en, jubinBms: jubinBmsProfiles.en, vHausLiving: vHausLivingProfiles.en, balensDesign: balensDesignProfiles.en, builtop: builtopProfiles.en, premioDoor: premioDoorProfiles.en, klot: klotProfiles.en, dcMoto: dcMotoProfiles.en, fagolli: fagolliProfiles.en, totalTools: totalToolsProfiles.en, baagus: baagusProfiles.en, mkCurtain: mkCurtainProfiles.en, signature: signatureProfiles.en, chooseInterior: chooseInteriorProfiles.en, peroduaKinrara: peroduaKinraraProfiles.en, mazdaKinrara: mazdaKinraraProfiles.en, kia4sService: kia4sServiceProfiles.en, techtricsAuto: techtricsAutoProfiles.en, techtraAcademy: techtraAcademyProfiles.en, jonDetailing: jonDetailingProfiles.en, jaecooServiceCentre: jaecooServiceCentreProfiles.en } },
-  ms: { ...common.ms, pages: { ...msPages, motd: motdProfiles.ms, lavino: lavinoProfiles.ms, gaHing: gaHingProfiles.ms, kucheBath: kucheBathProfiles.ms, jubinBms: jubinBmsProfiles.ms, vHausLiving: vHausLivingProfiles.ms, balensDesign: balensDesignProfiles.ms, builtop: builtopProfiles.ms, premioDoor: premioDoorProfiles.ms, klot: klotProfiles.ms, dcMoto: dcMotoProfiles.ms, fagolli: fagolliProfiles.ms, totalTools: totalToolsProfiles.ms, baagus: baagusProfiles.ms, mkCurtain: mkCurtainProfiles.ms, signature: signatureProfiles.ms, chooseInterior: chooseInteriorProfiles.ms, peroduaKinrara: peroduaKinraraProfiles.ms, mazdaKinrara: mazdaKinraraProfiles.ms, kia4sService: kia4sServiceProfiles.ms, techtricsAuto: techtricsAutoProfiles.ms, techtraAcademy: techtraAcademyProfiles.ms, jonDetailing: jonDetailingProfiles.ms, jaecooServiceCentre: jaecooServiceCentreProfiles.ms } },
-  zh: { ...common.zh, pages: { ...zhPages, motd: motdProfiles.zh, lavino: lavinoProfiles.zh, gaHing: gaHingProfiles.zh, kucheBath: kucheBathProfiles.zh, jubinBms: jubinBmsProfiles.zh, vHausLiving: vHausLivingProfiles.zh, balensDesign: balensDesignProfiles.zh, builtop: builtopProfiles.zh, premioDoor: premioDoorProfiles.zh, klot: klotProfiles.zh, dcMoto: dcMotoProfiles.zh, fagolli: fagolliProfiles.zh, totalTools: totalToolsProfiles.zh, baagus: baagusProfiles.zh, mkCurtain: mkCurtainProfiles.zh, signature: signatureProfiles.zh, chooseInterior: chooseInteriorProfiles.zh, peroduaKinrara: peroduaKinraraProfiles.zh, mazdaKinrara: mazdaKinraraProfiles.zh, kia4sService: kia4sServiceProfiles.zh, techtricsAuto: techtricsAutoProfiles.zh, techtraAcademy: techtraAcademyProfiles.zh, jonDetailing: jonDetailingProfiles.zh, jaecooServiceCentre: jaecooServiceCentreProfiles.zh } }
+  en: { ...common.en, pages: { ...enPages, motd: motdProfiles.en, lavino: lavinoProfiles.en, gaHing: gaHingProfiles.en, kucheBath: kucheBathProfiles.en, jubinBms: jubinBmsProfiles.en, vHausLiving: vHausLivingProfiles.en, balensDesign: balensDesignProfiles.en, builtop: builtopProfiles.en, premioDoor: premioDoorProfiles.en, klot: klotProfiles.en, dcMoto: dcMotoProfiles.en, fagolli: fagolliProfiles.en, totalTools: totalToolsProfiles.en, baagus: baagusProfiles.en, mkCurtain: mkCurtainProfiles.en, signature: signatureProfiles.en, chooseInterior: chooseInteriorProfiles.en, peroduaKinrara: peroduaKinraraProfiles.en, mazdaKinrara: mazdaKinraraProfiles.en, kia4sService: kia4sServiceProfiles.en, techtricsAuto: techtricsAutoProfiles.en, techtraAcademy: techtraAcademyProfiles.en, jonDetailing: jonDetailingProfiles.en, jaecooServiceCentre: jaecooServiceCentreProfiles.en, toyokar: toyokarProfiles.en } },
+  ms: { ...common.ms, pages: { ...msPages, motd: motdProfiles.ms, lavino: lavinoProfiles.ms, gaHing: gaHingProfiles.ms, kucheBath: kucheBathProfiles.ms, jubinBms: jubinBmsProfiles.ms, vHausLiving: vHausLivingProfiles.ms, balensDesign: balensDesignProfiles.ms, builtop: builtopProfiles.ms, premioDoor: premioDoorProfiles.ms, klot: klotProfiles.ms, dcMoto: dcMotoProfiles.ms, fagolli: fagolliProfiles.ms, totalTools: totalToolsProfiles.ms, baagus: baagusProfiles.ms, mkCurtain: mkCurtainProfiles.ms, signature: signatureProfiles.ms, chooseInterior: chooseInteriorProfiles.ms, peroduaKinrara: peroduaKinraraProfiles.ms, mazdaKinrara: mazdaKinraraProfiles.ms, kia4sService: kia4sServiceProfiles.ms, techtricsAuto: techtricsAutoProfiles.ms, techtraAcademy: techtraAcademyProfiles.ms, jonDetailing: jonDetailingProfiles.ms, jaecooServiceCentre: jaecooServiceCentreProfiles.ms, toyokar: toyokarProfiles.ms } },
+  zh: { ...common.zh, pages: { ...zhPages, motd: motdProfiles.zh, lavino: lavinoProfiles.zh, gaHing: gaHingProfiles.zh, kucheBath: kucheBathProfiles.zh, jubinBms: jubinBmsProfiles.zh, vHausLiving: vHausLivingProfiles.zh, balensDesign: balensDesignProfiles.zh, builtop: builtopProfiles.zh, premioDoor: premioDoorProfiles.zh, klot: klotProfiles.zh, dcMoto: dcMotoProfiles.zh, fagolli: fagolliProfiles.zh, totalTools: totalToolsProfiles.zh, baagus: baagusProfiles.zh, mkCurtain: mkCurtainProfiles.zh, signature: signatureProfiles.zh, chooseInterior: chooseInteriorProfiles.zh, peroduaKinrara: peroduaKinraraProfiles.zh, mazdaKinrara: mazdaKinraraProfiles.zh, kia4sService: kia4sServiceProfiles.zh, techtricsAuto: techtricsAutoProfiles.zh, techtraAcademy: techtraAcademyProfiles.zh, jonDetailing: jonDetailingProfiles.zh, jaecooServiceCentre: jaecooServiceCentreProfiles.zh, toyokar: toyokarProfiles.zh } }
 };
 
 // Link each business profile from its own cluster directory.
 for (const locale of Object.keys(site)) {
-  for (const [parent, name, route] of [["lifestyle", "m.o.t.d", "motd"], ["homeLiving", "Lavino", "lavino"], ["homeLiving", "Ga Hing", "gaHing"], ["homeLiving", "Kuche + BaTH", "kucheBath"], ["homeLiving", "Jubin BMS", "jubinBms"], ["homeLiving", "V Haus Living", "vHausLiving"], ["homeLiving", "Balens Design", "balensDesign"], ["homeLiving", "BUILTOP", "builtop"], ["homeLiving", "Premio Door", "premioDoor"], ["homeLiving", "KLOT", "klot"], ["homeLiving", "DC Moto", "dcMoto"], ["homeLiving", "Fagolli", "fagolli"], ["homeLiving", "Total Tools", "totalTools"], ["homeLiving", "Baagus", "baagus"], ["homeLiving", "MK Curtain", "mkCurtain"], ["homeLiving", "Signature", "signature"], ["homeLiving", "Choose Interior", "chooseInterior"], ["automotive", "Perodua 3S Kinrara", "peroduaKinrara"], ["automotive", "Mazda 4S Kinrara", "mazdaKinrara"], ["automotive", "Kia 4S Service", "kia4sService"], ["automotive", "Techtrics Auto", "techtricsAuto"], ["automotive", "Techtra Automotive Academy", "techtraAcademy"], ["automotive", "Jon Detailing", "jonDetailing"], ["automotive", "Jaecoo Service Centre", "jaecooServiceCentre"]]) {
+  for (const [parent, name, route] of [["lifestyle", "m.o.t.d", "motd"], ["homeLiving", "Lavino", "lavino"], ["homeLiving", "Ga Hing", "gaHing"], ["homeLiving", "Kuche + BaTH", "kucheBath"], ["homeLiving", "Jubin BMS", "jubinBms"], ["homeLiving", "V Haus Living", "vHausLiving"], ["homeLiving", "Balens Design", "balensDesign"], ["homeLiving", "BUILTOP", "builtop"], ["homeLiving", "Premio Door", "premioDoor"], ["homeLiving", "KLOT", "klot"], ["homeLiving", "DC Moto", "dcMoto"], ["homeLiving", "Fagolli", "fagolli"], ["homeLiving", "Total Tools", "totalTools"], ["homeLiving", "Baagus", "baagus"], ["homeLiving", "MK Curtain", "mkCurtain"], ["homeLiving", "Signature", "signature"], ["homeLiving", "Choose Interior", "chooseInterior"], ["automotive", "Perodua 3S Kinrara", "peroduaKinrara"], ["automotive", "Mazda 4S Kinrara", "mazdaKinrara"], ["automotive", "Kia 4S Service", "kia4sService"], ["automotive", "Techtrics Auto", "techtricsAuto"], ["automotive", "Techtra Automotive Academy", "techtraAcademy"], ["automotive", "Jon Detailing", "jonDetailing"], ["automotive", "Jaecoo Service Centre", "jaecooServiceCentre"], ["automotive", "Toyokar", "toyokar"]]) {
     const directory = site[locale].pages[parent].blocks.find(block => block.type === "directory");
     directory.items = directory.items.map(item => item[1] === name ? [...item, route] : item);
   }

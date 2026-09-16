@@ -573,6 +573,27 @@ test("Jaecoo service enquiries exclude vehicle details and messages from analyti
   assert.equal(page.basicSent().length, 8);
 });
 
+test("Toyokar enquiries keep vehicle details, messages and email contents out of analytics and respect opt-out", () => {
+  const page = client({ saved: "detailed", locale: "en" });
+  page.clickLink("/automotive/toyokar/");
+  page.clickLink("/zh/automotive/toyokar/", ".locale-nav");
+  page.clickLink("tel:+60123856228");
+  page.clickLink("https://wa.me/60123856228?text=PRIVATE123%20private@example.com");
+  page.clickLink("mailto:info@toyokar.my?subject=PRIVATE123&body=private@example.com");
+  page.clickLink("https://www.toyokar.my/?registration=PRIVATE123#private");
+  page.clickLink("https://www.toyokar.my/gallery?visitor=PRIVATE123");
+  page.clickLink("https://www.google.com/maps/search/?api=1&query=Toyokar+PRIVATE123");
+  page.clickLink("https://www.waze.com/ul?q=Toyokar%20PRIVATE123&navigate=yes");
+  assert.deepEqual(page.basicSent().map(event => event.data.target), ["/automotive/toyokar/", "zh", "toyokar:phone", "toyokar:whatsapp", "toyokar:email", "toyokar:website", "toyokar:gallery", "about", "about"]);
+  assert.deepEqual(page.sent().filter(event => event[1] === "tenant_contact_click").map(event => event[2].contact_method), ["phone", "whatsapp", "email"]);
+  assert.doesNotMatch(JSON.stringify([page.sent(), page.basicSent()]), /123856228|info@toyokar|private@example.com|PRIVATE123|#private/);
+  page.controls.off.handlers.click();
+  page.clickLink("tel:+60123856228");
+  page.clickLink("https://wa.me/60123856228?text=PRIVATE123");
+  page.clickLink("mailto:info@toyokar.my?body=PRIVATE123");
+  assert.equal(page.basicSent().length, 9);
+});
+
 test("detailed engagement counts milestones once and stops independently of basic statistics", () => {
   const page = client({ saved: "detailed" });
   page.focusForm(); page.focusForm();

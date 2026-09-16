@@ -1,5 +1,9 @@
 // Locally hosted versions of approved imagery, shared by page content and preview metadata.
 export const imageAssets = {
+  "https://www.tpkpark.com/assets/images/techtrics-auto-workshop-1280.webp": {
+    src: "/assets/images/techtrics-auto-workshop-1280.webp", width: 1280, height: 960,
+    srcset: "/assets/images/techtrics-auto-workshop-480.webp 480w, /assets/images/techtrics-auto-workshop-1280.webp 1280w"
+  },
   "https://www.tpkpark.com/assets/images/kia-puchong-workshop-1280.webp": {
     src: "/assets/images/kia-puchong-workshop-1280.webp", width: 1280, height: 720,
     srcset: "/assets/images/kia-puchong-workshop-480.webp 480w, /assets/images/kia-puchong-workshop-1280.webp 1280w"

@@ -497,6 +497,25 @@ test("Kia workshop actions keep contact and enquiry details out of analytics and
   assert.equal(page.basicSent().length, 7);
 });
 
+test("Techtrics workshop actions exclude enquiry details from analytics and respect opt-out", () => {
+  const page = client({ saved: "detailed", locale: "en" });
+  page.clickLink("/automotive/techtrics-auto/");
+  page.clickLink("/zh/automotive/techtrics-auto/", ".locale-nav");
+  page.clickLink("tel:+60358916661");
+  page.clickLink("tel:+60124496696");
+  page.clickLink("mailto:info@mercedesworkshop.com.my?subject=PRIVATE123&body=private@example.com");
+  page.clickLink("https://mercedesworkshop.com.my/?email=private@example.com#private");
+  page.clickLink("https://mercedesworkshop.com.my/wp-content/uploads/2017/04/hq-1-1.png?plate=PRIVATE123");
+  page.clickLink("https://ul.waze.com/ul?preview_venue_id=66584606.666108209.9699534&navigate=yes");
+  assert.deepEqual(page.basicSent().map(event => event.data.target), ["/automotive/techtrics-auto/", "zh", "techtrics-auto:phone", "techtrics-auto:phone", "techtrics-auto:email", "techtrics-auto:website", "techtrics-auto:photo", "about"]);
+  assert.deepEqual(page.sent().filter(event => event[1] === "tenant_contact_click").map(event => event[2].contact_method), ["phone", "phone", "email"]);
+  assert.doesNotMatch(JSON.stringify([page.sent(), page.basicSent()]), /58916661|4496696|info@|private@example.com|PRIVATE123|#private|66584606/);
+  page.controls.off.handlers.click();
+  page.clickLink("tel:+60358916661");
+  page.clickLink("mailto:info@mercedesworkshop.com.my");
+  assert.equal(page.basicSent().length, 8);
+});
+
 test("detailed engagement counts milestones once and stops independently of basic statistics", () => {
   const page = client({ saved: "detailed" });
   page.focusForm(); page.focusForm();

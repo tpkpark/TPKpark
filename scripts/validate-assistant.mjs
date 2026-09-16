@@ -102,6 +102,11 @@ test("approved knowledge retains public inventory boundaries", () => {
 
 test("business guides provide the correct public branch contacts in all three languages", () => {
   for (const locale of ["en", "ms", "zh"]) {
+    assert.match(sources.techtricsAuto.texts[locale], /61 & 63, Jalan TPK 2\/8/);
+    assert.match(sources.techtricsAuto.texts[locale], /\+60 3 5891 6661/);
+    assert.match(sources.techtricsAuto.texts[locale], /\+60 12 449 6696/);
+    assert.match(sources.techtricsAuto.texts[locale], /info@mercedesworkshop\.com\.my/);
+    assert.doesNotMatch(sources.techtricsAuto.texts[locale], /Techtunes|Techtra Academy|663 5454|TPK 1\/2/);
     assert.match(sources.kia4sService.texts[locale], /59, Jalan TPK 2\/8/);
     assert.match(sources.kia4sService.texts[locale], /\+60 3 8076 1005/);
     assert.doesNotMatch(sources.kia4sService.texts[locale], /KWM|47160|F-01-G/);

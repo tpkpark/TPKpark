@@ -39,13 +39,13 @@ export const jazminaBistroProfiles = {
       { type: "cards", alignHeadings: true, kicker: "Before you go", title: "Plan the meal around your day.", items: [
         { number: "01", title: "Breakfast & lighter bites", text: "The public menu lists roti canai, tosai, capati, naan and breakfast items. Check the current menu if you are looking for a particular preparation or add-on before travelling." },
         { number: "02", title: "Rice, noodles & cooked dishes", text: "Nasi kandar, nasi lemak, briyani, fried rice, noodles, soups and tomyam-style dishes provide broader meal choices later in the day. Availability and prices can change, so treat third-party menus as a current guide rather than a fixed catalogue." },
-        { number: "03", title: "Check current hours", text: "Public directories do not agree on the restaurant’s exact opening hours. Check the current map or ordering listing before making a special trip, particularly late at night, early in the morning or on public holidays." }
+        { number: "03", title: "Check current hours", text: "Opening hours can change and public listings may not always be synchronised. Check the current map or ordering listing before making a special trip, particularly late at night, early in the morning or on public holidays." }
       ] },
       { type: "businessVisit", kicker: "Plan your visit", title: "Find Jazmina Bistro on Jalan TPK 2/8.", text: "The restaurant is at ground-floor No. 23G in Seksyen 2. The address is independently listed by MBSJ and current food-delivery directories.", addressLabel: "TPK Park address", address,
         hours: [
           { label: "Opening hours", value: "Check the current listing before travelling" }
         ],
-        note: "Opening hours and menu availability can change. Current public sources conflict on the exact operating hours, so TPK Park does not publish an unverified 24-hour claim here.",
+        note: "Opening hours and menu availability can change. Check the current listing before travelling.",
         links: [
           { label: "Find Jazmina Bistro on Google Maps", url: directions },
           { label: "Find Jazmina Bistro on Waze", url: waze },
@@ -71,13 +71,13 @@ export const jazminaBistroProfiles = {
       { type: "cards", alignHeadings: true, kicker: "Sebelum berkunjung", title: "Rancang waktu makan mengikut hari anda.", items: [
         { number: "01", title: "Sarapan & hidangan ringan", text: "Menu awam menyenaraikan roti canai, tosai, capati, naan dan pilihan sarapan. Semak menu terkini jika anda mencari penyediaan atau tambahan tertentu sebelum bertolak." },
         { number: "02", title: "Nasi, mi & hidangan panas", text: "Nasi kandar, nasi lemak, briyani, nasi goreng, mi, sup dan hidangan gaya tomyam memberi pilihan lebih luas sepanjang hari. Ketersediaan dan harga boleh berubah, jadi gunakan menu pihak ketiga sebagai panduan semasa dan bukan senarai tetap." },
-        { number: "03", title: "Semak waktu semasa", text: "Direktori awam tidak sependapat tentang waktu operasi tepat restoran ini. Semak penyenaraian peta atau pesanan semasa sebelum membuat perjalanan khas, terutama lewat malam, awal pagi atau pada cuti umum." }
+        { number: "03", title: "Semak waktu semasa", text: "Waktu operasi boleh berubah dan penyenaraian awam mungkin tidak sentiasa dikemas kini serentak. Semak penyenaraian peta atau pesanan semasa sebelum membuat perjalanan khas, terutama lewat malam, awal pagi atau pada cuti umum." }
       ] },
       { type: "businessVisit", kicker: "Rancang kunjungan", title: "Cari Jazmina Bistro di Jalan TPK 2/8.", text: "Restoran ini terletak di tingkat bawah No. 23G, Seksyen 2. Alamat tersebut disenaraikan secara berasingan oleh MBSJ dan direktori penghantaran makanan semasa.", addressLabel: "Alamat TPK Park", address,
         hours: [
           { label: "Waktu operasi", value: "Semak penyenaraian semasa sebelum bertolak" }
         ],
-        note: "Waktu operasi dan ketersediaan menu boleh berubah. Sumber awam semasa berbeza tentang waktu operasi tepat, jadi TPK Park tidak menerbitkan dakwaan 24 jam yang belum disahkan di sini.",
+        note: "Waktu operasi dan ketersediaan menu boleh berubah. Semak penyenaraian semasa sebelum bertolak.",
         links: [
           { label: "Cari Jazmina Bistro di Google Maps", url: directions },
           { label: "Cari Jazmina Bistro di Waze", url: waze },
@@ -103,13 +103,13 @@ export const jazminaBistroProfiles = {
       { type: "cards", alignHeadings: true, kicker: "出发之前", title: "把用餐安排进当天行程。", items: [
         { number: "01", title: "早餐与轻食", text: "公开菜单列有roti canai、tosai、capati、naan和早餐选项。如想吃指定做法或配料，出发前可先查看最新菜单。" },
         { number: "02", title: "饭面与热食", text: "nasi kandar、nasi lemak、briyani、炒饭、面食、汤类及冬炎风味料理，提供较完整的正餐选择。供应与价格可能调整，因此第三方菜单适合作为当前参考，而不是固定菜单。" },
-        { number: "03", title: "先确认营业时间", text: "不同公开平台对餐厅的准确营业时间资料并不一致。若准备深夜、清晨或公共假期专程前往，建议先查看最新地图或点餐平台资料。" }
+        { number: "03", title: "先确认营业时间", text: "营业时间可能调整，不同公开平台也未必同步更新。若准备深夜、清晨或公共假期专程前往，建议先查看最新地图或点餐平台资料。" }
       ] },
       { type: "businessVisit", kicker: "到访安排", title: "在Jalan TPK 2/8找到Jazmina Bistro。", text: "餐厅位于Seksyen 2的23G底层单位。MBSJ及现有餐饮外送目录均有独立列出这个地址。", addressLabel: "TPK Park地址", address,
         hours: [
           { label: "营业时间", value: "出发前查看最新公开资料" }
         ],
-        note: "营业时间与餐点供应可能调整。目前不同公开来源对准确营业时间资料并不一致，因此TPK Park不在这里把“24小时营业”作为未经核实的固定资料发布。",
+        note: "营业时间与餐点供应可能调整。出发前请查看最新公开资料。",
         links: [
           { label: "在Google Maps查找Jazmina Bistro", url: directions },
           { label: "使用Waze导航前往Jazmina Bistro", url: waze },

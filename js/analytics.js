@@ -214,7 +214,7 @@
   });
 
   const knownSpaces = ["shop-showroom", "detached-building", "semi-detached", "terrace-waitlist"];
-  const pagePath = /^\/(?:ms\/|zh\/)?(?:about|home-living(?:\/(?:lavino|ga-hing|kuche-bath|jubin-bms|v-haus-living|balens-design))?|automotive|lifestyle(?:\/motd)?|leasing(?:\/(?:shop-showroom|detached-building|semi-detached))?|news|milestones|wong-shung-yen(?:\/public-record)?|contact)?\/?$/;
+  const pagePath = /^\/(?:ms\/|zh\/)?(?:about|home-living(?:\/(?:lavino|ga-hing|kuche-bath|jubin-bms|v-haus-living|balens-design|builtop))?|automotive|lifestyle(?:\/motd)?|leasing(?:\/(?:shop-showroom|detached-building|semi-detached))?|news|milestones|wong-shung-yen(?:\/public-record)?|contact)?\/?$/;
   const socialHosts = { "www.facebook.com": "facebook", "www.instagram.com": "instagram", "www.tiktok.com": "tiktok", "www.xiaohongshu.com": "xiaohongshu", "www.rednote.com": "xiaohongshu" };
 
   document.addEventListener("click", event => {
@@ -230,6 +230,7 @@
     if (href === "tel:+60380748300") return click("tenant_contact_click", { contact_method: "phone", tenant: "jubin-bms" }, "jubin-bms:phone");
     if (href === "tel:+60127086389") return click("tenant_contact_click", { contact_method: "phone", tenant: "v-haus-living" }, "v-haus-living:phone");
     if (href === "tel:+60173388535") return click("tenant_contact_click", { contact_method: "phone", tenant: "balens-design" }, "balens-design:phone");
+    if (href === "tel:+601126838848") return click("tenant_contact_click", { contact_method: "phone", tenant: "builtop" }, "builtop:phone");
     if (href.startsWith("tel:")) return click("contact_click", { contact_method: "phone" }, "phone");
     if (href.startsWith("mailto:")) return click("contact_click", { contact_method: "email" }, fromAssistant && link.closest(".ask-tpk-email") ? "email_draft" : "email");
     try {
@@ -277,6 +278,10 @@
         const path = url.pathname.replace(/\/$/, "") || "/";
         const destination = { "/contact-us": "visit", "/projects": "projects" }[path] || "website";
         click("outbound_click", { link_domain: "balensdesign.com" }, "balens-design:" + destination);
+      } else if (["www.builtopmalaysia.com", "builtopmalaysia.com"].includes(url.hostname)) {
+        const path = url.pathname.replace(/\/$/, "") || "/";
+        const destination = { "/contactus": "visit", "/services": "services" }[path] || "website";
+        click("outbound_click", { link_domain: "www.builtopmalaysia.com" }, "builtop:" + destination);
       } else if (["www.motdgroup.com", "motdgroup.com"].includes(url.hostname)) {
         const path = url.pathname.replace(/^\/zh(?=\/|$)/, "").replace(/\/$/, "") || "/";
         const destination = { "/": "home", "/menu": "menu", "/live-house": "live_music", "/contact-us": "visit" }[path] || "website";

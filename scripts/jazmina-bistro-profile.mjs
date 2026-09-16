@@ -9,7 +9,6 @@ export const jazminaBistroBusiness = {
   "@type": "Restaurant",
   "@id": "https://www.tpkpark.com/lifestyle/jazmina-bistro/#restaurant",
   name: "Jazmina Bistro",
-  image,
   hasMenu: menu,
   hasMap: directions,
   address: {

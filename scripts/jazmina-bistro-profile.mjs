@@ -2,7 +2,7 @@
 const menu = "https://www.foodpanda.my/restaurant/rlie/jazmina-bistro-rlie";
 const directions = "https://www.google.com/maps/search/?api=1&query=Jazmina+Bistro+23G+Jalan+TPK+2%2F8+Puchong";
 const waze = "https://www.waze.com/ul?q=Jazmina%20Bistro%2023G%20Jalan%20TPK%202%2F8%20Puchong&navigate=yes";
-const image = "https://www.tpkpark.com/assets/images/jazmina-bistro-kinrara-1440.webp";
+const image = "https://www.tpkpark.com/assets/images/jazmina-bistro-kinrara-720.webp";
 const address = "23G, Jalan TPK 2/8, Taman Perindustrian Kinrara, Seksyen 2, 47180 Puchong, Selangor";
 
 export const jazminaBistroBusiness = {
@@ -43,7 +43,7 @@ export const jazminaBistroProfiles = {
     business: jazminaBistroBusiness,
     datePublished: "2026-09-16",
     blocks: [
-      { type: "split", title: "An easy stop, at any hour.", text: "Jazmina Bistro suits a quick breakfast, a meal between appointments, a late-night bite or a casual sit-down with colleagues and family. The menu covers familiar Malaysian Indian Muslim staples and made-to-order rice and noodle dishes, from roti or tosai to nasi kandar, briyani and tomyam-style dishes.", image, alt: "Jazmina Bistro storefront and dining area at TPK Park, Puchong", route: "lifestyle", linkLabel: "Explore Lifestyle" },
+      { type: "split", presentation: "renewal", title: "An easy stop, at any hour.", text: "Jazmina Bistro suits a quick breakfast, a meal between appointments, a late-night bite or a casual sit-down with colleagues and family. The menu covers familiar Malaysian Indian Muslim staples and made-to-order rice and noodle dishes, from roti or tosai to nasi kandar, briyani and tomyam-style dishes.", image, alt: "Jazmina Bistro storefront and dining area at TPK Park, Puchong", caption: "Jazmina Bistro at No. 23G, Jalan TPK 2/8, TPK Park, Puchong.", route: "lifestyle", linkLabel: "Explore Lifestyle" },
       { type: "cards", alignHeadings: true, kicker: "Around the clock", title: "Choose what suits the moment.", items: [
         { number: "01", title: "Breakfast & lighter bites", text: "The public menu lists roti canai, tosai, capati, naan and breakfast items for a simple start or lighter meal." },
         { number: "02", title: "Rice, noodles & cooked dishes", text: "Nasi kandar, nasi lemak, briyani, fried rice, noodles, soups and tomyam-style dishes provide broader meal choices through the day and night. Availability and prices can change, so treat third-party menus as a current guide rather than a fixed catalogue." },
@@ -75,7 +75,7 @@ export const jazminaBistroProfiles = {
     business: jazminaBistroBusiness,
     datePublished: "2026-09-16",
     blocks: [
-      { type: "split", title: "Mudah singgah, pada bila-bila masa.", text: "Jazmina Bistro sesuai untuk sarapan ringkas, makan di antara janji temu, hidangan lewat malam atau santai bersama rakan sekerja dan keluarga. Menunya merangkumi sajian India Muslim Malaysia yang biasa serta hidangan nasi dan mi yang dimasak apabila dipesan, daripada roti atau tosai hingga nasi kandar, briyani dan hidangan gaya tomyam.", image, alt: "Bahagian hadapan dan ruang makan Jazmina Bistro di TPK Park, Puchong", route: "lifestyle", linkLabel: "Terokai Lifestyle" },
+      { type: "split", presentation: "renewal", title: "Mudah singgah, pada bila-bila masa.", text: "Jazmina Bistro sesuai untuk sarapan ringkas, makan di antara janji temu, hidangan lewat malam atau santai bersama rakan sekerja dan keluarga. Menunya merangkumi sajian India Muslim Malaysia yang biasa serta hidangan nasi dan mi yang dimasak apabila dipesan, daripada roti atau tosai hingga nasi kandar, briyani dan hidangan gaya tomyam.", image, alt: "Bahagian hadapan dan ruang makan Jazmina Bistro di TPK Park, Puchong", caption: "Jazmina Bistro di No. 23G, Jalan TPK 2/8, TPK Park, Puchong.", route: "lifestyle", linkLabel: "Terokai Lifestyle" },
       { type: "cards", alignHeadings: true, kicker: "Sepanjang masa", title: "Pilih mengikut waktu dan selera.", items: [
         { number: "01", title: "Sarapan & hidangan ringan", text: "Menu awam menyenaraikan roti canai, tosai, capati, naan dan pilihan sarapan untuk permulaan hari atau hidangan lebih ringan." },
         { number: "02", title: "Nasi, mi & hidangan panas", text: "Nasi kandar, nasi lemak, briyani, nasi goreng, mi, sup dan hidangan gaya tomyam memberi pilihan lebih luas siang dan malam. Ketersediaan dan harga boleh berubah, jadi gunakan menu pihak ketiga sebagai panduan semasa dan bukan senarai tetap." },
@@ -107,7 +107,7 @@ export const jazminaBistroProfiles = {
     business: jazminaBistroBusiness,
     datePublished: "2026-09-16",
     blocks: [
-      { type: "split", title: "任何时候，都可以顺路吃一顿。", text: "无论是简单早餐、办事之间吃一顿、深夜想吃点东西，或与同事家人轻松用餐，Jazmina Bistro都提供较日常的选择。公开菜单涵盖常见的马来西亚印度穆斯林料理，以及现点现炒的饭面类，从roti、tosai到nasi kandar、briyani和冬炎风味料理都有选择。", image, alt: "蒲种TPK Park的Jazmina Bistro店面与用餐区", route: "lifestyle", linkLabel: "查看生活品味" },
+      { type: "split", presentation: "renewal", title: "任何时候，都可以顺路吃一顿。", text: "无论是简单早餐、办事之间吃一顿、深夜想吃点东西，或与同事家人轻松用餐，Jazmina Bistro都提供较日常的选择。公开菜单涵盖常见的马来西亚印度穆斯林料理，以及现点现炒的饭面类，从roti、tosai到nasi kandar、briyani和冬炎风味料理都有选择。", image, alt: "蒲种TPK Park的Jazmina Bistro店面与用餐区", caption: "Jazmina Bistro位于蒲种TPK Park的Jalan TPK 2/8，23G。", route: "lifestyle", linkLabel: "查看生活品味" },
       { type: "cards", alignHeadings: true, kicker: "全天候", title: "按时间与口味选择。", items: [
         { number: "01", title: "早餐与轻食", text: "公开菜单列有roti canai、tosai、capati、naan和早餐选项，适合简单开始一天或较轻便的一餐。" },
         { number: "02", title: "饭面与热食", text: "nasi kandar、nasi lemak、briyani、炒饭、面食、汤类及冬炎风味料理，提供从白天到深夜的正餐选择。供应与价格可能调整，因此第三方菜单适合作为当前参考，而不是固定菜单。" },

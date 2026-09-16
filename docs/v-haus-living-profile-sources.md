@@ -28,9 +28,11 @@ The guide describes minimalist furniture without implying an affiliation with MU
 
 ## Photography
 
-The guide reuses the established TPK Park frontage photo from `assets/images/home-living-1120.webp` and its 480px responsive version. V Haus Living's name is clearly visible on the Jalan TPK 2/8 frontage. The full existing image is retained, including neighbouring businesses; its caption describes that setting. No new image or storefront alterations are introduced, and the photograph is not presented as a current inventory record or interior view.
+Updated on 16 September 2026 after reviewing the official website and the Puchong branch's public social posts. The guide now uses the dining-table and upholstered-chair image featured in the official homepage's About section: [original image](https://cdn1.npcdn.net/img/1746580427about-img.jpg). It is a cleaner furniture illustration than the general street photo or the text-heavy promotional video covers found on the branch account.
 
-Page imagery uses the existing shared image-registry entry; business schema points to the locally hosted image. Generic furniture images on the retailer's website are not relabelled as photographs of its Puchong showroom.
+The complete source image is preserved at its original 1030×965 size and converted to WebP, with a 480×450 responsive version: `assets/images/v-haus-living-dining-1030.webp` and `assets/images/v-haus-living-dining-480.webp`. There is no crop, retouching or generated content. All three languages describe furniture featured by the brand and link the credit to its official website. The image is not described as a Puchong interior or a guarantee of current branch stock.
+
+The shared image registry supplies the new visible page image, primary-page image and social previews. FurnitureStore schema retains the existing, identifiable Puchong frontage image separately; that is still an accurate branch identity image.
 
 ## Site integration
 

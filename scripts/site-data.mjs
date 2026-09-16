@@ -1,6 +1,7 @@
 // Compatibility wrapper around the original site data.
 // `site-data-base.mjs` preserves the existing public site; this module adds the
-// Happivilles Lifestyle profile without duplicating the full site-data source.
+// Happivilles Lifestyle profile and small directory updates without duplicating
+// the full site-data source.
 import * as base from "./site-data-base.mjs";
 import { happivillesProfiles } from "./happivilles-profile.mjs";
 
@@ -31,7 +32,8 @@ export const seoTitles = {
 export const jadeExhibitionLastModified = base.jadeExhibitionLastModified;
 export const routeLastModified = {
   ...base.routeLastModified,
-  happivilles: "2026-09-17"
+  happivilles: "2026-09-17",
+  automotive: "2026-09-17"
 };
 
 export function routePath(locale, routeId) {
@@ -65,6 +67,19 @@ for (const locale of Object.keys(site)) {
     directory.items = directory.items.map(item =>
       item[1] === "Happivilles" ? [item[0], item[1], "happivilles"] : item
     );
+  }
+}
+
+const fadzilCategory = {
+  en: "Sales",
+  ms: "Jualan",
+  zh: "销售"
+};
+
+for (const locale of Object.keys(site)) {
+  const directory = site[locale].pages.automotive.blocks.find(block => block.type === "directory");
+  if (directory && !directory.items.some(item => item[1] === "Fadzil Enterprise")) {
+    directory.items = [...directory.items, [fadzilCategory[locale], "Fadzil Enterprise"]];
   }
 }
 

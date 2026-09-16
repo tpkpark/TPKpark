@@ -151,11 +151,21 @@ for (const locale of locales) {
             techtraAcademy: { type: "EducationalOrganization", url: "https://techtra.edu.my/", phone: "+60182886565" },
             jonDetailing: { type: "AutomotiveBusiness", url: "https://www.facebook.com/jondetailing/", phone: "+60126844034" },
             jaecooServiceCentre: { type: "AutoRepair", url: "https://omodajaecoo.com.my/dealer-locator", phone: "+60193988817", contactUrl: "https://wa.me/60193988817" },
-            toyokar: { type: "AutoRepair", url: "https://www.toyokar.my/", phone: "+60123856228", contactUrl: "https://wa.me/60123856228" }
+            toyokar: { type: "AutoRepair", url: "https://www.toyokar.my/", phone: "+60123856228", contactUrl: "https://wa.me/60123856228" },
+            jazminaBistro: { type: "Restaurant", contactUrl: "https://www.foodpanda.my/restaurant/rlie/jazmina-bistro-rlie" }
           }[routeId];
           if (!expected || business?.["@type"] !== expected.type || business?.containedInPlace?.["@id"] !== placeId) fail(label, "Business profile must identify its business type and park location");
           if (business?.url !== expected?.url || business?.telephone !== expected?.phone) fail(label, "Business identity or branch contact is incorrect");
           if (!html.includes(`href="${expected?.contactUrl || `tel:${expected?.phone}`}"`)) fail(label, "Visible business contact does not match its published contact channel");
+          if (routeId === "jazminaBistro") {
+            const hours = business?.openingHoursSpecification;
+            const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+            const visibleHours = { en: "Open 24 hours", ms: "Dibuka 24 jam", zh: "24小时营业" }[locale];
+            if (business?.address?.streetAddress !== "23G, Jalan TPK 2/8, Taman Perindustrian Kinrara, Seksyen 2" || business?.address?.postalCode !== "47180") fail(label, "Jazmina Bistro must retain its confirmed TPK Park address");
+            if (business?.telephone || business?.url || business?.image) fail(label, "Jazmina Bistro must not infer an unverified branch phone, website or premises photograph");
+            if (hours?.length !== 1 || hours[0]?.opens !== "00:00" || hours[0]?.closes !== "23:59" || hours[0]?.dayOfWeek?.length !== 7 || days.some(day => !hours[0]?.dayOfWeek?.includes(day))) fail(label, "Jazmina Bistro must remain published as open 24 hours daily");
+            if (!html.includes(visibleHours) || !html.includes('href="https://www.foodpanda.my/restaurant/rlie/jazmina-bistro-rlie"')) fail(label, "Jazmina Bistro hours and public menu link must remain visible");
+          }
           if (routeId === "mazdaKinrara") {
             const visit = page.blocks.find(block => block.type === "businessVisit");
             if (business?.legalName !== "Persada Auto Sdn Bhd" || business?.address?.streetAddress !== "8, Jalan TPK 2/2, Taman Perindustrian Kinrara, Seksyen 2" || business?.address?.postalCode !== "47180" || /Kota Damansara|6142 1662|Jalan TPK 2\/3/.test(html)) fail(label, "Mazda must retain the Puchong Kinrara branch identity and address");

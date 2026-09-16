@@ -594,6 +594,21 @@ test("Toyokar enquiries keep vehicle details, messages and email contents out of
   assert.equal(page.basicSent().length, 9);
 });
 
+test("Jazmina Bistro menu and directions stay attributable without leaking URL details", () => {
+  const page = client({ saved: "detailed", locale: "en" });
+  page.clickLink("/lifestyle/jazmina-bistro/");
+  page.clickLink("/ms/lifestyle/jazmina-bistro/", ".locale-nav");
+  page.clickLink("https://www.foodpanda.my/restaurant/rlie/jazmina-bistro-rlie?order=PRIVATE123&email=private@example.com#private");
+  page.clickLink("https://www.google.com/maps/search/?api=1&query=Jazmina+Bistro+PRIVATE123");
+  page.clickLink("https://www.waze.com/ul?q=Jazmina%20Bistro%20PRIVATE123&navigate=yes");
+  assert.deepEqual(page.basicSent().map(event => event.data.target), ["/lifestyle/jazmina-bistro/", "ms", "jazmina-bistro:menu", "about", "about"]);
+  assert.deepEqual(page.sent().filter(event => event[1] === "directions_click").map(event => event[2].map_provider), ["google", "waze"]);
+  assert.doesNotMatch(JSON.stringify([page.sent(), page.basicSent()]), /PRIVATE123|private@example.com|#private|order=|query=/);
+  page.controls.off.handlers.click();
+  page.clickLink("https://www.foodpanda.my/restaurant/rlie/jazmina-bistro-rlie?order=PRIVATE123");
+  assert.equal(page.basicSent().length, 5);
+});
+
 test("detailed engagement counts milestones once and stops independently of basic statistics", () => {
   const page = client({ saved: "detailed" });
   page.focusForm(); page.focusForm();

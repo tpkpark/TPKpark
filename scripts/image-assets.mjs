@@ -1,5 +1,9 @@
 // Locally hosted versions of approved imagery, shared by page content and preview metadata.
 export const imageAssets = {
+  "https://www.tpkpark.com/assets/images/jon-detailing-car-care-1086.webp": {
+    src: "/assets/images/jon-detailing-car-care-1086.webp", width: 1086, height: 607,
+    srcset: "/assets/images/jon-detailing-car-care-480.webp 480w, /assets/images/jon-detailing-car-care-1086.webp 1086w"
+  },
   "https://www.tpkpark.com/assets/images/techtra-automotive-training-1280.webp": {
     src: "/assets/images/techtra-automotive-training-1280.webp", width: 1280, height: 800,
     srcset: "/assets/images/techtra-automotive-training-480.webp 480w, /assets/images/techtra-automotive-training-1280.webp 1280w"

@@ -438,6 +438,26 @@ test("Choose Interior enquiries remain distinct from park social links and exclu
   assert.equal(page.basicSent().length, 6);
 });
 
+test("Perodua sales, service and directions retain branch attribution without contact or location payloads", () => {
+  const page = client({ saved: "detailed", locale: "en" });
+  page.clickLink("/automotive/perodua-3s-kinrara/");
+  page.clickLink("/ms/automotive/perodua-3s-kinrara/", ".locale-nav");
+  page.clickLink("tel:+60332912266");
+  page.clickLink("tel:+60332162255");
+  page.clickLink("https://www.perodua3skinrara.com/?email=private@example.com");
+  page.clickLink("https://www.perodua3skinrara.com/onlineservicebooking?plate=PRIVATE123#private");
+  page.clickLink("https://maps.google.com/?daddr=3.047798,101.637174&email=private@example.com");
+  page.clickLink("https://ul.waze.com/ul?ll=3.04748271%2C101.63726807&navigate=yes&email=private@example.com");
+  assert.deepEqual(page.basicSent().map(event => event.data.target), ["/automotive/perodua-3s-kinrara/", "ms", "perodua-3s-kinrara:sales", "perodua-3s-kinrara:service", "perodua-3s-kinrara:website", "perodua-3s-kinrara:service_booking", "about", "about"]);
+  assert.deepEqual(page.sent().filter(event => event[1] === "tenant_contact_click").map(event => [event[2].tenant, event[2].department]), [["perodua-3s-kinrara", "sales"], ["perodua-3s-kinrara", "service"]]);
+  assert.deepEqual(page.sent().filter(event => event[1] === "directions_click").map(event => event[2].map_provider), ["google", "waze"]);
+  assert.doesNotMatch(JSON.stringify([page.sent(), page.basicSent()]), /32912266|32162255|3\.047|101\.637|private@example.com|PRIVATE123|#private/);
+  page.controls.off.handlers.click();
+  page.clickLink("tel:+60332162255");
+  page.clickLink("https://www.perodua3skinrara.com/onlineservicebooking");
+  assert.equal(page.basicSent().length, 8);
+});
+
 test("detailed engagement counts milestones once and stops independently of basic statistics", () => {
   const page = client({ saved: "detailed" });
   page.focusForm(); page.focusForm();

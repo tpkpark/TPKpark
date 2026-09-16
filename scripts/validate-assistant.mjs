@@ -102,6 +102,11 @@ test("approved knowledge retains public inventory boundaries", () => {
 
 test("business guides provide the correct public branch contacts in all three languages", () => {
   for (const locale of ["en", "ms", "zh"]) {
+    assert.match(sources.peroduaKinrara.texts[locale], /8, Jalan TPK 2\/3/);
+    assert.match(sources.peroduaKinrara.texts[locale], /\+60 3 3291 2266/);
+    assert.match(sources.peroduaKinrara.texts[locale], /\+60 3 3216 2255/);
+    assert.match(sources.peroduaKinrara.texts[locale], { en: /Sales showroom hours[\s\S]*8:30am–8pm[\s\S]*Service centre hours[\s\S]*8:30am–5pm/, ms: /Waktu bilik pameran jualan[\s\S]*8:30 pagi–8 malam[\s\S]*Waktu pusat servis[\s\S]*8:30 pagi–5 petang/, zh: /销售展厅营业时间[\s\S]*晚上8时[\s\S]*维修中心营业时间[\s\S]*下午5时/ }[locale]);
+    assert.doesNotMatch(sources.peroduaKinrara.texts[locale], /77317761|77279966|Jalan Bridge/);
     assert.match(sources.lavino.texts[locale], /6, Jalan TPK 2\/2/);
     assert.match(sources.lavino.texts[locale], /\+60 16 339 1601/);
     assert.doesNotMatch(sources.lavino.texts[locale], /662 6951|332 9592/);

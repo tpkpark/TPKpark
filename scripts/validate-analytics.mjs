@@ -381,6 +381,25 @@ test("Baagus calls and official Waze links respect consent without leaking branc
   assert.equal(page.basicSent().length, 9);
 });
 
+test("MK Curtain enquiries respect consent and exclude phone and query contents from analytics", () => {
+  const page = client({ saved: "detailed", locale: "en" });
+  page.clickLink("/home-living/mk-curtain/");
+  page.clickLink("/zh/home-living/mk-curtain/", ".locale-nav");
+  page.clickLink("https://www.mk.com.my/?email=private@example.com#private");
+  page.clickLink("https://www.mk.com.my/find-nearest-branch?address=private@example.com");
+  page.clickLink("https://www.mk.com.my/our-services?message=private@example.com");
+  page.clickLink("https://www.google.com/maps/search/?api=1&query=MK+Curtain+11+Jalan+TPK+2%2F8&email=private@example.com");
+  page.clickLink("tel:+60380747210");
+  assert.deepEqual(page.basicSent().map(event => event.data.target), ["/home-living/mk-curtain/", "zh", "mk-curtain:website", "mk-curtain:visit", "mk-curtain:services", "about", "mk-curtain:phone"]);
+  assert.equal(page.sent().filter(event => event[1] === "contact_click").length, 0);
+  assert.deepEqual(page.sent().filter(event => event[1] === "tenant_contact_click").map(event => [event[2].tenant, event[2].contact_method]), [["mk-curtain", "phone"]]);
+  assert.doesNotMatch(JSON.stringify([page.sent(), page.basicSent()]), /private@example.com|#private|60380747210|address=|message=|query=/);
+  page.controls.off.handlers.click();
+  page.clickLink("tel:+60380747210");
+  page.clickLink("https://www.mk.com.my/our-services");
+  assert.equal(page.basicSent().length, 7);
+});
+
 test("detailed engagement counts milestones once and stops independently of basic statistics", () => {
   const page = client({ saved: "detailed" });
   page.focusForm(); page.focusForm();

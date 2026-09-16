@@ -1,5 +1,9 @@
 // Locally hosted versions of approved imagery, shared by page content and preview metadata.
 export const imageAssets = {
+  "https://www.tpkpark.com/assets/images/mk-curtain-tpk-showroom-1440.webp": {
+    src: "/assets/images/mk-curtain-tpk-showroom-1440.webp", width: 1440, height: 1440,
+    srcset: "/assets/images/mk-curtain-tpk-showroom-480.webp 480w, /assets/images/mk-curtain-tpk-showroom-1440.webp 1440w"
+  },
   "https://www.tpkpark.com/assets/images/baagus-kinrara-showroom-1440.webp": {
     src: "/assets/images/baagus-kinrara-showroom-1440.webp", width: 1440, height: 1440,
     srcset: "/assets/images/baagus-kinrara-showroom-480.webp 480w, /assets/images/baagus-kinrara-showroom-1440.webp 1440w"

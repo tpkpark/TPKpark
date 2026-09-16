@@ -21,6 +21,18 @@ jobs:
         with:
           node-version: 22
           cache: npm
+      - name: Fix multilingual directory matcher
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('scripts/tmp-aces-integrate.py')
+          s = p.read_text()
+          old = r'''s, count = re.subn(r'(\["Gymnastics", "Aces Gymnastic Academy")\]', r'\1, "acesGymnasticAcademy"]', s)'''
+          new = r'''s, count = re.subn(r'(\["[^"]+", "Aces Gymnastic Academy")\]', r'\1, "acesGymnasticAcademy"]', s)'''
+          if old not in s:
+              raise SystemExit('Aces directory matcher not found')
+          p.write_text(s.replace(old, new, 1))
+          PY
       - name: Integrate route, SEO, assistant and analytics
         run: python scripts/tmp-aces-integrate.py
       - run: npm ci

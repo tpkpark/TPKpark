@@ -20,7 +20,7 @@ Checked 16 September 2026. Scope: Techtrics Auto's workshop at No. 61 & 63, Jala
 ## Photography
 
 - The official homepage displays [hq-1-1.png](https://mercedesworkshop.com.my/wp-content/uploads/2017/04/hq-1-1.png). Inspected visually: the illuminated Techtrics Auto workshop exterior, cars in the forecourt and visible service bays.
-- Original: 1280 × 960 PNG. Downloaded from the rendered original-image page and encoded at full frame as 1280 × 960 and 480 × 360 WebP. Files: `assets/images/techtrics-auto-workshop-1280.webp` and `assets/images/techtrics-auto-workshop-480.webp`. No retouching, upscaling or generated imagery.
+- Original: 1280 × 960 PNG. Downloaded from the rendered original-image page and encoded at full frame as 1280 × 960 and 480 × 360 WebP. Files: `assets/images/techtrics-auto-exterior-1280.webp` and `assets/images/techtrics-auto-exterior-480.webp`. The original PNG’s transparent edges are preserved in RGBA WebP. No retouching, upscaling or generated imagery.
 - All three languages credit Techtrics Auto and link to the original. Captions identify it as an official archive photograph. The upload path contains 2017/04; the capture date is not established and no current-exterior claim is made.
 
 ## Directions and site integration

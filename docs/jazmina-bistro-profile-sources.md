@@ -6,7 +6,7 @@ Checked 16 September 2026. Scope: Jazmina Bistro at 23G, Jalan TPK 2/8, Taman Pe
 
 - MBSJ's **Premis Makanan / Restoran Gred A - Mei 2025** list records `JAZMINA BISTRO` at `23G, JALAN TPK 2/8, TAMAN PERINDUSTRIAN KINRARA SEKSYEN 2, 47180 PUCHONG`. This is the strongest public address source used for the guide. The May 2025 food-premise grade is time-specific and is not promoted as a current award or rating.
 - revPAY's participating-merchant document separately lists the trading name `JAZMINA BISTRO - PUCHONG` at `NO.23G JALAN TPK 2/8, TMN PERINDUSTRIAN KINRARA SEK 2, 47180 PUCHONG, SELANGOR`.
-- Foodpanda's current Jazmina Bistro listing gives `23, Jalan Tpk 2/8 ... Taman perindustrian kinrara`. It is used for menu scope and a current public menu link, not as proof of opening hours.
+- Foodpanda's current Jazmina Bistro listing gives `23, Jalan Tpk 2/8 ... Taman perindustrian kinrara`. It is used for menu scope and a current public menu link.
 - Puchong.co currently lists the restaurant at Ground Floor, 23, Jalan TPK 2/8 and publishes `03-8066 4702`. The same number also appears against another Jazmina listing elsewhere in Puchong, and no restaurant-owned website or social page was found to confirm that it is a dedicated TPK-branch contact. The TPK Park guide therefore does not publish the number as a verified direct contact.
 
 ## Menu scope and editorial boundaries
@@ -18,8 +18,9 @@ Checked 16 September 2026. Scope: Jazmina Bistro at 23G, Jalan TPK 2/8, Taman Pe
 
 ## Opening hours
 
-- Public sources conflict. Puchong.co and some current local listings describe 24-hour opening, while another current Foodpanda listing for Jazmina Bistro shows shorter operating windows.
-- Because no restaurant-owned source was located to resolve the conflict, the guide does **not** publish a 24-hour claim or encode opening hours in Restaurant schema. Visitors are asked to check the current map or ordering listing before travelling, especially late at night, early in the morning or on public holidays.
+- **TPK Park management confirmed on 16 September 2026 that the Jalan TPK 2/8 Jazmina Bistro operates 24 hours daily.** This first-party operational confirmation overrides inconsistent third-party directory hours for the TPK Park guide.
+- The visible English, Malay and Chinese pages therefore state 24-hour opening and the Restaurant schema encodes Monday–Sunday as `00:00` to `23:59`.
+- The page retains a narrow caution that temporary closures or special arrangements can still occur; it does not imply an absolute guarantee of uninterrupted operation on every date.
 
 ## Photography
 
@@ -30,5 +31,5 @@ Checked 16 September 2026. Scope: Jazmina Bistro at 23G, Jalan TPK 2/8, Taman Pe
 ## Integration and privacy
 
 - Add the guide to all three Lifestyle directories, localised SEO titles and descriptions, canonical/hreflang links, sitemap and Restaurant schema, while preserving the rule that an individual brand guide does not refer visitors to sibling tenant pages.
-- Ask TPK Park may identify Jazmina Bistro, its confirmed location and representative public menu categories, but should not invent a phone number, exact opening hours, halal certification or other unverified operating details.
+- Ask TPK Park may identify Jazmina Bistro, its confirmed location, 24-hour opening and representative public menu categories, but should not invent a phone number, halal certification or other unverified operating details.
 - Analytics should use fixed route/destination labels only. Do not capture order details, search queries, map queries, menu selections, personal data or URL query strings/fragments.

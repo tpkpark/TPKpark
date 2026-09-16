@@ -137,6 +137,12 @@ test("business guides provide the correct public branch contacts in all three la
     assert.doesNotMatch(sources.premioDoor.texts[locale], /256 5100|826 9100/);
     assert.match(sources.premioDoor.texts[locale], { en: /Confirm opening hours and current displays/, ms: /Sahkan waktu operasi dan model pameran semasa/, zh: /确认营业时间及当前展示的型号/ }[locale]);
     assert.deepEqual(sourceLinks(["premioDoor"], locale).map(source => source.url), [routePath(locale, "premioDoor")]);
+    assert.match(sources.klot.texts[locale], /23-1, Jalan TPK 2\/8/);
+    assert.match(sources.klot.texts[locale], /47180/);
+    assert.match(sources.klot.texts[locale], /\+60 18 340 3828/);
+    assert.doesNotMatch(sources.klot.texts[locale], /713 5100|47100/);
+    assert.match(sources.klot.texts[locale], { en: /Closed on Sunday/, ms: /Tutup pada hari Ahad/, zh: /星期日休息/ }[locale]);
+    assert.deepEqual(sourceLinks(["klot"], locale).map(source => source.url), [routePath(locale, "klot")]);
     assert.deepEqual(sourceLinks(["kucheBath"], locale).map(source => source.url), [routePath(locale, "kucheBath")]);
     assert.deepEqual(sourceLinks(["lavino"], locale).map(source => source.url), [routePath(locale, "lavino")]);
     assert.deepEqual(sourceLinks(["gaHing"], locale).map(source => source.url), [routePath(locale, "gaHing")]);

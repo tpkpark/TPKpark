@@ -214,7 +214,7 @@
   });
 
   const knownSpaces = ["shop-showroom", "detached-building", "semi-detached", "terrace-waitlist"];
-  const pagePath = /^\/(?:ms\/|zh\/)?(?:about|home-living(?:\/(?:lavino|ga-hing|kuche-bath|jubin-bms|v-haus-living|balens-design|builtop|premio-door|klot|dc-moto|fagolli|total-tools|baagus|mk-curtain|signature|choose-interior))?|automotive(?:\/perodua-3s-kinrara)?|lifestyle(?:\/motd)?|leasing(?:\/(?:shop-showroom|detached-building|semi-detached))?|news|milestones|wong-shung-yen(?:\/public-record)?|contact)?\/?$/;
+  const pagePath = /^\/(?:ms\/|zh\/)?(?:about|home-living(?:\/(?:lavino|ga-hing|kuche-bath|jubin-bms|v-haus-living|balens-design|builtop|premio-door|klot|dc-moto|fagolli|total-tools|baagus|mk-curtain|signature|choose-interior))?|automotive(?:\/(?:perodua-3s-kinrara|mazda-kinrara))?|lifestyle(?:\/motd)?|leasing(?:\/(?:shop-showroom|detached-building|semi-detached))?|news|milestones|wong-shung-yen(?:\/public-record)?|contact)?\/?$/;
   const socialHosts = { "www.facebook.com": "facebook", "www.instagram.com": "instagram", "www.tiktok.com": "tiktok", "www.xiaohongshu.com": "xiaohongshu", "www.rednote.com": "xiaohongshu" };
 
   document.addEventListener("click", event => {
@@ -238,6 +238,7 @@
     if (href === "tel:+60102133173") return click("tenant_contact_click", { contact_method: "phone", tenant: "baagus" }, "baagus:phone");
     if (href === "tel:+60380747210") return click("tenant_contact_click", { contact_method: "phone", tenant: "mk-curtain" }, "mk-curtain:phone");
     if (href === "tel:+60168133182") return click("tenant_contact_click", { contact_method: "phone", tenant: "signature" }, "signature:phone");
+    if (["tel:+60380750812", "tel:+60380750813"].includes(href)) return click("tenant_contact_click", { contact_method: "phone", tenant: "mazda-kinrara" }, "mazda-kinrara:phone");
     if (href === "tel:+60332912266") return click("tenant_contact_click", { contact_method: "phone", tenant: "perodua-3s-kinrara", department: "sales" }, "perodua-3s-kinrara:sales");
     if (href === "tel:+60332162255") return click("tenant_contact_click", { contact_method: "phone", tenant: "perodua-3s-kinrara", department: "service" }, "perodua-3s-kinrara:service");
     if (href.startsWith("tel:")) return click("contact_click", { contact_method: "phone" }, "phone");
@@ -329,6 +330,12 @@
       } else if (["www.perodua3skinrara.com", "perodua3skinrara.com"].includes(url.hostname)) {
         const destination = /^\/onlineservicebooking\/?$/.test(url.pathname) ? "service_booking" : "website";
         click("outbound_click", { link_domain: "www.perodua3skinrara.com" }, "perodua-3s-kinrara:" + destination);
+      } else if (["www.mazda.com.my", "mazda.com.my"].includes(url.hostname)) {
+        const path = url.pathname.replace(/\/$/, "") || "/";
+        const destination = { "/find-a-dealer": "dealer_locator", "/mazda-connect-test-drive-page": "test_drive" }[path] || "website";
+        click("outbound_click", { link_domain: "mazda.com.my" }, "mazda-kinrara:" + destination);
+      } else if (["www.facebook.com", "facebook.com"].includes(url.hostname) && /^\/MazdaPersadaAuto\/?$/.test(url.pathname)) {
+        click("tenant_contact_click", { contact_method: "facebook", tenant: "mazda-kinrara" }, "mazda-kinrara:facebook");
       } else if (["www.motdgroup.com", "motdgroup.com"].includes(url.hostname)) {
         const path = url.pathname.replace(/^\/zh(?=\/|$)/, "").replace(/\/$/, "") || "/";
         const destination = { "/": "home", "/menu": "menu", "/live-house": "live_music", "/contact-us": "visit" }[path] || "website";

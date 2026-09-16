@@ -458,6 +458,27 @@ test("Perodua sales, service and directions retain branch attribution without co
   assert.equal(page.basicSent().length, 8);
 });
 
+test("Mazda branch actions exclude phone numbers, queries and location details and stop after opt-out", () => {
+  const page = client({ saved: "detailed", locale: "en" });
+  page.clickLink("/automotive/mazda-kinrara/");
+  page.clickLink("/zh/automotive/mazda-kinrara/", ".locale-nav");
+  page.clickLink("tel:+60380750812");
+  page.clickLink("tel:+60380750813");
+  page.clickLink("https://www.facebook.com/MazdaPersadaAuto/?email=private@example.com");
+  page.clickLink("https://mazda.com.my/find-a-dealer/?email=private@example.com");
+  page.clickLink("https://mazda.com.my/mazda-connect-test-drive-page/?plate=PRIVATE123#private");
+  page.clickLink("https://www.google.com/maps/search/?api=1&query=Mazda+Persada+Auto+8+Jalan+TPK+2%2F2+47180+Puchong");
+  page.clickLink("https://waze.com/ul/hw2832g1br?email=private@example.com");
+  assert.deepEqual(page.basicSent().map(event => event.data.target), ["/automotive/mazda-kinrara/", "zh", "mazda-kinrara:phone", "mazda-kinrara:phone", "mazda-kinrara:facebook", "mazda-kinrara:dealer_locator", "mazda-kinrara:test_drive", "about", "about"]);
+  assert.equal(page.sent().filter(event => event[1] === "tenant_contact_click" && event[2].tenant === "mazda-kinrara").length, 3);
+  assert.deepEqual(page.sent().filter(event => event[1] === "directions_click").map(event => event[2].map_provider), ["google", "waze"]);
+  assert.doesNotMatch(JSON.stringify([page.sent(), page.basicSent()]), /80750812|80750813|hw2832g1br|47180|private@example.com|PRIVATE123|#private/);
+  page.controls.off.handlers.click();
+  page.clickLink("tel:+60380750812");
+  page.clickLink("https://www.facebook.com/MazdaPersadaAuto/");
+  assert.equal(page.basicSent().length, 9);
+});
+
 test("detailed engagement counts milestones once and stops independently of basic statistics", () => {
   const page = client({ saved: "detailed" });
   page.focusForm(); page.focusForm();

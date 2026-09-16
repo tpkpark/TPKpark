@@ -1,5 +1,9 @@
 // Locally hosted versions of approved imagery, shared by page content and preview metadata.
 export const imageAssets = {
+  "https://www.tpkpark.com/assets/images/mazda-kinrara-exterior-1280.webp": {
+    src: "/assets/images/mazda-kinrara-exterior-1280.webp", width: 1280, height: 720,
+    srcset: "/assets/images/mazda-kinrara-exterior-480.webp 480w, /assets/images/mazda-kinrara-exterior-1280.webp 1280w"
+  },
   "https://www.tpkpark.com/assets/images/perodua-kinrara-showroom-810.webp": {
     src: "/assets/images/perodua-kinrara-showroom-810.webp", width: 810, height: 608,
     srcset: "/assets/images/perodua-kinrara-showroom-480.webp 480w, /assets/images/perodua-kinrara-showroom-810.webp 810w"

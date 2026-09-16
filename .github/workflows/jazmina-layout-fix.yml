@@ -1,0 +1,99 @@
+name: Fix and validate Jazmina layout
+
+on:
+  push:
+    branches:
+      - codex/fix-jazmina-photo-layout
+    paths:
+      - .github/workflows/jazmina-layout-fix.yml
+
+permissions:
+  contents: write
+
+jobs:
+  fix-and-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: codex/fix-jazmina-photo-layout
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Apply Jazmina photo and layout fix
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          profile = Path('scripts/jazmina-bistro-profile.mjs')
+          text = profile.read_text()
+          text = text.replace(
+              'const image = "https://www.tpkpark.com/assets/images/jazmina-bistro-kinrara-1440.webp";',
+              'const image = "https://www.tpkpark.com/assets/images/jazmina-bistro-kinrara-720.webp";'
+          )
+          replacements = {
+            '{ type: "split", title: "An easy stop, at any hour.", text:': '{ type: "split", presentation: "renewal", title: "An easy stop, at any hour.", text:',
+            'image, alt: "Jazmina Bistro storefront and dining area at TPK Park, Puchong", route: "lifestyle", linkLabel: "Explore Lifestyle" }': 'image, alt: "Jazmina Bistro storefront and dining area at TPK Park, Puchong", caption: "Jazmina Bistro at No. 23G, Jalan TPK 2/8, TPK Park, Puchong.", route: "lifestyle", linkLabel: "Explore Lifestyle" }',
+            '{ type: "split", title: "Mudah singgah, pada bila-bila masa.", text:': '{ type: "split", presentation: "renewal", title: "Mudah singgah, pada bila-bila masa.", text:',
+            'image, alt: "Bahagian hadapan dan ruang makan Jazmina Bistro di TPK Park, Puchong", route: "lifestyle", linkLabel: "Terokai Lifestyle" }': 'image, alt: "Bahagian hadapan dan ruang makan Jazmina Bistro di TPK Park, Puchong", caption: "Jazmina Bistro di No. 23G, Jalan TPK 2/8, TPK Park, Puchong.", route: "lifestyle", linkLabel: "Terokai Lifestyle" }',
+            '{ type: "split", title: "任何时候，都可以顺路吃一顿。", text:': '{ type: "split", presentation: "renewal", title: "任何时候，都可以顺路吃一顿。", text:',
+            'image, alt: "蒲种TPK Park的Jazmina Bistro店面与用餐区", route: "lifestyle", linkLabel: "查看生活品味" }': 'image, alt: "蒲种TPK Park的Jazmina Bistro店面与用餐区", caption: "Jazmina Bistro位于蒲种TPK Park的Jalan TPK 2/8，23G。", route: "lifestyle", linkLabel: "查看生活品味" }',
+          }
+          for old, new in replacements.items():
+              if old not in text:
+                  raise SystemExit(f'Profile replacement target not found: {old[:80]}')
+              text = text.replace(old, new, 1)
+          profile.write_text(text)
+
+          docs = Path('docs/jazmina-bistro-profile-sources.md')
+          text = docs.read_text()
+          old = '''- On 16 September 2026, TPK Park management supplied a photograph of the Jalan TPK 2/8 Jazmina Bistro frontage for publication. The image clearly identifies the correct outlet through the storefront signage and the `23` unit marker.
+- A restrained website derivative removes the distracting upper-floor `FOR RENT` sign, uses a 16:9 crop and is exported as `assets/images/jazmina-bistro-kinrara-1440.webp`. The restaurant frontage, outdoor dining activity and vehicles are otherwise retained as the visual context.
+- The branch-specific photograph is used in the page hero and split section. The Restaurant structured data remains conservative and does not add a business `image` field.'''
+          new = '''- On 16 September 2026, TPK Park management supplied a photograph of the Jalan TPK 2/8 Jazmina Bistro frontage for publication. The image clearly identifies the correct outlet through the storefront signage and the `23` unit marker.
+- The website uses an authentic crop/resize of that supplied photograph, without generative alteration, exported as `assets/images/jazmina-bistro-kinrara-720.webp`. The restaurant frontage, outdoor dining activity, parked vehicles and upper-floor context remain part of the original photograph.
+- The branch photograph is presented in the same contained text-left / photo-right `renewal` layout used by the established Home & Living and Automotive business guides, with a factual caption below the image. The Restaurant structured data remains conservative and does not add a business `image` field.'''
+          if old not in text:
+              raise SystemExit('Photography documentation target not found')
+          docs.write_text(text.replace(old, new, 1))
+
+          validator = Path('scripts/validate-site.mjs')
+          text = validator.read_text()
+          old = '''            if (business?.telephone || business?.url || business?.image) fail(label, "Jazmina Bistro must not infer an unverified branch phone, website or premises photograph");
+            if (hours?.length !== 1 || hours[0]?.opens !== "00:00" || hours[0]?.closes !== "23:59" || hours[0]?.dayOfWeek?.length !== 7 || days.some(day => !hours[0]?.dayOfWeek?.includes(day))) fail(label, "Jazmina Bistro must remain published as open 24 hours daily");
+            if (!html.includes(visibleHours) || !html.includes('href="https://www.foodpanda.my/restaurant/rlie/jazmina-bistro-rlie"')) fail(label, "Jazmina Bistro hours and public menu link must remain visible");'''
+          new = '''            if (business?.telephone || business?.url || business?.image) fail(label, "Jazmina Bistro must not infer an unverified branch phone, website or schema image");
+            const split = page.blocks.find(block => block.type === "split");
+            const expectedImage = `${origin}/assets/images/jazmina-bistro-kinrara-720.webp`;
+            if (page.heroImage !== expectedImage || split?.image !== expectedImage || split?.presentation !== "renewal" || !split?.caption || !html.includes('class="renewal-figure"')) fail(label, "Jazmina Bistro must use the verified branch photo in the standard contained-photo layout");
+            if (hours?.length !== 1 || hours[0]?.opens !== "00:00" || hours[0]?.closes !== "23:59" || hours[0]?.dayOfWeek?.length !== 7 || days.some(day => !hours[0]?.dayOfWeek?.includes(day))) fail(label, "Jazmina Bistro must remain published as open 24 hours daily");
+            if (!html.includes(visibleHours) || !html.includes('href="https://www.foodpanda.my/restaurant/rlie/jazmina-bistro-rlie"')) fail(label, "Jazmina Bistro hours and public menu link must remain visible");'''
+          if old not in text:
+              raise SystemExit('Jazmina validator target not found')
+          validator.write_text(text.replace(old, new, 1))
+          PY
+          git rm -f assets/images/jazmina-bistro-kinrara-1440.webp
+      - name: Verify photo binary
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('assets/images/jazmina-bistro-kinrara-720.webp')
+          data = p.read_bytes()
+          assert data[:4] == b'RIFF' and data[8:12] == b'WEBP'
+          assert len(data) == 32624
+          print(f'Verified WebP asset: {len(data)} bytes')
+          PY
+      - run: npm ci
+      - name: Build and validate site
+        run: |
+          npm run build
+          npm run validate
+          node --test scripts/validate-analytics.mjs scripts/validate-assistant.mjs scripts/validate-search-portfolio.mjs
+      - name: Commit fixes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add scripts/jazmina-bistro-profile.mjs docs/jazmina-bistro-profile-sources.md scripts/validate-site.mjs assets/images/jazmina-bistro-kinrara-720.webp assets/images/jazmina-bistro-kinrara-1440.webp
+          git commit -m "Fix Jazmina Bistro photo and guide layout"
+          git push origin HEAD:codex/fix-jazmina-photo-layout

@@ -157,11 +157,26 @@ for (const locale of locales) {
             toyokar: { type: "AutoRepair", url: "https://www.toyokar.my/", phone: "+60123856228", contactUrl: "https://wa.me/60123856228" },
             jazminaBistro: { type: "Restaurant", contactUrl: "https://www.foodpanda.my/restaurant/rlie/jazmina-bistro-rlie" },
             nuarina: { type: "Restaurant", phone: "+60122282290" },
-            yummyNyonya: { type: "Restaurant", phone: "+601111631126" }
+            yummyNyonya: { type: "Restaurant", phone: "+601111631126" },
+            optimumSwimSchool: { type: "SportsActivityLocation", url: "https://optimumswimschool.com/", phone: "+60192848138" }
           }[routeId];
           if (!expected || business?.["@type"] !== expected.type || business?.containedInPlace?.["@id"] !== placeId) fail(label, "Business profile must identify its business type and park location");
           if (business?.url !== expected?.url || business?.telephone !== expected?.phone) fail(label, "Business identity or branch contact is incorrect");
           if (!html.includes(`href="${expected?.contactUrl || `tel:${expected?.phone}`}"`)) fail(label, "Visible business contact does not match its published contact channel");
+          if (routeId === "optimumSwimSchool") {
+            const split = page.blocks.find(block => block.type === "split");
+            const hours = business?.openingHoursSpecification;
+            const weekdays = ["Tuesday", "Wednesday", "Thursday", "Friday"];
+            const weekend = ["Saturday", "Sunday"];
+            if (business?.address?.streetAddress !== "2, Jalan TPK 2/2, Taman Perindustrian Kinrara" || business?.address?.postalCode !== "47100") fail(label, "Optimum Swim School must retain its official Puchong Kinrara address");
+            if (business?.telephone !== "+60192848138" || business?.contactPoint?.[1]?.telephone !== "+60134808138") fail(label, "Optimum Swim School must retain both official Puchong Kinrara branch lines");
+            if (hours?.length !== 2 || hours[0]?.opens !== "16:00" || hours[0]?.closes !== "21:00" || hours[0]?.dayOfWeek?.length !== 4 || weekdays.some(day => !hours[0]?.dayOfWeek?.includes(day)) || hours[1]?.opens !== "08:00" || hours[1]?.closes !== "19:00" || hours[1]?.dayOfWeek?.length !== 2 || weekend.some(day => !hours[1]?.dayOfWeek?.includes(day))) fail(label, "Optimum Swim School must preserve the current official Puchong operating hours");
+            if (business?.image !== `${origin}/assets/images/optimum-swim-school-puchong-kinrara.webp` || page.heroImage !== business.image || split?.image !== business.image) fail(label, "Optimum Swim School must use the verified official Puchong Kinrara branch photograph");
+            if (business?.hasMap !== "https://www.waze.com/live-map/directions/my/selangor/puchong/optimum-swim-school-%40-puchong-kinrara-%28learn-to-swim-for-kids-and-adults%29?to=place.ChIJ1XiPLEdLzDER-U3WYmrZsdI") fail(label, "Optimum Swim School must retain the named Puchong Kinrara Waze destination");
+            if (!html.includes('href="https://optimumswimschool.com/free-trial/"') || !html.includes('href="tel:+60192848138"') || !html.includes('href="tel:+60134808138"')) fail(label, "Optimum Swim School trial and branch contacts must remain visible");
+            const closed = { en: "Closed", ms: "Tutup", zh: "休息" }[locale];
+            if (!html.includes(closed)) fail(label, "Optimum Swim School Monday closure must remain visible");
+          }
           if (routeId === "yummyNyonya") {
             const split = page.blocks.find(block => block.type === "split");
             if (business?.address?.streetAddress !== "43G, Jalan TPK 2/8, Taman Perindustrian Kinrara" || business?.address?.postalCode !== "47180") fail(label, "Yummy Nyonya Kitchen must retain the verified No. 43G Jalan TPK 2/8 address");

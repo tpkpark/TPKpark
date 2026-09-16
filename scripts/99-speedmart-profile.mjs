@@ -3,7 +3,7 @@ const website = "https://99speedmart.com.my/";
 const storeLocator = "https://99speedmart.com.my/store-locations/";
 const speedpoint = "https://99speedmart.com.my/Speedpoint/";
 const directions = "https://www.google.com/maps/search/?api=1&query=99+Speedmart+3116+Taman+Perindustrian+Kinrara&query_place_id=ChIJxUFi-XdLzDER3RV5RcDFcwg";
-const image = "https://i.imgur.com/Z5h4hmH.jpg";
+const image = "https://99speedmart.com.my/wp-content/uploads/2024/07/Frame-26086548-773x1024.jpg";
 const address = "19 & 21 (Ground Floor), Jalan TPK 2/8, Taman Perindustrian Kinrara, Seksyen 2, 47150 Puchong, Selangor";
 
 export const speedmart99Business = {
@@ -46,11 +46,11 @@ export const speedmart99Profiles = {
     lead: "99 Speedmart 3116 Taman Perindustrian Kinrara occupies the ground floor at No. 19 & 21, Jalan TPK 2/8. It adds a practical everyday stop to TPK Park’s Lifestyle mix, with the chain’s familiar mini-market format for groceries, drinks, household products, personal care and other daily necessities.",
     image,
     heroImage: image,
-    heroAlt: "TPK Park Lifestyle frontage in Puchong, used as contextual imagery for the 99 Speedmart guide",
+    heroAlt: "Customer shopping inside a 99 Speedmart with an orange branded basket, from 99 Speedmart’s official website",
     business: speedmart99Business,
     datePublished: "2026-09-17",
     blocks: [
-      { type: "split", title: "Daily essentials, close at hand.", text: "99 Speedmart describes its stores as neighbourhood mini supermarkets built around convenience and value. Its current website highlights more than 50 categories of household products, while the chain’s Speedpoint service also supports bill payments, prepaid reloads and selected payment services in store.", image, alt: "TPK Park Lifestyle frontage in Puchong", route: "lifestyle", linkLabel: "Explore Lifestyle" },
+      { type: "split", title: "Daily essentials, close at hand.", text: "99 Speedmart describes its stores as neighbourhood mini supermarkets built around convenience and value. Its current website highlights more than 50 categories of household products, while the chain’s Speedpoint service also supports bill payments, prepaid reloads and selected payment services in store.", image, alt: "Customer shopping inside a 99 Speedmart with an orange branded basket", route: "lifestyle", linkLabel: "Explore Lifestyle" },
       { type: "cards", alignHeadings: true, kicker: "What to expect", title: "A straightforward neighbourhood mini-market.", items: [
         { number: "01", title: "Groceries & household", text: "99 Speedmart’s published range covers groceries, food and beverages, household products, personal care, baby care and other daily-use items. Individual stock can vary by outlet." },
         { number: "02", title: "Speedpoint services", text: "99 Speedmart also publishes in-store services for utility bill payments, mobile prepaid and reloads, e-wallet or payment needs and selected gaming or entertainment credits." },
@@ -81,11 +81,11 @@ export const speedmart99Profiles = {
     lead: "99 Speedmart 3116 Taman Perindustrian Kinrara berada di tingkat bawah No. 19 & 21, Jalan TPK 2/8. Ia menambah kemudahan harian yang praktikal dalam kluster Lifestyle TPK Park, dengan format pasar mini untuk barangan runcit, minuman, keperluan rumah, penjagaan diri dan barangan harian lain.",
     image,
     heroImage: image,
-    heroAlt: "Bahagian hadapan kluster Lifestyle TPK Park di Puchong, digunakan sebagai imej konteks untuk panduan 99 Speedmart",
+    heroAlt: "Pelanggan membeli-belah di 99 Speedmart dengan bakul oren berjenama, daripada laman rasmi 99 Speedmart",
     business: speedmart99Business,
     datePublished: "2026-09-17",
     blocks: [
-      { type: "split", title: "Keperluan harian, dekat dan mudah.", text: "99 Speedmart menerangkan rangkaiannya sebagai pasar raya mini kejiranan yang menumpukan kemudahan dan nilai. Laman rasminya kini menampilkan lebih 50 kategori produk isi rumah, manakala perkhidmatan Speedpoint turut menyokong bayaran bil, tambah nilai prabayar dan urusan pembayaran terpilih di kedai.", image, alt: "Bahagian hadapan Lifestyle TPK Park di Puchong", route: "lifestyle", linkLabel: "Terokai Lifestyle" },
+      { type: "split", title: "Keperluan harian, dekat dan mudah.", text: "99 Speedmart menerangkan rangkaiannya sebagai pasar raya mini kejiranan yang menumpukan kemudahan dan nilai. Laman rasminya kini menampilkan lebih 50 kategori produk isi rumah, manakala perkhidmatan Speedpoint turut menyokong bayaran bil, tambah nilai prabayar dan urusan pembayaran terpilih di kedai.", image, alt: "Pelanggan membeli-belah di 99 Speedmart dengan bakul oren berjenama", route: "lifestyle", linkLabel: "Terokai Lifestyle" },
       { type: "cards", alignHeadings: true, kicker: "Apa yang tersedia", title: "Pasar mini kejiranan yang praktikal.", items: [
         { number: "01", title: "Barangan runcit & rumah", text: "Rangkaian yang diterbitkan 99 Speedmart merangkumi barangan runcit, makanan dan minuman, produk isi rumah, penjagaan diri, penjagaan bayi serta keperluan harian lain. Stok boleh berbeza mengikut cawangan." },
         { number: "02", title: "Perkhidmatan Speedpoint", text: "99 Speedmart turut menerbitkan perkhidmatan di kedai untuk bayaran bil utiliti, prabayar dan tambah nilai mudah alih, e-dompet atau pembayaran serta kredit hiburan tertentu." },
@@ -116,11 +116,11 @@ export const speedmart99Profiles = {
     lead: "99 Speedmart 3116 Taman Perindustrian Kinrara位于Jalan TPK 2/8门牌19及21号底层，为TPK Park的Lifestyle组合提供实用的日常便利。其迷你超市模式涵盖杂货、饮料、家居用品、个人护理及其他日用品。",
     image,
     heroImage: image,
-    heroAlt: "蒲种TPK Park生活品味区街景，作为99 Speedmart页面的园区背景图片",
+    heroAlt: "顾客在99 Speedmart内提着橙色品牌购物篮选购商品，图片来自99 Speedmart官网",
     business: speedmart99Business,
     datePublished: "2026-09-17",
     blocks: [
-      { type: "split", title: "日常所需，就在附近。", text: "99 Speedmart把旗下门店定位为兼顾便利与价格的社区迷你超市。现行官网介绍超过50类家居日用品，而Speedpoint店内服务也涵盖账单缴付、手机预付与充值，以及部分电子付款服务。", image, alt: "蒲种TPK Park生活品味区街景", route: "lifestyle", linkLabel: "查看生活品味" },
+      { type: "split", title: "日常所需，就在附近。", text: "99 Speedmart把旗下门店定位为兼顾便利与价格的社区迷你超市。现行官网介绍超过50类家居日用品，而Speedpoint店内服务也涵盖账单缴付、手机预付与充值，以及部分电子付款服务。", image, alt: "顾客在99 Speedmart内提着橙色品牌购物篮选购商品", route: "lifestyle", linkLabel: "查看生活品味" },
       { type: "cards", alignHeadings: true, kicker: "门店内容", title: "实用的社区迷你超市。", items: [
         { number: "01", title: "杂货与家居用品", text: "99 Speedmart公开介绍的商品范围包括杂货、食品与饮料、家居用品、个人护理、婴儿护理及其他日用品。各分店实际库存可能不同。" },
         { number: "02", title: "Speedpoint服务", text: "99 Speedmart也提供店内公用事业账单缴付、手机预付与充值、电子钱包或付款，以及部分游戏与娱乐充值服务。" },

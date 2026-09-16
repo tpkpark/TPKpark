@@ -145,7 +145,8 @@ for (const locale of locales) {
             signature: { type: "HomeGoodsStore", url: "https://signature.my/", phone: "+60168133182" },
             chooseInterior: { type: "LocalBusiness", url: "https://www.instagram.com/chooseinterior.cid/", contactUrl: "https://www.instagram.com/chooseinterior.cid/" },
             peroduaKinrara: { type: "AutoDealer", url: "https://www.perodua3skinrara.com/", phone: "+60332912266" },
-            mazdaKinrara: { type: "AutoDealer", url: "https://www.facebook.com/MazdaPersadaAuto/", phone: "+60380750812" }
+            mazdaKinrara: { type: "AutoDealer", url: "https://www.facebook.com/MazdaPersadaAuto/", phone: "+60380750812" },
+            kia4sService: { type: "AutoRepair", url: "https://kiapuchong.com.my/", phone: "+60380761005" }
           }[routeId];
           if (!expected || business?.["@type"] !== expected.type || business?.containedInPlace?.["@id"] !== placeId) fail(label, "Business profile must identify its business type and park location");
           if (business?.url !== expected?.url || business?.telephone !== expected?.phone) fail(label, "Business identity or branch contact is incorrect");

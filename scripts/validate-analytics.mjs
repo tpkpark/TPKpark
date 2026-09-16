@@ -479,6 +479,24 @@ test("Mazda branch actions exclude phone numbers, queries and location details a
   assert.equal(page.basicSent().length, 9);
 });
 
+test("Kia workshop actions keep contact and enquiry details out of analytics and respect opt-out", () => {
+  const page = client({ saved: "detailed", locale: "en" });
+  page.clickLink("/automotive/kia-4s-service/");
+  page.clickLink("/ms/automotive/kia-4s-service/", ".locale-nav");
+  page.clickLink("tel:+60380761005");
+  page.clickLink("mailto:sales@kiapuchong.com.my?subject=PRIVATE123&body=private@example.com");
+  page.clickLink("https://kiapuchong.com.my/?email=private@example.com#private");
+  page.clickLink("https://kiapuchong.com.my/wp-content/uploads/2024/09/Kia-Puchong-Workshop-2.jpg");
+  page.clickLink("https://www.kia.com/my/shopping-tools/find-a-dealer.html?plate=PRIVATE123#private");
+  assert.deepEqual(page.basicSent().map(event => event.data.target), ["/automotive/kia-4s-service/", "ms", "kia-4s-service:phone", "kia-4s-service:email", "kia-4s-service:website", "kia-4s-service:photo", "kia-4s-service:dealer_locator"]);
+  assert.deepEqual(page.sent().filter(event => event[1] === "tenant_contact_click").map(event => event[2].contact_method), ["phone", "email"]);
+  assert.doesNotMatch(JSON.stringify([page.sent(), page.basicSent()]), /80761005|sales@|private@example.com|PRIVATE123|#private/);
+  page.controls.off.handlers.click();
+  page.clickLink("tel:+60380761005");
+  page.clickLink("mailto:sales@kiapuchong.com.my");
+  assert.equal(page.basicSent().length, 7);
+});
+
 test("detailed engagement counts milestones once and stops independently of basic statistics", () => {
   const page = client({ saved: "detailed" });
   page.focusForm(); page.focusForm();

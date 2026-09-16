@@ -160,11 +160,25 @@ for (const locale of locales) {
             yummyNyonya: { type: "Restaurant", phone: "+601111631126" },
             optimumSwimSchool: { type: "SportsActivityLocation", url: "https://optimumswimschool.com/", phone: "+60192848138" },
             acesGymnasticAcademy: { type: "SportsActivityLocation", url: "https://www.facebook.com/Acesgymnasticacademy", phone: "+60103658213" },
-            forseeLens: { type: "LocalBusiness", url: "https://forseelens.com/", phone: "+60378000373" }
+            forseeLens: { type: "LocalBusiness", url: "https://forseelens.com/", phone: "+60378000373" },
+            speedmart99: { type: "ConvenienceStore", url: "https://99speedmart.com.my/", contactUrl: "https://99speedmart.com.my/store-locations/" }
           }[routeId];
           if (!expected || business?.["@type"] !== expected.type || business?.containedInPlace?.["@id"] !== placeId) fail(label, "Business profile must identify its business type and park location");
           if (business?.url !== expected?.url || business?.telephone !== expected?.phone) fail(label, "Business identity or branch contact is incorrect");
           if (!html.includes(`href="${expected?.contactUrl || `tel:${expected?.phone}`}"`)) fail(label, "Visible business contact does not match its published contact channel");
+          if (routeId === "speedmart99") {
+            const split = page.blocks.find(block => block.type === "split");
+            const hours = business?.openingHoursSpecification?.[0];
+            const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+            if (business?.address?.streetAddress !== "19 & 21 (Ground Floor), Jalan TPK 2/8, Taman Perindustrian Kinrara, Seksyen 2" || business?.address?.postalCode !== "47150") fail(label, "99 Speedmart must retain the current outlet 3116 address and postcode");
+            if (business?.telephone || business?.image) fail(label, "99 Speedmart must not present the corporate line or contextual park image as branch-specific data");
+            if (business?.contactPoint?.[0]?.telephone !== "+60105000099" || business?.contactPoint?.[0]?.email !== "customer_service@99speedmart.com.my") fail(label, "99 Speedmart must retain the official customer-service contacts");
+            if (hours?.opens !== "10:00" || hours?.closes !== "22:00" || hours?.dayOfWeek?.length !== 7 || days.some(day => !hours?.dayOfWeek?.includes(day))) fail(label, "99 Speedmart outlet 3116 must retain the current daily 10am-10pm branch listing");
+            if (page.heroImage !== "https://i.imgur.com/Z5h4hmH.jpg" || split?.image !== "https://i.imgur.com/Z5h4hmH.jpg") fail(label, "99 Speedmart must keep the TPK Park Lifestyle image explicitly contextual until a verified outlet photograph is available");
+            if (business?.hasMap !== "https://www.google.com/maps/search/?api=1&query=99+Speedmart+3116+Taman+Perindustrian+Kinrara&query_place_id=ChIJxUFi-XdLzDER3RV5RcDFcwg") fail(label, "99 Speedmart must retain the exact outlet 3116 Google Maps destination");
+            if (!html.includes('href="https://99speedmart.com.my/store-locations/"') || !html.includes('href="https://99speedmart.com.my/Speedpoint/"') || !html.includes('href="tel:+60105000099"') || !html.includes('href="mailto:customer_service@99speedmart.com.my"')) fail(label, "99 Speedmart official locator, services and customer-service contacts must remain visible");
+            if (html.includes('href="tel:+60333626863"')) fail(label, "99 Speedmart corporate business line must not be presented as a dedicated TPK Park branch phone");
+          }
           if (routeId === "forseeLens") {
             const split = page.blocks.find(block => block.type === "split");
             if (business?.address?.streetAddress !== "71, Jalan TPK 2/8, Taman Perindustrian Kinrara" || business?.address?.postalCode !== "47180") fail(label, "Forsee Lens must retain the verified No. 71 Jalan TPK 2/8 address");

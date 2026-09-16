@@ -1,0 +1,40 @@
+name: Build Jazmina photo asset
+
+on:
+  push:
+    branches:
+      - codex/fix-jazmina-photo-layout
+    paths:
+      - .github/workflows/jazmina-photo-build.yml
+
+permissions:
+  contents: write
+
+jobs:
+  build-photo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: codex/fix-jazmina-photo-layout
+      - name: Decode and verify photo
+        run: |
+          cat .tmp/jazmina-photo.part0 .tmp/jazmina-photo.part1 .tmp/jazmina-photo.part2 .tmp/jazmina-photo.part3 .tmp/jazmina-photo.part4 .tmp/jazmina-photo.part5 .tmp/jazmina-photo.part6 .tmp/jazmina-photo.part7 > /tmp/jazmina-photo.b64
+          base64 --decode /tmp/jazmina-photo.b64 > assets/images/jazmina-bistro-kinrara-720.webp
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('assets/images/jazmina-bistro-kinrara-720.webp')
+          data = p.read_bytes()
+          assert data[:4] == b'RIFF' and data[8:12] == b'WEBP', 'invalid WebP header'
+          assert len(data) == 32624, f'unexpected size: {len(data)}'
+          print(f'Valid WebP: {len(data)} bytes')
+          PY
+          rm -f .tmp/jazmina-photo.part*
+          rmdir .tmp || true
+      - name: Commit verified asset
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A assets/images/jazmina-bistro-kinrara-720.webp .tmp
+          git commit -m "Add verified Jazmina Bistro branch photo"
+          git push origin HEAD:codex/fix-jazmina-photo-layout

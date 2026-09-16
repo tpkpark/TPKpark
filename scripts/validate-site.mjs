@@ -143,11 +143,21 @@ for (const locale of locales) {
             baagus: { type: "HomeGoodsStore", url: "https://baagus.com/", phone: "+60102133173" },
             mkCurtain: { type: "HomeGoodsStore", url: "https://www.mk.com.my/", phone: "+60380747210" },
             signature: { type: "HomeGoodsStore", url: "https://signature.my/", phone: "+60168133182" },
-            chooseInterior: { type: "LocalBusiness", url: "https://www.instagram.com/chooseinterior.cid/", contactUrl: "https://www.instagram.com/chooseinterior.cid/" }
+            chooseInterior: { type: "LocalBusiness", url: "https://www.instagram.com/chooseinterior.cid/", contactUrl: "https://www.instagram.com/chooseinterior.cid/" },
+            peroduaKinrara: { type: "AutoDealer", url: "https://www.perodua3skinrara.com/", phone: "+60332912266" }
           }[routeId];
           if (!expected || business?.["@type"] !== expected.type || business?.containedInPlace?.["@id"] !== placeId) fail(label, "Business profile must identify its business type and park location");
           if (business?.url !== expected?.url || business?.telephone !== expected?.phone) fail(label, "Business identity or branch contact is incorrect");
           if (!html.includes(`href="${expected?.contactUrl || `tel:${expected?.phone}`}"`)) fail(label, "Visible business contact does not match its published contact channel");
+          if (routeId === "peroduaKinrara") {
+            const service = business?.department;
+            const visit = page.blocks.find(block => block.type === "businessVisit");
+            if (business?.legalName !== "Lon G Setia Auto Sdn. Bhd." || business?.address?.streetAddress !== "8, Jalan TPK 2/3, Taman Perindustrian Kinrara, Seksyen 2" || business?.address?.postalCode !== "47180" || /Jalan Bridge|Kampung Sungai Kayu Ara|77317761|77279966/.test(html)) fail(label, "Perodua must use the Kinrara branch identity, address and contacts");
+            if (service?.["@type"] !== "AutoRepair" || service?.telephone !== "+60332162255" || service?.parentOrganization?.["@id"] !== business?.["@id"] || !html.includes('href="tel:+60332162255"')) fail(label, "Perodua service enquiries must remain distinct from sales");
+            if (business?.openingHoursSpecification?.[0]?.closes !== "20:00" || business?.openingHoursSpecification?.[1]?.closes !== "16:00" || service?.openingHoursSpecification?.[0]?.closes !== "17:00" || service?.openingHoursSpecification?.[1]?.opens !== "00:00" || service?.openingHoursSpecification?.[1]?.closes !== "00:00") fail(label, "Perodua must preserve separate showroom and service schedules");
+            if (visit?.contacts?.length !== 2 || visit?.hours?.length !== 2 || [...visit.contacts, ...visit.hours].some(item => !html.includes(escapeHtml(item.label)) || !html.includes(escapeHtml(item.value)))) fail(label, "Both Perodua contacts and schedules must be visible");
+            if (business?.image !== `${origin}/assets/images/perodua-kinrara-showroom-810.webp` || business?.hasMap !== "https://maps.google.com/?daddr=3.047798,101.637174") fail(label, "Perodua must retain its actual Kinrara photo and official branch directions");
+          }
           if (routeId === "chooseInterior") {
             if (business?.address?.streetAddress !== "21-1, Jalan TPK 2/8, Taman Perindustrian Kinrara, Seksyen 2" || business?.address?.postalCode !== "47180" || /231 TR|Jalan Tun Razak|Wb78HRh6yhDg84vn8|hw283fszu6/.test(html)) fail(label, "Choose Interior must use its TPK Park address rather than the Imbi showroom details");
             if (business?.telephone || business?.openingHours || business?.openingHoursSpecification || business?.image || html.includes("tel:undefined")) fail(label, "Choose Interior must not infer a local phone, hours or a premises photograph");

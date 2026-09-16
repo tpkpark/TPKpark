@@ -295,6 +295,26 @@ test("KLOT referrals distinguish the tenant and exclude contact and query data",
   assert.equal(page.basicSent().length, 7);
 });
 
+test("DC Moto WhatsApp enquiries remain tenant actions without phone or message data", () => {
+  const page = client({ saved: "detailed", locale: "en" });
+  page.clickLink("/home-living/dc-moto/");
+  page.clickLink("/zh/home-living/dc-moto/", ".locale-nav");
+  page.clickLink("https://www.dcmoto.my/?email=private@example.com#private");
+  page.clickLink("https://www.dcmoto.my/contact-us/?email=private@example.com");
+  page.clickLink("https://www.dcmoto.my/user-support-guide/?email=private@example.com");
+  page.clickLink("https://maps.app.goo.gl/xxw6Q4EFmfjz3uVG6?email=private@example.com");
+  page.clickLink("https://wa.me/601156279623?text=private@example.com#private");
+  assert.deepEqual(page.basicSent().map(event => event.name), ["navigation_click", "language_switch", "outbound_click", "outbound_click", "outbound_click", "directions_click", "tenant_contact_click"]);
+  assert.deepEqual(page.basicSent().map(event => event.data.target), ["/home-living/dc-moto/", "zh", "dc-moto:website", "dc-moto:visit", "dc-moto:support", "about", "dc-moto:whatsapp"]);
+  assert.equal(page.sent().filter(event => event[1] === "contact_click").length, 0);
+  assert.equal(page.sent().at(-1)[2].tenant, "dc-moto");
+  assert.equal(page.sent().at(-1)[2].contact_method, "whatsapp");
+  assert.doesNotMatch(JSON.stringify([page.sent(), page.basicSent()]), /private@example.com|#private|601156279623|xxw6Q4EFmfjz3uVG6|text=/);
+  page.controls.off.handlers.click();
+  page.clickLink("https://wa.me/601156279623");
+  assert.equal(page.basicSent().length, 7);
+});
+
 test("detailed engagement counts milestones once and stops independently of basic statistics", () => {
   const page = client({ saved: "detailed" });
   page.focusForm(); page.focusForm();

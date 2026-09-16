@@ -1,5 +1,9 @@
 // Locally hosted versions of approved imagery, shared by page content and preview metadata.
 export const imageAssets = {
+  "https://www.tpkpark.com/assets/images/dc-moto-autogate-1440.webp": {
+    src: "/assets/images/dc-moto-autogate-1440.webp", width: 1440, height: 1136,
+    srcset: "/assets/images/dc-moto-autogate-480.webp 480w, /assets/images/dc-moto-autogate-1440.webp 1440w"
+  },
   "https://www.tpkpark.com/assets/images/klot-kitchen-storage-1440.webp": {
     src: "/assets/images/klot-kitchen-storage-1440.webp", width: 1440, height: 960,
     srcset: "/assets/images/klot-kitchen-storage-480.webp 480w, /assets/images/klot-kitchen-storage-1440.webp 1440w"

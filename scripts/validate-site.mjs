@@ -136,11 +136,19 @@ for (const locale of locales) {
             balensDesign: { type: "LocalBusiness", url: "https://balensdesign.com/", phone: "+60173388535" },
             builtop: { type: "LocalBusiness", url: "https://www.builtopmalaysia.com/", phone: "+601126838848" },
             premioDoor: { type: "HomeGoodsStore", url: "https://premiodoor.com.my/", phone: "+60165255100" },
-            klot: { type: "HomeGoodsStore", url: "https://www.klot.com.my/", phone: "+60183403828" }
+            klot: { type: "HomeGoodsStore", url: "https://www.klot.com.my/", phone: "+60183403828" },
+            dcMoto: { type: "LocalBusiness", url: "https://www.dcmoto.my/", phone: "+601156279623", contactUrl: "https://wa.me/601156279623" }
           }[routeId];
           if (!expected || business?.["@type"] !== expected.type || business?.containedInPlace?.["@id"] !== placeId) fail(label, "Business profile must identify its business type and park location");
           if (business?.url !== expected?.url || business?.telephone !== expected?.phone) fail(label, "Business identity or branch contact is incorrect");
-          if (!html.includes(`href="tel:${expected?.phone}"`)) fail(label, "Visible business contact does not match its branch telephone");
+          if (!html.includes(`href="${expected?.contactUrl || `tel:${expected?.phone}`}"`)) fail(label, "Visible business contact does not match its published contact channel");
+          if (routeId === "dcMoto") {
+            if (business?.legalName !== "Intelligent Network Sdn Bhd" || business?.address?.streetAddress !== "49G, Jalan TPK 2/8, Taman Perindustrian Kinrara, Seksyen 2" || business?.address?.postalCode !== "47180" || /\+60389996636|\+601110843163|\+601110703163/.test(html)) fail(label, "DC Moto must use its Puchong centre details, not a dealer contact");
+            if (business?.openingHoursSpecification || business?.openingHours) fail(label, "DC Moto must not publish unverified centre opening hours");
+            if (business?.contactPoint?.contactType !== "WhatsApp enquiries" || business?.contactPoint?.url !== expected.contactUrl || html.includes('href="tel:+601156279623"')) fail(label, "DC Moto must preserve the official WhatsApp contact channel");
+            const dealerNote = { en: "DCMOTO directs sales and purchases to its dealers", ms: "DCMOTO mengarahkan urusan jualan dan pembelian kepada pengedarnya", zh: "DCMOTO的销售与购买事宜请联系其经销商" }[locale];
+            if (!html.includes(dealerNote)) fail(label, "DC Moto must distinguish its centre from dealer sales");
+          }
           if (routeId === "klot") {
             if (business?.legalName !== "KLOT Resources (M) Sdn. Bhd." || business?.address?.streetAddress !== "23-1, Jalan TPK 2/8, Taman Perindustrian Kinrara, Seksyen 2" || business?.address?.postalCode !== "47180" || /\+60167135100/.test(html)) fail(label, "KLOT must use its current official address and contact");
             const hours = business?.openingHoursSpecification;

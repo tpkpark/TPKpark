@@ -203,9 +203,10 @@ function renderDirectory(locale, block) {
 }
 
 function renderBusinessVisit(locale, block, page) {
+  const phoneHref = block.phoneUrl || `tel:${page.business.telephone}`;
   const actions = block.links.map(item => `<a class="text-link" href="${escapeHtml(item.route ? routePath(locale, item.route) : item.url)}">${escapeHtml(item.label)} <span aria-hidden="true">${item.route ? "→" : "↗"}</span></a>`).join("");
   return `<section class="section"><div class="shell">${sectionHeader(block)}<div class="business-visit">
-    <div><h3>${escapeHtml(block.addressLabel)}</h3><address>${escapeHtml(block.address)}</address><p>${escapeHtml(block.phoneLabel)}: <a href="tel:${escapeHtml(page.business.telephone)}">${escapeHtml(block.phoneDisplay)}</a></p></div>
+    <div><h3>${escapeHtml(block.addressLabel)}</h3><address>${escapeHtml(block.address)}</address><p>${escapeHtml(block.phoneLabel)}: <a href="${escapeHtml(phoneHref)}">${escapeHtml(block.phoneDisplay)}</a></p></div>
     <div><div class="business-actions">${actions}</div><p class="business-note">${escapeHtml(block.note)}</p></div>
   </div></div></section>`;
 }

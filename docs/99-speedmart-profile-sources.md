@@ -36,8 +36,9 @@ Reviewed 17 September 2026 for the TPK Park public-facing brand guide.
 
 - No online photograph was verified as specifically showing **outlet 3116 at No. 19 & 21, Jalan TPK 2/8** during this review.
 - Search results returned other 99 Speedmart outlets in Puchong and elsewhere. Those must not be presented as the TPK Park premises.
-- Until a branch-specific image is supplied or verified, the guide uses the existing **TPK Park Lifestyle frontage** (`https://i.imgur.com/Z5h4hmH.jpg`) strictly as contextual imagery.
-- The contextual image is deliberately **not** attached to the `ConvenienceStore` structured data as a photograph of outlet 3116.
+- The guide now uses a **99 Speedmart-owned lifestyle photograph** from the official corporate website showing a customer shopping with an orange branded basket: `https://99speedmart.com.my/wp-content/uploads/2024/07/Frame-26086548-773x1024.jpg`.
+- The photograph is described only as general 99 Speedmart brand imagery and is **not** labelled or implied to be outlet 3116.
+- The `ConvenienceStore` structured data deliberately does not attach the photograph as a branch-specific premises image.
 
 ## Editorial boundaries
 

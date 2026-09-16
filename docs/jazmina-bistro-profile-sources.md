@@ -26,8 +26,8 @@ Checked 16 September 2026. Scope: Jazmina Bistro at 23G, Jalan TPK 2/8, Taman Pe
 
 - Search results surface photographs of other Jazmina Bistro premises, including a Bandar Bukit Puchong corner unit. Those are not used because they cannot be represented as the Jalan TPK 2/8 branch.
 - On 16 September 2026, TPK Park management supplied a photograph of the Jalan TPK 2/8 Jazmina Bistro frontage for publication. The image clearly identifies the correct outlet through the storefront signage and the `23` unit marker.
-- A restrained website derivative removes the distracting upper-floor `FOR RENT` sign, uses a 16:9 crop and is exported as `assets/images/jazmina-bistro-kinrara-1440.webp`. The restaurant frontage, outdoor dining activity and vehicles are otherwise retained as the visual context.
-- The branch-specific photograph is used in the page hero and split section. The Restaurant structured data remains conservative and does not add a business `image` field.
+- The website uses an authentic crop/resize of that supplied photograph, without generative alteration, exported as `assets/images/jazmina-bistro-kinrara-720.webp`. The restaurant frontage, outdoor dining activity, parked vehicles and upper-floor context remain part of the original photograph.
+- The branch photograph is presented in the same contained text-left / photo-right `renewal` layout used by the established Home & Living and Automotive business guides, with a factual caption below the image. The Restaurant structured data remains conservative and does not add a business `image` field.
 
 ## Integration and privacy
 

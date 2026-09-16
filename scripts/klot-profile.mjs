@@ -42,7 +42,7 @@ export const klotProfiles = {
     business: klotBusiness,
     datePublished: "2026-09-16",
     blocks: [
-      { type: "split", presentation: "renewal", title: "Plan the fittings around daily use.", text: "KLOT’s range includes Slim Box drawer systems, Aluline kitchen storage, wardrobe organisers and furniture LED lighting. Start with what you need to store and how you want to reach it. Comparing the fittings alongside your cabinet plans can help you discuss usable space, opening clearances and installation requirements with your cabinet maker.", image, alt: "Open KLOT kitchen storage drawers with separate spaces for utensils, dishes and pots", caption: "Kitchen storage fittings pictured on KLOT’s official website. Photo:", captionSource: imageSource, route: "homeLiving", linkLabel: "Explore Home & Living" },
+      { type: "split", title: "Plan the fittings around daily use.", text: "KLOT’s range includes Slim Box drawer systems, Aluline kitchen storage, wardrobe organisers and furniture LED lighting. Start with what you need to store and how you want to reach it. Comparing the fittings alongside your cabinet plans can help you discuss usable space, opening clearances and installation requirements with your cabinet maker.", image, alt: "Open KLOT kitchen storage drawers with separate spaces for utensils, dishes and pots", route: "homeLiving", linkLabel: "Explore Home & Living" },
       { type: "cards", alignHeadings: true, kicker: "Before you choose", title: "Match the fittings to the cabinet.", items: [
         { number: "01", title: "Measure the inside", text: "Bring the cabinet’s internal width, depth and height, with photos or drawings showing hinges, shelves and pipework. For new cabinetry, share the proposed layout so the fitting dimensions can be checked before fabrication." },
         { number: "02", title: "Try the movement", text: "Ask to see the mechanisms available on display. Consider how far a drawer opens, how easily you can reach a basket and what you plan to store. Check the model’s load limits, finishes and care requirements with the team." },
@@ -67,7 +67,7 @@ export const klotProfiles = {
     business: klotBusiness,
     datePublished: "2026-09-16",
     blocks: [
-      { type: "split", presentation: "renewal", title: "Rancang kelengkapan mengikut kegunaan harian.", text: "Rangkaian KLOT merangkumi sistem laci Slim Box, penyimpanan dapur Aluline, penyusun almari pakaian dan pencahayaan LED perabot. Mulakan dengan barang yang perlu disimpan dan cara anda mahu mencapainya. Bandingkan kelengkapan dengan pelan kabinet untuk membincangkan ruang yang boleh digunakan, ruang bukaan serta keperluan pemasangan bersama pembuat kabinet.", image, alt: "Laci dapur KLOT yang terbuka dengan ruang berasingan untuk kutleri, pinggan dan periuk", caption: "Kelengkapan penyimpanan dapur yang dipaparkan di laman rasmi KLOT. Foto:", captionSource: imageSource, route: "homeLiving", linkLabel: "Terokai Home & Living" },
+      { type: "split", title: "Rancang kelengkapan mengikut kegunaan harian.", text: "Rangkaian KLOT merangkumi sistem laci Slim Box, penyimpanan dapur Aluline, penyusun almari pakaian dan pencahayaan LED perabot. Mulakan dengan barang yang perlu disimpan dan cara anda mahu mencapainya. Bandingkan kelengkapan dengan pelan kabinet untuk membincangkan ruang yang boleh digunakan, ruang bukaan serta keperluan pemasangan bersama pembuat kabinet.", image, alt: "Laci dapur KLOT yang terbuka dengan ruang berasingan untuk kutleri, pinggan dan periuk", route: "homeLiving", linkLabel: "Terokai Home & Living" },
       { type: "cards", alignHeadings: true, kicker: "Sebelum memilih", title: "Padankan kelengkapan dengan kabinet.", items: [
         { number: "01", title: "Ukur ruang dalaman", text: "Bawa ukuran lebar, kedalaman dan tinggi bahagian dalam kabinet, berserta foto atau lukisan yang menunjukkan engsel, rak dan paip. Untuk kabinet baharu, kongsikan pelan cadangan supaya saiz kelengkapan dapat disemak sebelum kabinet dibuat." },
         { number: "02", title: "Cuba mekanismenya", text: "Tanya tentang mekanisme yang tersedia untuk dilihat. Pertimbangkan sejauh mana laci terbuka, kemudahan mencapai bakul dan barang yang ingin disimpan. Semak had beban model, kemasan dan keperluan penjagaan dengan pasukan KLOT." },
@@ -92,7 +92,7 @@ export const klotProfiles = {
     business: klotBusiness,
     datePublished: "2026-09-16",
     blocks: [
-      { type: "split", presentation: "renewal", title: "从日常使用习惯规划柜内配置。", text: "KLOT的产品包括Slim Box抽屉系统、Aluline厨房收纳、衣柜整理配件及家具LED照明。可以先列出需要收纳的物品，再考虑拿取方式。把配件与橱柜图纸一起比较，有助于与橱柜师傅讨论可用空间、开合余量及安装要求。", image, alt: "打开的KLOT厨房抽屉，设有摆放刀叉、碗盘与锅具的独立空间", caption: "KLOT官网展示的厨房收纳配件。图片来源：", captionSource: imageSource, route: "homeLiving", linkLabel: "查看家居生活品牌" },
+      { type: "split", title: "从日常使用习惯规划柜内配置。", text: "KLOT的产品包括Slim Box抽屉系统、Aluline厨房收纳、衣柜整理配件及家具LED照明。可以先列出需要收纳的物品，再考虑拿取方式。把配件与橱柜图纸一起比较，有助于与橱柜师傅讨论可用空间、开合余量及安装要求。", image, alt: "打开的KLOT厨房抽屉，设有摆放刀叉、碗盘与锅具的独立空间", route: "homeLiving", linkLabel: "查看家居生活品牌" },
       { type: "cards", alignHeadings: true, kicker: "选购之前", title: "让配件与柜体相配合。", items: [
         { number: "01", title: "量好柜内尺寸", text: "带上柜体内部的宽度、深度及高度，并用照片或图纸标出铰链、层板和水管的位置。如果准备制作新柜体，可先提供设计图，在制作前核对配件所需尺寸。" },
         { number: "02", title: "试试开合与拿取", text: "询问现场有哪些机构可以查看，比较抽屉能拉出多远、拉篮是否容易拿取，以及是否适合准备收纳的物品。向团队确认型号的承重限制、饰面与保养要求。" },

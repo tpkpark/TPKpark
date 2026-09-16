@@ -42,7 +42,7 @@ export const lavinoProfiles = {
         { number: "02", title: "Compare in person", text: "Use the pieces on display to assess seat comfort, proportions, materials and finishes. Ask the showroom which sizes and colour options are available for the model you like." },
         { number: "03", title: "Plan the delivery", text: "Before ordering, confirm the full price, delivery area, expected lead time, assembly and warranty terms. Mention access restrictions at your home so the team can advise." }
       ] },
-      { type: "split", presentation: "renewal", title: "Continue around Home & Living.", text: "Combine a furniture visit with other stops in TPK Park’s Home & Living cluster. The directory includes tiles and sanitary ware, kitchens, curtains and doors, making it useful when you are considering more than one part of a room. Allow time to compare materials and bring your notes from one showroom to the next.", image, alt: "Home & Living showroom frontage at TPK Park", caption: "The Home & Living frontage at TPK Park; Lavino’s showroom is on Jalan TPK 2/2.", route: "homeLiving", linkLabel: "Explore Home & Living" }
+      { type: "split", title: "Continue around Home & Living.", text: "Combine a furniture visit with other stops in TPK Park’s Home & Living cluster. The directory includes tiles and sanitary ware, kitchens, curtains and doors, making it useful when you are considering more than one part of a room. Allow time to compare materials and bring your notes from one showroom to the next.", image, alt: "Home & Living showroom frontage at TPK Park", route: "homeLiving", linkLabel: "Explore Home & Living" }
     ],
     cta: { title: "Browse first. Visit with a shortlist.", text: "Explore Lavino’s furniture online, then contact the Puchong showroom about the pieces you would like to see.", button: "Visit Lavino’s website", url: website }
   },
@@ -66,7 +66,7 @@ export const lavinoProfiles = {
         { number: "02", title: "Bandingkan sendiri", text: "Nilai keselesaan tempat duduk, saiz, bahan dan kemasan melalui perabot yang dipamerkan. Tanya kakitangan tentang pilihan ukuran dan warna bagi model yang anda minati." },
         { number: "03", title: "Rancang penghantaran", text: "Sebelum membuat pesanan, sahkan harga penuh, kawasan penghantaran, jangka masa menunggu, pemasangan dan syarat waranti. Maklumkan sebarang kekangan akses di rumah anda." }
       ] },
-      { type: "split", presentation: "renewal", title: "Teruskan ke Home & Living.", text: "Gabungkan lawatan perabot dengan persinggahan lain dalam kluster Home & Living TPK Park. Direktori ini merangkumi jubin dan kelengkapan sanitari, dapur, langsir serta pintu, sesuai jika anda sedang merancang beberapa bahagian ruang. Luangkan masa untuk membandingkan bahan dan bawa catatan anda dari satu bilik pameran ke bilik pameran yang lain.", image, alt: "Deretan bilik pameran Home & Living di TPK Park", caption: "Deretan Home & Living di TPK Park; bilik pameran Lavino terletak di Jalan TPK 2/2.", route: "homeLiving", linkLabel: "Terokai Home & Living" }
+      { type: "split", title: "Teruskan ke Home & Living.", text: "Gabungkan lawatan perabot dengan persinggahan lain dalam kluster Home & Living TPK Park. Direktori ini merangkumi jubin dan kelengkapan sanitari, dapur, langsir serta pintu, sesuai jika anda sedang merancang beberapa bahagian ruang. Luangkan masa untuk membandingkan bahan dan bawa catatan anda dari satu bilik pameran ke bilik pameran yang lain.", image, alt: "Deretan bilik pameran Home & Living di TPK Park", route: "homeLiving", linkLabel: "Terokai Home & Living" }
     ],
     cta: { title: "Lihat dahulu. Datang dengan pilihan.", text: "Terokai perabot Lavino dalam talian, kemudian hubungi bilik pameran Puchong tentang pilihan yang ingin anda lihat.", button: "Laman web Lavino", url: website }
   },
@@ -90,7 +90,7 @@ export const lavinoProfiles = {
         { number: "02", title: "现场体验与比较", text: "通过展出的家具感受坐感，比较比例、材质与表面处理。遇到喜欢的款式，可以向展厅人员了解可选尺寸与颜色。" },
         { number: "03", title: "提前了解送货安排", text: "下单前确认总价、送货范围、预计等候时间、安装及保修条款。若住所有搬运或出入限制，也请事先告知，方便团队提供建议。" }
       ] },
-      { type: "split", presentation: "renewal", title: "顺道看看家居生活集群。", text: "到Lavino看家具，也可以结合TPK Park内其他家居生活展厅的行程。目录涵盖瓷砖与卫浴、厨房、窗帘及门闸，适合同时考虑房间不同部分的访客。不妨留出比较材料的时间，并带着尺寸与选购笔记，逐站整理自己的想法。", image, alt: "TPK Park家居生活展厅沿街外观", caption: "图为TPK Park家居生活展厅沿街外观；Lavino展厅位于Jalan TPK 2/2。", route: "homeLiving", linkLabel: "查看家居生活品牌" }
+      { type: "split", title: "顺道看看家居生活集群。", text: "到Lavino看家具，也可以结合TPK Park内其他家居生活展厅的行程。目录涵盖瓷砖与卫浴、厨房、窗帘及门闸，适合同时考虑房间不同部分的访客。不妨留出比较材料的时间，并带着尺寸与选购笔记，逐站整理自己的想法。", image, alt: "TPK Park家居生活展厅沿街外观", route: "homeLiving", linkLabel: "查看家居生活品牌" }
     ],
     cta: { title: "先浏览，再带着清单到访。", text: "在Lavino官网了解家具系列，再联系蒲种展厅，询问想看的款式。", button: "前往Lavino官网", url: website }
   }

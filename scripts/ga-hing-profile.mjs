@@ -36,7 +36,7 @@ export const gaHingProfiles = {
     business: gaHingBusiness,
     datePublished: "2026-09-15",
     blocks: [
-      { type: "split", presentation: "renewal", title: "Consider the room as a whole.", text: "Ga Hing’s catalogue spans kitchen sinks, hobs and hoods, bathroom basins, taps and showers, alongside tiles. A showroom visit can help you compare finishes and discuss how individual choices fit your room. Bring a floor plan, reference photos and a shortlist, then ask the branch which products are available to view.", image, alt: "Ga Hing Puchong showroom and entrance on Jalan TPK 2/2", caption: "Ga Hing’s Puchong showroom. Photograph published in the dealer listing by", captionSource: imageSource, route: "homeLiving", linkLabel: "Explore Home & Living" },
+      { type: "split", title: "Consider the room as a whole.", text: "Ga Hing’s catalogue spans kitchen sinks, hobs and hoods, bathroom basins, taps and showers, alongside tiles. A showroom visit can help you compare finishes and discuss how individual choices fit your room. Bring a floor plan, reference photos and a shortlist, then ask the branch which products are available to view.", image, alt: "Ga Hing Puchong showroom and entrance on Jalan TPK 2/2", route: "homeLiving", linkLabel: "Explore Home & Living" },
       { type: "cards", alignHeadings: true, kicker: "Before you choose", title: "Bring the details that matter.", items: [
         { number: "01", title: "Plan your kitchen", text: "Bring cabinet dimensions and the model details of any appliances you are keeping. Discuss sink and hob sizes, worktop openings and hood placement with the showroom team and your installer before ordering." },
         { number: "02", title: "Compare bathroom fittings", text: "Note the available space and photograph existing fittings if you are replacing them. Compare basin, tap and shower finishes together, and ask your installer to confirm the plumbing and mounting requirements." },
@@ -60,7 +60,7 @@ export const gaHingProfiles = {
     business: gaHingBusiness,
     datePublished: "2026-09-15",
     blocks: [
-      { type: "split", presentation: "renewal", title: "Lihat ruang secara menyeluruh.", text: "Katalog Ga Hing merangkumi sinki, dapur memasak dan hud dapur, besen, pili serta pancuran bilik mandi, selain jubin. Lawatan ke bilik pameran membantu anda membandingkan kemasan dan membincangkan kesesuaian setiap pilihan dengan ruang anda. Bawa pelan lantai, foto rujukan dan senarai pilihan, kemudian tanya cawangan tentang produk yang boleh dilihat.", image, alt: "Bilik pameran dan pintu masuk Ga Hing Puchong di Jalan TPK 2/2", caption: "Bilik pameran Ga Hing Puchong. Foto daripada direktori pengedar", captionSource: imageSource, route: "homeLiving", linkLabel: "Terokai Home & Living" },
+      { type: "split", title: "Lihat ruang secara menyeluruh.", text: "Katalog Ga Hing merangkumi sinki, dapur memasak dan hud dapur, besen, pili serta pancuran bilik mandi, selain jubin. Lawatan ke bilik pameran membantu anda membandingkan kemasan dan membincangkan kesesuaian setiap pilihan dengan ruang anda. Bawa pelan lantai, foto rujukan dan senarai pilihan, kemudian tanya cawangan tentang produk yang boleh dilihat.", image, alt: "Bilik pameran dan pintu masuk Ga Hing Puchong di Jalan TPK 2/2", route: "homeLiving", linkLabel: "Terokai Home & Living" },
       { type: "cards", alignHeadings: true, kicker: "Sebelum memilih", title: "Bawa maklumat yang diperlukan.", items: [
         { number: "01", title: "Rancang dapur anda", text: "Bawa ukuran kabinet dan butiran model perkakas yang masih digunakan. Bincangkan saiz sinki dan dapur memasak, bukaan permukaan kerja serta kedudukan hud dengan kakitangan bilik pameran dan pemasang sebelum membuat pesanan." },
         { number: "02", title: "Bandingkan kelengkapan bilik mandi", text: "Catat ruang yang tersedia dan ambil foto kelengkapan sedia ada jika ingin menggantikannya. Bandingkan kemasan besen, pili dan pancuran bersama-sama, serta minta pemasang mengesahkan keperluan paip dan pemasangan." },
@@ -84,7 +84,7 @@ export const gaHingProfiles = {
     business: gaHingBusiness,
     datePublished: "2026-09-15",
     blocks: [
-      { type: "split", presentation: "renewal", title: "从整个空间出发。", text: "Ga Hing的产品目录涵盖厨房水槽、炉灶与抽油烟机、浴室面盆、水龙头及淋浴设备，也包括瓷砖。到展厅可以比较不同饰面，讨论各项选择如何配合房间。带上平面图、参考照片与初步清单，再向门店确认想看的产品是否正在展示。", image, alt: "Ga Hing蒲种展厅在Jalan TPK 2/2的外观与入口", caption: "Ga Hing蒲种展厅。照片来源：", captionSource: imageSource, route: "homeLiving", linkLabel: "查看家居生活品牌" },
+      { type: "split", title: "从整个空间出发。", text: "Ga Hing的产品目录涵盖厨房水槽、炉灶与抽油烟机、浴室面盆、水龙头及淋浴设备，也包括瓷砖。到展厅可以比较不同饰面，讨论各项选择如何配合房间。带上平面图、参考照片与初步清单，再向门店确认想看的产品是否正在展示。", image, alt: "Ga Hing蒲种展厅在Jalan TPK 2/2的外观与入口", route: "homeLiving", linkLabel: "查看家居生活品牌" },
       { type: "cards", alignHeadings: true, kicker: "选购之前", title: "带上影响选择的细节。", items: [
         { number: "01", title: "规划厨房配置", text: "带上橱柜尺寸，以及准备继续使用的电器型号。下单前，与展厅人员及安装师傅确认水槽和炉灶尺寸、台面开孔与抽油烟机位置，让选购配合实际空间。" },
         { number: "02", title: "比较卫浴搭配", text: "记录可用空间；如需更换现有洁具，也可先拍照。把面盆、水龙头与淋浴设备的饰面放在一起比较，再请安装师傅确认水管连接与安装要求。" },

@@ -149,6 +149,11 @@ test("business guides provide the correct public branch contacts in all three la
     assert.doesNotMatch(sources.dcMoto.texts[locale], /8999 6636|1084 3163|1070 3163/);
     assert.match(sources.dcMoto.texts[locale], { en: /DCMOTO directs sales and purchases to its dealers/, ms: /DCMOTO mengarahkan urusan jualan dan pembelian kepada pengedarnya/, zh: /DCMOTO的销售与购买事宜请联系其经销商/ }[locale]);
     assert.deepEqual(sourceLinks(["dcMoto"], locale).map(source => source.url), [routePath(locale, "dcMoto")]);
+    assert.match(sources.baagus.texts[locale], /7, Jalan TPK 2\/8/);
+    assert.match(sources.baagus.texts[locale], /\+60 10 213 3173/);
+    assert.doesNotMatch(sources.baagus.texts[locale], /8938 5202|717 3005|Jalan BPD 1/);
+    assert.match(sources.baagus.texts[locale], { en: /Sunday, 10am–6pm/, ms: /Ahad, 10 pagi–6 petang/, zh: /星期日为上午10时至下午6时/ }[locale]);
+    assert.deepEqual(sourceLinks(["baagus"], locale).map(source => source.url), [routePath(locale, "baagus")]);
     assert.match(sources.totalTools.texts[locale], /No\. 6, Jalan TPK 2\/2/);
     assert.match(sources.totalTools.texts[locale], /\+60 10 290 8007/);
     assert.doesNotMatch(sources.totalTools.texts[locale], /2623 7882|1617 4342|Jalan BPU 1/);

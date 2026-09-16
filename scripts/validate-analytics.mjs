@@ -358,6 +358,29 @@ test("Total Tools referrals preserve consent and keep branch contacts out of ana
   assert.equal(page.basicSent().length, 8);
 });
 
+test("Baagus calls and official Waze links respect consent without leaking branch or query data", () => {
+  const page = client({ saved: "detailed", locale: "en" });
+  page.clickLink("/home-living/baagus/");
+  page.clickLink("/ms/home-living/baagus/", ".locale-nav");
+  page.clickLink("https://baagus.com/?email=private@example.com#private");
+  page.clickLink("https://baagus.com/site/branchdetails?id=34&email=private@example.com");
+  page.clickLink("https://baagus.com/site/curtains?search=private@example.com");
+  page.clickLink("https://baagus.com/site/blind?search=private@example.com");
+  page.clickLink("https://waze.com/ul/hw2832g40q?email=private@example.com#private");
+  page.clickLink("https://www.google.com/maps/search/?api=1&query=Baagus+7+Jalan+TPK+2%2F8&email=private@example.com");
+  page.clickLink("tel:+60102133173");
+  assert.deepEqual(page.basicSent().map(event => event.name), ["navigation_click", "language_switch", "outbound_click", "outbound_click", "outbound_click", "outbound_click", "directions_click", "directions_click", "tenant_contact_click"]);
+  assert.deepEqual(page.basicSent().map(event => event.data.target), ["/home-living/baagus/", "ms", "baagus:website", "baagus:visit", "baagus:curtains", "baagus:blinds", "about", "about", "baagus:phone"]);
+  assert.deepEqual(page.sent().filter(event => event[1] === "directions_click").map(event => event[2].map_provider), ["waze", "google"]);
+  assert.equal(page.sent().filter(event => event[1] === "contact_click").length, 0);
+  assert.deepEqual(page.sent().filter(event => event[1] === "tenant_contact_click").map(event => [event[2].tenant, event[2].contact_method]), [["baagus", "phone"]]);
+  assert.doesNotMatch(JSON.stringify([page.sent(), page.basicSent()]), /private@example.com|#private|60102133173|hw2832g40q|id=34|search=|query=/);
+  page.controls.off.handlers.click();
+  page.clickLink("tel:+60102133173");
+  page.clickLink("https://waze.com/ul/hw2832g40q");
+  assert.equal(page.basicSent().length, 9);
+});
+
 test("detailed engagement counts milestones once and stops independently of basic statistics", () => {
   const page = client({ saved: "detailed" });
   page.focusForm(); page.focusForm();

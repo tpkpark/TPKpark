@@ -139,11 +139,22 @@ for (const locale of locales) {
             klot: { type: "HomeGoodsStore", url: "https://www.klot.com.my/", phone: "+60183403828" },
             dcMoto: { type: "LocalBusiness", url: "https://www.dcmoto.my/", phone: "+601156279623", contactUrl: "https://wa.me/601156279623" },
             fagolli: { type: "HomeGoodsStore", url: "https://www.fagolli.com.my/", phone: "+601154078187" },
-            totalTools: { type: "HardwareStore", url: "https://www.totaltools.com.my/", phone: "+60102908007" }
+            totalTools: { type: "HardwareStore", url: "https://www.totaltools.com.my/", phone: "+60102908007" },
+            baagus: { type: "HomeGoodsStore", url: "https://baagus.com/", phone: "+60102133173" }
           }[routeId];
           if (!expected || business?.["@type"] !== expected.type || business?.containedInPlace?.["@id"] !== placeId) fail(label, "Business profile must identify its business type and park location");
           if (business?.url !== expected?.url || business?.telephone !== expected?.phone) fail(label, "Business identity or branch contact is incorrect");
           if (!html.includes(`href="${expected?.contactUrl || `tel:${expected?.phone}`}"`)) fail(label, "Visible business contact does not match its published contact channel");
+          if (routeId === "baagus") {
+            if (business?.address?.streetAddress !== "7, Jalan TPK 2/8, Seksyen 2, Taman Perindustrian Kinrara" || business?.address?.postalCode !== "47180" || /\+60389385202|\+60127173005|Jalan BPD 1/.test(html)) fail(label, "Baagus must use its Bandar Kinrara branch details rather than D'Alpinia Puchong");
+            const hours = business?.openingHoursSpecification;
+            const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            if (hours?.length !== 2 || hours[0]?.opens !== "10:00" || hours[0]?.closes !== "19:00" || hours[0]?.dayOfWeek?.length !== 6 || days.some(day => !hours[0]?.dayOfWeek?.includes(day)) || hours[1]?.opens !== "10:00" || hours[1]?.closes !== "18:00" || hours[1]?.dayOfWeek?.length !== 1 || hours[1]?.dayOfWeek?.[0] !== "Sunday") fail(label, "Baagus must preserve the current official Kinrara hours, including the earlier Sunday closing");
+            const sunday = { en: "Sunday, 10am–6pm", ms: "Ahad, 10 pagi–6 petang", zh: "星期日为上午10时至下午6时" }[locale];
+            if (!html.includes(sunday)) fail(label, "Baagus Sunday hours must be visible");
+            if (business?.hasMap !== "https://waze.com/ul/hw2832g40q" || !html.includes('href="https://waze.com/ul/hw2832g40q"')) fail(label, "Baagus must retain its official Kinrara Waze link");
+            if (business?.image !== `${origin}/assets/images/baagus-kinrara-showroom-1440.webp`) fail(label, "Baagus must use the actual Kinrara storefront photograph");
+          }
           if (routeId === "totalTools") {
             if (business?.address?.streetAddress !== "6, Jalan TPK 2/2, Taman Perindustrian Kinrara, Seksyen 2" || business?.address?.postalCode !== "47100" || /\+601126237882|\+601116174342|Jalan BPU 1/.test(html)) fail(label, "Total Tools must use the Kinrara branch details rather than the national office or Puchong Utama");
             if (business?.openingHoursSpecification || business?.openingHours) fail(label, "Total Tools must not publish conflicting hours as confirmed branch hours");

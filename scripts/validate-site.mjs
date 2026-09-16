@@ -140,7 +140,8 @@ for (const locale of locales) {
             dcMoto: { type: "LocalBusiness", url: "https://www.dcmoto.my/", phone: "+601156279623", contactUrl: "https://wa.me/601156279623" },
             fagolli: { type: "HomeGoodsStore", url: "https://www.fagolli.com.my/", phone: "+601154078187" },
             totalTools: { type: "HardwareStore", url: "https://www.totaltools.com.my/", phone: "+60102908007" },
-            baagus: { type: "HomeGoodsStore", url: "https://baagus.com/", phone: "+60102133173" }
+            baagus: { type: "HomeGoodsStore", url: "https://baagus.com/", phone: "+60102133173" },
+            mkCurtain: { type: "HomeGoodsStore", url: "https://www.mk.com.my/", phone: "+60380747210" }
           }[routeId];
           if (!expected || business?.["@type"] !== expected.type || business?.containedInPlace?.["@id"] !== placeId) fail(label, "Business profile must identify its business type and park location");
           if (business?.url !== expected?.url || business?.telephone !== expected?.phone) fail(label, "Business identity or branch contact is incorrect");

@@ -142,11 +142,17 @@ for (const locale of locales) {
             totalTools: { type: "HardwareStore", url: "https://www.totaltools.com.my/", phone: "+60102908007" },
             baagus: { type: "HomeGoodsStore", url: "https://baagus.com/", phone: "+60102133173" },
             mkCurtain: { type: "HomeGoodsStore", url: "https://www.mk.com.my/", phone: "+60380747210" },
-            signature: { type: "HomeGoodsStore", url: "https://signature.my/", phone: "+60168133182" }
+            signature: { type: "HomeGoodsStore", url: "https://signature.my/", phone: "+60168133182" },
+            chooseInterior: { type: "LocalBusiness", url: "https://www.instagram.com/chooseinterior.cid/", contactUrl: "https://www.instagram.com/chooseinterior.cid/" }
           }[routeId];
           if (!expected || business?.["@type"] !== expected.type || business?.containedInPlace?.["@id"] !== placeId) fail(label, "Business profile must identify its business type and park location");
           if (business?.url !== expected?.url || business?.telephone !== expected?.phone) fail(label, "Business identity or branch contact is incorrect");
           if (!html.includes(`href="${expected?.contactUrl || `tel:${expected?.phone}`}"`)) fail(label, "Visible business contact does not match its published contact channel");
+          if (routeId === "chooseInterior") {
+            if (business?.address?.streetAddress !== "21-1, Jalan TPK 2/8, Taman Perindustrian Kinrara, Seksyen 2" || business?.address?.postalCode !== "47180" || /231 TR|Jalan Tun Razak|Wb78HRh6yhDg84vn8|hw283fszu6/.test(html)) fail(label, "Choose Interior must use its TPK Park address rather than the Imbi showroom details");
+            if (business?.telephone || business?.openingHours || business?.openingHoursSpecification || business?.image || html.includes("tel:undefined")) fail(label, "Choose Interior must not infer a local phone, hours or a premises photograph");
+            if (business?.contactPoint?.url !== expected.contactUrl) fail(label, "Choose Interior must retain its verified public Instagram enquiry channel");
+          }
           if (routeId === "signature") {
             if (business?.address?.streetAddress !== "9, Jalan TPK 2/8, Taman Perindustrian Kinrara" || business?.address?.postalCode !== "47180" || /\+60126231866|\+60122877793|Jalan Puteri 1\/5/.test(html)) fail(label, "Signature must use its Bandar Kinrara branch details rather than the national or Bandar Puteri contact");
             if (business?.image) fail(label, "The Signature kitchen design must not be presented as a photo of the Bandar Kinrara premises");

@@ -599,7 +599,7 @@ test("Forsee Lens website, directions and contacts retain tenant attribution wit
   page.clickLink("/lifestyle/forsee-lens/");
   page.clickLink("/zh/lifestyle/forsee-lens/", ".locale-nav");
   page.clickLink("https://forseelens.com/?email=private@example.com#private");
-  page.clickLink("https://forseelens.com/lens-selector?name=PRIVATE123");
+  page.clickLink("https://forseelens.com/post-listing?name=PRIVATE123");
   page.clickLink("https://forseelens.com/myoboostplus?name=PRIVATE123");
   page.clickLink("https://www.google.com/maps/search/?api=1&query=Forsee+PRIVATE123");
   page.clickLink("tel:+60378000373");

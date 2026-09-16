@@ -21,6 +21,7 @@ Checked 16 September 2026. Scope: Forsee Lens / Forsee Vision Care at Taman Peri
 - Official contact page email: `cs_forsee@forsee.com.my`.
 - The official website’s WhatsApp button resolves to phone `+60 16 205 7917`; the guide normalises that number to a `wa.me` link for a cleaner public CTA.
 - Official website: `https://forseelens.com/`.
+- The current site’s **Lens Selector** navigation resolves to `https://forseelens.com/post-listing`; this route is used rather than the more intuitive but non-current `/lens-selector` path.
 
 ## Directions and hours
 

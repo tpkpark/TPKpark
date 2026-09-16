@@ -1,7 +1,7 @@
 // Source verification and editorial boundaries: docs/forsee-lens-profile-sources.md.
 const website = "https://forseelens.com/";
 const contact = "https://forseelens.com/contact";
-const lensSelector = "https://forseelens.com/lens-selector";
+const lensSelector = "https://forseelens.com/post-listing";
 const myoboost = "https://forseelens.com/myoboostplus";
 const whatsapp = "https://wa.me/60162057917";
 const directions = "https://www.google.com/maps/search/?api=1&query=Forsee+Sdn+Bhd+71+Jalan+TPK+2%2F8+Puchong";

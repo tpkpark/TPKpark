@@ -399,7 +399,7 @@
         click("outbound_click", { link_domain: "optimumswimschool.com" }, "optimum-swim-school:" + destination);
       } else if (["www.forseelens.com", "forseelens.com"].includes(url.hostname)) {
         const path = url.pathname.replace(/\/$/, "") || "/";
-        const destination = { "/contact": "contact", "/lens-selector": "lens_selector", "/myoboostplus": "myoboost_plus", "/about": "about" }[path] || "website";
+        const destination = { "/contact": "contact", "/post-listing": "lens_selector", "/myoboostplus": "myoboost_plus", "/about": "about" }[path] || "website";
         click("outbound_click", { link_domain: "forseelens.com" }, "forsee-lens:" + destination);
       } else if (["www.instagram.com", "instagram.com"].includes(url.hostname) && /^\/chooseinterior\.cid\/?$/.test(url.pathname)) {
         click("tenant_contact_click", { contact_method: "instagram", tenant: "choose-interior" }, "choose-interior:instagram");

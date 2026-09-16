@@ -554,6 +554,25 @@ test("Jon Detailing enquiries exclude contact details and URL queries from analy
   assert.equal(page.basicSent().length, 7);
 });
 
+test("Jaecoo service enquiries exclude vehicle details and messages from analytics and respect opt-out", () => {
+  const page = client({ saved: "detailed", locale: "en" });
+  page.clickLink("/automotive/jaecoo-service-centre/");
+  page.clickLink("/ms/automotive/jaecoo-service-centre/", ".locale-nav");
+  page.clickLink("tel:+60193988817");
+  page.clickLink("https://wa.me/60193988817?text=PRIVATE123%20private@example.com");
+  page.clickLink("https://omodajaecoo.com.my/dealer-locator?registration=PRIVATE123#private");
+  page.clickLink("https://www.omodajaecoo.com.my/news-events/inaugural-omoda-i-jaecoo-technical-skills-competition-spotlights-excellence-and-competitive-spirit?visitor=PRIVATE123");
+  page.clickLink("https://www.google.com/maps/search/?api=1&query=Jaecoo+Apple+Autotech+PRIVATE123");
+  page.clickLink("https://www.waze.com/ul?q=Jaecoo%20Kinrara%20PRIVATE123&navigate=yes");
+  assert.deepEqual(page.basicSent().map(event => event.data.target), ["/automotive/jaecoo-service-centre/", "ms", "jaecoo-service-centre:phone", "jaecoo-service-centre:whatsapp", "jaecoo-service-centre:dealer_locator", "jaecoo-service-centre:photo", "about", "about"]);
+  assert.deepEqual(page.sent().filter(event => event[1] === "tenant_contact_click").map(event => event[2].contact_method), ["phone", "whatsapp"]);
+  assert.doesNotMatch(JSON.stringify([page.sent(), page.basicSent()]), /193988817|private@example.com|PRIVATE123|#private/);
+  page.controls.off.handlers.click();
+  page.clickLink("tel:+60193988817");
+  page.clickLink("https://wa.me/60193988817?text=PRIVATE123");
+  assert.equal(page.basicSent().length, 8);
+});
+
 test("detailed engagement counts milestones once and stops independently of basic statistics", () => {
   const page = client({ saved: "detailed" });
   page.focusForm(); page.focusForm();

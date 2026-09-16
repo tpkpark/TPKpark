@@ -25,6 +25,7 @@ import { jaecooServiceCentreProfiles } from "./jaecoo-service-centre-profile.mjs
 import { toyokarProfiles } from "./toyokar-profile.mjs";
 import { jazminaBistroProfiles } from "./jazmina-bistro-profile.mjs";
 import { nuarinaProfiles } from "./nuarina-profile.mjs";
+import { yummyNyonyaProfiles } from "./yummy-nyonya-profile.mjs";
 
 export const origin = "https://www.tpkpark.com";
 
@@ -61,6 +62,7 @@ export const routeSlugs = {
   motd: "lifestyle/motd",
   jazminaBistro: "lifestyle/jazmina-bistro",
   nuarina: "lifestyle/nasi-lemak-nuarina",
+  yummyNyonya: "lifestyle/yummy-nyonya-kitchen",
   leasing: "leasing",
   leasingShop: "leasing/shop-showroom",
   leasingDetached: "leasing/detached-building",
@@ -114,6 +116,7 @@ export const seoTitles = {
     motd: "MOTD Bar & Dining at TPK Park, Puchong",
     jazminaBistro: "Jazmina Bistro Puchong Kinrara | Dining | TPK Park",
     nuarina: "Nasi Lemak Nuarina Puchong Kinrara | TPK Park",
+    yummyNyonya: "Yummy Nyonya Kitchen Puchong Kinrara | TPK Park",
     leasing: "Shops, Showrooms & Buildings for Rent in Puchong | TPK Park",
     leasingShop: "Shop & Showroom for Rent in Kinrara, Puchong | TPK Park",
     leasingDetached: "Detached Showroom Building for Rent in Puchong | TPK Park",
@@ -157,6 +160,7 @@ export const seoTitles = {
     motd: "MOTD Bar & Dining di TPK Park, Puchong",
     jazminaBistro: "Jazmina Bistro Puchong Kinrara | Makan & Minum | TPK Park",
     nuarina: "Nasi Lemak Nuarina Puchong Kinrara | TPK Park",
+    yummyNyonya: "Yummy Nyonya Kitchen Puchong Kinrara | TPK Park",
     leasing: "Kedai & Bangunan untuk Disewa di Puchong | TPK Park",
     leasingShop: "Kedai untuk Disewa di Kinrara, Puchong | TPK Park",
     leasingDetached: "Bangunan Sesebuah untuk Disewa di Puchong | TPK Park",
@@ -200,6 +204,7 @@ export const seoTitles = {
     motd: "MOTD蒲种餐酒馆、炭烤与现场音乐 | TPK Park",
     jazminaBistro: "Jazmina Bistro蒲种金銮 | 日常餐饮 | TPK Park",
     nuarina: "Nasi Lemak Nuarina蒲种金銮 | TPK Park",
+    yummyNyonya: "Yummy Nyonya Kitchen蒲种金銮 | TPK Park",
     leasing: "蒲种金銮工业园商铺、展厅与整栋物业出租 | TPK Park",
     leasingShop: "蒲种金銮工业园商铺与展厅出租 | TPK Park",
     leasingDetached: "蒲种独立式商业建筑出租 | TPK Park",
@@ -249,6 +254,7 @@ const routeLastModifiedOverrides = {
   motd: "2026-09-15",
   jazminaBistro: "2026-09-16",
   nuarina: "2026-09-16",
+  yummyNyonya: "2026-09-16",
   leasing: "2026-09-10",
   leasingShop: "2026-09-09",
   leasingDetached: "2026-09-09",
@@ -895,7 +901,7 @@ const enPages = {
     cta: { title: "Find space for your next concept.", text: "Explore shop formats for dining, wellness, studios and complementary customer-facing services.", button: "View shop space", route: "leasingShop" },
     blocks: [
       { type: "directory", kicker: "Around the park", title: "Eat, move, learn and get things done", text: "Individual businesses manage their own programmes, bookings and opening hours.", items: [
-        ["Dining", "m.o.t.d"], ["Dining", "Jazmina Bistro"], ["Dining", "Nasi Lemak Daun Pisang Nuarina", "nuarina"], ["Dining", "Yummy Nyonya Kitchen"],
+        ["Dining", "m.o.t.d"], ["Dining", "Jazmina Bistro"], ["Dining", "Nasi Lemak Daun Pisang Nuarina", "nuarina"], ["Dining", "Yummy Nyonya Kitchen", "yummyNyonya"],
         ["Swimming", "Optimum Swim School"], ["Gymnastics", "Aces Gymnastic Academy"], ["Optical", "Forsee Lens"], ["Convenience", "99 Speedmart"], ["Wellness", "Happivilles"]
       ] },
       { type: "cards", kicker: "Everyday rhythm", title: "More reasons to return", text: "A mixed destination works best when it supports both planned visits and ordinary daily needs.", items: [
@@ -1235,7 +1241,7 @@ const msPages = {
     lead: "Di samping bilik pameran dan bengkel, TPK Park menyokong rutin yang membawa pekerja, keluarga dan pengunjung kembali sepanjang minggu.",
     cta: { title: "Cari ruang untuk konsep baharu anda.", text: "Terokai format kedai untuk makanan, kesejahteraan, studio dan perkhidmatan berhadapan pelanggan.", button: "Lihat ruang kedai", route: "leasingShop" },
     blocks: [
-      { type: "directory", kicker: "Sekitar taman", title: "Makan, bergerak, belajar dan selesaikan urusan", text: "Setiap perniagaan mengurus program, tempahan dan waktu operasinya sendiri.", items: [["Makanan", "m.o.t.d"], ["Makanan", "Jazmina Bistro"], ["Makanan", "Nasi Lemak Daun Pisang Nuarina", "nuarina"], ["Makanan", "Yummy Nyonya Kitchen"], ["Renang", "Optimum Swim School"], ["Gimnastik", "Aces Gymnastic Academy"], ["Optik", "Forsee Lens"], ["Kedai Serbaneka", "99 Speedmart"], ["Kesejahteraan", "Happivilles"]] },
+      { type: "directory", kicker: "Sekitar taman", title: "Makan, bergerak, belajar dan selesaikan urusan", text: "Setiap perniagaan mengurus program, tempahan dan waktu operasinya sendiri.", items: [["Makanan", "m.o.t.d"], ["Makanan", "Jazmina Bistro"], ["Makanan", "Nasi Lemak Daun Pisang Nuarina", "nuarina"], ["Makanan", "Yummy Nyonya Kitchen", "yummyNyonya"], ["Renang", "Optimum Swim School"], ["Gimnastik", "Aces Gymnastic Academy"], ["Optik", "Forsee Lens"], ["Kedai Serbaneka", "99 Speedmart"], ["Kesejahteraan", "Happivilles"]] },
       { type: "cards", kicker: "Rentak harian", title: "Lebih banyak sebab untuk kembali", text: "Destinasi bercampur berfungsi baik apabila menyokong kunjungan terancang dan keperluan biasa.", items: [
         { number: "01", title: "Bertemu", text: "Tempat makan santai dan berhenti seketika antara janji temu." }, { number: "02", title: "Bergerak", text: "Aktiviti renang, gimnastik dan kesejahteraan berstruktur." }, { number: "03", title: "Mengurus", text: "Keperluan harian dan perkhidmatan bersama kunjungan perniagaan." }
       ] },
@@ -1544,7 +1550,7 @@ const zhPages = {
     lead: "除了展厅与车厂，TPK Park也通过日常配套，让员工、家庭及访客在一周内有更多回访理由。",
     cta: { title: "为您的新业务寻找空间。", text: "了解适合餐饮、健康、工作室及配套服务的商铺形式。", button: "查看商铺空间", route: "leasingShop" },
     blocks: [
-      { type: "directory", kicker: "园区周边", title: "用餐、运动、学习与处理日常事务", text: "各商家自行管理课程、预约及营业时间。", items: [["餐饮", "m.o.t.d"], ["餐饮", "Jazmina Bistro"], ["餐饮", "Nasi Lemak Daun Pisang Nuarina", "nuarina"], ["餐饮", "Yummy Nyonya Kitchen"], ["游泳", "Optimum Swim School"], ["体操", "Aces Gymnastic Academy"], ["眼镜", "Forsee Lens"], ["便利店", "99 Speedmart"], ["健康", "Happivilles"]] },
+      { type: "directory", kicker: "园区周边", title: "用餐、运动、学习与处理日常事务", text: "各商家自行管理课程、预约及营业时间。", items: [["餐饮", "m.o.t.d"], ["餐饮", "Jazmina Bistro"], ["餐饮", "Nasi Lemak Daun Pisang Nuarina", "nuarina"], ["餐饮", "Yummy Nyonya Kitchen", "yummyNyonya"], ["游泳", "Optimum Swim School"], ["体操", "Aces Gymnastic Academy"], ["眼镜", "Forsee Lens"], ["便利店", "99 Speedmart"], ["健康", "Happivilles"]] },
       { type: "cards", kicker: "日常节奏", title: "更多回访理由", text: "混合型目的地既支持计划行程，也照顾日常需要。", items: [
         { number: "01", title: "会面", text: "在预约之间用餐或短暂停留。" }, { number: "02", title: "活动", text: "游泳、体操及健康课程。" }, { number: "03", title: "办事", text: "配合商业行程处理日常所需。" }
       ] },
@@ -1772,9 +1778,9 @@ const zhPages = {
 };
 
 export const site = {
-  en: { ...common.en, pages: { ...enPages, motd: motdProfiles.en, jazminaBistro: jazminaBistroProfiles.en, nuarina: nuarinaProfiles.en, lavino: lavinoProfiles.en, gaHing: gaHingProfiles.en, kucheBath: kucheBathProfiles.en, jubinBms: jubinBmsProfiles.en, vHausLiving: vHausLivingProfiles.en, balensDesign: balensDesignProfiles.en, builtop: builtopProfiles.en, premioDoor: premioDoorProfiles.en, klot: klotProfiles.en, dcMoto: dcMotoProfiles.en, fagolli: fagolliProfiles.en, totalTools: totalToolsProfiles.en, baagus: baagusProfiles.en, mkCurtain: mkCurtainProfiles.en, signature: signatureProfiles.en, chooseInterior: chooseInteriorProfiles.en, peroduaKinrara: peroduaKinraraProfiles.en, mazdaKinrara: mazdaKinraraProfiles.en, kia4sService: kia4sServiceProfiles.en, techtricsAuto: techtricsAutoProfiles.en, techtraAcademy: techtraAcademyProfiles.en, jonDetailing: jonDetailingProfiles.en, jaecooServiceCentre: jaecooServiceCentreProfiles.en, toyokar: toyokarProfiles.en } },
-  ms: { ...common.ms, pages: { ...msPages, motd: motdProfiles.ms, jazminaBistro: jazminaBistroProfiles.ms, nuarina: nuarinaProfiles.ms, lavino: lavinoProfiles.ms, gaHing: gaHingProfiles.ms, kucheBath: kucheBathProfiles.ms, jubinBms: jubinBmsProfiles.ms, vHausLiving: vHausLivingProfiles.ms, balensDesign: balensDesignProfiles.ms, builtop: builtopProfiles.ms, premioDoor: premioDoorProfiles.ms, klot: klotProfiles.ms, dcMoto: dcMotoProfiles.ms, fagolli: fagolliProfiles.ms, totalTools: totalToolsProfiles.ms, baagus: baagusProfiles.ms, mkCurtain: mkCurtainProfiles.ms, signature: signatureProfiles.ms, chooseInterior: chooseInteriorProfiles.ms, peroduaKinrara: peroduaKinraraProfiles.ms, mazdaKinrara: mazdaKinraraProfiles.ms, kia4sService: kia4sServiceProfiles.ms, techtricsAuto: techtricsAutoProfiles.ms, techtraAcademy: techtraAcademyProfiles.ms, jonDetailing: jonDetailingProfiles.ms, jaecooServiceCentre: jaecooServiceCentreProfiles.ms, toyokar: toyokarProfiles.ms } },
-  zh: { ...common.zh, pages: { ...zhPages, motd: motdProfiles.zh, jazminaBistro: jazminaBistroProfiles.zh, nuarina: nuarinaProfiles.zh, lavino: lavinoProfiles.zh, gaHing: gaHingProfiles.zh, kucheBath: kucheBathProfiles.zh, jubinBms: jubinBmsProfiles.zh, vHausLiving: vHausLivingProfiles.zh, balensDesign: balensDesignProfiles.zh, builtop: builtopProfiles.zh, premioDoor: premioDoorProfiles.zh, klot: klotProfiles.zh, dcMoto: dcMotoProfiles.zh, fagolli: fagolliProfiles.zh, totalTools: totalToolsProfiles.zh, baagus: baagusProfiles.zh, mkCurtain: mkCurtainProfiles.zh, signature: signatureProfiles.zh, chooseInterior: chooseInteriorProfiles.zh, peroduaKinrara: peroduaKinraraProfiles.zh, mazdaKinrara: mazdaKinraraProfiles.zh, kia4sService: kia4sServiceProfiles.zh, techtricsAuto: techtricsAutoProfiles.zh, techtraAcademy: techtraAcademyProfiles.zh, jonDetailing: jonDetailingProfiles.zh, jaecooServiceCentre: jaecooServiceCentreProfiles.zh, toyokar: toyokarProfiles.zh } }
+  en: { ...common.en, pages: { ...enPages, motd: motdProfiles.en, jazminaBistro: jazminaBistroProfiles.en, nuarina: nuarinaProfiles.en, yummyNyonya: yummyNyonyaProfiles.en, lavino: lavinoProfiles.en, gaHing: gaHingProfiles.en, kucheBath: kucheBathProfiles.en, jubinBms: jubinBmsProfiles.en, vHausLiving: vHausLivingProfiles.en, balensDesign: balensDesignProfiles.en, builtop: builtopProfiles.en, premioDoor: premioDoorProfiles.en, klot: klotProfiles.en, dcMoto: dcMotoProfiles.en, fagolli: fagolliProfiles.en, totalTools: totalToolsProfiles.en, baagus: baagusProfiles.en, mkCurtain: mkCurtainProfiles.en, signature: signatureProfiles.en, chooseInterior: chooseInteriorProfiles.en, peroduaKinrara: peroduaKinraraProfiles.en, mazdaKinrara: mazdaKinraraProfiles.en, kia4sService: kia4sServiceProfiles.en, techtricsAuto: techtricsAutoProfiles.en, techtraAcademy: techtraAcademyProfiles.en, jonDetailing: jonDetailingProfiles.en, jaecooServiceCentre: jaecooServiceCentreProfiles.en, toyokar: toyokarProfiles.en } },
+  ms: { ...common.ms, pages: { ...msPages, motd: motdProfiles.ms, jazminaBistro: jazminaBistroProfiles.ms, nuarina: nuarinaProfiles.ms, yummyNyonya: yummyNyonyaProfiles.ms, lavino: lavinoProfiles.ms, gaHing: gaHingProfiles.ms, kucheBath: kucheBathProfiles.ms, jubinBms: jubinBmsProfiles.ms, vHausLiving: vHausLivingProfiles.ms, balensDesign: balensDesignProfiles.ms, builtop: builtopProfiles.ms, premioDoor: premioDoorProfiles.ms, klot: klotProfiles.ms, dcMoto: dcMotoProfiles.ms, fagolli: fagolliProfiles.ms, totalTools: totalToolsProfiles.ms, baagus: baagusProfiles.ms, mkCurtain: mkCurtainProfiles.ms, signature: signatureProfiles.ms, chooseInterior: chooseInteriorProfiles.ms, peroduaKinrara: peroduaKinraraProfiles.ms, mazdaKinrara: mazdaKinraraProfiles.ms, kia4sService: kia4sServiceProfiles.ms, techtricsAuto: techtricsAutoProfiles.ms, techtraAcademy: techtraAcademyProfiles.ms, jonDetailing: jonDetailingProfiles.ms, jaecooServiceCentre: jaecooServiceCentreProfiles.ms, toyokar: toyokarProfiles.ms } },
+  zh: { ...common.zh, pages: { ...zhPages, motd: motdProfiles.zh, jazminaBistro: jazminaBistroProfiles.zh, nuarina: nuarinaProfiles.zh, yummyNyonya: yummyNyonyaProfiles.zh, lavino: lavinoProfiles.zh, gaHing: gaHingProfiles.zh, kucheBath: kucheBathProfiles.zh, jubinBms: jubinBmsProfiles.zh, vHausLiving: vHausLivingProfiles.zh, balensDesign: balensDesignProfiles.zh, builtop: builtopProfiles.zh, premioDoor: premioDoorProfiles.zh, klot: klotProfiles.zh, dcMoto: dcMotoProfiles.zh, fagolli: fagolliProfiles.zh, totalTools: totalToolsProfiles.zh, baagus: baagusProfiles.zh, mkCurtain: mkCurtainProfiles.zh, signature: signatureProfiles.zh, chooseInterior: chooseInteriorProfiles.zh, peroduaKinrara: peroduaKinraraProfiles.zh, mazdaKinrara: mazdaKinraraProfiles.zh, kia4sService: kia4sServiceProfiles.zh, techtricsAuto: techtricsAutoProfiles.zh, techtraAcademy: techtraAcademyProfiles.zh, jonDetailing: jonDetailingProfiles.zh, jaecooServiceCentre: jaecooServiceCentreProfiles.zh, toyokar: toyokarProfiles.zh } }
 };
 
 // Link each business profile from its own cluster directory.

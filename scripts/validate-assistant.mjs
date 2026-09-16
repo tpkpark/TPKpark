@@ -148,6 +148,10 @@ test("business guides provide the correct public branch contacts in all three la
     assert.match(sources.nuarina.texts[locale], /\+60 12 228 2290/);
     assert.match(sources.nuarina.texts[locale], /Nasi Lemak/);
     assert.deepEqual(sourceLinks(["nuarina"], locale).map(source => source.url), [routePath(locale, "nuarina")]);
+    assert.match(sources.yummyNyonya.texts[locale], /43G, Jalan TPK 2\/8/);
+    assert.match(sources.yummyNyonya.texts[locale], /\+60 11 1163 1126/);
+    assert.match(sources.yummyNyonya.texts[locale], /Yummy Nyonya Kitchen/);
+    assert.deepEqual(sourceLinks(["yummyNyonya"], locale).map(source => source.url), [routePath(locale, "yummyNyonya")]);
     assert.match(sources.gaHing.texts[locale], /4, Jalan TPK 2\/2/);
     assert.match(sources.gaHing.texts[locale], /\+60 3 8080 9119/);
     assert.doesNotMatch(sources.gaHing.texts[locale], /339 1601|662 6951/);

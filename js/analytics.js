@@ -214,7 +214,7 @@
   });
 
   const knownSpaces = ["shop-showroom", "detached-building", "semi-detached", "terrace-waitlist"];
-  const pagePath = /^\/(?:ms\/|zh\/)?(?:about|home-living(?:\/(?:lavino|ga-hing|kuche-bath|jubin-bms|v-haus-living|balens-design|builtop|premio-door|klot|dc-moto|fagolli|total-tools|baagus|mk-curtain|signature|choose-interior))?|automotive(?:\/(?:perodua-3s-kinrara|mazda-kinrara|kia-4s-service|techtrics-auto|techtra-automotive-academy|jon-detailing|jaecoo-service-centre|toyokar))?|lifestyle(?:\/(?:motd|jazmina-bistro|nasi-lemak-nuarina))?|leasing(?:\/(?:shop-showroom|detached-building|semi-detached))?|news|milestones|wong-shung-yen(?:\/public-record)?|contact)?\/?$/;
+  const pagePath = /^\/(?:ms\/|zh\/)?(?:about|home-living(?:\/(?:lavino|ga-hing|kuche-bath|jubin-bms|v-haus-living|balens-design|builtop|premio-door|klot|dc-moto|fagolli|total-tools|baagus|mk-curtain|signature|choose-interior))?|automotive(?:\/(?:perodua-3s-kinrara|mazda-kinrara|kia-4s-service|techtrics-auto|techtra-automotive-academy|jon-detailing|jaecoo-service-centre|toyokar))?|lifestyle(?:\/(?:motd|jazmina-bistro|nasi-lemak-nuarina|yummy-nyonya-kitchen))?|leasing(?:\/(?:shop-showroom|detached-building|semi-detached))?|news|milestones|wong-shung-yen(?:\/public-record)?|contact)?\/?$/;
   const socialHosts = { "www.facebook.com": "facebook", "www.instagram.com": "instagram", "www.tiktok.com": "tiktok", "www.xiaohongshu.com": "xiaohongshu", "www.rednote.com": "xiaohongshu" };
 
   document.addEventListener("click", event => {
@@ -225,6 +225,8 @@
     const click = (name, detail, target) => record(name, { ...detail, interaction_origin: fromAssistant ? "assistant" : "website" }, fromAssistant ? "assistant:" + target : target);
     if (href === "tel:+60166626951") return click("tenant_contact_click", { contact_method: "phone", tenant: "motd" }, "motd:phone");
     if (href === "tel:+60122282290") return click("tenant_contact_click", { contact_method: "phone", tenant: "nasi-lemak-nuarina" }, "nasi-lemak-nuarina:phone");
+    if (href === "tel:+601111631126") return click("tenant_contact_click", { contact_method: "phone", tenant: "yummy-nyonya-kitchen" }, "yummy-nyonya-kitchen:phone");
+    if (href === "tel:+60108912102") return click("tenant_contact_click", { contact_method: "phone", tenant: "yummy-nyonya-kitchen" }, "yummy-nyonya-kitchen:phone-alt");
     if (href === "tel:+60163391601") return click("tenant_contact_click", { contact_method: "phone", tenant: "lavino" }, "lavino:phone");
     if (href === "tel:+60380809119") return click("tenant_contact_click", { contact_method: "phone", tenant: "ga-hing" }, "ga-hing:phone");
     if (href === "tel:+60380791268") return click("tenant_contact_click", { contact_method: "phone", tenant: "kuche-bath" }, "kuche-bath:phone");

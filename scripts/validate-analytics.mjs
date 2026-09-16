@@ -594,6 +594,24 @@ test("Toyokar enquiries keep vehicle details, messages and email contents out of
   assert.equal(page.basicSent().length, 9);
 });
 
+test("Yummy Nyonya Kitchen navigation, maps and calls retain tenant attribution without private URL data", () => {
+  const page = client({ saved: "detailed", locale: "en" });
+  page.clickLink("/lifestyle/yummy-nyonya-kitchen/");
+  page.clickLink("/zh/lifestyle/yummy-nyonya-kitchen/", ".locale-nav");
+  page.clickLink("https://www.google.com/maps/search/?api=1&query=Yummy+Nyonya+Kitchen+PRIVATE123&email=private@example.com#private");
+  page.clickLink("https://www.waze.com/live-map/directions/yummy-nyonya-kitchen-jalan-tpk-28-puchong?to=place.w.66584606.666108209.5814230&message=PRIVATE123");
+  page.clickLink("tel:+601111631126");
+  page.clickLink("tel:+60108912102");
+  assert.deepEqual(page.basicSent().map(event => event.name), ["navigation_click", "language_switch", "directions_click", "directions_click", "tenant_contact_click", "tenant_contact_click"]);
+  assert.deepEqual(page.basicSent().map(event => event.data.target), ["/lifestyle/yummy-nyonya-kitchen/", "zh", "about", "about", "yummy-nyonya-kitchen:phone", "yummy-nyonya-kitchen:phone-alt"]);
+  assert.equal(page.sent().filter(event => event[1] === "contact_click").length, 0);
+  assert.equal(page.sent().at(-1)[2].tenant, "yummy-nyonya-kitchen");
+  assert.doesNotMatch(JSON.stringify([page.sent(), page.basicSent()]), /PRIVATE123|private@example.com|601111631126|60108912102|5814230/);
+  page.controls.off.handlers.click();
+  page.clickLink("tel:+601111631126");
+  assert.equal(page.basicSent().length, 6);
+});
+
 test("Nuarina menu, maps and calls stay attributable without leaking visitor data", () => {
   const page = client({ saved: "detailed", locale: "en" });
   page.clickLink("/lifestyle/nasi-lemak-nuarina/");

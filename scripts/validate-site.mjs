@@ -158,11 +158,23 @@ for (const locale of locales) {
             jazminaBistro: { type: "Restaurant", contactUrl: "https://www.foodpanda.my/restaurant/rlie/jazmina-bistro-rlie" },
             nuarina: { type: "Restaurant", phone: "+60122282290" },
             yummyNyonya: { type: "Restaurant", phone: "+601111631126" },
-            optimumSwimSchool: { type: "SportsActivityLocation", url: "https://optimumswimschool.com/", phone: "+60192848138" }
+            optimumSwimSchool: { type: "SportsActivityLocation", url: "https://optimumswimschool.com/", phone: "+60192848138" },
+            acesGymnasticAcademy: { type: "SportsActivityLocation", url: "https://www.facebook.com/Acesgymnasticacademy", phone: "+60103658213" }
           }[routeId];
           if (!expected || business?.["@type"] !== expected.type || business?.containedInPlace?.["@id"] !== placeId) fail(label, "Business profile must identify its business type and park location");
           if (business?.url !== expected?.url || business?.telephone !== expected?.phone) fail(label, "Business identity or branch contact is incorrect");
           if (!html.includes(`href="${expected?.contactUrl || `tel:${expected?.phone}`}"`)) fail(label, "Visible business contact does not match its published contact channel");
+          if (routeId === "acesGymnasticAcademy") {
+            const split = page.blocks.find(block => block.type === "split");
+            const hours = business?.openingHoursSpecification;
+            if (business?.address?.streetAddress !== "11-1, Jalan TPK 2/8, Taman Perindustrian Kinrara" || business?.address?.postalCode !== "47180") fail(label, "Aces Gymnastic Academy must retain its verified first-floor TPK Park address");
+            if (business?.telephone !== "+60103658213" || business?.url !== "https://www.facebook.com/Acesgymnasticacademy" || business?.image) fail(label, "Aces must retain its public phone and Facebook page without presenting contextual park imagery as a premises photo");
+            if (hours?.length !== 4 || hours[0]?.dayOfWeek?.[0] !== "Monday" || hours[0]?.opens !== "17:00" || hours[0]?.closes !== "21:00" || hours[1]?.dayOfWeek?.join(",") !== "Tuesday,Wednesday" || hours[1]?.opens !== "16:00" || hours[1]?.closes !== "20:30" || hours[2]?.dayOfWeek?.[0] !== "Saturday" || hours[2]?.opens !== "11:00" || hours[2]?.closes !== "20:00" || hours[3]?.dayOfWeek?.[0] !== "Sunday" || hours[3]?.opens !== "11:00" || hours[3]?.closes !== "18:00") fail(label, "Aces must preserve only the operating intervals published by the current public listing");
+            if (page.heroImage !== "https://i.imgur.com/Z5h4hmH.jpg" || split?.image !== "https://i.imgur.com/Z5h4hmH.jpg") fail(label, "Aces must keep the TPK Park Lifestyle image explicitly contextual until a verified branch photograph is available");
+            if (!html.includes('href="tel:+60103658213"') || !html.includes('href="https://www.facebook.com/Acesgymnasticacademy"')) fail(label, "Aces public phone and Facebook page must remain visible");
+            const timetableCaution = { en: "does not publish Thursday or Friday hours", ms: "tidak menerbitkan waktu Khamis atau Jumaat", zh: "没有公布星期四及星期五的时段" }[locale];
+            if (!html.includes(timetableCaution)) fail(label, "Aces must preserve the Thursday/Friday timetable caution");
+          }
           if (routeId === "optimumSwimSchool") {
             const split = page.blocks.find(block => block.type === "split");
             const hours = business?.openingHoursSpecification;

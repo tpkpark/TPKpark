@@ -3,8 +3,9 @@ const website = "https://www.builtopmalaysia.com/";
 const contact = "https://www.builtopmalaysia.com/contactus/";
 const services = "https://www.builtopmalaysia.com/services/";
 const directions = "https://www.google.com/maps/dir/?api=1&destination=BUILTOP%2C+13-1%2C+Jalan+TPK+2%2F8%2C+47100+Puchong%2C+Selangor";
-// Existing park photography provides street context, not a BUILTOP project image.
-const image = "https://i.imgur.com/EDf26sR.jpg";
+// Residential project photograph from BUILTOP’s official Sunway Geo portfolio.
+const image = "https://www.tpkpark.com/assets/images/builtop-sunway-geo-1440.webp";
+const imageSource = { label: "BUILTOP", url: "https://www.builtopmalaysia.com/showproducts/productid/5306104/cid/554650/sunway-geo/" };
 const address = "13-1, Jalan TPK 2/8, Taman Perindustrian Kinrara, 47100 Puchong, Selangor";
 
 export const builtopBusiness = {
@@ -33,11 +34,12 @@ export const builtopProfiles = {
     description: "Discuss residential or commercial projects with BUILTOP in Puchong. Find its Jalan TPK 2/8 office, design and build services, contact details and directions.",
     lead: "BUILTOP provides design and construction services for homes and commercial premises. Based on Jalan TPK 2/8 in Taman Perindustrian Kinrara, it brings project planning and building services to TPK Park’s Home & Living cluster.",
     image,
-    heroAlt: "The Jalan TPK 2/8 shop-office setting at TPK Park",
+    heroImage: image,
+    heroAlt: "Built-in timber shelving and a desk in BUILTOP’s Sunway Geo townhouse project",
     business: builtopBusiness,
     datePublished: "2026-09-16",
     blocks: [
-      { type: "split", presentation: "renewal", title: "Plan the design and the work together.", text: "BUILTOP’s services include interior design, design and build, renovation, construction and project management consultation. Whether you are adapting an existing home or fitting out business premises, start by explaining the space, the intended use and what needs to change. This gives the team a clearer basis for discussing the scope, materials and sequence of work.", image, alt: "Shop-office frontage and businesses along Jalan TPK 2/8", caption: "The Jalan TPK 2/8 setting. BUILTOP’s office is at 13-1 on this street.", route: "homeLiving", linkLabel: "Explore Home & Living" },
+      { type: "split", presentation: "renewal", title: "Plan the design and the work together.", text: "BUILTOP’s services include interior design, design and build, renovation, construction and project management consultation. Whether you are adapting an existing home or fitting out business premises, start by explaining the space, the intended use and what needs to change. This gives the team a clearer basis for discussing the scope, materials and sequence of work.", image, alt: "Built-in timber shelving and a desk in BUILTOP’s Sunway Geo townhouse project", caption: "A study space in BUILTOP’s Sunway Geo townhouse project. Photo:", captionSource: imageSource, route: "homeLiving", linkLabel: "Explore Home & Living" },
       { type: "cards", alignHeadings: true, kicker: "Before the first meeting", title: "Give the project a clear starting point.", items: [
         { number: "01", title: "Describe the property", text: "Bring available drawings, measurements and recent photos. Explain whether the space is a home, office, shop or another type of premises, what is already there and how you want to use it. Note anything that needs to remain in place." },
         { number: "02", title: "Define the work", text: "Separate the work you need from optional additions, and share your budget range. Ask which design, construction and coordination services are included. Clarify who will handle any required submissions and how materials and changes will be recorded." },
@@ -60,11 +62,12 @@ export const builtopProfiles = {
     description: "Bincangkan projek kediaman atau komersial dengan BUILTOP Puchong. Lihat alamat Jalan TPK 2/8, khidmat reka bentuk dan bina, telefon serta arah perjalanan.",
     lead: "BUILTOP menyediakan perkhidmatan reka bentuk dan pembinaan untuk kediaman serta premis komersial. Berpusat di Jalan TPK 2/8, Taman Perindustrian Kinrara, firma ini melengkapkan kluster Home & Living TPK Park dengan perancangan projek dan khidmat pembinaan.",
     image,
-    heroAlt: "Persekitaran kedai-pejabat Jalan TPK 2/8 di TPK Park",
+    heroImage: image,
+    heroAlt: "Rak kayu terbina dalam dan meja dalam projek rumah bandar Sunway Geo oleh BUILTOP",
     business: builtopBusiness,
     datePublished: "2026-09-16",
     blocks: [
-      { type: "split", presentation: "renewal", title: "Rancang reka bentuk dan pelaksanaan bersama.", text: "Perkhidmatan BUILTOP merangkumi reka bentuk dalaman, reka bentuk dan bina, pengubahsuaian, pembinaan serta konsultasi pengurusan projek. Sama ada anda mengubah suai rumah sedia ada atau menyiapkan ruang perniagaan, mulakan dengan menerangkan ruang, kegunaan yang dirancang dan perubahan yang diperlukan. Maklumat ini membantu pasukan membincangkan skop, bahan dan urutan kerja.", image, alt: "Deretan kedai-pejabat dan perniagaan di sepanjang Jalan TPK 2/8", caption: "Persekitaran Jalan TPK 2/8. Pejabat BUILTOP terletak di 13-1 di jalan ini.", route: "homeLiving", linkLabel: "Terokai Home & Living" },
+      { type: "split", presentation: "renewal", title: "Rancang reka bentuk dan pelaksanaan bersama.", text: "Perkhidmatan BUILTOP merangkumi reka bentuk dalaman, reka bentuk dan bina, pengubahsuaian, pembinaan serta konsultasi pengurusan projek. Sama ada anda mengubah suai rumah sedia ada atau menyiapkan ruang perniagaan, mulakan dengan menerangkan ruang, kegunaan yang dirancang dan perubahan yang diperlukan. Maklumat ini membantu pasukan membincangkan skop, bahan dan urutan kerja.", image, alt: "Rak kayu terbina dalam dan meja dalam projek rumah bandar Sunway Geo oleh BUILTOP", caption: "Ruang belajar dalam projek rumah bandar Sunway Geo oleh BUILTOP. Foto:", captionSource: imageSource, route: "homeLiving", linkLabel: "Terokai Home & Living" },
       { type: "cards", alignHeadings: true, kicker: "Sebelum pertemuan pertama", title: "Tetapkan asas projek dengan jelas.", items: [
         { number: "01", title: "Terangkan premis", text: "Bawa lukisan yang tersedia, ukuran dan foto terkini. Nyatakan sama ada ruang itu rumah, pejabat, kedai atau premis lain, keadaan sedia ada dan kegunaan yang dirancang. Catat bahagian yang perlu dikekalkan." },
         { number: "02", title: "Tentukan skop kerja", text: "Bezakan kerja yang diperlukan daripada tambahan pilihan dan kongsikan julat bajet anda. Tanya khidmat reka bentuk, pembinaan dan penyelarasan yang termasuk. Perjelas pihak yang menguruskan penyerahan dokumen jika diperlukan serta cara bahan dan perubahan akan direkodkan." },
@@ -87,11 +90,12 @@ export const builtopProfiles = {
     description: "向蒲种金銮工业园的BUILTOP咨询住宅与商业空间设计、装修及建筑工程。查看Jalan TPK 2/8办公地址、电话、导航路线与项目前期沟通建议。",
     lead: "BUILTOP为住宅与商业空间提供设计及建筑工程服务，办公室位于金銮工业园Jalan TPK 2/8，为TPK Park家居生活集群增添项目规划与施工服务。",
     image,
-    heroAlt: "TPK Park内Jalan TPK 2/8的店铺办公空间与沿街环境",
+    heroImage: image,
+    heroAlt: "BUILTOP的Sunway Geo联排住宅项目，展示木质内置书架与书桌",
     business: builtopBusiness,
     datePublished: "2026-09-16",
     blocks: [
-      { type: "split", presentation: "renewal", title: "把设计与施工放在一起规划。", text: "BUILTOP的服务涵盖室内设计、设计与施工、装修、建筑工程及项目管理咨询。无论是改造现有住宅，还是装修商业场所，都可先说明空间现况、计划用途及需要改变的部分，让团队更具体地讨论工程范围、材料与施工顺序。", image, alt: "Jalan TPK 2/8沿街的店铺办公空间与商家", caption: "Jalan TPK 2/8周边环境。BUILTOP办公室位于这条街的13-1号。", route: "homeLiving", linkLabel: "查看家居生活品牌" },
+      { type: "split", presentation: "renewal", title: "把设计与施工放在一起规划。", text: "BUILTOP的服务涵盖室内设计、设计与施工、装修、建筑工程及项目管理咨询。无论是改造现有住宅，还是装修商业场所，都可先说明空间现况、计划用途及需要改变的部分，让团队更具体地讨论工程范围、材料与施工顺序。", image, alt: "BUILTOP的Sunway Geo联排住宅项目，展示木质内置书架与书桌", caption: "BUILTOP的Sunway Geo联排住宅项目中的书房空间。图片来源：", captionSource: imageSource, route: "homeLiving", linkLabel: "查看家居生活品牌" },
       { type: "cards", alignHeadings: true, kicker: "首次会面之前", title: "先把项目的基本需求说清楚。", items: [
         { number: "01", title: "说明物业现况", text: "准备现有图纸、尺寸及近期照片，说明空间属于住宅、办公室、商铺或其他用途，目前状况如何，以及未来希望怎样使用。也请标明需要保留的部分。" },
         { number: "02", title: "界定工程范围", text: "区分必要工程与可选项目，并说明预算范围。了解报价包含哪些设计、施工及协调服务，厘清需要提交的文件由谁负责，以及材料规格和变更将如何记录。" },

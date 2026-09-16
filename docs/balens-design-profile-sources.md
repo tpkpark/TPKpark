@@ -21,7 +21,9 @@ The directions link uses the business name and complete published address. No ma
 
 Advice about floor plans, room use, priorities, budget, scope and delivery of the project is original consultation preparation. It does not state that any particular service, drawing, approval, warranty or project-management arrangement is included in Balens Design's fee. Visitors are asked to discuss the scope directly.
 
-The guide reuses the existing TPK Park image `assets/images/home-living-1120.webp` and its responsive 480px version through the shared image registry. The image shows the Jalan TPK 2/8 street setting. Captions identify it as surrounding context and state the office's separate address, 25-1. It is not labelled as a Balens Design project, interior or identifiable storefront. No new imagery is introduced; the general street photo is not assigned to the business's schema image field.
+The image was refreshed on 16 September 2026 using the double-height living and dining space from [Sculpted Volume Residence](https://balensdesign.com/project/sculpted-volume-residence), which the official portfolio locates in Kinrara. [Original image](https://balensdesign.com/wp-content/uploads/2025/07/1-4.jpg). The 1754×1240 source is exported in full to `assets/images/balens-sculpted-volume-1440.webp` (1440×1018) and `assets/images/balens-sculpted-volume-480.webp` (480×339), with no crop, retouching or generated additions.
+
+The source does not specify whether this view is photography or a visualisation, so captions use “project image”. Captions and alt text in all three languages identify the residential project and Kinrara location, with a linked Balens Design credit. It is not labelled as the TPK Park office or assigned as an office identity image in LocalBusiness schema. The shared registry supplies the visible page image, primary-page image and social previews.
 
 ## Integration
 

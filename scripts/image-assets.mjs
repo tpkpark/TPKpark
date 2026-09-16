@@ -1,5 +1,17 @@
 // Locally hosted versions of approved imagery, shared by page content and preview metadata.
 export const imageAssets = {
+  "https://www.tpkpark.com/assets/images/v-haus-living-dining-1030.webp": {
+    src: "/assets/images/v-haus-living-dining-1030.webp", width: 1030, height: 965,
+    srcset: "/assets/images/v-haus-living-dining-480.webp 480w, /assets/images/v-haus-living-dining-1030.webp 1030w"
+  },
+  "https://www.tpkpark.com/assets/images/balens-sculpted-volume-1440.webp": {
+    src: "/assets/images/balens-sculpted-volume-1440.webp", width: 1440, height: 1018,
+    srcset: "/assets/images/balens-sculpted-volume-480.webp 480w, /assets/images/balens-sculpted-volume-1440.webp 1440w"
+  },
+  "https://www.tpkpark.com/assets/images/builtop-sunway-geo-1440.webp": {
+    src: "/assets/images/builtop-sunway-geo-1440.webp", width: 1440, height: 1080,
+    srcset: "/assets/images/builtop-sunway-geo-480.webp 480w, /assets/images/builtop-sunway-geo-1440.webp 1440w"
+  },
   "https://www.tpkpark.com/assets/images/premio-door-puchong-1000.webp": {
     src: "/assets/images/premio-door-puchong-1000.webp", width: 1000, height: 900,
     srcset: "/assets/images/premio-door-puchong-480.webp 480w, /assets/images/premio-door-puchong-1000.webp 1000w"

@@ -214,7 +214,7 @@
   });
 
   const knownSpaces = ["shop-showroom", "detached-building", "semi-detached", "terrace-waitlist"];
-  const pagePath = /^\/(?:ms\/|zh\/)?(?:about|home-living(?:\/(?:lavino|ga-hing|kuche-bath|jubin-bms|v-haus-living|balens-design|builtop|premio-door|klot|dc-moto|fagolli|total-tools|baagus|mk-curtain|signature|choose-interior))?|automotive(?:\/(?:perodua-3s-kinrara|mazda-kinrara|kia-4s-service|techtrics-auto))?|lifestyle(?:\/motd)?|leasing(?:\/(?:shop-showroom|detached-building|semi-detached))?|news|milestones|wong-shung-yen(?:\/public-record)?|contact)?\/?$/;
+  const pagePath = /^\/(?:ms\/|zh\/)?(?:about|home-living(?:\/(?:lavino|ga-hing|kuche-bath|jubin-bms|v-haus-living|balens-design|builtop|premio-door|klot|dc-moto|fagolli|total-tools|baagus|mk-curtain|signature|choose-interior))?|automotive(?:\/(?:perodua-3s-kinrara|mazda-kinrara|kia-4s-service|techtrics-auto|techtra-automotive-academy))?|lifestyle(?:\/motd)?|leasing(?:\/(?:shop-showroom|detached-building|semi-detached))?|news|milestones|wong-shung-yen(?:\/public-record)?|contact)?\/?$/;
   const socialHosts = { "www.facebook.com": "facebook", "www.instagram.com": "instagram", "www.tiktok.com": "tiktok", "www.xiaohongshu.com": "xiaohongshu", "www.rednote.com": "xiaohongshu" };
 
   document.addEventListener("click", event => {
@@ -238,6 +238,8 @@
     if (href === "tel:+60102133173") return click("tenant_contact_click", { contact_method: "phone", tenant: "baagus" }, "baagus:phone");
     if (href === "tel:+60380747210") return click("tenant_contact_click", { contact_method: "phone", tenant: "mk-curtain" }, "mk-curtain:phone");
     if (href === "tel:+60168133182") return click("tenant_contact_click", { contact_method: "phone", tenant: "signature" }, "signature:phone");
+    if (["tel:+60182886565", "tel:+60183886565"].includes(href)) return click("tenant_contact_click", { contact_method: "phone", tenant: "techtra-automotive-academy" }, "techtra-automotive-academy:phone");
+    if (/^mailto:enquiry@techtraacademy\.my(?:[?#]|$)/i.test(href)) return click("tenant_contact_click", { contact_method: "email", tenant: "techtra-automotive-academy" }, "techtra-automotive-academy:email");
     if (["tel:+60358916661", "tel:+60124496696"].includes(href)) return click("tenant_contact_click", { contact_method: "phone", tenant: "techtrics-auto" }, "techtrics-auto:phone");
     if (/^mailto:info@mercedesworkshop\.com\.my(?:[?#]|$)/i.test(href)) return click("tenant_contact_click", { contact_method: "email", tenant: "techtrics-auto" }, "techtrics-auto:email");
     if (href === "tel:+60380761005") return click("tenant_contact_click", { contact_method: "phone", tenant: "kia-4s-service" }, "kia-4s-service:phone");
@@ -270,6 +272,8 @@
             click(name, { destination_path: url.pathname }, url.pathname);
           }
         }
+      } else if (url.hostname === "wa.me" && /^\/60182886565\/?$/.test(url.pathname)) {
+        click("tenant_contact_click", { contact_method: "whatsapp", tenant: "techtra-automotive-academy" }, "techtra-automotive-academy:whatsapp");
       } else if (url.hostname === "wa.me" && /^\/601156279623\/?$/.test(url.pathname)) {
         click("tenant_contact_click", { contact_method: "whatsapp", tenant: "dc-moto" }, "dc-moto:whatsapp");
       } else if (url.hostname === "wa.me" && /^\/601154078187\/?$/.test(url.pathname)) {
@@ -334,6 +338,9 @@
       } else if (["www.perodua3skinrara.com", "perodua3skinrara.com"].includes(url.hostname)) {
         const destination = /^\/onlineservicebooking\/?$/.test(url.pathname) ? "service_booking" : "website";
         click("outbound_click", { link_domain: "www.perodua3skinrara.com" }, "perodua-3s-kinrara:" + destination);
+      } else if (["www.techtra.edu.my", "techtra.edu.my"].includes(url.hostname)) {
+        const destination = url.pathname.startsWith("/wp-content/uploads/") ? "photo" : /^\/automotive-technology-courses\/?$/.test(url.pathname) ? "courses" : "website";
+        click("outbound_click", { link_domain: "techtra.edu.my" }, "techtra-automotive-academy:" + destination);
       } else if (["www.mercedesworkshop.com.my", "mercedesworkshop.com.my"].includes(url.hostname)) {
         const destination = url.pathname.startsWith("/wp-content/uploads/") ? "photo" : "website";
         click("outbound_click", { link_domain: "mercedesworkshop.com.my" }, "techtrics-auto:" + destination);

@@ -137,11 +137,21 @@ for (const locale of locales) {
             builtop: { type: "LocalBusiness", url: "https://www.builtopmalaysia.com/", phone: "+601126838848" },
             premioDoor: { type: "HomeGoodsStore", url: "https://premiodoor.com.my/", phone: "+60165255100" },
             klot: { type: "HomeGoodsStore", url: "https://www.klot.com.my/", phone: "+60183403828" },
-            dcMoto: { type: "LocalBusiness", url: "https://www.dcmoto.my/", phone: "+601156279623", contactUrl: "https://wa.me/601156279623" }
+            dcMoto: { type: "LocalBusiness", url: "https://www.dcmoto.my/", phone: "+601156279623", contactUrl: "https://wa.me/601156279623" },
+            fagolli: { type: "HomeGoodsStore", url: "https://www.fagolli.com.my/", phone: "+601154078187" }
           }[routeId];
           if (!expected || business?.["@type"] !== expected.type || business?.containedInPlace?.["@id"] !== placeId) fail(label, "Business profile must identify its business type and park location");
           if (business?.url !== expected?.url || business?.telephone !== expected?.phone) fail(label, "Business identity or branch contact is incorrect");
           if (!html.includes(`href="${expected?.contactUrl || `tel:${expected?.phone}`}"`)) fail(label, "Visible business contact does not match its published contact channel");
+          if (routeId === "fagolli") {
+            if (business?.legalName !== "Digicraft MSC Sdn. Bhd." || business?.address?.streetAddress !== "43-1, Jalan TPK 2/8, Taman Perindustrian Kinrara, Seksyen 2" || business?.address?.postalCode !== "47180" || /\+601116328187|\+601111178187|E9-1/.test(html)) fail(label, "Fagolli must use the current English/Malay Puchong contact listing consistently");
+            const hours = business?.openingHoursSpecification;
+            const weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+            if (hours?.length !== 1 || hours[0]?.opens !== "10:00" || hours[0]?.closes !== "18:00" || hours[0]?.dayOfWeek?.length !== 5 || weekdays.some(day => !hours[0]?.dayOfWeek?.includes(day))) fail(label, "Fagolli must publish regular weekday hours only");
+            const appointment = { en: "Saturday and Sunday visits are by appointment only", ms: "Lawatan pada Sabtu dan Ahad adalah melalui janji temu sahaja", zh: "星期六及星期日仅接受预约" }[locale];
+            if (!html.includes(appointment)) fail(label, "Fagolli must distinguish appointment-only weekend visits");
+            if (business?.contactPoint?.url !== "https://wa.me/601154078187" || !html.includes('href="https://wa.me/601154078187"')) fail(label, "Fagolli must retain its published WhatsApp contact");
+          }
           if (routeId === "dcMoto") {
             if (business?.legalName !== "Intelligent Network Sdn Bhd" || business?.address?.streetAddress !== "49G, Jalan TPK 2/8, Taman Perindustrian Kinrara, Seksyen 2" || business?.address?.postalCode !== "47180" || /\+60389996636|\+601110843163|\+601110703163/.test(html)) fail(label, "DC Moto must use its Puchong centre details, not a dealer contact");
             if (business?.openingHoursSpecification || business?.openingHours) fail(label, "DC Moto must not publish unverified centre opening hours");

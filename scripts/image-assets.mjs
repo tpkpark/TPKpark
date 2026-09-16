@@ -1,5 +1,9 @@
 // Locally hosted versions of approved imagery, shared by page content and preview metadata.
 export const imageAssets = {
+  "https://www.tpkpark.com/assets/images/fagolli-trackless-gate-1440.webp": {
+    src: "/assets/images/fagolli-trackless-gate-1440.webp", width: 1440, height: 1212,
+    srcset: "/assets/images/fagolli-trackless-gate-480.webp 480w, /assets/images/fagolli-trackless-gate-1440.webp 1440w"
+  },
   "https://www.tpkpark.com/assets/images/dc-moto-autogate-1440.webp": {
     src: "/assets/images/dc-moto-autogate-1440.webp", width: 1440, height: 1136,
     srcset: "/assets/images/dc-moto-autogate-480.webp 480w, /assets/images/dc-moto-autogate-1440.webp 1440w"

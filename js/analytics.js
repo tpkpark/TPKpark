@@ -214,7 +214,7 @@
   });
 
   const knownSpaces = ["shop-showroom", "detached-building", "semi-detached", "terrace-waitlist"];
-  const pagePath = /^\/(?:ms\/|zh\/)?(?:about|home-living(?:\/(?:lavino|ga-hing|kuche-bath|jubin-bms|v-haus-living|balens-design|builtop|premio-door|klot|dc-moto))?|automotive|lifestyle(?:\/motd)?|leasing(?:\/(?:shop-showroom|detached-building|semi-detached))?|news|milestones|wong-shung-yen(?:\/public-record)?|contact)?\/?$/;
+  const pagePath = /^\/(?:ms\/|zh\/)?(?:about|home-living(?:\/(?:lavino|ga-hing|kuche-bath|jubin-bms|v-haus-living|balens-design|builtop|premio-door|klot|dc-moto|fagolli))?|automotive|lifestyle(?:\/motd)?|leasing(?:\/(?:shop-showroom|detached-building|semi-detached))?|news|milestones|wong-shung-yen(?:\/public-record)?|contact)?\/?$/;
   const socialHosts = { "www.facebook.com": "facebook", "www.instagram.com": "instagram", "www.tiktok.com": "tiktok", "www.xiaohongshu.com": "xiaohongshu", "www.rednote.com": "xiaohongshu" };
 
   document.addEventListener("click", event => {
@@ -233,6 +233,7 @@
     if (href === "tel:+601126838848") return click("tenant_contact_click", { contact_method: "phone", tenant: "builtop" }, "builtop:phone");
     if (href === "tel:+60165255100") return click("tenant_contact_click", { contact_method: "phone", tenant: "premio-door" }, "premio-door:phone");
     if (href === "tel:+60183403828") return click("tenant_contact_click", { contact_method: "phone", tenant: "klot" }, "klot:phone");
+    if (href === "tel:+601154078187") return click("tenant_contact_click", { contact_method: "phone", tenant: "fagolli" }, "fagolli:phone");
     if (href.startsWith("tel:")) return click("contact_click", { contact_method: "phone" }, "phone");
     if (href.startsWith("mailto:")) return click("contact_click", { contact_method: "email" }, fromAssistant && link.closest(".ask-tpk-email") ? "email_draft" : "email");
     try {
@@ -260,6 +261,8 @@
         }
       } else if (url.hostname === "wa.me" && /^\/601156279623\/?$/.test(url.pathname)) {
         click("tenant_contact_click", { contact_method: "whatsapp", tenant: "dc-moto" }, "dc-moto:whatsapp");
+      } else if (url.hostname === "wa.me" && /^\/601154078187\/?$/.test(url.pathname)) {
+        click("tenant_contact_click", { contact_method: "whatsapp", tenant: "fagolli" }, "fagolli:whatsapp");
       } else if ((url.hostname === "www.google.com" && url.pathname.startsWith("/maps")) || url.hostname === "maps.app.goo.gl" || (url.hostname === "goo.gl" && url.pathname.startsWith("/maps/"))) {
         click("directions_click", { map_provider: "google" }, config.route);
       } else if (["www.waze.com", "waze.com"].includes(url.hostname) && url.pathname.startsWith("/live-map/directions")) {
@@ -297,6 +300,10 @@
         const path = url.pathname.replace(/\/$/, "") || "/";
         const destination = { "/contact-us": "visit", "/user-support-guide": "support", "/products/gfm975": "products", "/products/gfm925": "products" }[path] || "website";
         click("outbound_click", { link_domain: "www.dcmoto.my" }, "dc-moto:" + destination);
+      } else if (["www.fagolli.com.my", "fagolli.com.my"].includes(url.hostname)) {
+        const path = url.pathname.replace(/\/$/, "") || "/";
+        const destination = { "/contact-us": "visit", "/gallery": "gallery", "/fagolli_bifoldgate": "products" }[path] || "website";
+        click("outbound_click", { link_domain: "www.fagolli.com.my" }, "fagolli:" + destination);
       } else if (["www.motdgroup.com", "motdgroup.com"].includes(url.hostname)) {
         const path = url.pathname.replace(/^\/zh(?=\/|$)/, "").replace(/\/$/, "") || "/";
         const destination = { "/": "home", "/menu": "menu", "/live-house": "live_music", "/contact-us": "visit" }[path] || "website";

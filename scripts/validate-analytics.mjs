@@ -315,6 +315,28 @@ test("DC Moto WhatsApp enquiries remain tenant actions without phone or message 
   assert.equal(page.basicSent().length, 7);
 });
 
+test("Fagolli calls and WhatsApp remain tenant enquiries without contact or message data", () => {
+  const page = client({ saved: "detailed", locale: "en" });
+  page.clickLink("/home-living/fagolli/");
+  page.clickLink("/ms/home-living/fagolli/", ".locale-nav");
+  page.clickLink("https://www.fagolli.com.my/?email=private@example.com#private");
+  page.clickLink("https://www.fagolli.com.my/contact-us/?email=private@example.com");
+  page.clickLink("https://www.fagolli.com.my/gallery/?email=private@example.com");
+  page.clickLink("https://www.fagolli.com.my/fagolli_bifoldgate/?email=private@example.com");
+  page.clickLink("https://www.google.com/maps/search/?api=1&query=Fagolli+43-1+Jalan+TPK+2%2F8&email=private@example.com");
+  page.clickLink("tel:+601154078187");
+  page.clickLink("https://wa.me/601154078187?text=private@example.com#private");
+  assert.deepEqual(page.basicSent().map(event => event.name), ["navigation_click", "language_switch", "outbound_click", "outbound_click", "outbound_click", "outbound_click", "directions_click", "tenant_contact_click", "tenant_contact_click"]);
+  assert.deepEqual(page.basicSent().map(event => event.data.target), ["/home-living/fagolli/", "ms", "fagolli:website", "fagolli:visit", "fagolli:gallery", "fagolli:products", "about", "fagolli:phone", "fagolli:whatsapp"]);
+  assert.equal(page.sent().filter(event => event[1] === "contact_click").length, 0);
+  assert.deepEqual(page.sent().filter(event => event[1] === "tenant_contact_click").map(event => [event[2].tenant, event[2].contact_method]), [["fagolli", "phone"], ["fagolli", "whatsapp"]]);
+  assert.doesNotMatch(JSON.stringify([page.sent(), page.basicSent()]), /private@example.com|#private|601154078187|43-1|text=|query=/);
+  page.controls.off.handlers.click();
+  page.clickLink("tel:+601154078187");
+  page.clickLink("https://wa.me/601154078187");
+  assert.equal(page.basicSent().length, 9);
+});
+
 test("detailed engagement counts milestones once and stops independently of basic statistics", () => {
   const page = client({ saved: "detailed" });
   page.focusForm(); page.focusForm();

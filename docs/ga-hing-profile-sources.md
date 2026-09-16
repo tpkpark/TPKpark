@@ -25,6 +25,6 @@ The full frame is retained in local WebP versions at 1440 × 1080 and 480 × 360
 
 ## Site integration
 
-Each Home & Living directory links to the matching language's guide. The new page links back to the cluster and to the nearby Lavino guide. Aligned card headings reuse the existing opt-in layout. Canonicals, language alternates, breadcrumbs, branch schema, preview metadata and sitemap entries are generated from the same route data.
+Each Home & Living directory links to the matching language's guide. The guide links back to the Home & Living directory. Aligned card headings reuse the existing opt-in layout. Canonicals, language alternates, breadcrumbs, branch schema, preview metadata and sitemap entries are generated from the same route data.
 
 Ask TPK Park receives only the published guide and public branch contact. Analytics distinguishes Ga Hing showroom calls from park enquiries, tracks official website/contact and map referrals, and retains existing privacy controls without transmitting telephone numbers or query contents.

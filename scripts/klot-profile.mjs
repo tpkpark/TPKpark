@@ -48,11 +48,9 @@ export const klotProfiles = {
         { number: "02", title: "Try the movement", text: "Ask to see the mechanisms available on display. Consider how far a drawer opens, how easily you can reach a basket and what you plan to store. Check the model’s load limits, finishes and care requirements with the team." },
         { number: "03", title: "Agree the installation", text: "Confirm product codes, dimensions and required clearances with your cabinet maker. Ask who will supply and install the fittings, and clarify delivery, adjustment, replacement parts and warranty terms before ordering." }
       ] },
-      { type: "businessVisit", kicker: "Plan your visit", title: "Find KLOT on Jalan TPK 2/8.", text: "KLOT is at 23-1. You can also compare kitchen and bathroom products at Kuche + BaTH or discuss interior design with Balens Design on the same street.", addressLabel: "Showroom address", address, phoneLabel: "KLOT enquiries", phoneDisplay: "+60 18 340 3828", note: "Published hours are Monday–Friday, 8:30am–5:30pm, and Saturday, 8:30am–2pm. Closed on Sunday. Confirm holiday hours and the fittings available to view before visiting.", links: [
+      { type: "businessVisit", kicker: "Plan your visit", title: "Find KLOT on Jalan TPK 2/8.", text: "KLOT is at 23-1.", addressLabel: "Showroom address", address, phoneLabel: "KLOT enquiries", phoneDisplay: "+60 18 340 3828", note: "Published hours are Monday–Friday, 8:30am–5:30pm, and Saturday, 8:30am–2pm. Closed on Sunday. Confirm holiday hours and the fittings available to view before visiting.", links: [
         { label: "Directions on Google Maps", url: directions },
-        { label: "KLOT contact details", url: contact },
-        { label: "Kitchen & bathroom: Kuche + BaTH", route: "kucheBath" },
-        { label: "Interior design: Balens Design", route: "balensDesign" }
+        { label: "KLOT contact details", url: contact }
       ] }
     ],
     cta: { title: "Bring your cabinet plans.", text: "Browse KLOT’s catalogue, note the fittings you are considering and contact the team to prepare for your visit.", button: "Browse KLOT’s catalogue", url: catalogue }
@@ -75,11 +73,9 @@ export const klotProfiles = {
         { number: "02", title: "Cuba mekanismenya", text: "Tanya tentang mekanisme yang tersedia untuk dilihat. Pertimbangkan sejauh mana laci terbuka, kemudahan mencapai bakul dan barang yang ingin disimpan. Semak had beban model, kemasan dan keperluan penjagaan dengan pasukan KLOT." },
         { number: "03", title: "Tetapkan urusan pemasangan", text: "Sahkan kod produk, ukuran dan ruang kelegaan yang diperlukan bersama pembuat kabinet. Tanya siapa yang membekal dan memasang kelengkapan, serta jelaskan urusan penghantaran, pelarasan, alat ganti dan syarat jaminan sebelum membuat pesanan." }
       ] },
-      { type: "businessVisit", kicker: "Rancang lawatan", title: "Cari KLOT di Jalan TPK 2/8.", text: "KLOT terletak di 23-1. Anda juga boleh membandingkan produk dapur dan bilik mandi di Kuche + BaTH atau membincangkan reka bentuk dalaman dengan Balens Design di jalan yang sama.", addressLabel: "Alamat bilik pameran", address, phoneLabel: "Pertanyaan KLOT", phoneDisplay: "+60 18 340 3828", note: "Waktu operasi yang disenaraikan ialah Isnin–Jumaat, 8:30 pagi–5:30 petang, dan Sabtu, 8:30 pagi–2 petang. Tutup pada hari Ahad. Sahkan waktu cuti umum dan kelengkapan yang tersedia untuk dilihat sebelum berkunjung.", links: [
+      { type: "businessVisit", kicker: "Rancang lawatan", title: "Cari KLOT di Jalan TPK 2/8.", text: "KLOT terletak di 23-1.", addressLabel: "Alamat bilik pameran", address, phoneLabel: "Pertanyaan KLOT", phoneDisplay: "+60 18 340 3828", note: "Waktu operasi yang disenaraikan ialah Isnin–Jumaat, 8:30 pagi–5:30 petang, dan Sabtu, 8:30 pagi–2 petang. Tutup pada hari Ahad. Sahkan waktu cuti umum dan kelengkapan yang tersedia untuk dilihat sebelum berkunjung.", links: [
         { label: "Arah melalui Google Maps", url: directions },
-        { label: "Maklumat hubungan KLOT", url: contact },
-        { label: "Dapur & bilik mandi: Kuche + BaTH", route: "kucheBath" },
-        { label: "Reka bentuk dalaman: Balens Design", route: "balensDesign" }
+        { label: "Maklumat hubungan KLOT", url: contact }
       ] }
     ],
     cta: { title: "Bawa pelan kabinet anda.", text: "Lihat katalog KLOT, catat kelengkapan yang anda pertimbangkan dan hubungi pasukan untuk membuat persediaan lawatan.", button: "Lihat katalog KLOT", url: catalogue }
@@ -102,11 +98,9 @@ export const klotProfiles = {
         { number: "02", title: "试试开合与拿取", text: "询问现场有哪些机构可以查看，比较抽屉能拉出多远、拉篮是否容易拿取，以及是否适合准备收纳的物品。向团队确认型号的承重限制、饰面与保养要求。" },
         { number: "03", title: "确认安装安排", text: "与橱柜师傅核对产品编号、尺寸和所需的安装余量。下单前，确认由谁供应及安装，并了解送货、调校、替换零件与保修条款。" }
       ] },
-      { type: "businessVisit", kicker: "到访安排", title: "在Jalan TPK 2/8找到KLOT。", text: "KLOT位于23-1号。到访时，也可到同一条街的Kuche + BaTH比较厨卫产品，或联系Balens Design讨论室内设计。", addressLabel: "展厅地址", address, phoneLabel: "联系KLOT", phoneDisplay: "+60 18 340 3828", note: "公布的营业时间为星期一至五上午8:30至下午5:30，星期六上午8:30至下午2时，星期日休息。公共假期时间及现场可查看的配件，请在出发前确认。", links: [
+      { type: "businessVisit", kicker: "到访安排", title: "在Jalan TPK 2/8找到KLOT。", text: "KLOT位于23-1号。", addressLabel: "展厅地址", address, phoneLabel: "联系KLOT", phoneDisplay: "+60 18 340 3828", note: "公布的营业时间为星期一至五上午8:30至下午5:30，星期六上午8:30至下午2时，星期日休息。公共假期时间及现场可查看的配件，请在出发前确认。", links: [
         { label: "使用Google Maps导航", url: directions },
-        { label: "KLOT联系方式", url: contact },
-        { label: "厨房与卫浴：Kuche + BaTH", route: "kucheBath" },
-        { label: "室内设计：Balens Design", route: "balensDesign" }
+        { label: "KLOT联系方式", url: contact }
       ] }
     ],
     cta: { title: "带着橱柜图纸到访。", text: "先浏览KLOT产品目录，记下正在考虑的配件，再联系团队做好到访准备。", button: "浏览KLOT产品目录", url: catalogue }

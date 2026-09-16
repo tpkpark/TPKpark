@@ -7,7 +7,7 @@ Routes: `/home-living/premio-door/`, `/ms/home-living/premio-door/` and `/zh/hom
 - [Premio's official showroom directory](https://premiodoor.com.my/location.php) identifies the Puchong branch as 25-G, Jalan TPK 2/8, SEK 2, Taman Perindustrian, Bandar Kinrara, 47180 Puchong, Selangor. Its Puchong phone is 016 5255 100; the branch WhatsApp URL also contains 60165255100. The guide uses this branch phone, displayed as +60 16 525 5100.
 - [Premio's door series](https://premiodoor.com.my/productSeries.php) lists pivot, full-aluminium sliding, timber, aluminium and aluminium-timber collections and customisation options. The guide gives a brief factual overview and asks visitors to confirm current showroom displays.
 - [Premio's official website](https://premiodoor.com.my/) and [about page](https://premiodoor.com.my/about.php) describe entrance doors, consultation, installation and after-sales care. Marketing superlatives and security-performance claims are not repeated.
-- TPK Park's existing Home & Living directory supplies the display name “Premio Door” and cluster context. Existing Balens Design and Kuche + BaTH guides supply nearby stops on Jalan TPK 2/8.
+- TPK Park's existing Home & Living directory supplies the display name “Premio Door” and cluster context.
 
 ## Branch contact and directions
 

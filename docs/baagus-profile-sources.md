@@ -23,7 +23,7 @@ The Puchong D'Alpinia showroom is a different branch at Jalan BPD 1. Its phone n
 - The [official blind range](https://baagus.com/site/blind) includes roller, zebra and wooden blinds, among other styles.
 - [Baagus' homepage](https://baagus.com/) establishes the wider curtains, sheers, blinds and accessories offering. The guide uses restrained product descriptions and asks visitors which samples and systems are available locally.
 
-Advice on room photographs, approximate measurements, daylight, privacy, quotations, fitting, care and after-sales questions is original visitor guidance. Final measurements are left to the showroom team. No stock, pricing, light-blocking percentage, installation timeframe or warranty duration is promised. The guide links to V Haus Living and Kuche + BaTH, both with existing guides on Jalan TPK 2/8.
+Advice on room photographs, approximate measurements, daylight, privacy, quotations, fitting, care and after-sales questions is original visitor guidance. Final measurements are left to the showroom team. No stock, pricing, light-blocking percentage, installation timeframe or warranty duration is promised.
 
 ## Photography
 

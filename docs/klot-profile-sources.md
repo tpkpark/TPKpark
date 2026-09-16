@@ -9,7 +9,7 @@ Routes: `/home-living/klot/`, `/ms/home-living/klot/` and `/zh/home-living/klot/
 - [Official location](https://www.klot.com.my/pages/location) currently lists No. 23-1, Jalan TPK 2/8, Taman Perindustrian Kinrara, Seksyen 2, 47180 Puchong, Selangor. Its Google Maps link is `https://maps.app.goo.gl/RaAZZQ97MP8wj574A`.
 - [Official contact details](https://www.klot.com.my/pages/contact-us) list 018-340 3828 (Ng) first and 018-345 3828 (Janet) second, with info@klot.com.my. The guide's direct phone link uses the first public number, +60 18 340 3828; the contact-page link provides the other options.
 - [Official catalogue](https://www.klot.com.my/pages/catalog-1) is the guide's catalogue destination.
-- TPK Park's existing Home & Living directory supplies the KLOT display name and cluster context. Existing Kuche + BaTH and Balens Design guides supply nearby stops on Jalan TPK 2/8.
+- TPK Park's existing Home & Living directory supplies the KLOT display name and cluster context.
 
 ## Current address, contact and hours
 

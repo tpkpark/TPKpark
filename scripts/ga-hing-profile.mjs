@@ -42,10 +42,9 @@ export const gaHingProfiles = {
         { number: "02", title: "Compare bathroom fittings", text: "Note the available space and photograph existing fittings if you are replacing them. Compare basin, tap and shower finishes together, and ask your installer to confirm the plumbing and mounting requirements." },
         { number: "03", title: "Choose tiles in context", text: "Bring room measurements and reference colours. Compare tile sizes, textures and finishes, then confirm the intended floor or wall use, quantities and delivery timing before placing an order." }
       ] },
-      { type: "businessVisit", kicker: "Plan your visit", title: "Find Ga Hing on Jalan TPK 2/2.", text: "The Puchong showroom is at No. 4, beside Lavino at No. 6. You can combine kitchen, bathroom and tile enquiries with a furniture visit on the same street.", addressLabel: "Showroom address", address, phoneLabel: "Ga Hing Puchong enquiries", phoneDisplay: "+60 3 8080 9119", note: "Confirm opening hours, current displays, quotations and delivery arrangements directly with Ga Hing. Follow on-site parking signs and keep entrances and loading areas clear.", links: [
+      { type: "businessVisit", kicker: "Plan your visit", title: "Find Ga Hing on Jalan TPK 2/2.", text: "The Puchong showroom is at No. 4, Jalan TPK 2/2.", addressLabel: "Showroom address", address, phoneLabel: "Ga Hing Puchong enquiries", phoneDisplay: "+60 3 8080 9119", note: "Confirm opening hours, current displays, quotations and delivery arrangements directly with Ga Hing. Follow on-site parking signs and keep entrances and loading areas clear.", links: [
         { label: "Directions on Google Maps", url: directions },
-        { label: "Ga Hing contact details", url: contact },
-        { label: "Nearby furniture: Lavino", route: "lavino" }
+        { label: "Ga Hing contact details", url: contact }
       ] }
     ],
     cta: { title: "Start with your room plan.", text: "Browse Ga Hing’s range, make a shortlist and contact the Puchong showroom about the products you would like to see.", button: "Visit Ga Hing’s website", url: website }
@@ -67,10 +66,9 @@ export const gaHingProfiles = {
         { number: "02", title: "Bandingkan kelengkapan bilik mandi", text: "Catat ruang yang tersedia dan ambil foto kelengkapan sedia ada jika ingin menggantikannya. Bandingkan kemasan besen, pili dan pancuran bersama-sama, serta minta pemasang mengesahkan keperluan paip dan pemasangan." },
         { number: "03", title: "Pilih jubin mengikut ruang", text: "Bawa ukuran bilik dan rujukan warna. Bandingkan saiz, tekstur dan kemasan jubin, kemudian sahkan kesesuaian untuk lantai atau dinding, kuantiti serta jangka masa penghantaran sebelum membuat pesanan." }
       ] },
-      { type: "businessVisit", kicker: "Rancang lawatan", title: "Cari Ga Hing di Jalan TPK 2/2.", text: "Bilik pameran Puchong terletak di No. 4, bersebelahan Lavino di No. 6. Anda boleh menggabungkan pertanyaan tentang dapur, bilik mandi dan jubin dengan lawatan perabot di jalan yang sama.", addressLabel: "Alamat bilik pameran", address, phoneLabel: "Pertanyaan Ga Hing Puchong", phoneDisplay: "+60 3 8080 9119", note: "Sahkan waktu operasi, pameran semasa, sebut harga dan urusan penghantaran terus dengan Ga Hing. Patuhi papan tanda parkir dan pastikan pintu masuk serta kawasan pemunggahan tidak terhalang.", links: [
+      { type: "businessVisit", kicker: "Rancang lawatan", title: "Cari Ga Hing di Jalan TPK 2/2.", text: "Bilik pameran Puchong terletak di No. 4, Jalan TPK 2/2.", addressLabel: "Alamat bilik pameran", address, phoneLabel: "Pertanyaan Ga Hing Puchong", phoneDisplay: "+60 3 8080 9119", note: "Sahkan waktu operasi, pameran semasa, sebut harga dan urusan penghantaran terus dengan Ga Hing. Patuhi papan tanda parkir dan pastikan pintu masuk serta kawasan pemunggahan tidak terhalang.", links: [
         { label: "Arah melalui Google Maps", url: directions },
-        { label: "Maklumat hubungan Ga Hing", url: contact },
-        { label: "Perabot berdekatan: Lavino", route: "lavino" }
+        { label: "Maklumat hubungan Ga Hing", url: contact }
       ] }
     ],
     cta: { title: "Mulakan dengan pelan ruang anda.", text: "Lihat rangkaian Ga Hing, senaraikan pilihan dan hubungi bilik pameran Puchong tentang produk yang ingin anda lihat.", button: "Laman web Ga Hing", url: website }
@@ -92,10 +90,9 @@ export const gaHingProfiles = {
         { number: "02", title: "比较卫浴搭配", text: "记录可用空间；如需更换现有洁具，也可先拍照。把面盆、水龙头与淋浴设备的饰面放在一起比较，再请安装师傅确认水管连接与安装要求。" },
         { number: "03", title: "按空间选择瓷砖", text: "带上房间尺寸及参考色板，比较瓷砖大小、纹理与表面质感。订购前，确认产品适合铺设的地面或墙面、所需数量，以及送货时间。" }
       ] },
-      { type: "businessVisit", kicker: "到访安排", title: "在Jalan TPK 2/2找到Ga Hing。", text: "蒲种展厅位于4号，毗邻6号的Lavino。您可以在同一条街上，把厨卫设备与瓷砖的选购咨询，接上家具展厅的行程。", addressLabel: "展厅地址", address, phoneLabel: "联系Ga Hing蒲种展厅", phoneDisplay: "+60 3 8080 9119", note: "营业时间、现有展品、报价与送货安排，请直接向Ga Hing确认。抵达后请遵循现场停车指示，并保持出入口及装卸区域畅通。", links: [
+      { type: "businessVisit", kicker: "到访安排", title: "在Jalan TPK 2/2找到Ga Hing。", text: "蒲种展厅位于4, Jalan TPK 2/2。", addressLabel: "展厅地址", address, phoneLabel: "联系Ga Hing蒲种展厅", phoneDisplay: "+60 3 8080 9119", note: "营业时间、现有展品、报价与送货安排，请直接向Ga Hing确认。抵达后请遵循现场停车指示，并保持出入口及装卸区域畅通。", links: [
         { label: "使用Google Maps导航", url: directions },
-        { label: "Ga Hing联系资料", url: contact },
-        { label: "附近家具展厅：Lavino", route: "lavino" }
+        { label: "Ga Hing联系资料", url: contact }
       ] }
     ],
     cta: { title: "带着空间规划，开始选购。", text: "先浏览Ga Hing的产品系列，整理初步清单，再联系蒲种展厅询问想看的产品。", button: "前往Ga Hing官网", url: website }

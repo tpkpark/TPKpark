@@ -50,12 +50,10 @@ export const balensDesignProfiles = {
         { number: "02", title: "Set your priorities", text: "List what is essential, what can wait and the budget range you have in mind. Explain who uses each room, your storage needs and your preferred timing. Ask how the proposed layout responds to those needs." },
         { number: "03", title: "Clarify the scope", text: "Ask what the design and renovation quotation includes, which drawings and materials will be specified, and how changes are handled. Discuss the work sequence, payment stages, site coordination and handover before agreeing to proceed." }
       ] },
-      { type: "businessVisit", kicker: "Plan your consultation", title: "Find Balens Design on Jalan TPK 2/8.", text: "The office is at 25-1. Contact the team to arrange a consultation. You can also compare kitchen and bathroom options at Kuche + BaTH or furniture at V Haus Living on the same street.", addressLabel: "Office address", address, phoneLabel: "Balens Design enquiries", phoneDisplay: "+60 17 338 8535", note: "Published office hours are Monday–Friday, 9am–6pm. Saturdays, Sundays and public holidays are by appointment only. Confirm your meeting time before travelling.", links: [
+      { type: "businessVisit", kicker: "Plan your consultation", title: "Find Balens Design on Jalan TPK 2/8.", text: "The office is at 25-1. Contact the team to arrange a consultation.", addressLabel: "Office address", address, phoneLabel: "Balens Design enquiries", phoneDisplay: "+60 17 338 8535", note: "Published office hours are Monday–Friday, 9am–6pm. Saturdays, Sundays and public holidays are by appointment only. Confirm your meeting time before travelling.", links: [
         { label: "Directions on Google Maps", url: directions },
         { label: "Balens Design contact details", url: contact },
-        { label: "Browse Balens Design’s projects", url: projects },
-        { label: "Kitchen & bathroom: Kuche + BaTH", route: "kucheBath" },
-        { label: "Furniture: V Haus Living", route: "vHausLiving" }
+        { label: "Browse Balens Design’s projects", url: projects }
       ] }
     ],
     cta: { title: "Bring your plans into the conversation.", text: "Share your floor plan, priorities and proposed timing with Balens Design to arrange a discussion about your home.", button: "Contact Balens Design", url: contact }
@@ -78,12 +76,10 @@ export const balensDesignProfiles = {
         { number: "02", title: "Tetapkan keutamaan", text: "Senaraikan keperluan utama, perkara yang boleh ditangguhkan dan julat bajet anda. Terangkan siapa yang menggunakan setiap ruang, keperluan simpanan dan jangka masa pilihan. Tanya bagaimana susun atur yang dicadangkan memenuhi keperluan tersebut." },
         { number: "03", title: "Perjelas skop kerja", text: "Tanya apa yang termasuk dalam sebut harga reka bentuk dan pengubahsuaian, lukisan serta bahan yang akan diperincikan, dan cara perubahan diuruskan. Bincangkan urutan kerja, peringkat bayaran, penyelarasan tapak dan penyerahan sebelum bersetuju untuk meneruskan." }
       ] },
-      { type: "businessVisit", kicker: "Rancang konsultasi", title: "Cari Balens Design di Jalan TPK 2/8.", text: "Pejabat terletak di 25-1. Hubungi pasukan untuk mengatur konsultasi. Anda juga boleh membandingkan pilihan dapur dan bilik mandi di Kuche + BaTH atau perabot di V Haus Living di jalan yang sama.", addressLabel: "Alamat pejabat", address, phoneLabel: "Pertanyaan Balens Design", phoneDisplay: "+60 17 338 8535", note: "Waktu pejabat yang disenaraikan ialah Isnin–Jumaat, 9 pagi–6 petang. Sabtu, Ahad dan cuti umum adalah melalui janji temu sahaja. Sahkan waktu pertemuan sebelum berkunjung.", links: [
+      { type: "businessVisit", kicker: "Rancang konsultasi", title: "Cari Balens Design di Jalan TPK 2/8.", text: "Pejabat terletak di 25-1. Hubungi pasukan untuk mengatur konsultasi.", addressLabel: "Alamat pejabat", address, phoneLabel: "Pertanyaan Balens Design", phoneDisplay: "+60 17 338 8535", note: "Waktu pejabat yang disenaraikan ialah Isnin–Jumaat, 9 pagi–6 petang. Sabtu, Ahad dan cuti umum adalah melalui janji temu sahaja. Sahkan waktu pertemuan sebelum berkunjung.", links: [
         { label: "Arah melalui Google Maps", url: directions },
         { label: "Maklumat hubungan Balens Design", url: contact },
-        { label: "Lihat projek Balens Design", url: projects },
-        { label: "Dapur & bilik mandi: Kuche + BaTH", route: "kucheBath" },
-        { label: "Perabot: V Haus Living", route: "vHausLiving" }
+        { label: "Lihat projek Balens Design", url: projects }
       ] }
     ],
     cta: { title: "Bawa pelan untuk dibincangkan.", text: "Kongsi pelan lantai, keutamaan dan jangka masa anda dengan Balens Design untuk mengatur perbincangan tentang rumah anda.", button: "Hubungi Balens Design", url: contact }
@@ -106,12 +102,10 @@ export const balensDesignProfiles = {
         { number: "02", title: "确定需求与优先次序", text: "列出必须完成、可以延后的事项及预算范围，说明每个空间的使用者、收纳需求与期望时间。请设计师解释所建议的布局如何回应这些需求。" },
         { number: "03", title: "厘清设计与施工范围", text: "了解设计及装修报价包含哪些项目、会提供哪些图纸与材料规格，以及变更如何处理。在决定合作前，讨论施工顺序、付款阶段、现场协调与完工交付安排。" }
       ] },
-      { type: "businessVisit", kicker: "预约咨询", title: "在Jalan TPK 2/8找到Balens Design。", text: "办公室位于25-1号，可直接联系团队安排咨询。也可到同一条街的Kuche + BaTH比较厨房与卫浴选择，或到V Haus Living选看家具。", addressLabel: "办公地址", address, phoneLabel: "联系Balens Design", phoneDisplay: "+60 17 338 8535", note: "公布的办公时间为星期一至五，上午9时至下午6时。星期六、星期日及公共假期仅接受预约，请在出发前确认会面时间。", links: [
+      { type: "businessVisit", kicker: "预约咨询", title: "在Jalan TPK 2/8找到Balens Design。", text: "办公室位于25-1号，可直接联系团队安排咨询。", addressLabel: "办公地址", address, phoneLabel: "联系Balens Design", phoneDisplay: "+60 17 338 8535", note: "公布的办公时间为星期一至五，上午9时至下午6时。星期六、星期日及公共假期仅接受预约，请在出发前确认会面时间。", links: [
         { label: "使用Google Maps导航", url: directions },
         { label: "Balens Design联系资料", url: contact },
-        { label: "浏览Balens Design项目", url: projects },
-        { label: "厨房与卫浴：Kuche + BaTH", route: "kucheBath" },
-        { label: "家具展厅：V Haus Living", route: "vHausLiving" }
+        { label: "浏览Balens Design项目", url: projects }
       ] }
     ],
     cta: { title: "带着平面图，开始讨论。", text: "向Balens Design说明平面布局、优先需求与期望时间，安排一次关于住宅设计的沟通。", button: "联系Balens Design", url: contact }

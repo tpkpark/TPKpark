@@ -45,12 +45,10 @@ export const builtopProfiles = {
         { number: "02", title: "Define the work", text: "Separate the work you need from optional additions, and share your budget range. Ask which design, construction and coordination services are included. Clarify who will handle any required submissions and how materials and changes will be recorded." },
         { number: "03", title: "Plan the sequence", text: "Discuss site access, delivery arrangements and whether the premises will stay in use during the work. Ask about the programme, progress updates, payment stages and handover. Agree which decisions are needed before work can begin." }
       ] },
-      { type: "businessVisit", kicker: "Plan your meeting", title: "Find BUILTOP on Jalan TPK 2/8.", text: "Contact the team at 13-1 to arrange a project discussion. For material comparisons, you can also visit Jubin BMS on Jalan TPK 2/3 or Ga Hing on Jalan TPK 2/2.", addressLabel: "Office address", address, phoneLabel: "BUILTOP enquiries", phoneDisplay: "+60 11 2683 8848", note: "Confirm office hours and your meeting time directly with BUILTOP before travelling. Mention the type of project when you call so the team can advise what to prepare.", links: [
+      { type: "businessVisit", kicker: "Plan your meeting", title: "Find BUILTOP on Jalan TPK 2/8.", text: "Contact the team at 13-1 to arrange a project discussion.", addressLabel: "Office address", address, phoneLabel: "BUILTOP enquiries", phoneDisplay: "+60 11 2683 8848", note: "Confirm office hours and your meeting time directly with BUILTOP before travelling. Mention the type of project when you call so the team can advise what to prepare.", links: [
         { label: "Directions on Google Maps", url: directions },
         { label: "BUILTOP contact details", url: contact },
-        { label: "Explore BUILTOP’s services", url: services },
-        { label: "Tiles & surfaces: Jubin BMS", route: "jubinBms" },
-        { label: "Kitchen, bathroom & tiles: Ga Hing", route: "gaHing" }
+        { label: "Explore BUILTOP’s services", url: services }
       ] }
     ],
     cta: { title: "Talk through the project before work begins.", text: "Share your plans, priorities and proposed timing with BUILTOP to discuss the next steps for your home or business premises.", button: "Visit BUILTOP’s website", url: website }
@@ -73,12 +71,10 @@ export const builtopProfiles = {
         { number: "02", title: "Tentukan skop kerja", text: "Bezakan kerja yang diperlukan daripada tambahan pilihan dan kongsikan julat bajet anda. Tanya khidmat reka bentuk, pembinaan dan penyelarasan yang termasuk. Perjelas pihak yang menguruskan penyerahan dokumen jika diperlukan serta cara bahan dan perubahan akan direkodkan." },
         { number: "03", title: "Rancang urutan kerja", text: "Bincangkan akses tapak, urusan penghantaran dan sama ada premis masih akan digunakan semasa kerja berjalan. Tanya tentang jadual, kemas kini kemajuan, peringkat bayaran dan penyerahan. Persetujui keputusan yang perlu dibuat sebelum kerja bermula." }
       ] },
-      { type: "businessVisit", kicker: "Rancang pertemuan", title: "Cari BUILTOP di Jalan TPK 2/8.", text: "Hubungi pasukan di 13-1 untuk mengatur perbincangan projek. Untuk membandingkan bahan, anda juga boleh mengunjungi Jubin BMS di Jalan TPK 2/3 atau Ga Hing di Jalan TPK 2/2.", addressLabel: "Alamat pejabat", address, phoneLabel: "Pertanyaan BUILTOP", phoneDisplay: "+60 11 2683 8848", note: "Sahkan waktu pejabat dan masa pertemuan terus dengan BUILTOP sebelum berkunjung. Nyatakan jenis projek semasa menghubungi pasukan supaya mereka boleh mencadangkan persediaan yang sesuai.", links: [
+      { type: "businessVisit", kicker: "Rancang pertemuan", title: "Cari BUILTOP di Jalan TPK 2/8.", text: "Hubungi pasukan di 13-1 untuk mengatur perbincangan projek.", addressLabel: "Alamat pejabat", address, phoneLabel: "Pertanyaan BUILTOP", phoneDisplay: "+60 11 2683 8848", note: "Sahkan waktu pejabat dan masa pertemuan terus dengan BUILTOP sebelum berkunjung. Nyatakan jenis projek semasa menghubungi pasukan supaya mereka boleh mencadangkan persediaan yang sesuai.", links: [
         { label: "Arah melalui Google Maps", url: directions },
         { label: "Maklumat hubungan BUILTOP", url: contact },
-        { label: "Terokai perkhidmatan BUILTOP", url: services },
-        { label: "Jubin & permukaan: Jubin BMS", route: "jubinBms" },
-        { label: "Dapur, bilik mandi & jubin: Ga Hing", route: "gaHing" }
+        { label: "Terokai perkhidmatan BUILTOP", url: services }
       ] }
     ],
     cta: { title: "Bincangkan projek sebelum kerja bermula.", text: "Kongsi pelan, keutamaan dan jangka masa anda dengan BUILTOP untuk membincangkan langkah seterusnya bagi kediaman atau premis perniagaan anda.", button: "Laman web BUILTOP", url: website }
@@ -101,12 +97,10 @@ export const builtopProfiles = {
         { number: "02", title: "界定工程范围", text: "区分必要工程与可选项目，并说明预算范围。了解报价包含哪些设计、施工及协调服务，厘清需要提交的文件由谁负责，以及材料规格和变更将如何记录。" },
         { number: "03", title: "安排施工顺序", text: "讨论现场通行、材料运送，以及施工期间是否仍需使用有关空间。了解工期、进度汇报、付款阶段与完工交付安排，并确认开工前需要作出的决定。" }
       ] },
-      { type: "businessVisit", kicker: "安排会面", title: "在Jalan TPK 2/8找到BUILTOP。", text: "可联系位于13-1号的团队，安排项目沟通。比较材料时，也可到Jalan TPK 2/3的Jubin BMS，或Jalan TPK 2/2的Ga Hing选看。", addressLabel: "办公地址", address, phoneLabel: "联系BUILTOP", phoneDisplay: "+60 11 2683 8848", note: "出发前请直接向BUILTOP确认办公时间与会面安排。联系时说明项目类型，让团队建议适合准备的资料。", links: [
+      { type: "businessVisit", kicker: "安排会面", title: "在Jalan TPK 2/8找到BUILTOP。", text: "可联系位于13-1号的团队，安排项目沟通。", addressLabel: "办公地址", address, phoneLabel: "联系BUILTOP", phoneDisplay: "+60 11 2683 8848", note: "出发前请直接向BUILTOP确认办公时间与会面安排。联系时说明项目类型，让团队建议适合准备的资料。", links: [
         { label: "使用Google Maps导航", url: directions },
         { label: "BUILTOP联系资料", url: contact },
-        { label: "查看BUILTOP服务", url: services },
-        { label: "瓷砖与饰面：Jubin BMS", route: "jubinBms" },
-        { label: "厨房、卫浴与瓷砖：Ga Hing", route: "gaHing" }
+        { label: "查看BUILTOP服务", url: services }
       ] }
     ],
     cta: { title: "开工之前，先把项目谈清楚。", text: "向BUILTOP说明图纸、优先需求与期望时间，讨论住宅或商业空间的下一步安排。", button: "前往BUILTOP官网", url: website }

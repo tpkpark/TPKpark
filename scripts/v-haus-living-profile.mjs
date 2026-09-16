@@ -51,11 +51,9 @@ export const vHausLivingProfiles = {
         { number: "02", title: "Try the everyday details", text: "Sit on the sofas and dining chairs available to try, compare table heights and look closely at finishes. Ask about materials, care and colour choices. Photos and samples from your home can help you decide what belongs together." },
         { number: "03", title: "Check delivery and fit", text: "Confirm model names, measurements, colours and quantities in the quotation. Ask about delivery, assembly and warranty terms, and check door, lift or stair access before placing the order." }
       ] },
-      { type: "businessVisit", kicker: "Plan your visit", title: "Find V Haus Living on Jalan TPK 2/8.", text: "The Puchong showroom is listed at Nos. 1, 3 and 5. You can also visit Kuche + BaTH on the same street or compare furniture at Lavino on Jalan TPK 2/2.", addressLabel: "Showroom address", address, phoneLabel: "V Haus Living Puchong enquiries", phoneDisplay: "+60 12 708 6389", note: "The branch lists daily hours of 10:30am–7:30pm. Confirm holiday hours and current displays before travelling. Follow local parking signs and keep entrances clear.", links: [
+      { type: "businessVisit", kicker: "Plan your visit", title: "Find V Haus Living on Jalan TPK 2/8.", text: "The Puchong showroom is listed at Nos. 1, 3 and 5.", addressLabel: "Showroom address", address, phoneLabel: "V Haus Living Puchong enquiries", phoneDisplay: "+60 12 708 6389", note: "The branch lists daily hours of 10:30am–7:30pm. Confirm holiday hours and current displays before travelling. Follow local parking signs and keep entrances clear.", links: [
         { label: "Directions on Google Maps", url: directions },
-        { label: "V Haus Living Puchong details", url: contact },
-        { label: "Kitchen & bathroom: Kuche + BaTH", route: "kucheBath" },
-        { label: "Furniture: Lavino", route: "lavino" }
+        { label: "V Haus Living Puchong details", url: contact }
       ] }
     ],
     cta: { title: "Bring a plan and a few ideas.", text: "Browse V Haus Living’s collection, note the pieces you like and contact the Puchong showroom to plan your visit.", button: "Visit V Haus Living’s website", url: website }
@@ -78,11 +76,9 @@ export const vHausLivingProfiles = {
         { number: "02", title: "Cuba untuk kegunaan harian", text: "Cuba duduk pada sofa dan kerusi makan yang boleh diuji, bandingkan ketinggian meja dan teliti kemasan. Tanya tentang bahan, penjagaan serta pilihan warna. Foto dan sampel dari rumah membantu anda menentukan padanan yang sesuai." },
         { number: "03", title: "Semak penghantaran dan akses", text: "Sahkan nama model, ukuran, warna dan kuantiti dalam sebut harga. Tanya tentang penghantaran, pemasangan serta syarat jaminan. Semak akses pintu, lif atau tangga sebelum membuat pesanan." }
       ] },
-      { type: "businessVisit", kicker: "Rancang lawatan", title: "Cari V Haus Living di Jalan TPK 2/8.", text: "Alamat bilik pameran Puchong disenaraikan sebagai No. 1, 3 dan 5. Anda juga boleh mengunjungi Kuche + BaTH di jalan yang sama atau membandingkan perabot di Lavino, Jalan TPK 2/2.", addressLabel: "Alamat bilik pameran", address, phoneLabel: "Pertanyaan V Haus Living Puchong", phoneDisplay: "+60 12 708 6389", note: "Waktu operasi yang disenaraikan ialah setiap hari, 10:30 pagi–7:30 malam. Sahkan waktu cuti umum dan pameran semasa sebelum berkunjung. Patuhi papan tanda parkir dan pastikan pintu masuk tidak terhalang.", links: [
+      { type: "businessVisit", kicker: "Rancang lawatan", title: "Cari V Haus Living di Jalan TPK 2/8.", text: "Alamat bilik pameran Puchong disenaraikan sebagai No. 1, 3 dan 5.", addressLabel: "Alamat bilik pameran", address, phoneLabel: "Pertanyaan V Haus Living Puchong", phoneDisplay: "+60 12 708 6389", note: "Waktu operasi yang disenaraikan ialah setiap hari, 10:30 pagi–7:30 malam. Sahkan waktu cuti umum dan pameran semasa sebelum berkunjung. Patuhi papan tanda parkir dan pastikan pintu masuk tidak terhalang.", links: [
         { label: "Arah melalui Google Maps", url: directions },
-        { label: "Maklumat V Haus Living Puchong", url: contact },
-        { label: "Dapur & bilik mandi: Kuche + BaTH", route: "kucheBath" },
-        { label: "Perabot: Lavino", route: "lavino" }
+        { label: "Maklumat V Haus Living Puchong", url: contact }
       ] }
     ],
     cta: { title: "Bawa pelan dan beberapa idea.", text: "Lihat koleksi V Haus Living, catat perabot yang anda minati dan hubungi bilik pameran Puchong untuk merancang lawatan.", button: "Laman web V Haus Living", url: website }
@@ -105,11 +101,9 @@ export const vHausLivingProfiles = {
         { number: "02", title: "试试日常使用的细节", text: "试坐可体验的沙发与餐椅，比较桌面高度，并仔细看看饰面。向店员了解材质、保养方式与颜色选择；家中的照片和材料样板也有助于判断搭配。" },
         { number: "03", title: "核对送货与通行空间", text: "请在报价中列明型号、尺寸、颜色及数量，确认送货、组装与保修条款。下单前，也要核对门口、电梯或楼梯的搬运空间。" }
       ] },
-      { type: "businessVisit", kicker: "到访安排", title: "在Jalan TPK 2/8找到V Haus Living。", text: "蒲种展厅公布的地址为1、3及5号。选购时，也可顺道到同一条街的Kuche + BaTH，或到Jalan TPK 2/2的Lavino比较家具。", addressLabel: "展厅地址", address, phoneLabel: "联系V Haus Living蒲种展厅", phoneDisplay: "+60 12 708 6389", note: "门店公布的营业时间为每天上午10:30至晚上7:30。公共假期时间及当前展品，请在出发前确认。抵达后请遵循现场停车指示，并保持出入口畅通。", links: [
+      { type: "businessVisit", kicker: "到访安排", title: "在Jalan TPK 2/8找到V Haus Living。", text: "蒲种展厅公布的地址为1、3及5号。", addressLabel: "展厅地址", address, phoneLabel: "联系V Haus Living蒲种展厅", phoneDisplay: "+60 12 708 6389", note: "门店公布的营业时间为每天上午10:30至晚上7:30。公共假期时间及当前展品，请在出发前确认。抵达后请遵循现场停车指示，并保持出入口畅通。", links: [
         { label: "使用Google Maps导航", url: directions },
-        { label: "V Haus Living蒲种门店资料", url: contact },
-        { label: "厨房与卫浴：Kuche + BaTH", route: "kucheBath" },
-        { label: "家具展厅：Lavino", route: "lavino" }
+        { label: "V Haus Living蒲种门店资料", url: contact }
       ] }
     ],
     cta: { title: "带着平面图与想法到访。", text: "先浏览V Haus Living的家具系列，记下喜欢的款式，再联系蒲种展厅安排选看。", button: "前往V Haus Living官网", url: website }

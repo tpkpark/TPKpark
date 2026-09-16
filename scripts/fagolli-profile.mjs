@@ -51,12 +51,10 @@ export const fagolliProfiles = {
         { number: "02", title: "Compare the layout", text: "Ask how swing and bifold layouts would work with your parking space. Discuss panel styles, colours and pedestrian access, and ask to see the available demonstrations. Confirm the controls and accessories offered for your chosen setup." },
         { number: "03", title: "Plan the site work", text: "Request a quotation covering the gate, motor, wiring and installation. Clarify whether removing the old gate or altering pillars is included. Agree on the lead time, warranty terms, maintenance needs and after-sales contact before ordering." }
       ] },
-      { type: "businessVisit", kicker: "Plan your visit", title: "Find Fagolli on Jalan TPK 2/8.", text: "The showroom is at 43-1. Along the same street, you can also visit Premio Door for entrance doors or explore kitchen and bathroom products at Kuche + BaTH.", addressLabel: "Showroom address", address, phoneLabel: "Fagolli enquiries", phoneDisplay: "+60 11 5407 8187", note: "Published hours are Monday–Friday, 10am–6pm. Saturday and Sunday visits are by appointment only. Confirm holiday hours and the displays available before travelling.", links: [
+      { type: "businessVisit", kicker: "Plan your visit", title: "Find Fagolli on Jalan TPK 2/8.", text: "The showroom is at 43-1.", addressLabel: "Showroom address", address, phoneLabel: "Fagolli enquiries", phoneDisplay: "+60 11 5407 8187", note: "Published hours are Monday–Friday, 10am–6pm. Saturday and Sunday visits are by appointment only. Confirm holiday hours and the displays available before travelling.", links: [
         { label: "Directions on Google Maps", url: directions },
         { label: "WhatsApp Fagolli", url: whatsapp },
-        { label: "Fagolli showroom details", url: contact },
-        { label: "Entrance doors: Premio Door", route: "premioDoor" },
-        { label: "Kitchen & bathroom: Kuche + BaTH", route: "kucheBath" }
+        { label: "Fagolli showroom details", url: contact }
       ] }
     ],
     cta: { title: "Picture your new entrance.", text: "Browse Fagolli’s gate designs and bring a few examples, together with your entrance photos, to discuss the options for your home.", button: "Explore Fagolli gates", url: gates }
@@ -79,12 +77,10 @@ export const fagolliProfiles = {
         { number: "02", title: "Bandingkan susun atur", text: "Tanya bagaimana pagar ayun dan lipat boleh dipadankan dengan ruang parkir anda. Bincangkan gaya panel, warna dan laluan pejalan kaki, serta minta melihat demonstrasi yang tersedia. Sahkan alat kawalan dan aksesori yang ditawarkan untuk pilihan anda." },
         { number: "03", title: "Rancang kerja tapak", text: "Minta sebut harga yang merangkumi pagar, motor, pendawaian dan pemasangan. Jelaskan sama ada penanggalan pagar lama atau pengubahsuaian tiang termasuk dalam harga. Persetujui tempoh siap, syarat jaminan, penyelenggaraan dan hubungan selepas jualan sebelum membuat pesanan." }
       ] },
-      { type: "businessVisit", kicker: "Rancang lawatan", title: "Cari Fagolli di Jalan TPK 2/8.", text: "Bilik pameran terletak di 43-1. Di jalan yang sama, anda juga boleh singgah di Premio Door untuk pintu masuk atau melihat produk dapur dan bilik mandi di Kuche + BaTH.", addressLabel: "Alamat bilik pameran", address, phoneLabel: "Pertanyaan Fagolli", phoneDisplay: "+60 11 5407 8187", note: "Waktu operasi yang disenaraikan ialah Isnin–Jumaat, 10 pagi–6 petang. Lawatan pada Sabtu dan Ahad adalah melalui janji temu sahaja. Sahkan waktu cuti umum dan model pameran yang tersedia sebelum berkunjung.", links: [
+      { type: "businessVisit", kicker: "Rancang lawatan", title: "Cari Fagolli di Jalan TPK 2/8.", text: "Bilik pameran terletak di 43-1.", addressLabel: "Alamat bilik pameran", address, phoneLabel: "Pertanyaan Fagolli", phoneDisplay: "+60 11 5407 8187", note: "Waktu operasi yang disenaraikan ialah Isnin–Jumaat, 10 pagi–6 petang. Lawatan pada Sabtu dan Ahad adalah melalui janji temu sahaja. Sahkan waktu cuti umum dan model pameran yang tersedia sebelum berkunjung.", links: [
         { label: "Arah melalui Google Maps", url: directions },
         { label: "WhatsApp Fagolli", url: whatsapp },
-        { label: "Maklumat bilik pameran Fagolli", url: contact },
-        { label: "Pintu masuk: Premio Door", route: "premioDoor" },
-        { label: "Dapur & bilik mandi: Kuche + BaTH", route: "kucheBath" }
+        { label: "Maklumat bilik pameran Fagolli", url: contact }
       ] }
     ],
     cta: { title: "Bayangkan pintu masuk baharu anda.", text: "Lihat reka bentuk pagar Fagolli dan bawa beberapa contoh bersama foto pintu masuk untuk membincangkan pilihan bagi kediaman anda.", button: "Terokai pagar Fagolli", url: gates }
@@ -107,12 +103,10 @@ export const fagolliProfiles = {
         { number: "02", title: "比较开启方式", text: "询问平开式与折叠式门闸如何配合家中的停车空间。讨论门板款式、颜色及行人通行安排，并了解现场有哪些演示可看。确认所选配置适用的控制方式与配件。" },
         { number: "03", title: "安排现场工程", text: "请对方列出门闸、电机、布线与安装的报价，并说明拆除旧门闸或改动门柱是否另计。下单前，确认交付时间、保修条款、保养要求，以及售后服务的联系渠道。" }
       ] },
-      { type: "businessVisit", kicker: "到访安排", title: "在Jalan TPK 2/8找到Fagolli。", text: "展厅位于43-1号。同一条街还有Premio Door的入户门，以及Kuche + BaTH的厨卫产品，可一并安排到访。", addressLabel: "展厅地址", address, phoneLabel: "Fagolli咨询电话", phoneDisplay: "+60 11 5407 8187", note: "公布的营业时间为星期一至星期五，上午10时至下午6时。星期六及星期日仅接受预约。出发前，请确认公共假期营业安排及当前可看的展示型号。", links: [
+      { type: "businessVisit", kicker: "到访安排", title: "在Jalan TPK 2/8找到Fagolli。", text: "展厅位于43-1号。", addressLabel: "展厅地址", address, phoneLabel: "Fagolli咨询电话", phoneDisplay: "+60 11 5407 8187", note: "公布的营业时间为星期一至星期五，上午10时至下午6时。星期六及星期日仅接受预约。出发前，请确认公共假期营业安排及当前可看的展示型号。", links: [
         { label: "使用Google Maps导航", url: directions },
         { label: "WhatsApp联系Fagolli", url: whatsapp },
-        { label: "Fagolli展厅联系资料", url: contact },
-        { label: "入户门：Premio Door", route: "premioDoor" },
-        { label: "厨房与卫浴：Kuche + BaTH", route: "kucheBath" }
+        { label: "Fagolli展厅联系资料", url: contact }
       ] }
     ],
     cta: { title: "构思住宅入口的新面貌。", text: "先浏览Fagolli的门闸设计，选几款参考样式，再带上入口照片，与团队讨论适合自家的方案。", button: "浏览Fagolli门闸", url: gates }

@@ -155,11 +155,20 @@ for (const locale of locales) {
             jonDetailing: { type: "AutomotiveBusiness", url: "https://www.facebook.com/jondetailing/", phone: "+60126844034" },
             jaecooServiceCentre: { type: "AutoRepair", url: "https://omodajaecoo.com.my/dealer-locator", phone: "+60193988817", contactUrl: "https://wa.me/60193988817" },
             toyokar: { type: "AutoRepair", url: "https://www.toyokar.my/", phone: "+60123856228", contactUrl: "https://wa.me/60123856228" },
-            jazminaBistro: { type: "Restaurant", contactUrl: "https://www.foodpanda.my/restaurant/rlie/jazmina-bistro-rlie" }
+            jazminaBistro: { type: "Restaurant", contactUrl: "https://www.foodpanda.my/restaurant/rlie/jazmina-bistro-rlie" },
+            nuarina: { type: "Restaurant", phone: "+60122282290" }
           }[routeId];
           if (!expected || business?.["@type"] !== expected.type || business?.containedInPlace?.["@id"] !== placeId) fail(label, "Business profile must identify its business type and park location");
           if (business?.url !== expected?.url || business?.telephone !== expected?.phone) fail(label, "Business identity or branch contact is incorrect");
           if (!html.includes(`href="${expected?.contactUrl || `tel:${expected?.phone}`}"`)) fail(label, "Visible business contact does not match its published contact channel");
+          if (routeId === "nuarina") {
+            const split = page.blocks.find(block => block.type === "split");
+            if (business?.address?.streetAddress !== "41G, Jalan TPK 2/8, Taman Perindustrian Kinrara" || business?.address?.postalCode !== "47180") fail(label, "Nuarina must retain its verified No. 41G TPK Park address");
+            if (business?.telephone !== "+60122282290" || business?.url || business?.image || business?.openingHoursSpecification || business?.openingHours) fail(label, "Nuarina must retain its verified phone without inferring a website, schema image or disputed opening hours");
+            if (page.heroImage !== `${origin}/assets/images/nuarina-puchong-41g.webp` || split?.image !== `${origin}/assets/images/nuarina-puchong-41g.webp`) fail(label, "Nuarina must use its branch-specific No. 41G photograph");
+            if (!html.includes('href="https://www.foodpanda.my/restaurant/qq2q/nasi-lemak-nuarina-since-2010"') || !html.includes('href="tel:+60122282290"')) fail(label, "Nuarina must expose its current menu and verified phone");
+            if (!html.includes("published closing times currently differ") && locale === "en") fail(label, "Nuarina must preserve the opening-hours uncertainty note");
+          }
           if (routeId === "jazminaBistro") {
             const hours = business?.openingHoursSpecification;
             const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];

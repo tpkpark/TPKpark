@@ -133,7 +133,8 @@ for (const locale of locales) {
             kucheBath: { type: "HomeGoodsStore", url: "https://kbomy.com/", phone: "+60380791268" },
             jubinBms: { type: "HomeGoodsStore", url: "https://www.jubinbms.com.my/", phone: "+60380748300" },
             vHausLiving: { type: "FurnitureStore", url: "https://www.vhausliving.com/", phone: "+60127086389" },
-            balensDesign: { type: "LocalBusiness", url: "https://balensdesign.com/", phone: "+60173388535" }
+            balensDesign: { type: "LocalBusiness", url: "https://balensdesign.com/", phone: "+60173388535" },
+            builtop: { type: "LocalBusiness", url: "https://www.builtopmalaysia.com/", phone: "+601126838848" }
           }[routeId];
           if (!expected || business?.["@type"] !== expected.type || business?.containedInPlace?.["@id"] !== placeId) fail(label, "Business profile must identify its business type and park location");
           if (business?.url !== expected?.url || business?.telephone !== expected?.phone) fail(label, "Business identity or branch contact is incorrect");
@@ -141,6 +142,12 @@ for (const locale of locales) {
           if (routeId === "lavino" && (business?.address?.streetAddress !== "6, Jalan TPK 2/2, Taman Perindustrian Kinrara" || business?.address?.postalCode !== "47100" || html.includes("+60166626951"))) fail(label, "Lavino must use its own branch address and contact");
           if (routeId === "gaHing" && (business?.address?.streetAddress !== "4, Jalan TPK 2/2, Taman Perindustrian Kinrara" || business?.address?.postalCode !== "47100" || /\+60163391601|\+60166626951/.test(html))) fail(label, "Ga Hing must use its own branch address and contact");
           if (routeId === "jubinBms" && (business?.address?.streetAddress !== "7, Jalan TPK 2/3, Taman Perindustrian Kinrara" || business?.address?.postalCode !== "47100" || /\+6073608888|\+60197251990|\+60362722999/.test(html))) fail(label, "Jubin BMS must use its Kinrara branch address and contact, not HQ or Kepong");
+          if (routeId === "builtop") {
+            if (business?.legalName !== "Builtop Group Sdn. Bhd." || business?.address?.streetAddress !== "13-1, Jalan TPK 2/8, Taman Perindustrian Kinrara" || business?.address?.postalCode !== "47100" || /\+60102423593|\+60173388535/.test(html)) fail(label, "BUILTOP must use its official Group identity, Puchong address and contact");
+            if (business?.openingHoursSpecification || business?.openingHours) fail(label, "BUILTOP must not publish unverified office hours");
+            const hoursNote = { en: "Confirm office hours and your meeting time directly with BUILTOP", ms: "Sahkan waktu pejabat dan masa pertemuan terus dengan BUILTOP", zh: "出发前请直接向BUILTOP确认办公时间与会面安排" }[locale];
+            if (!html.includes(hoursNote)) fail(label, "BUILTOP must direct visitors to confirm office hours");
+          }
           if (routeId === "balensDesign") {
             if (business?.address?.streetAddress !== "25-1, Jalan TPK 2/8, Taman Perindustrian Kinrara" || business?.address?.postalCode !== "47180" || /\+60129892020/.test(html)) fail(label, "Balens Design must use its office address and current official phone");
             const hours = business?.openingHoursSpecification?.[0];

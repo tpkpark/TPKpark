@@ -238,6 +238,25 @@ test("Balens Design consultation referrals remain separate from park enquiries a
   assert.equal(page.basicSent().length, 7);
 });
 
+test("BUILTOP project referrals remain separate from park enquiries and exclude private URL data", () => {
+  const page = client({ saved: "detailed", locale: "en" });
+  page.clickLink("/home-living/builtop/");
+  page.clickLink("/zh/home-living/builtop/", ".locale-nav");
+  page.clickLink("https://www.builtopmalaysia.com/?email=private@example.com#private");
+  page.clickLink("https://www.builtopmalaysia.com/contactus?email=private@example.com");
+  page.clickLink("https://www.builtopmalaysia.com/services/?email=private@example.com");
+  page.clickLink("https://www.google.com/maps/dir/?api=1&destination=BUILTOP+13-1+Jalan+TPK+2%2F8&private=private@example.com");
+  page.clickLink("tel:+601126838848");
+  assert.deepEqual(page.basicSent().map(event => event.name), ["navigation_click", "language_switch", "outbound_click", "outbound_click", "outbound_click", "directions_click", "tenant_contact_click"]);
+  assert.deepEqual(page.basicSent().map(event => event.data.target), ["/home-living/builtop/", "zh", "builtop:website", "builtop:visit", "builtop:services", "about", "builtop:phone"]);
+  assert.equal(page.sent().filter(event => event[1] === "contact_click").length, 0);
+  assert.equal(page.sent().at(-1)[2].tenant, "builtop");
+  assert.doesNotMatch(JSON.stringify([page.sent(), page.basicSent()]), /private@example.com|#private|601126838848|13-1|destination=/);
+  page.controls.off.handlers.click();
+  page.clickLink("tel:+601126838848");
+  assert.equal(page.basicSent().length, 7);
+});
+
 test("detailed engagement counts milestones once and stops independently of basic statistics", () => {
   const page = client({ saved: "detailed" });
   page.focusForm(); page.focusForm();

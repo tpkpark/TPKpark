@@ -127,6 +127,11 @@ test("business guides provide the correct public branch contacts in all three la
     assert.doesNotMatch(sources.balensDesign.texts[locale], /989 2020|708 6389/);
     assert.match(sources.balensDesign.texts[locale], { en: /Saturdays, Sundays and public holidays are by appointment only/, ms: /Sabtu, Ahad dan cuti umum adalah melalui janji temu sahaja/, zh: /星期六、星期日及公共假期仅接受预约/ }[locale]);
     assert.deepEqual(sourceLinks(["balensDesign"], locale).map(source => source.url), [routePath(locale, "balensDesign")]);
+    assert.match(sources.builtop.texts[locale], /13-1, Jalan TPK 2\/8/);
+    assert.match(sources.builtop.texts[locale], /\+60 11 2683 8848/);
+    assert.doesNotMatch(sources.builtop.texts[locale], /242 3593|338 8535|9am|10am|9 pagi|10 pagi|上午9|上午10/);
+    assert.match(sources.builtop.texts[locale], { en: /Confirm office hours and your meeting time directly with BUILTOP/, ms: /Sahkan waktu pejabat dan masa pertemuan terus dengan BUILTOP/, zh: /出发前请直接向BUILTOP确认办公时间与会面安排/ }[locale]);
+    assert.deepEqual(sourceLinks(["builtop"], locale).map(source => source.url), [routePath(locale, "builtop")]);
     assert.deepEqual(sourceLinks(["kucheBath"], locale).map(source => source.url), [routePath(locale, "kucheBath")]);
     assert.deepEqual(sourceLinks(["lavino"], locale).map(source => source.url), [routePath(locale, "lavino")]);
     assert.deepEqual(sourceLinks(["gaHing"], locale).map(source => source.url), [routePath(locale, "gaHing")]);

@@ -1,0 +1,39 @@
+name: Integrate Yummy Nyonya Kitchen guide
+
+on:
+  push:
+    branches:
+      - codex/yummy-nyonya-guide
+    paths:
+      - .github/workflows/yummy-nyonya-integrate.yml
+
+permissions:
+  contents: write
+
+jobs:
+  integrate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: codex/yummy-nyonya-guide
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Apply integration patch
+        run: python scripts/tmp-yummy-nyonya-integrate.py
+      - run: npm ci
+      - name: Build and validate site
+        run: |
+          npm run build
+          npm run validate
+      - name: Run relevant regression tests
+        run: node --test scripts/validate-analytics.mjs scripts/validate-assistant.mjs scripts/validate-search-portfolio.mjs
+      - name: Commit integrated guide
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add scripts/site-data.mjs js/analytics.js js/ask-tpk.js scripts/validate-site.mjs scripts/validate-assistant.mjs scripts/validate-analytics.mjs README.md
+          git commit -m "Integrate Yummy Nyonya Kitchen guide across the site"
+          git push origin HEAD:codex/yummy-nyonya-guide

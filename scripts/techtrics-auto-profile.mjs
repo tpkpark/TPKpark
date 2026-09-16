@@ -2,7 +2,7 @@
 const website = "https://mercedesworkshop.com.my/";
 const directions = "https://www.google.com/maps/search/?api=1&query=Techtrics+Auto+61+63+Jalan+TPK+2%2F8+47180+Puchong";
 const waze = "https://ul.waze.com/ul?preview_venue_id=66584606.666108209.9699534&navigate=yes";
-const image = "https://www.tpkpark.com/assets/images/techtrics-auto-workshop-1280.webp";
+const image = "https://www.tpkpark.com/assets/images/techtrics-auto-exterior-1280.webp";
 const imageSource = { label: "Techtrics Auto", url: "https://mercedesworkshop.com.my/wp-content/uploads/2017/04/hq-1-1.png" };
 const address = "61 & 63, Jalan TPK 2/8, Taman Perindustrian Kinrara, 47180 Puchong, Selangor";
 

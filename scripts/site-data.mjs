@@ -19,6 +19,7 @@ export const routeIds = Object.keys(routeSlugs);
 export const seoTitles = {
   en: {
     ...base.seoTitles.en,
+    home: "TPK Park | Taman Perindustrian Kinrara (Kinrara Industrial Park)",
     happivilles: "Happivilles Puchong | Personal Development & Wellness | TPK Park",
     kia4sService: "Kia Puchong Sales & Service | TPK Park",
     fadzilEnterprise: "Fadzil Enterprise Puchong | Recond Car Sales | TPK Park"
@@ -40,6 +41,7 @@ export const seoTitles = {
 export const jadeExhibitionLastModified = base.jadeExhibitionLastModified;
 export const routeLastModified = {
   ...base.routeLastModified,
+  home: "2026-09-17",
   happivilles: "2026-09-17",
   automotive: "2026-09-17",
   kia4sService: "2026-09-17",

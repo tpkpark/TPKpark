@@ -594,6 +594,28 @@ test("Toyokar enquiries keep vehicle details, messages and email contents out of
   assert.equal(page.basicSent().length, 9);
 });
 
+test("Optimum Swim School programme, directions and branch contacts remain attributable without private data", () => {
+  const page = client({ saved: "detailed", locale: "en" });
+  page.clickLink("/lifestyle/optimum-swim-school/");
+  page.clickLink("/zh/lifestyle/optimum-swim-school/", ".locale-nav");
+  page.clickLink("https://optimumswimschool.com/?email=private@example.com#private");
+  page.clickLink("https://optimumswimschool.com/free-trial/?student=PRIVATE123");
+  page.clickLink("https://optimumswimschool.com/learn-to-swim/?student=PRIVATE123");
+  page.clickLink("https://www.google.com/maps/search/?api=1&query=Optimum+PRIVATE123");
+  page.clickLink("https://www.waze.com/live-map/directions/my/selangor/puchong/optimum-swim-school-%40-puchong-kinrara-%28learn-to-swim-for-kids-and-adults%29?to=place.ChIJ1XiPLEdLzDER-U3WYmrZsdI&message=PRIVATE123");
+  page.clickLink("tel:+60192848138");
+  page.clickLink("tel:+60134808138");
+  assert.deepEqual(page.basicSent().map(event => event.name), ["navigation_click", "language_switch", "outbound_click", "outbound_click", "outbound_click", "directions_click", "directions_click", "tenant_contact_click", "tenant_contact_click"]);
+  assert.deepEqual(page.basicSent().slice(2, 5).map(event => event.data.target), ["optimum-swim-school:website", "optimum-swim-school:free_trial", "optimum-swim-school:learn_to_swim"]);
+  assert.equal(page.basicSent().at(-2).data.target, "optimum-swim-school:phone");
+  assert.equal(page.basicSent().at(-1).data.target, "optimum-swim-school:phone-alt");
+  assert.equal(page.sent().filter(event => event[1] === "contact_click").length, 0);
+  assert.doesNotMatch(JSON.stringify([page.sent(), page.basicSent()]), /PRIVATE123|private@example.com|60192848138|60134808138|ChIJ/);
+  page.controls.off.handlers.click();
+  page.clickLink("tel:+60192848138");
+  assert.equal(page.basicSent().length, 9);
+});
+
 test("Yummy Nyonya Kitchen navigation, maps and calls retain tenant attribution without private URL data", () => {
   const page = client({ saved: "detailed", locale: "en" });
   page.clickLink("/lifestyle/yummy-nyonya-kitchen/");

@@ -41,7 +41,8 @@ export const seoTitles = {
 export const jadeExhibitionLastModified = base.jadeExhibitionLastModified;
 export const routeLastModified = {
   ...base.routeLastModified,
-  home: "2026-09-17",
+  home: "2026-09-18",
+  about: "2026-09-18",
   happivilles: "2026-09-17",
   automotive: "2026-09-17",
   kia4sService: "2026-09-17",
@@ -157,6 +158,30 @@ for (const locale of Object.keys(site)) {
     }
   }
 }
+
+// TPK Park and Taman Perindustrian Kinrara name the same place, not nested areas.
+// Keep the Chinese alternative name to one explanatory sentence on each EN/MS
+// About page. Company management scope, navigation and business profiles stay intact.
+const aboutPlaceNames = {
+  en: {
+    title: "About TPK Park — Taman Perindustrian Kinrara",
+    lead: "TPK Park and Taman Perindustrian Kinrara are names for the same place, also known in Chinese as 金銮工业园. This website highlights selected properties, businesses and place-renewal initiatives associated with the area, together with TPK Park Sdn. Bhd.'s work on the properties and projects under its management."
+  },
+  ms: {
+    title: "Tentang TPK Park — Taman Perindustrian Kinrara",
+    lead: "TPK Park dan Taman Perindustrian Kinrara merujuk kepada tempat yang sama, yang turut dikenali sebagai 金銮工业园 dalam bahasa Cina. Laman web ini mengetengahkan hartanah, perniagaan dan inisiatif pembaharuan terpilih yang berkaitan dengan kawasan tersebut, termasuk usaha TPK Park Sdn. Bhd. berkaitan hartanah dan projek di bawah pengurusannya."
+  }
+};
+
+for (const [locale, copy] of Object.entries(aboutPlaceNames)) {
+  site[locale].pages.about = { ...site[locale].pages.about, ...copy };
+}
+
+// Avoid implying that TPK Park sits inside a separate Kinrara Industrial Park.
+site.en.pages.home = {
+  ...site.en.pages.home,
+  description: "Discover TPK Park (Taman Perindustrian Kinrara), Puchong: Home & Living showrooms, automotive services, dining and commercial premises for rent."
+};
 
 export const primaryNav = base.primaryNav;
 export const socialLinks = base.socialLinks;

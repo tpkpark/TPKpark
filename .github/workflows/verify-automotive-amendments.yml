@@ -18,4 +18,39 @@ jobs:
           node-version: '22'
           cache: npm
       - run: npm ci
-      - run: npm test
+      - name: Candidate full suite
+        run: |
+          npm test > /tmp/candidate-tests.log 2>&1 || { tail -125 /tmp/candidate-tests.log; exit 1; }
+          tail -20 /tmp/candidate-tests.log
+      - name: Focused content and interaction checks
+        if: always()
+        run: |
+          node scripts/validate-supplied-automotive.mjs
+          node --test scripts/validate-analytics.mjs scripts/validate-enquiry.mjs scripts/validate-assistant.mjs scripts/validate-assistant-upgrade.mjs scripts/validate-search-portfolio.mjs scripts/validate-speech.mjs > /tmp/interaction-tests.log 2>&1 || { tail -100 /tmp/interaction-tests.log; exit 1; }
+          tail -12 /tmp/interaction-tests.log
+      - uses: actions/checkout@v4
+        if: always()
+        with:
+          persist-credentials: false
+          ref: '4027995255c4151f0c6b8f2f7543831a643617f6'
+          path: baseline
+      - name: Unchanged base full suite
+        if: always()
+        working-directory: baseline
+        run: |
+          npm ci
+          npm test > /tmp/baseline-tests.log 2>&1 || { tail -125 /tmp/baseline-tests.log; exit 1; }
+          tail -20 /tmp/baseline-tests.log
+      - name: Compare full-suite validation findings
+        if: always()
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          baseline = {line for line in Path('/tmp/baseline-tests.log').read_text().splitlines() if line.startswith('- ')}
+          candidate = {line for line in Path('/tmp/candidate-tests.log').read_text().splitlines() if line.startswith('- ')}
+          print('Baseline validation findings:', len(baseline))
+          print('Candidate validation findings:', len(candidate))
+          print('New findings:', sorted(candidate - baseline))
+          print('Resolved findings:', sorted(baseline - candidate))
+          assert not candidate - baseline, 'Candidate introduced new full-suite validation findings'
+          PY

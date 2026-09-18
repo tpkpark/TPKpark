@@ -46,6 +46,8 @@ export const routeLastModified = {
   happivilles: "2026-09-17",
   automotive: "2026-09-17",
   kia4sService: "2026-09-17",
+  techtricsAuto: "2026-09-19",
+  techtraAcademy: "2026-09-19",
   fadzilEnterprise: "2026-09-17"
 };
 

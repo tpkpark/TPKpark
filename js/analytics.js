@@ -253,7 +253,7 @@
     if (href === "tel:+60193988817") return click("tenant_contact_click", { contact_method: "phone", tenant: "jaecoo-service-centre" }, "jaecoo-service-centre:phone");
     if (href === "tel:+60126844034") return click("tenant_contact_click", { contact_method: "phone", tenant: "jon-detailing" }, "jon-detailing:phone");
     if (["tel:+60182886565", "tel:+60183886565"].includes(href)) return click("tenant_contact_click", { contact_method: "phone", tenant: "techtra-automotive-academy" }, "techtra-automotive-academy:phone");
-    if (/^mailto:enquiry@techtraacademy\.my(?:[?#]|$)/i.test(href)) return click("tenant_contact_click", { contact_method: "email", tenant: "techtra-automotive-academy" }, "techtra-automotive-academy:email");
+    if (/^mailto:enquiry@(?:techtra\.edu\.my|techtraacademy\.my)(?:[?#]|$)/i.test(href)) return click("tenant_contact_click", { contact_method: "email", tenant: "techtra-automotive-academy" }, "techtra-automotive-academy:email");
     if (["tel:+60358916661", "tel:+60124496696"].includes(href)) return click("tenant_contact_click", { contact_method: "phone", tenant: "techtrics-auto" }, "techtrics-auto:phone");
     if (/^mailto:info@mercedesworkshop\.com\.my(?:[?#]|$)/i.test(href)) return click("tenant_contact_click", { contact_method: "email", tenant: "techtrics-auto" }, "techtrics-auto:email");
     if (href === "tel:+60380761005") return click("tenant_contact_click", { contact_method: "phone", tenant: "kia-4s-service" }, "kia-4s-service:phone");
@@ -292,6 +292,8 @@
         click("tenant_contact_click", { contact_method: "whatsapp", tenant: "jaecoo-service-centre" }, "jaecoo-service-centre:whatsapp");
       } else if (url.hostname === "wa.me" && /^\/60182886565\/?$/.test(url.pathname)) {
         click("tenant_contact_click", { contact_method: "whatsapp", tenant: "techtra-automotive-academy" }, "techtra-automotive-academy:whatsapp");
+      } else if (url.hostname === "wa.me" && /^\/60124496696\/?$/.test(url.pathname)) {
+        click("tenant_contact_click", { contact_method: "whatsapp", tenant: "techtrics-auto" }, "techtrics-auto:whatsapp");
       } else if (url.hostname === "wa.me" && /^\/601156279623\/?$/.test(url.pathname)) {
         click("tenant_contact_click", { contact_method: "whatsapp", tenant: "dc-moto" }, "dc-moto:whatsapp");
       } else if (url.hostname === "wa.me" && /^\/601154078187\/?$/.test(url.pathname)) {

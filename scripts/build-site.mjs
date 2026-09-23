@@ -269,6 +269,7 @@ function renderNews(locale, block) {
       <div class="news-meta"><span>${escapeHtml(article.source)} · ${escapeHtml(sourceLanguage)}</span><time datetime="${article.date}">${escapeHtml(date)}</time></div>
       <h3><a href="${article.url}" target="_blank" rel="noopener noreferrer">${escapeHtml(article.title[locale])}</a></h3>
       ${summary}
+      ${article.route ? `<p>${link(locale, article.route, article.summaryLinkLabel[locale], "text-link")}</p>` : ""}
       <a class="text-link" href="${article.url}" target="_blank" rel="noopener noreferrer">${escapeHtml(t.readMore)} <span class="arrow" aria-hidden="true">↗</span><span class="visually-hidden"> (${escapeHtml(t.external)})</span></a>
     </article>`;
   }).join("");

@@ -5,12 +5,14 @@
 import * as base from "./site-data-base.mjs";
 import { happivillesProfiles } from "./happivilles-profile.mjs";
 import { fadzilEnterpriseProfiles } from "./fadzil-enterprise-profile.mjs";
+import { interviewArticle, interviewCopy, interviewPages } from "./china-press-interview.mjs";
 
 export const origin = base.origin;
 export const localeConfig = base.localeConfig;
 
 export const routeSlugs = {
   ...base.routeSlugs,
+  chinaPressInterview: "news/china-press-business-interview",
   happivilles: "lifestyle/happivilles",
   fadzilEnterprise: "automotive/fadzil-enterprise"
 };
@@ -41,7 +43,11 @@ export const seoTitles = {
 export const jadeExhibitionLastModified = base.jadeExhibitionLastModified;
 export const routeLastModified = {
   ...base.routeLastModified,
-  home: "2026-09-18",
+  home: "2026-09-23",
+  news: "2026-09-23",
+  profile: "2026-09-23",
+  publicRecord: "2026-09-23",
+  chinaPressInterview: "2026-09-23",
   about: "2026-09-18",
   happivilles: "2026-09-17",
   automotive: "2026-09-17",
@@ -60,8 +66,8 @@ export function routePath(locale, routeId) {
 
 export const images = base.images;
 export const leasingInventory = base.leasingInventory;
-export const articles = base.articles;
-export const profileSources = base.profileSources;
+export const articles = [interviewArticle, ...base.articles];
+export const profileSources = [{ ...interviewArticle, year: "2026", category: "place", featured: true }, ...base.profileSources];
 
 export const site = Object.fromEntries(
   Object.entries(base.site).map(([locale, data]) => [
@@ -70,12 +76,26 @@ export const site = Object.fromEntries(
       ...data,
       pages: {
         ...data.pages,
+        chinaPressInterview: interviewPages[locale],
         happivilles: happivillesProfiles[locale],
         fadzilEnterprise: fadzilEnterpriseProfiles[locale]
       }
     }
   ])
 );
+
+for (const [locale, copy] of Object.entries(interviewCopy)) {
+  seoTitles[locale].chinaPressInterview = `${copy.title} | TPK Park`;
+  site[locale].nav.chinaPressInterview = copy.eyebrow;
+  const blocks = site[locale].pages.news.blocks;
+  const previous = blocks.find(block => block.type === "newsFeature");
+  const updates = blocks.find(block => block.type === "newsUpdates");
+  if (previous && updates) updates.items.unshift({ ...previous });
+  const latest = { type: "newsFeature", kicker: copy.latest, category: copy.category,
+    date: interviewArticle.date, title: copy.title, text: copy.summary,
+    image: interviewArticle.image, alt: copy.alt, route: "chinaPressInterview", linkLabel: copy.readSummary };
+  site[locale].pages.news.blocks = blocks.map(block => block === previous ? latest : block);
+}
 
 for (const locale of Object.keys(site)) {
   const directory = site[locale].pages.lifestyle.blocks.find(block => block.type === "directory");

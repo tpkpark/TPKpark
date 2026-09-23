@@ -303,7 +303,7 @@ export const images = {
   homeLiving: "https://i.imgur.com/EDf26sR.jpg",
   automotive: "https://i.imgur.com/XsscuQz.jpg",
   lifestyle: "https://i.imgur.com/Z5h4hmH.jpg",
-  leasing: "https://i.imgur.com/P4Lj1qX.jpg",
+  leasing: "https://www.tpkpark.com/assets/images/shopfront-retouched-20260923-1156.webp",
   leasingShop: "https://i.imgur.com/fpOMhvX.jpg",
   leasingDetached: "https://i.imgur.com/Ghs7Ubv.jpg",
   leasingSemiDetached: "https://i.imgur.com/I5lSjeF.jpg"

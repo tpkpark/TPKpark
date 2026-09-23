@@ -1,5 +1,10 @@
 // Locally hosted versions of approved imagery, shared by page content and preview metadata.
 export const imageAssets = {
+  // Owner-approved retouch: cleaned facade and steps; existing cars tidied.
+  "https://www.tpkpark.com/assets/images/shopfront-retouched-20260923-1156.webp": {
+    src: "/assets/images/shopfront-retouched-20260923-1156.webp", width: 1156, height: 1361,
+    srcset: "/assets/images/shopfront-retouched-20260923-480.webp 480w, /assets/images/shopfront-retouched-20260923-1156.webp 1156w"
+  },
   "https://www.tpkpark.com/assets/images/toyokar-workshop-960.webp": {
     src: "/assets/images/toyokar-workshop-960.webp", width: 960, height: 1280,
     srcset: "/assets/images/toyokar-workshop-480.webp 480w, /assets/images/toyokar-workshop-960.webp 960w"

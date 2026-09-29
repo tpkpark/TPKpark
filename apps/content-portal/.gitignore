@@ -1,0 +1,5 @@
+.next/
+*.tsbuildinfo
+AGENTS.md
+CLAUDE.md
+!.env.example

@@ -48,14 +48,23 @@ function statusOf(post: ChannelPost) {
   return post.status.trim().toLowerCase();
 }
 
+export function isHeldStatus(status: string) {
+  const value = status.trim().toLowerCase();
+  return value === "held" || value.includes("hold") || value.includes("fail");
+}
+
+function readableReason(value: string) {
+  return value.replace(/^(?:R\d+\s+)+[—–-]\s*/i, "");
+}
+
 export function actionFor(story: Story, post: ChannelPost, today: string): ActionItem | null {
   const status = statusOf(post);
   const base = { story, post };
   if (status === "excluded") return null;
 
-  if (status.includes("hold") || status.includes("fail")) {
+  if (isHeldStatus(status)) {
     return { ...base, kind: "decision", title: "Publishing on hold",
-      detail: post.alert || post.reason || "Review the channel decision before publishing.",
+      detail: post.alert || readableReason(post.reason) || "Review the channel decision before publishing.",
       date: post.proposedAt };
   }
 
@@ -106,7 +115,7 @@ export function upcomingPosts(stories: Story[], today: string) {
     const status = statusOf(post);
     const distance = dayDistance(post.proposedAt, today);
     return distance !== null && distance > 0 && distance <= 7 &&
-      !["public", "excluded"].includes(status) && !status.includes("hold") && !status.includes("fail")
+      !["public", "excluded"].includes(status) && !isHeldStatus(status)
       ? [{ story, post }] : [];
   })).sort((a, b) => a.post.proposedAt.localeCompare(b.post.proposedAt));
 }
@@ -121,7 +130,7 @@ export function filteredStories(stories: Story[], filters: StoryFilters, today: 
       if (filters.status === "action" && !actionFor(story, post, today)) return false;
       if (filters.status === "public" && statusOf(post) !== "public") return false;
       if (filters.status === "planned" && !["scheduled", "approved", "planned"].includes(statusOf(post))) return false;
-      if (filters.status === "held" && !statusOf(post).includes("hold") && !statusOf(post).includes("fail")) return false;
+      if (filters.status === "held" && !isHeldStatus(post.status)) return false;
       if (filters.status === "excluded" && statusOf(post) !== "excluded") return false;
       if (filters.timing) {
         const value = filters.timing === "published" ? post.publishedAt : post.proposedAt;

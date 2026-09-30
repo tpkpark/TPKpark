@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { ChannelPost, DashboardData, Story } from "@/lib/records";
 import {
-  actionItems, filteredStories, mytToday, upcomingPosts,
+  actionItems, filteredStories, isHeldStatus, mytToday, upcomingPosts,
   type ActionItem, type ActionKind, type StoryFilters
 } from "@/lib/dashboard-view";
 
@@ -31,7 +31,7 @@ function statusClass(status: string) {
   const normalized = status.toLowerCase();
   if (normalized === "public") return "public";
   if (normalized === "excluded") return "excluded";
-  if (normalized.includes("hold") || normalized.includes("fail")) return "held";
+  if (isHeldStatus(normalized)) return "held";
   if (normalized.includes("schedul") || normalized.includes("approv")) return "scheduled";
   return "neutral";
 }
@@ -100,7 +100,7 @@ function ActionRow({ item, onOpen }: { item: ActionItem; onOpen: () => void }) {
   return <div className="action-row">
     <div className="action-identity"><strong>{item.story.tenant} · {item.post.channel}</strong><span>{item.story.campaign}</span></div>
     <div className="action-description"><strong>{item.title}</strong><p>{item.detail}</p>
-      {item.date && <small>{item.kind === "followup" ? "Review / follow-up" : "Recorded timing"}: {shortDate(item.date)} MYT</small>}</div>
+      {item.date && <small>{item.kind === "followup" ? "Review / follow-up" : "Recorded timing"}: {shortDate(item.date)}{ /\b\d{1,2}:\d{2}\b/.test(item.date) ? " MYT" : ""}</small>}</div>
     <button type="button" className="row-link" onClick={onOpen}>Open details <span aria-hidden="true">→</span></button>
   </div>;
 }

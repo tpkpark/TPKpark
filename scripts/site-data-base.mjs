@@ -840,7 +840,7 @@ const enPages = {
         { value: "96,728", label: "sq ft represented by the 2026 recognised cluster" },
         { value: "8", label: "Home & Living categories in the record assessment" }
       ] },
-      { type: "news", kicker: "Selected coverage", title: "TPK Park in the news", text: "Independent coverage of the Home & Living milestone and the park's long-term renewal.", limit: 3 },
+      { type: "news", kicker: "Selected coverage", title: "TPK Park in the news", text: "Independent coverage of TPK Park, its businesses, milestones and long-term renewal.", limit: 3 },
       { type: "faq", kicker: "Visitor essentials", title: "Before you visit", items: [
         { q: "What does TPK Park refer to?", a: "TPK Park is a common reference to Taman Perindustrian Kinrara in Puchong, Selangor, along the Puchong–Bukit Jalil corridor." },
         { q: "What can I find at TPK Park?", a: "The business mix includes Home & Living showrooms, automotive sales and services, dining, fitness, family activities, daily essentials and professional services." },
@@ -1191,7 +1191,7 @@ const msPages = {
         { value: "96,728", label: "kaki persegi dalam kluster yang diiktiraf pada 2026" },
         { value: "8", label: "kategori Home & Living dalam penilaian rekod" }
       ] },
-      { type: "news", kicker: "Liputan pilihan", title: "TPK Park dalam berita", text: "Liputan bebas tentang pencapaian Home & Living dan pembaharuan jangka panjang taman ini.", limit: 3 },
+      { type: "news", kicker: "Liputan pilihan", title: "TPK Park dalam berita", text: "Liputan bebas tentang TPK Park, perniagaannya, pencapaian dan pembaharuan jangka panjang.", limit: 3 },
       { type: "faq", kicker: "Maklumat pengunjung", title: "Sebelum anda berkunjung", items: [
         { q: "Apakah maksud TPK Park?", a: "TPK Park ialah sebutan umum bagi Taman Perindustrian Kinrara di Puchong, Selangor, di koridor Puchong–Bukit Jalil." },
         { q: "Apakah yang terdapat di TPK Park?", a: "Campuran perniagaan merangkumi bilik pameran Home & Living, jualan dan servis automotif, makanan, kecergasan, aktiviti keluarga, keperluan harian dan perkhidmatan profesional." },
@@ -1511,7 +1511,7 @@ const zhPages = {
       ] },
       { type: "split", presentation: "renewal", title: "更新之余，保留实用本质。", text: "TPK Park的管理工作聚焦于特定产业及访客共享体验，包括租户组合、园林、建筑照明、招牌协调、停车管理、活动及目的地推广。", image: images.lifestyle, alt: '从街道观看TPK Park的展厅、商铺与停车空间', caption: '展厅、商铺与日常出入空间。', route: "about" },
       { type: "stats", route: "milestones", linkLabel: "了解2026家居生活集群认证", items: [{ value: "16", label: "获认证家居生活集群内的企业" }, { value: "96,728", label: "2026年获认证集群总平方英尺" }, { value: "8", label: "纪录评估涵盖的家居生活类别" }] },
-      { type: "news", kicker: "精选报道", title: "媒体报道中的 TPK Park", text: "关于家居生活里程碑及园区长期更新的独立报道。", limit: 3 },
+      { type: "news", kicker: "精选报道", title: "媒体报道中的 TPK Park", text: "关于TPK Park、园区商家、重要里程碑与长期更新的独立报道。", limit: 3 },
       { type: "faq", kicker: "访客须知", title: "出发前先了解", items: [
         { q: "TPK Park指的是哪里？", a: "TPK Park是雪兰莪州蒲种Taman Perindustrian Kinrara（金銮工业园）的通称，位于蒲种—武吉加里尔走廊。" },
         { q: "TPK Park有哪些商家？", a: "园内业态包括家居生活展厅、汽车销售与维修、餐饮、运动、亲子活动、日常所需及专业服务。" },

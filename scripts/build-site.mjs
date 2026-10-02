@@ -456,7 +456,7 @@ function schemas(locale, routeId, page) {
   const placeId = `${origin}/#taman-perindustrian-kinrara`;
   const personPage = ["profile", "publicRecord"].includes(routeId);
   const pageEntityId = personPage ? personId : placeId;
-  const pageType = routeId === "profile" ? "ProfilePage" : routeId === "publicRecord" ? "CollectionPage" : "WebPage";
+  const pageType = routeId === "profile" ? "ProfilePage" : routeId === "publicRecord" ? "CollectionPage" : ["chinaPressInterview", "motdChinaPressFeature"].includes(routeId) ? "NewsArticle" : "WebPage";
   const recordListId = `${url}#record-list`;
   const graph = [
     {
@@ -514,6 +514,13 @@ function schemas(locale, routeId, page) {
       } } : {})
     }
   ];
+
+  if (pageType === "NewsArticle") {
+    graph[3].headline = page.title;
+    graph[3].image = preferredImage.url;
+    graph[3].mainEntityOfPage = { "@id": `${url}#webpage` };
+    if (page.citation) graph[3].citation = page.citation;
+  }
 
   if (page.business) graph.push(page.business);
 

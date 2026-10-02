@@ -75,6 +75,7 @@ export const interviewArticle = {
 
 export const interviewPages = Object.fromEntries(Object.entries(interviewCopy).map(([locale, c]) => [locale, {
   parentRoute: "news", title: c.title, eyebrow: c.eyebrow, description: c.description,
+  datePublished: "2026-09-22", citation: interviewUrl,
   lead: c.lead, image: interviewImage, heroAlt: c.alt,
   blocks: [
     { type: "split", presentation: "renewal", title: c.heading, text: c.text, image: interviewImage, alt: c.alt, caption: c.caption },

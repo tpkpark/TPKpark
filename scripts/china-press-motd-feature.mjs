@@ -76,6 +76,7 @@ export const motdFeatureArticle = {
 
 export const motdFeaturePages = Object.fromEntries(Object.entries(motdFeatureCopy).map(([locale, c]) => [locale, {
   parentRoute: "news", title: c.title, eyebrow: c.eyebrow, description: c.description,
+  datePublished: "2026-10-02", citation: motdFeatureUrl,
   lead: c.lead, image: motdFeatureImage, heroAlt: c.alt,
   blocks: [
     { type: "split", presentation: "renewal", title: c.heading, text: c.text, image: motdFeatureImage, alt: c.alt, caption: c.caption },

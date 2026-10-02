@@ -32,6 +32,7 @@ export const motdProfiles = {
     datePublished: "2026-09-15",
     blocks: [
       { type: "split", title: "Stay for a meal.", text: "A visit to TPK Park can continue around a dining table. At MOTD, Chef Kit’s contemporary cooking brings Malaysian, Chinese and European influences together, alongside yakitori-inspired CHAR grilled over charcoal. The dining room’s industrial materials and Bauhaus-inspired details reflect its setting in the park.", image, alt: "MOTD entrance and sign on Jalan TPK 2/8 at TPK Park" },
+      { type: "notice", label: "Featured by China Press · 2 October 2026", text: "China Press spent an afternoon and evening at MOTD, following Chef Kit’s food and wine pairings into charcoal cooking, drinks and live music. Read and watch the original feature from the links below." },
       { type: "cards", kicker: "Around your visit", title: "From daytime plans to an evening out.", items: [
         { number: "01", title: "After the showrooms", text: "Meet over a meal after comparing furniture, tiles or kitchens in the Home & Living cluster. Check MOTD’s opening hours when planning your stops." },
         { number: "02", title: "An afternoon stop", text: "Afternoon drinks and CHAR offer another reason to stay in the park after appointments, or to meet colleagues and friends." },
@@ -57,6 +58,7 @@ export const motdProfiles = {
     datePublished: "2026-09-15",
     blocks: [
       { type: "split", title: "Singgah untuk menjamu selera.", text: "Lawatan ke TPK Park boleh diteruskan di meja makan. Di MOTD, masakan kontemporari Chef Kit menggabungkan pengaruh Malaysia, Cina dan Eropah, bersama CHAR berinspirasikan yakitori yang dipanggang di atas arang. Bahan industri dan perincian berinspirasikan Bauhaus menghubungkan ruang makan ini dengan suasana taman.", image, alt: "Pintu masuk dan papan tanda MOTD di Jalan TPK 2/8, TPK Park" },
+      { type: "notice", label: "Liputan China Press · 2 Oktober 2026", text: "China Press mengikuti pengalaman petang dan malam di MOTD, daripada hidangan serta padanan wain Chef Kit kepada masakan arang, minuman dan muzik secara langsung. Baca dan tonton liputan asal melalui pautan di bawah." },
       { type: "cards", kicker: "Lengkapkan lawatan", title: "Daripada urusan siang ke santai malam.", items: [
         { number: "01", title: "Selepas ke bilik pameran", text: "Bertemu sambil makan selepas membandingkan perabot, jubin atau dapur dalam kluster Home & Living. Semak waktu operasi MOTD semasa merancang persinggahan." },
         { number: "02", title: "Persinggahan petang", text: "Minuman petang dan CHAR melengkapkan lawatan selepas janji temu, atau pertemuan bersama rakan sekerja dan sahabat." },
@@ -82,6 +84,7 @@ export const motdProfiles = {
     datePublished: "2026-09-15",
     blocks: [
       { type: "split", title: "逛完之后，坐下来吃一顿。", text: "到访TPK Park的行程，也可以在餐桌旁延续。MOTD由Chef Kit主理料理，融合马来西亚、中式与欧洲风味，并提供以日式串烧为灵感的CHAR炭烤。餐厅运用工业材质与包豪斯风格细节，呼应园区的环境。", image, alt: "TPK Park内Jalan TPK 2/8的MOTD入口与招牌" },
+      { type: "notice", label: "《中国报》专题报道 · 2026年10月2日", text: "《中国报》从下午到晚上体验MOTD，从Chef Kit的料理与餐酒搭配，一路延伸至炭火料理、饮品与现场音乐。可通过下方链接阅读及观看原文专题。" },
       { type: "cards", kicker: "把行程接起来", title: "从白天的安排，到晚上的相聚。", items: [
         { number: "01", title: "看完展厅，再约一餐", text: "在家居生活集群比较家具、瓷砖或厨房设计后，可以到MOTD用餐。安排行程时，请先确认餐厅营业时间。" },
         { number: "02", title: "下午，留一点相聚时间", text: "下午饮品与CHAR炭烤，让办完事后的停留，或与同事、朋友的见面，多一个选择。" },

@@ -114,6 +114,18 @@ for (const [locale, copy] of Object.entries(motdFeatureCopy)) {
   site[locale].pages.news.blocks = blocks.map(block => block === previous ? latest : block);
 }
 
+for (const [locale, copy] of Object.entries(motdFeatureCopy)) {
+  const blocks = site[locale].pages.lifestyle.blocks;
+  if (!blocks.some(block => block.type === "newsFeature" && block.route === "motdChinaPressFeature")) {
+    const feature = { type: "newsFeature", kicker: copy.latest, category: copy.category,
+      date: motdFeatureArticle.date, title: copy.title, text: copy.summary,
+      image: motdFeatureArticle.image, alt: copy.alt, route: "motdChinaPressFeature", linkLabel: copy.readSummary };
+    const directoryIndex = blocks.findIndex(block => block.type === "directory");
+    const insertAt = directoryIndex >= 0 ? directoryIndex + 1 : 0;
+    blocks.splice(insertAt, 0, feature);
+  }
+}
+
 for (const locale of Object.keys(site)) {
   const directory = site[locale].pages.lifestyle.blocks.find(block => block.type === "directory");
   if (directory) {

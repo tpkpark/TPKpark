@@ -52,6 +52,8 @@ export const routeLastModified = {
   chinaPressInterview: "2026-09-23",
   motdChinaPressFeature: "2026-10-02",
   about: "2026-09-18",
+  lifestyle: "2026-10-02",
+  motd: "2026-10-02",
   happivilles: "2026-09-17",
   automotive: "2026-09-17",
   kia4sService: "2026-09-17",

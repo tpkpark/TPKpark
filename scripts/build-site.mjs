@@ -515,6 +515,13 @@ function schemas(locale, routeId, page) {
     }
   ];
 
+  if (pageType === "NewsArticle") {
+    graph[3].headline = page.title;
+    graph[3].image = preferredImage.url;
+    graph[3].mainEntityOfPage = { "@id": `${url}#webpage` };
+    if (page.citation) graph[3].citation = page.citation;
+  }
+
   if (page.business) graph.push(page.business);
 
   if (routeId !== "home") {

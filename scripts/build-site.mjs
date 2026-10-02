@@ -456,7 +456,7 @@ function schemas(locale, routeId, page) {
   const placeId = `${origin}/#taman-perindustrian-kinrara`;
   const personPage = ["profile", "publicRecord"].includes(routeId);
   const pageEntityId = personPage ? personId : placeId;
-  const pageType = routeId === "profile" ? "ProfilePage" : routeId === "publicRecord" ? "CollectionPage" : "WebPage";
+  const pageType = routeId === "profile" ? "ProfilePage" : routeId === "publicRecord" ? "CollectionPage" : ["chinaPressInterview", "motdChinaPressFeature"].includes(routeId) ? "NewsArticle" : "WebPage";
   const recordListId = `${url}#record-list`;
   const graph = [
     {

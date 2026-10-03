@@ -1,5 +1,6 @@
 // Public details and image provenance: docs/baagus-profile-sources.md.
 import { parkMaps } from "./park-maps.mjs";
+const localWebsite = "https://baagus.tpkpark.com/";
 const website = "https://baagus.com/";
 const showroom = "https://baagus.com/site/branchdetails?id=34";
 const curtains = "https://baagus.com/site/curtains";
@@ -15,7 +16,7 @@ export const baagusBusiness = {
   "@id": "https://www.tpkpark.com/home-living/baagus/#store",
   name: "BAAGUS Bandar Kinrara",
   alternateName: "Baagus",
-  url: website,
+  url: localWebsite,
   telephone: "+60102133173",
   image,
   hasMap: directions,
@@ -54,6 +55,7 @@ export const baagusProfiles = {
         { number: "03", title: "Clarify the fitting", text: "Ask for a quotation that separates fabric, tracks, accessories and installation. If considering motorised curtains, confirm the controls and power requirements. Discuss the fitting schedule, care instructions, warranty terms and after-sales support." }
       ] },
       { type: "businessVisit", kicker: "Plan your visit", title: "Find Baagus on Jalan TPK 2/8.", text: "The Bandar Kinrara showroom is at No. 7.", addressLabel: "Kinrara showroom address", address, phoneLabel: "Baagus Kinrara enquiries", phoneDisplay: "+60 10 213 3173", note: "Published hours are Monday–Saturday, 10am–7pm, and Sunday, 10am–6pm. Confirm public-holiday hours and any appointment arrangements before travelling.", links: [
+        { label: "Showroom website", url: localWebsite + "?source=tpkpark" },
         { label: "Directions on Google Maps", url: directions },
         { label: "Directions on Waze", url: waze },
         { label: "Baagus Kinrara showroom details", url: showroom },
@@ -81,6 +83,7 @@ export const baagusProfiles = {
         { number: "03", title: "Jelaskan pemasangan", text: "Minta sebut harga yang mengasingkan kos fabrik, rel, aksesori dan pemasangan. Jika mempertimbangkan langsir bermotor, sahkan kawalan serta keperluan bekalan kuasa. Bincangkan jadual pemasangan, cara penjagaan, syarat jaminan dan sokongan selepas jualan." }
       ] },
       { type: "businessVisit", kicker: "Rancang lawatan", title: "Cari Baagus di Jalan TPK 2/8.", text: "Bilik pameran Bandar Kinrara terletak di No. 7.", addressLabel: "Alamat bilik pameran Kinrara", address, phoneLabel: "Pertanyaan Baagus Kinrara", phoneDisplay: "+60 10 213 3173", note: "Waktu operasi yang disenaraikan ialah Isnin–Sabtu, 10 pagi–7 petang, dan Ahad, 10 pagi–6 petang. Sahkan waktu cuti umum dan aturan janji temu sebelum berkunjung.", links: [
+        { label: "Laman bilik pameran", url: localWebsite + "ms/?source=tpkpark" },
         { label: "Arah melalui Google Maps", url: directions },
         { label: "Arah melalui Waze", url: waze },
         { label: "Maklumat bilik pameran Baagus Kinrara", url: showroom },
@@ -108,6 +111,7 @@ export const baagusProfiles = {
         { number: "03", title: "确认安装细节", text: "请对方分别列出面料、轨道、配件与安装费用。若考虑电动窗帘，确认控制方式及供电要求，再讨论安装时间、清洁保养方法、保修条款与售后服务。" }
       ] },
       { type: "businessVisit", kicker: "到访安排", title: "在Jalan TPK 2/8找到Baagus。", text: "Bandar Kinrara展厅位于7号。", addressLabel: "Kinrara展厅地址", address, phoneLabel: "Baagus Kinrara咨询电话", phoneDisplay: "+60 10 213 3173", note: "公布的营业时间为星期一至星期六，上午10时至晚上7时；星期日为上午10时至下午6时。出发前请确认公共假期营业时间及预约安排。", links: [
+        { label: "展厅网站", url: localWebsite + "zh/?source=tpkpark" },
         { label: "使用Google Maps导航", url: directions },
         { label: "使用Waze导航", url: waze },
         { label: "Baagus Kinrara展厅资料", url: showroom },

@@ -88,8 +88,8 @@ function client({ hostname = "www.tpkpark.com", saved = null, legacy = null, pri
   const sent = () => Array.from(window.dataLayer || [], args => Array.from(args)).filter(args => args[0] === "event");
   const basicSent = () => Array.from(window.vaq || [], args => Array.from(args)).filter(args => args[0] === "event").map(args => args[1]);
   const beforeSend = event => Array.from(window.vaq || [], args => Array.from(args)).find(args => args[0] === "beforeSend")?.[1](event);
-  const clickLink = (href, area = "") => events.click?.({ target: { closest: () => ({
-    getAttribute: () => href, closest: selector => (Array.isArray(area) ? area : [area]).includes(selector) ? {} : null
+  const clickLink = (href, area = "", directoryDestination = "") => events.click?.({ target: { closest: () => ({
+    getAttribute: name => name === "href" ? href : name === "data-directory-destination" ? directoryDestination : null, closest: selector => (Array.isArray(area) ? area : [area]).includes(selector) ? {} : null
   }) } });
   const submit = space => events.submit?.({ target: { matches: () => true, querySelector: selector => {
     assert.equal(selector, '[name="spaceType"]', "only a known category may be read from the form");
@@ -879,4 +879,14 @@ test("unknown assistant payloads are discarded and withdrawal stops subsequent c
   assert.equal(page.basicSent().length, 1);
   assert.equal(page.sent().filter(e => e[1] === "assistant_error").length, 1);
   assert.equal(page.beforeSend({ type: "event", url: page.canonical }), null);
+});
+
+
+test("directory navigation and map clicks use known destinations without search text", () => {
+  const page = client({ saved: "detailed" });
+  page.clickLink("/directory/?q=private@example.com");
+  page.clickLink("https://maps.app.goo.gl/example", "", "/home-living/baagus/");
+  page.clickLink("https://maps.app.goo.gl/example", "", "/home-living/private@example.com/");
+  assert.deepEqual(page.basicSent().map(event => event.data.target), ["/directory/", "/home-living/baagus/", "about"]);
+  assert.doesNotMatch(JSON.stringify(page.sent()), /private@example.com/);
 });

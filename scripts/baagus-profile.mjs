@@ -1,9 +1,10 @@
 // Public details and image provenance: docs/baagus-profile-sources.md.
+import { parkMaps } from "./park-maps.mjs";
 const website = "https://baagus.com/";
 const showroom = "https://baagus.com/site/branchdetails?id=34";
 const curtains = "https://baagus.com/site/curtains";
 const blinds = "https://baagus.com/site/blind";
-const directions = "https://www.google.com/maps/search/?api=1&query=BAAGUS+Bandar+Kinrara+7+Jalan+TPK+2%2F8+47180+Puchong";
+const directions = parkMaps.baagus;
 const waze = "https://waze.com/ul/hw2832g40q";
 const image = "https://www.tpkpark.com/assets/images/baagus-kinrara-showroom-1440.webp";
 const imageSource = { label: "BAAGUS", url: showroom };
@@ -17,7 +18,7 @@ export const baagusBusiness = {
   url: website,
   telephone: "+60102133173",
   image,
-  hasMap: waze,
+  hasMap: directions,
   address: {
     "@type": "PostalAddress",
     streetAddress: "7, Jalan TPK 2/8, Seksyen 2, Taman Perindustrian Kinrara",

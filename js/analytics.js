@@ -227,7 +227,7 @@
   });
 
   const knownSpaces = ["shop-showroom", "detached-building", "semi-detached", "terrace-waitlist"];
-  const pagePath = /^\/(?:ms\/|zh\/)?(?:about|home-living(?:\/(?:lavino|ga-hing|kuche-bath|jubin-bms|v-haus-living|balens-design|builtop|premio-door|klot|dc-moto|fagolli|total-tools|baagus|mk-curtain|signature|choose-interior))?|automotive(?:\/(?:perodua-3s-kinrara|mazda-kinrara|kia-4s-service|techtrics-auto|techtra-automotive-academy|jon-detailing|jaecoo-service-centre|toyokar))?|lifestyle(?:\/(?:motd|jazmina-bistro|nasi-lemak-nuarina|yummy-nyonya-kitchen|optimum-swim-school|aces-gymnastic-academy|forsee-lens|99-speedmart))?|leasing(?:\/(?:shop-showroom|detached-building|semi-detached))?|news(?:\/china-press-motd-food-music-feature)?|milestones|wong-shung-yen(?:\/public-record)?|contact)?\/?$/;
+  const pagePath = /^\/(?:ms\/|zh\/)?(?:directory|about|home-living(?:\/(?:lavino|ga-hing|kuche-bath|jubin-bms|v-haus-living|balens-design|builtop|premio-door|klot|dc-moto|fagolli|total-tools|baagus|mk-curtain|signature|choose-interior))?|automotive(?:\/(?:perodua-3s-kinrara|mazda-kinrara|kia-4s-service|techtrics-auto|techtra-automotive-academy|jon-detailing|jaecoo-service-centre|toyokar|fadzil-enterprise))?|lifestyle(?:\/(?:motd|jazmina-bistro|nasi-lemak-nuarina|yummy-nyonya-kitchen|optimum-swim-school|aces-gymnastic-academy|forsee-lens|99-speedmart|happivilles))?|leasing(?:\/(?:shop-showroom|detached-building|semi-detached))?|news(?:\/china-press-motd-food-music-feature)?|milestones|wong-shung-yen(?:\/public-record)?|contact)?\/?$/;
   const socialHosts = { "www.facebook.com": "facebook", "www.instagram.com": "instagram", "www.tiktok.com": "tiktok", "www.xiaohongshu.com": "xiaohongshu", "www.rednote.com": "xiaohongshu" };
 
   document.addEventListener("click", event => {
@@ -235,6 +235,8 @@
     if (!link || link.closest("[data-analytics-consent]")) return;
     const href = link.getAttribute("href") || "";
     const fromAssistant = Boolean(link.closest("[data-ask-tpk]"));
+    const directoryDestination = link.getAttribute("data-directory-destination") || "";
+    const directionsTarget = /^\/(?:home-living|automotive|lifestyle)\/[^/]+\/$/.test(directoryDestination) && pagePath.test(directoryDestination) ? directoryDestination : config.route;
     const click = (name, detail, target) => record(name, { ...detail, interaction_origin: fromAssistant ? "assistant" : "website" }, fromAssistant ? "assistant:" + target : target);
     if (href === "tel:+60166626951") return click("tenant_contact_click", { contact_method: "phone", tenant: "motd" }, "motd:phone");
     if (href === "tel:+60122282290") return click("tenant_contact_click", { contact_method: "phone", tenant: "nasi-lemak-nuarina" }, "nasi-lemak-nuarina:phone");
@@ -314,9 +316,9 @@
       } else if (url.hostname === "wa.me" && /^\/60162057917\/?$/.test(url.pathname)) {
         click("tenant_contact_click", { contact_method: "whatsapp", tenant: "forsee-lens" }, "forsee-lens:whatsapp");
       } else if (((url.hostname === "www.google.com" && url.pathname.startsWith("/maps")) || url.hostname === "maps.google.com") || url.hostname === "maps.app.goo.gl" || (url.hostname === "goo.gl" && url.pathname.startsWith("/maps/"))) {
-        click("directions_click", { map_provider: "google" }, config.route);
+        click("directions_click", { map_provider: "google" }, directionsTarget);
       } else if (["www.waze.com", "waze.com", "ul.waze.com"].includes(url.hostname) && (url.pathname.startsWith("/live-map/directions") || /^\/ul(?:\/|$)/.test(url.pathname))) {
-        click("directions_click", { map_provider: "waze" }, config.route);
+        click("directions_click", { map_provider: "waze" }, directionsTarget);
       } else if (["www.lavino.com.my", "lavino.com.my"].includes(url.hostname)) {
         click("outbound_click", { link_domain: "www.lavino.com.my" }, "lavino:website");
       } else if (["www.gahing.com", "gahing.com"].includes(url.hostname)) {

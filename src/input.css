@@ -489,6 +489,25 @@ button, input, select, textarea { font: inherit; }
 /* Business profiles and visitor connections. */
 .directory-profile-link { text-decoration: underline; text-underline-offset: .3em; }
 .directory-profile-link:hover { color: var(--forest); }
+.directory-browse { margin: -16px 0 28px; font-weight: 650; }
+.business-directory-section { padding-top: 0; }
+.business-directory-note { max-width: 820px; color: #526057; margin: 0 0 30px; }
+.business-directory-controls { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr) auto; gap: 18px; align-items: end; padding: 24px; border: 1px solid var(--line); background: var(--cream); }
+.business-directory-controls label { display: grid; gap: 8px; font-size: 14px; font-weight: 650; }
+.business-directory-controls input, .business-directory-controls select { width: 100%; min-height: 48px; border: 1px solid #84968a; background: #fff; padding: 10px 12px; border-radius: 4px; color: var(--ink); }
+.business-directory-controls button { min-height: 48px; padding: 10px 16px; border: 1px solid var(--forest); border-radius: 4px; color: var(--forest); cursor: pointer; }
+.business-directory-count { margin: 24px 0 18px; color: #526057; font-size: 14px; }
+.business-directory-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.business-directory-card { display: flex; flex-direction: column; padding: 28px; border: 1px solid var(--line); background: rgba(255,255,255,.3); }
+.business-directory-cluster { margin: 0 0 18px; color: var(--forest); font-size: 12px; font-weight: 750; letter-spacing: .06em; text-transform: uppercase; }
+.business-directory-card h2 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-weight: 400; font-size: 1.65rem; line-height: 1.25; }
+.business-directory-card h2 a { text-decoration: none; }
+.business-directory-card h2 a:hover { text-decoration: underline; }
+.business-directory-category { margin: 14px 0; font-weight: 600; font-size: 14px; }
+.business-directory-card address { font-style: normal; font-size: 14px; color: #526057; margin-bottom: 28px; }
+.business-directory-actions { display: flex; flex-wrap: wrap; gap: 12px 22px; margin-top: auto; padding-top: 18px; border-top: 1px solid var(--line); font-size: 14px; font-weight: 650; }
+@media (max-width: 900px) { .business-directory-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .business-directory-grid, .business-directory-controls { grid-template-columns: 1fr; } .business-directory-card { padding: 24px; } }
 .business-visit { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; padding-top: 30px; border-top: 1px solid var(--line); }
 .business-visit h3 { margin-top: 0; }
 .business-visit address { font-style: normal; font-size: 1.1rem; max-width: 30rem; line-height: 1.7; }

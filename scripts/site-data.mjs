@@ -7,12 +7,14 @@ import { happivillesProfiles } from "./happivilles-profile.mjs";
 import { fadzilEnterpriseProfiles } from "./fadzil-enterprise-profile.mjs";
 import { interviewArticle, interviewCopy, interviewPages } from "./china-press-interview.mjs";
 import { motdFeatureArticle, motdFeatureCopy, motdFeaturePages } from "./china-press-motd-feature.mjs";
+import { installDirectory } from "./business-directory.mjs";
 
 export const origin = base.origin;
 export const localeConfig = base.localeConfig;
 
 export const routeSlugs = {
   ...base.routeSlugs,
+  businessDirectory: "directory",
   chinaPressInterview: "news/china-press-business-interview",
   motdChinaPressFeature: "news/china-press-motd-food-music-feature",
   happivilles: "lifestyle/happivilles",
@@ -45,17 +47,20 @@ export const seoTitles = {
 export const jadeExhibitionLastModified = base.jadeExhibitionLastModified;
 export const routeLastModified = {
   ...base.routeLastModified,
-  home: "2026-10-02",
+  home: "2026-10-03",
+  businessDirectory: "2026-10-03",
+  baagus: "2026-10-03",
+  homeLiving: "2026-10-03",
   news: "2026-10-02",
   profile: "2026-10-03",
   publicRecord: "2026-10-03",
   chinaPressInterview: "2026-09-23",
   motdChinaPressFeature: "2026-10-03",
   about: "2026-09-18",
-  lifestyle: "2026-10-02",
+  lifestyle: "2026-10-03",
   motd: "2026-10-03",
   happivilles: "2026-09-17",
-  automotive: "2026-09-17",
+  automotive: "2026-10-03",
   kia4sService: "2026-09-17",
   techtricsAuto: "2026-09-19",
   techtraAcademy: "2026-09-19",
@@ -246,6 +251,8 @@ site.en.pages.home = {
   ...site.en.pages.home,
   description: "Discover TPK Park (Taman Perindustrian Kinrara), Puchong: Home & Living showrooms, automotive services, dining and commercial premises for rent."
 };
+
+installDirectory(site, seoTitles);
 
 export const primaryNav = base.primaryNav;
 export const socialLinks = base.socialLinks;

@@ -1,10 +1,12 @@
 // Visitor information for the park's MOTD profile. Current menus and bookings live on MOTD's own website.
+import { parkMaps } from "./park-maps.mjs";
 export const motdBusiness = {
   "@type": "Restaurant",
   "@id": "https://www.motdgroup.com/#restaurant",
   name: "MOTD Bar & Dining",
   url: "https://www.motdgroup.com/",
   telephone: "+60166626951",
+  hasMap: parkMaps.motd,
   menu: "https://www.motdgroup.com/menu",
   image: "https://www.tpkpark.com/assets/images/motd-entrance-1400.webp",
   address: {
@@ -102,3 +104,11 @@ export const motdProfiles = {
     cta: { title: "安排一次MOTD之约。", text: "在餐厅官网了解料理、饮品与音乐，再与MOTD团队联系订位。", button: "前往MOTD官网", url: "https://www.motdgroup.com/zh" }
   }
 };
+
+
+for (const [locale, page] of Object.entries(motdProfiles)) {
+  page.blocks.find(block => block.type === "businessVisit").links.unshift({
+    label: { en: "MOTD on Google Maps", ms: "MOTD di Google Maps", zh: "在Google地图打开MOTD" }[locale],
+    url: parkMaps.motd
+  });
+}

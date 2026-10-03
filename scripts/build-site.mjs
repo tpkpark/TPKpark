@@ -22,6 +22,8 @@ import { enquiryCopy } from "./enquiry-config.mjs";
 import { askTpkCopy, starterQuestions } from "./ask-tpk-copy.mjs";
 import { assistantEnabled } from "../lib/assistant.mjs";
 import { propertyCatalog } from "../lib/assistant-rich.mjs";
+import { directoryClusters, directoryCopy, directoryEntries } from "./business-directory.mjs";
+import { parkMaps } from "./park-maps.mjs";
 
 const root = process.cwd();
 const locales = Object.keys(localeConfig);
@@ -104,7 +106,7 @@ function header(locale, routeId) {
 
 function footer(locale) {
   const t = site[locale];
-  const explore = ["about", "homeLiving", "automotive", "lifestyle", "leasing", "news", "milestones", "profile"]
+  const explore = ["businessDirectory", "about", "homeLiving", "automotive", "lifestyle", "leasing", "news", "milestones", "profile"]
     .map((id) => link(locale, id, t.nav[id])).join("");
   const social = socialLinks.map(([label, url, labels = {}]) => `<a href="${url}" target="_blank" rel="noopener noreferrer">${escapeHtml(labels[locale] || label)}<span class="visually-hidden"> (${escapeHtml(t.external)})</span></a>`).join("");
   return `<footer class="site-footer">
@@ -147,7 +149,7 @@ function homeHero(locale, page) {
     <div class="shell hero-layout">
     <div class="hero-content"><p class="eyebrow">${escapeHtml(page.eyebrow)}</p><h1 id="hero-title">${escapeHtml(page.title)}</h1><p class="hero-lead">${escapeHtml(page.lead)}</p>
       <div class="hero-actions">
-        <a class="button button-primary" href="${routePath(locale, "homeLiving")}">${escapeHtml(t.discover)} <span class="arrow" aria-hidden="true">→</span></a>
+        <a class="button button-primary" href="${routePath(locale, "businessDirectory")}">${escapeHtml(t.nav.businessDirectory)} <span class="arrow" aria-hidden="true">→</span></a>
         <a class="button button-secondary" href="${routePath(locale, "leasing")}">${escapeHtml(t.enquiries)}</a>
       </div>
     </div>
@@ -199,7 +201,30 @@ function renderStats(locale, block) {
 
 function renderDirectory(locale, block) {
   const items = block.items.map(([category, name, route]) => `<div class="directory-item"><span>${escapeHtml(category)}</span><h3>${route ? link(locale, route, name, "directory-profile-link") : escapeHtml(name)}</h3></div>`).join("");
-  return `<section class="section"><div class="shell">${sectionHeader(block)}<div class="directory">${items}</div></div></section>`;
+  return `<section class="section"><div class="shell">${sectionHeader(block)}<p class="directory-browse">${link(locale, "businessDirectory", site[locale].nav.businessDirectory)} <span aria-hidden="true">→</span></p><div class="directory">${items}</div></div></section>`;
+}
+
+function renderBusinessDirectory(locale) {
+  const data = site[locale];
+  const copy = directoryCopy[locale];
+  const entries = directoryEntries(data);
+  const cards = entries.map(entry => `<article class="business-directory-card" data-directory-entry data-cluster="${entry.cluster}" data-search="${escapeHtml([entry.name, entry.category, data.nav[entry.cluster], entry.address, data.pages[entry.route].business?.name || ""].join(" "))}">
+    <p class="business-directory-cluster">${escapeHtml(data.nav[entry.cluster])}</p><h2>${link(locale, entry.route, entry.name)}</h2>
+    <p class="business-directory-category">${escapeHtml(entry.category)}</p>
+    ${entry.address ? `<address>${escapeHtml(entry.address)}</address>` : ""}
+    <div class="business-directory-actions">${link(locale, entry.route, copy.guide)}${entry.map ? `<a href="${escapeHtml(entry.map)}" target="_blank" rel="noopener noreferrer" data-directory-destination="${routePath("en", entry.route)}">${escapeHtml(copy.map)}<span class="visually-hidden"> · ${escapeHtml(entry.name)} (${escapeHtml(data.external)})</span></a>` : ""}</div>
+  </article>`).join("");
+  return `<section class="section business-directory-section" data-business-directory><div class="shell">
+    <p class="business-directory-note">${escapeHtml(copy.note)}</p>
+    <div class="business-directory-controls" data-directory-controls hidden>
+      <label for="directory-search">${escapeHtml(copy.search)}<input id="directory-search" type="search" data-directory-search placeholder="${escapeHtml(copy.placeholder)}" autocomplete="off"></label>
+      <label for="directory-cluster">${escapeHtml(copy.cluster)}<select id="directory-cluster" data-directory-cluster><option value="">${escapeHtml(copy.all)}</option>${directoryClusters.map(cluster => `<option value="${cluster}">${escapeHtml(data.nav[cluster])}</option>`).join("")}</select></label>
+      <button type="button" data-directory-reset>${escapeHtml(copy.reset)}</button>
+    </div>
+    <p class="business-directory-count" role="status" aria-live="polite"><span data-directory-count>${entries.length}</span> ${escapeHtml(copy.results)}</p>
+    <p data-directory-empty hidden>${escapeHtml(copy.empty)}</p>
+    <div class="business-directory-grid">${cards}</div>
+  </div></section><script defer src="/js/business-directory.js"></script>`;
 }
 
 function renderBusinessVisit(locale, block, page) {
@@ -423,6 +448,7 @@ function renderBlock(locale, routeId, page, block, index) {
     case "split": return renderSplit(locale, block, index);
     case "stats": return renderStats(locale, block);
     case "directory": return renderDirectory(locale, block);
+    case "businessDirectory": return renderBusinessDirectory(locale);
     case "businessVisit": return renderBusinessVisit(locale, block, page);
     case "timeline": return renderTimeline(block);
     case "quote": return renderQuote(block);
@@ -457,7 +483,7 @@ function schemas(locale, routeId, page) {
   const placeId = `${origin}/#taman-perindustrian-kinrara`;
   const personPage = ["profile", "publicRecord"].includes(routeId);
   const pageEntityId = personPage ? personId : placeId;
-  const pageType = routeId === "profile" ? "ProfilePage" : routeId === "publicRecord" ? "CollectionPage" : ["chinaPressInterview", "motdChinaPressFeature"].includes(routeId) ? "NewsArticle" : "WebPage";
+  const pageType = routeId === "profile" ? "ProfilePage" : ["publicRecord", "businessDirectory"].includes(routeId) ? "CollectionPage" : ["chinaPressInterview", "motdChinaPressFeature"].includes(routeId) ? "NewsArticle" : "WebPage";
   const recordListId = `${url}#record-list`;
   const graph = [
     {
@@ -481,6 +507,7 @@ function schemas(locale, routeId, page) {
       name: "Taman Perindustrian Kinrara",
       alternateName: ["TPK", "TPK Park", "Kinrara Industrial Park", "金銮工业园"],
       url: `${origin}/`,
+      hasMap: parkMaps.park,
       address: { "@type": "PostalAddress", postalCode: "47180", addressLocality: "Puchong", addressRegion: "Selangor", addressCountry: "MY" }
     },
     {
@@ -524,6 +551,13 @@ function schemas(locale, routeId, page) {
   }
 
   if (page.business) graph.push(page.business);
+
+  if (routeId === "businessDirectory") {
+    const listId = `${url}#businesses`;
+    graph[3].mainEntity = { "@id": listId };
+    graph.push({ "@type": "ItemList", "@id": listId, name: directoryCopy[locale].eyebrow,
+      itemListElement: directoryEntries(site[locale]).map((entry, index) => ({ "@type": "ListItem", position: index + 1, name: entry.name, url: absolute(locale, entry.route) })) });
+  }
 
   if (routeId !== "home") {
     const breadcrumbItems = [

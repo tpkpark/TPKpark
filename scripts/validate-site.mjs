@@ -2,6 +2,7 @@ import { access, readFile } from "node:fs/promises";
 import { dirname, join, normalize } from "node:path";
 import { fileURLToPath } from "node:url";
 import { articles, jadeExhibitionLastModified, leasingInventory, localeConfig, origin, profileSources, routeIds, routeLastModified, routePath, seoTitles, site } from "./site-data.mjs";
+import { parkMaps } from "./park-maps.mjs";
 
 const root = process.cwd();
 const locales = Object.keys(localeConfig);
@@ -107,7 +108,7 @@ for (const locale of locales) {
         const organization = graph.find((entry) => entry["@type"] === "Organization");
         const place = graph.find((entry) => entry["@type"] === "Place");
         const webSite = graph.find((entry) => entry["@type"] === "WebSite");
-        const expectedPageType = routeId === "profile" ? "ProfilePage" : routeId === "publicRecord" ? "CollectionPage" : "WebPage";
+        const expectedPageType = routeId === "profile" ? "ProfilePage" : ["publicRecord", "businessDirectory"].includes(routeId) ? "CollectionPage" : "WebPage";
         const webPage = graph.find((entry) => entry["@type"] === expectedPageType);
         if (!organization) fail(label, "Organization schema is missing");
         if (organization?.["@id"] !== organizationId) fail(label, "Organization schema ID is incorrect");
@@ -123,7 +124,14 @@ for (const locale of locales) {
         if (webPage?.dateModified !== routeLastModified[routeId]) fail(label, "WebPage dateModified is incorrect");
         if (webPage?.publisher?.["@id"] !== organizationId) fail(label, "WebPage publisher is incorrect");
         if (!["profile", "publicRecord"].includes(routeId) && webPage?.about?.["@id"] !== placeId) fail(label, "WebPage subject does not reference Taman Perindustrian Kinrara");
-        if (!["profile", "publicRecord"].includes(routeId) && webPage?.mainEntity?.["@id"] !== (page.business?.["@id"] || placeId)) fail(label, "WebPage main entity does not reference its business or place");
+        if (!["profile", "publicRecord", "businessDirectory"].includes(routeId) && webPage?.mainEntity?.["@id"] !== (page.business?.["@id"] || placeId)) fail(label, "WebPage main entity does not reference its business or place");
+        if (routeId === "businessDirectory") {
+          const businessList = graph.find(entry => entry["@type"] === "ItemList");
+          const expectedRoutes = ["homeLiving", "automotive", "lifestyle"].flatMap(cluster => site[locale].pages[cluster].blocks.find(block => block.type === "directory").items.map(item => item[2]));
+          if (webPage?.mainEntity?.["@id"] !== businessList?.["@id"]) fail(label, "directory must reference its business list");
+          if (businessList?.itemListElement?.length !== expectedRoutes.length) fail(label, "directory schema must cover every existing cluster entry");
+          for (const route of expectedRoutes) if (!html.includes(`href="${routePath(locale, route)}"`)) fail(label, `directory is missing ${route}`);
+        }
         if (page.business) {
           const brandSplit = page.blocks?.find((block) => block.type === "split");
           if (brandSplit?.presentation || brandSplit?.caption || brandSplit?.captionSource) fail(label, "Brand guides must use the MOTD-style edge-to-edge split without figure captions");
@@ -274,7 +282,7 @@ for (const locale of locales) {
             if (hours?.length !== 2 || hours[0]?.opens !== "10:00" || hours[0]?.closes !== "19:00" || hours[0]?.dayOfWeek?.length !== 6 || days.some(day => !hours[0]?.dayOfWeek?.includes(day)) || hours[1]?.opens !== "10:00" || hours[1]?.closes !== "18:00" || hours[1]?.dayOfWeek?.length !== 1 || hours[1]?.dayOfWeek?.[0] !== "Sunday") fail(label, "Baagus must preserve the current official Kinrara hours, including the earlier Sunday closing");
             const sunday = { en: "Sunday, 10am–6pm", ms: "Ahad, 10 pagi–6 petang", zh: "星期日为上午10时至下午6时" }[locale];
             if (!html.includes(sunday)) fail(label, "Baagus Sunday hours must be visible");
-            if (business?.hasMap !== "https://waze.com/ul/hw2832g40q" || !html.includes('href="https://waze.com/ul/hw2832g40q"')) fail(label, "Baagus must retain its official Kinrara Waze link");
+            if (business?.hasMap !== parkMaps.baagus || !html.includes('href="https://waze.com/ul/hw2832g40q"')) fail(label, "Baagus must use the verified Maps listing and retain its official Kinrara Waze link");
             if (business?.image !== `${origin}/assets/images/baagus-kinrara-showroom-1440.webp`) fail(label, "Baagus must use the actual Kinrara storefront photograph");
           }
           if (routeId === "totalTools") {

@@ -47,10 +47,10 @@ export const routeLastModified = {
   ...base.routeLastModified,
   home: "2026-10-02",
   news: "2026-10-02",
-  profile: "2026-09-23",
-  publicRecord: "2026-09-23",
+  profile: "2026-10-03",
+  publicRecord: "2026-10-03",
   chinaPressInterview: "2026-09-23",
-  motdChinaPressFeature: "2026-10-02",
+  motdChinaPressFeature: "2026-10-03",
   about: "2026-09-18",
   lifestyle: "2026-10-02",
   motd: "2026-10-03",
@@ -72,7 +72,18 @@ export function routePath(locale, routeId) {
 export const images = base.images;
 export const leasingInventory = base.leasingInventory;
 export const articles = [motdFeatureArticle, interviewArticle, ...base.articles];
-export const profileSources = [{ ...interviewArticle, year: "2026", category: "place", featured: true }, ...base.profileSources];
+export const profileSources = [
+  {
+    ...motdFeatureArticle, year: "2026", category: "place", featured: true,
+    locales: ["en", "zh"],
+    summary: {
+      en: "China Press explores MOTD’s food, music and dining experience at TPK Park, featuring partner Wong Shung Yen（黄松延 / SY）.",
+      zh: "《中国报》走进TPK Park的MOTD，介绍料理、音乐与用餐体验，以及合伙人黄松延（Wong Shung Yen / SY）。"
+    }
+  },
+  { ...interviewArticle, year: "2026", category: "place", featured: true },
+  ...base.profileSources
+];
 
 export const site = Object.fromEntries(
   Object.entries(base.site).map(([locale, data]) => [

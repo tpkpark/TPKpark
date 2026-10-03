@@ -1,4 +1,5 @@
 // Public details and image provenance: docs/signature-profile-sources.md.
+const localWebsite = "https://signature.tpkpark.com/";
 const website = "https://signature.my/";
 const showrooms = "https://signature.my/locate-a-showroom/";
 const kitchens = "https://signature.my/kitchens/";
@@ -13,7 +14,7 @@ export const signatureBusiness = {
   "@id": "https://www.tpkpark.com/home-living/signature/#store",
   name: "Signature Bandar Kinrara",
   alternateName: "Signature",
-  url: website,
+  url: localWebsite,
   telephone: "+60109133198",
   hasMap: directions,
   address: {
@@ -51,6 +52,7 @@ export const signatureProfiles = {
         { number: "03", title: "Agree the full scope", text: "Ask for an itemised quotation covering cabinets, worktops, fittings and installation. Clarify whether appliances, plumbing, wiring and removal of existing cabinets are included. Confirm site measurements, installation timing, care instructions and warranty terms before approving the order." }
       ] },
       { type: "businessVisit", kicker: "Plan your visit", title: "Find Signature on Jalan TPK 2/8.", text: "The Bandar Kinrara showroom is at No. 9.", addressLabel: "Bandar Kinrara showroom address", address, phoneLabel: "Signature Bandar Kinrara enquiries", phoneDisplay: "+60 10 913 3198", note: "Published hours are Monday–Saturday, 10am–7pm, and Sunday and public holidays, 10am–6pm. Call the branch to arrange a design discussion and confirm which displays you would like to see.", links: [
+        { label: "Showroom website", url: localWebsite + "?source=tpkpark" },
         { label: "Directions on Google Maps", url: directions },
         { label: "Signature showroom directory", url: showrooms },
         { label: "Explore Signature wardrobes", url: wardrobes }
@@ -77,6 +79,7 @@ export const signatureProfiles = {
         { number: "03", title: "Persetujui skop penuh", text: "Minta sebut harga terperinci untuk kabinet, permukaan kerja, kelengkapan dan pemasangan. Sahkan sama ada peralatan elektrik, kerja paip, pendawaian dan penanggalan kabinet lama termasuk dalam harga. Persetujui ukuran tapak, jadual pemasangan, cara penjagaan dan syarat jaminan sebelum meluluskan tempahan." }
       ] },
       { type: "businessVisit", kicker: "Rancang lawatan", title: "Cari Signature di Jalan TPK 2/8.", text: "Bilik pameran Bandar Kinrara terletak di No. 9.", addressLabel: "Alamat bilik pameran Bandar Kinrara", address, phoneLabel: "Pertanyaan Signature Bandar Kinrara", phoneDisplay: "+60 10 913 3198", note: "Waktu operasi yang disenaraikan ialah Isnin–Sabtu, 10 pagi–7 petang, serta Ahad dan cuti umum, 10 pagi–6 petang. Hubungi cawangan untuk mengatur perbincangan reka bentuk dan mengesahkan pilihan yang ingin dilihat.", links: [
+        { label: "Laman bilik pameran", url: localWebsite + "ms/?source=tpkpark" },
         { label: "Arah melalui Google Maps", url: directions },
         { label: "Direktori bilik pameran Signature", url: showrooms },
         { label: "Terokai almari pakaian Signature", url: wardrobes }
@@ -103,6 +106,7 @@ export const signatureProfiles = {
         { number: "03", title: "确认完整范围", text: "请对方分别列出柜体、台面、配件与安装费用，并确认电器、水管、电线工程及旧柜拆除是否包含在内。批准订单前，核实现场尺寸、安装时间、清洁保养方法与保修条款。" }
       ] },
       { type: "businessVisit", kicker: "到访安排", title: "在Jalan TPK 2/8找到Signature。", text: "Bandar Kinrara展厅位于9号。", addressLabel: "Bandar Kinrara展厅地址", address, phoneLabel: "Signature Bandar Kinrara咨询电话", phoneDisplay: "+60 10 913 3198", note: "公布的营业时间为星期一至星期六，上午10时至晚上7时；星期日及公共假期为上午10时至下午6时。可先致电分店安排设计讨论，并确认想看的展示项目。", links: [
+        { label: "展厅网站", url: localWebsite + "zh/?source=tpkpark" },
         { label: "使用Google Maps导航", url: directions },
         { label: "Signature展厅目录", url: showrooms },
         { label: "浏览Signature衣柜", url: wardrobes }

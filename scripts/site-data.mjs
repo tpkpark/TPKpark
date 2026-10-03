@@ -50,6 +50,7 @@ export const routeLastModified = {
   home: "2026-10-03",
   businessDirectory: "2026-10-03",
   baagus: "2026-10-03",
+  signature: "2026-10-03",
   homeLiving: "2026-10-03",
   news: "2026-10-02",
   profile: "2026-10-03",

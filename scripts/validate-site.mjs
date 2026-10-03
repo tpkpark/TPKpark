@@ -153,7 +153,7 @@ for (const locale of locales) {
             totalTools: { type: "HardwareStore", url: "https://www.totaltools.com.my/", phone: "+60102908007" },
             baagus: { type: "HomeGoodsStore", url: "https://baagus.tpkpark.com/", phone: "+60102133173" },
             mkCurtain: { type: "HomeGoodsStore", url: "https://www.mk.com.my/", phone: "+60380747210" },
-            signature: { type: "HomeGoodsStore", url: "https://signature.tpkpark.com/", phone: "+60168133182" },
+            signature: { type: "HomeGoodsStore", url: "https://signature.tpkpark.com/", phone: "+60109133198" },
             chooseInterior: { type: "LocalBusiness", url: "https://www.instagram.com/chooseinterior.cid/", contactUrl: "https://www.instagram.com/chooseinterior.cid/" },
             peroduaKinrara: { type: "AutoDealer", url: "https://www.perodua3skinrara.com/", phone: "+60332912266" },
             mazdaKinrara: { type: "AutoDealer", url: "https://www.facebook.com/MazdaPersadaAuto/", phone: "+60380750812" },

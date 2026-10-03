@@ -367,7 +367,8 @@ function renderProfileSource(locale, item) {
 
 function renderProfileSources(locale, block) {
   const t = site[locale];
-  const items = block.mode === "featured" ? profileSources.filter((item) => item.featured) : profileSources;
+  const localeSources = profileSources.filter((item) => !item.locales || item.locales.includes(locale));
+  const items = block.mode === "featured" ? localeSources.filter((item) => item.featured) : localeSources;
   let records;
   if (block.mode === "all") {
     const years = [...new Set(items.map((item) => item.year))];
@@ -569,7 +570,7 @@ function schemas(locale, routeId, page) {
       "@type": "Person",
       "@id": personId,
       name: "Wong Shung Yen",
-      alternateName: "黄松延",
+      alternateName: ["黄松延", "SY"],
       jobTitle: "Managing Director",
       worksFor: { "@id": `${origin}/#organization` },
       url: profileUrl,
@@ -582,13 +583,14 @@ function schemas(locale, routeId, page) {
   }
 
   if (routeId === "publicRecord") {
+    const localeSources = profileSources.filter((item) => !item.locales || item.locales.includes(locale));
     graph.push({
       "@type": "ItemList",
       "@id": recordListId,
       name: page.title,
-      numberOfItems: profileSources.length,
+      numberOfItems: localeSources.length,
       about: { "@id": personId },
-      itemListElement: profileSources.map((item, index) => ({
+      itemListElement: localeSources.map((item, index) => ({
         "@type": "ListItem",
         position: index + 1,
         url: item.url,

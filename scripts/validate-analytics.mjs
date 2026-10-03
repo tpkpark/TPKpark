@@ -6,7 +6,51 @@ import test from "node:test";
 const source = await readFile(new URL("../js/analytics.js", import.meta.url), "utf8");
 const key = "tpk-analytics-preference-v2";
 
-function client({ hostname = "www.tpkpark.com", saved = null, legacy = null, privacy = {}, storageUnavailable = false, locale = "en" } = {}) {
+test("approved campaigns survive URL scrubbing only after detailed opt-in", () => {
+  const search = "?utm_source=google&utm_medium=organic&utm_campaign=china_press_20261003&utm_content=tpk_gbp_char_en_zh&email=private@example.com";
+  const basic = client({ search });
+  assert.equal(basic.scripts.some(script => script.src.includes("googletagmanager")), false);
+  assert.equal(JSON.stringify(basic.window.dataLayer).includes("china_press"), false);
+  const page = client({ saved: "detailed", search });
+  const config = Array.from(page.window.dataLayer, args => Array.from(args)).find(args => args[0] === "config")[2];
+  assert.equal(config.campaign_source, "google");
+  assert.equal(config.campaign_medium, "organic");
+  assert.equal(config.campaign_name, "china_press_20261003");
+  assert.equal(config.campaign_content, "tpk_gbp_char_en_zh");
+  assert.equal(config.page_location, "https://www.tpkpark.com/about/");
+  assert.equal(page.beforeSend({ url: "https://www.tpkpark.com/" + search }).url, config.page_location);
+  assert.doesNotMatch(JSON.stringify(page.window.dataLayer), /private@example.com/);
+  for (const options of [{ saved: "off" }, { saved: "detailed", privacy: { globalPrivacyControl: true } }, { saved: "detailed", privacy: { doNotTrack: "1" } }]) {
+    const disabled = client({ ...options, search });
+    assert.equal(disabled.sent().length, 0);
+    assert.equal(disabled.scripts.length, 0);
+  }
+});
+
+test("unrecognized or mismatched campaign values are not sent", () => {
+  for (const search of [
+    "?utm_source=private@example.com&utm_medium=organic&utm_campaign=gbp",
+    "?utm_source=google&utm_medium=organic&utm_campaign=private@example.com",
+    "?utm_source=facebook&utm_medium=organic_social&utm_campaign=china_press_20261003&utm_content=tpk_gbp_char_en_zh",
+    "?utm_source=instagram&utm_medium=organic_social&utm_campaign=china_press_20261003&utm_content=private@example.com"
+  ]) {
+    const page = client({ saved: "detailed", search });
+    const config = Array.from(page.window.dataLayer, args => Array.from(args)).find(args => args[0] === "config")[2];
+    assert.equal(config.campaign_source, undefined);
+    assert.doesNotMatch(JSON.stringify(page.window.dataLayer), /private@example.com/);
+  }
+});
+
+test("China Press article navigation records only known localized paths", () => {
+  const page = client({ saved: "detailed" });
+  page.clickLink("/news/china-press-motd-food-music-feature/?email=private@example.com");
+  page.clickLink("/zh/news/china-press-motd-food-music-feature/");
+  page.clickLink("/news/private@example.com/");
+  assert.deepEqual(page.basicSent().map(event => event.data.target), ["/news/china-press-motd-food-music-feature/", "/zh/news/china-press-motd-food-music-feature/"]);
+  assert.doesNotMatch(JSON.stringify(page.sent()), /private@example.com/);
+});
+
+function client({ hostname = "www.tpkpark.com", saved = null, legacy = null, privacy = {}, storageUnavailable = false, locale = "en", search = "?email=private@example.com" } = {}) {
   const events = {};
   const windowEvents = {};
   const scripts = [];
@@ -34,7 +78,7 @@ function client({ hostname = "www.tpkpark.com", saved = null, legacy = null, pri
   };
   const window = { innerHeight: 1000, scrollY: 0, addEventListener(type, callback) { windowEvents[type] = callback; } };
   const context = vm.createContext({
-    document, window, URL, navigator: privacy, location: { hostname, search: "?email=private@example.com" },
+    document, window, URL, navigator: privacy, location: { hostname, search },
     localStorage: {
       getItem(name) { if (storageUnavailable) throw new Error("Storage blocked"); return storage.get(name) || null; },
       setItem(name, value) { if (storageUnavailable) throw new Error("Storage blocked"); storage.set(name, value); }

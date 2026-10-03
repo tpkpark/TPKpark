@@ -80,7 +80,7 @@
     googleStarted = true;
     gtag("js", new Date());
     gtag("config", id, {
-      ...params, send_page_view: false,
+      ...params, ...campaignParameters(), send_page_view: false,
       allow_google_signals: false, allow_ad_personalization_signals: false,
       cookie_domain: location.hostname, cookie_flags: "SameSite=Lax;Secure"
     });
@@ -90,6 +90,19 @@
     script.src = "https://www.googletagmanager.com/gtag/js?id=" + id;
     script.referrerPolicy = "no-referrer";
     document.head.appendChild(script);
+  }
+
+  function campaignParameters() {
+    // Only public campaign labels; page URLs and Vercel payloads remain query-free.
+    const query = new URL("https://www.tpkpark.com/" + (location.search || "")).searchParams;
+    const source = query.get("utm_source"), medium = query.get("utm_medium");
+    const name = query.get("utm_campaign"), content = query.get("utm_content");
+    const channels = { google: ["organic", "gbp"], facebook: ["organic_social", "facebook"], instagram: ["organic_social", "instagram"], tiktok: ["organic_social", "tiktok"], xhs: ["organic_social", "xhs"] };
+    if (!Object.hasOwn(channels, source) || medium !== channels[source][0]) return {};
+    if (source === "google" && name === "gbp") return { campaign_source: source, campaign_medium: medium, campaign_name: name };
+    const allowed = ["press", "chef_kit", "char", "live_music"].map(angle => `tpk_${channels[source][1]}_${angle}_en_zh`);
+    if (name !== "china_press_20261003" || !allowed.includes(content)) return {};
+    return { campaign_source: source, campaign_medium: medium, campaign_name: name, campaign_content: content };
   }
 
   function stopGoogle() {
@@ -214,7 +227,7 @@
   });
 
   const knownSpaces = ["shop-showroom", "detached-building", "semi-detached", "terrace-waitlist"];
-  const pagePath = /^\/(?:ms\/|zh\/)?(?:about|home-living(?:\/(?:lavino|ga-hing|kuche-bath|jubin-bms|v-haus-living|balens-design|builtop|premio-door|klot|dc-moto|fagolli|total-tools|baagus|mk-curtain|signature|choose-interior))?|automotive(?:\/(?:perodua-3s-kinrara|mazda-kinrara|kia-4s-service|techtrics-auto|techtra-automotive-academy|jon-detailing|jaecoo-service-centre|toyokar))?|lifestyle(?:\/(?:motd|jazmina-bistro|nasi-lemak-nuarina|yummy-nyonya-kitchen|optimum-swim-school|aces-gymnastic-academy|forsee-lens|99-speedmart))?|leasing(?:\/(?:shop-showroom|detached-building|semi-detached))?|news|milestones|wong-shung-yen(?:\/public-record)?|contact)?\/?$/;
+  const pagePath = /^\/(?:ms\/|zh\/)?(?:about|home-living(?:\/(?:lavino|ga-hing|kuche-bath|jubin-bms|v-haus-living|balens-design|builtop|premio-door|klot|dc-moto|fagolli|total-tools|baagus|mk-curtain|signature|choose-interior))?|automotive(?:\/(?:perodua-3s-kinrara|mazda-kinrara|kia-4s-service|techtrics-auto|techtra-automotive-academy|jon-detailing|jaecoo-service-centre|toyokar))?|lifestyle(?:\/(?:motd|jazmina-bistro|nasi-lemak-nuarina|yummy-nyonya-kitchen|optimum-swim-school|aces-gymnastic-academy|forsee-lens|99-speedmart))?|leasing(?:\/(?:shop-showroom|detached-building|semi-detached))?|news(?:\/china-press-motd-food-music-feature)?|milestones|wong-shung-yen(?:\/public-record)?|contact)?\/?$/;
   const socialHosts = { "www.facebook.com": "facebook", "www.instagram.com": "instagram", "www.tiktok.com": "tiktok", "www.xiaohongshu.com": "xiaohongshu", "www.rednote.com": "xiaohongshu" };
 
   document.addEventListener("click", event => {

@@ -4,11 +4,13 @@ Routes: `/home-living/signature/`, `/ms/home-living/signature/` and `/zh/home-li
 
 ## Branch identity and contact
 
-The [official showroom directory](https://signature.my/locate-a-showroom/) lists **BANDAR KINRARA** at **9, Jalan TPK 2/8, Taman Perindustrian Kinrara, 47180 Puchong, Selangor**, with local phone **+6016-8133182**, displayed as +60 16 813 3182. The live public HTML and visible directory agree.
+**Owner-confirmed contact, 3 October 2026:** Signature Kinrara uses **010-913 3198** (international format **+60 10 913 3198**, telephone link **+60109133198**). This confirmation governs the visible contact, click-to-call links, business structured data, assistant source information and analytics attribution across all three languages. The live Google listing already used this number during the same-day audit.
+
+The [official showroom directory](https://signature.my/locate-a-showroom/) identifies **BANDAR KINRARA** at **9, Jalan TPK 2/8, Taman Perindustrian Kinrara, 47180 Puchong, Selangor**. At the original research date it listed +6016-8133182. That directory number is retained here only as historical source context and is superseded for TPK Park's content by the owner's direct confirmation.
 
 Published hours are Monday–Saturday, 10:00–19:00, and Sunday and public holidays, 10:00–18:00. The guide shows the full schedule in each language; structured data contains the regular Monday–Saturday and Sunday schedule. The directory attaches this [Google Maps link](https://maps.app.goo.gl/4SZVDi8fQY6deuf97) to the Bandar Kinrara entry.
 
-The separate Bandar Puteri, Puchong branch is at 6-G, Jalan Puteri 1/5, with phone +6012-2877793. The national website header also carries +6012-6231866. Neither contact is substituted for the local branch. A third-party business listing gives different hours, and promotional event posts use a different number and shared event address; the guide follows the current official branch directory. No local WhatsApp contact or operating-company legal name is inferred.
+The separate Bandar Puteri, Puchong branch is at 6-G, Jalan Puteri 1/5, with phone +6012-2877793. The national website header also carries +6012-6231866. Neither contact is substituted for the local branch. The guide follows the official branch directory for the address and hours, and the owner's 3 October confirmation for the phone number. No local WhatsApp contact or operating-company legal name is inferred.
 
 The `HomeGoodsStore` node identifies the branch, local phone, No. 9 address, map link, regular hours and TPK Park location. It does not present a generic kitchen image as a photograph of the local premises.
 

@@ -13,9 +13,9 @@ Audit date: 3 October 2026. Public business information and the authorised manag
 
 The separate TPK Park Sdn. Bhd. office entry at 2 Jalan TPK 1/4 requires verification. It was not changed or merged with the destination. Listing a business within the park does not assert that TPK Park Sdn. Bhd. owns or manages that business or every property in the area.
 
-## Unresolved contact discrepancy
+## Contact discrepancy resolved
 
-Signature's public Google listing uses **+60 10 913 3198**. Its [official showroom directory](https://signature.my/locate-a-showroom/) and the existing TPK Park profile use **+60 16 813 3182**. Both sources were checked on the audit date. Neither number was changed; confirm the intended branch contact before aligning them.
+The owner confirmed on 3 October 2026 that Signature Kinrara uses **010-913 3198** (**+60 10 913 3198** internationally), matching its public Google listing. TPK Park's EN/MS/ZH profile contacts, click-to-call links, structured data and phone-click attribution are aligned to this confirmed number. The [national showroom directory](https://signature.my/locate-a-showroom/) still showed a different number when checked earlier; it is an external source and was not edited.
 
 ## Website changes
 

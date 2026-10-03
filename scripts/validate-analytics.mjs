@@ -453,13 +453,13 @@ test("Signature links retain tenant attribution and exclude contact and query co
   page.clickLink("https://signature.my/kitchens/?message=private@example.com");
   page.clickLink("https://www.signature.my/wardrobes/?email=private@example.com");
   page.clickLink("https://maps.app.goo.gl/4SZVDi8fQY6deuf97?email=private@example.com#private");
-  page.clickLink("tel:+60168133182");
+  page.clickLink("tel:+60109133198");
   assert.deepEqual(page.basicSent().map(event => event.data.target), ["/home-living/signature/", "ms", "signature:website", "signature:visit", "signature:kitchens", "signature:wardrobes", "about", "signature:phone"]);
   assert.equal(page.sent().filter(event => event[1] === "contact_click").length, 0);
   assert.deepEqual(page.sent().filter(event => event[1] === "tenant_contact_click").map(event => [event[2].tenant, event[2].contact_method]), [["signature", "phone"]]);
-  assert.doesNotMatch(JSON.stringify([page.sent(), page.basicSent()]), /private@example.com|#private|60168133182|4SZVDi8fQY6deuf97|address=|message=/);
+  assert.doesNotMatch(JSON.stringify([page.sent(), page.basicSent()]), /private@example.com|#private|60109133198|4SZVDi8fQY6deuf97|address=|message=/);
   page.controls.off.handlers.click();
-  page.clickLink("tel:+60168133182");
+  page.clickLink("tel:+60109133198");
   page.clickLink("https://signature.my/kitchens/");
   assert.equal(page.basicSent().length, 8);
 });

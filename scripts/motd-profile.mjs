@@ -42,7 +42,8 @@ export const motdProfiles = {
         { label: "MOTD menus", url: "https://www.motdgroup.com/menu" },
         { label: "Live music at MOTD", url: "https://www.motdgroup.com/live-house" },
         { label: "Opening hours, directions & reservations", url: "https://www.motdgroup.com/contact-us" },
-        { label: "China Press feature on MOTD", url: "https://www.chinapress.com.my/?p=5148530" }
+        { label: "China Press feature on MOTD", url: "https://www.chinapress.com.my/?p=5148530" },
+        { label: "Read TPK Park’s English summary of the MOTD feature", route: "motdChinaPressFeature" }
       ] }
     ],
     cta: { title: "Plan your visit to MOTD.", text: "Explore the restaurant’s food, drinks and music, then contact the MOTD team to arrange your table.", button: "Visit MOTD’s website", url: "https://www.motdgroup.com/" }
@@ -94,7 +95,8 @@ export const motdProfiles = {
         { label: "MOTD菜单", url: "https://www.motdgroup.com/zh/menu" },
         { label: "MOTD现场音乐与演出安排", url: "https://www.motdgroup.com/zh/live-house" },
         { label: "营业时间、路线与订位", url: "https://www.motdgroup.com/zh/contact-us" },
-        { label: "《中国报》MOTD专题报道", url: "https://www.chinapress.com.my/?p=5148530" }
+        { label: "《中国报》MOTD专题报道", url: "https://www.chinapress.com.my/?p=5148530" },
+        { label: "阅读 TPK Park 的 MOTD《中国报》专题介绍", route: "motdChinaPressFeature" }
       ] }
     ],
     cta: { title: "安排一次MOTD之约。", text: "在餐厅官网了解料理、饮品与音乐，再与MOTD团队联系订位。", button: "前往MOTD官网", url: "https://www.motdgroup.com/zh" }

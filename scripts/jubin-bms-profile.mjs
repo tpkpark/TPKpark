@@ -12,6 +12,7 @@ export const jubinBmsBusiness = {
   name: "Jubin BMS Puchong Kinrara",
   url: website,
   telephone: "+60380748300",
+  hasMap: "https://www.google.com/maps/search/?api=1&query=Jubin+BMS+Puchong+Kinrara&query_place_id=ChIJg88GMU9LzDERtcFfcQ5vUro",
   image,
   address: {
     "@type": "PostalAddress",

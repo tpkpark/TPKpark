@@ -17,6 +17,7 @@ export const fagolliBusiness = {
   legalName: "Digicraft MSC Sdn. Bhd.",
   url: website,
   telephone: "+601154078187",
+  hasMap: "https://www.google.com/maps/search/?api=1&query=Fagolli+Showroom&query_place_id=ChIJQfJE_FxLzDERGXL0kv7JJSc",
   contactPoint: { "@type": "ContactPoint", contactType: "WhatsApp enquiries", telephone: "+601154078187", url: whatsapp },
   address: {
     "@type": "PostalAddress",

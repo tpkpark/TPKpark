@@ -6,6 +6,7 @@ Scope: the 34 businesses currently shown in the public TPK Park directory. This 
 
 - **47100 and 47180 are both acceptable for Taman Perindustrian Kinrara.** 47100 is the earlier postcode and 47180 the newer postcode. Do not flag either postcode by itself as an address error.
 - **Kuche + BaTH / KBO occupies multiple adjoining shoplots.** Both the 39G and 41 Jalan TPK 2/8 addresses can be legitimate. Do not treat those two numbers as a contradiction without checking the exact business entity/use.
+- **Ignore “Signature Space Sdn Bhd”.** Management confirms that it does not exist and it is not to be treated as a legitimate parallel TPK business entity or audit issue.
 - Do not rename businesses or alter legitimate addresses merely to force a TPK Park association.
 - The current Located-within pilot remains under review. Do not resubmit duplicate Maps edits while an earlier suggestion is pending.
 
@@ -23,7 +24,7 @@ Scope: the 34 businesses currently shown in the public TPK Park directory. This 
 | 2 | Ga Hing | A | `ChIJJ-priddLzDERurhcRa--pDE` | Exact Maps link added. |
 | 3 | Kuche + BaTH | C | 39G company-style entity `ChIJYc4kaEdLzDER458Isaliopc`; 41 brand-style entity `ChIJl1C0aUdLzDER9dRIncdPe7I` | Both adjoining addresses are valid per management. Decide later which entity should be the primary visitor-facing map destination; no correction now. |
 | 4 | Jubin BMS | A | `ChIJg88GMU9LzDERtcFfcQ5vUro` | Exact Maps link added. |
-| 5 | Signature | C | Primary brand listing `ChIJ064-IBBLzDERIhzF0seZOD0`; parallel “Signature Space Sdn Bhd” entity `ChIJJeABGQBLzDERCp5Db6DCnos` at the same address | Keep primary brand listing. Verify whether the company-name entity has a legitimate separate purpose before considering any merge/report. |
+| 5 | Signature | A | Primary brand listing `ChIJ064-IBBLzDERIhzF0seZOD0` | Use the primary Signature Kinrara brand listing. Ignore the unrelated/invalid “Signature Space Sdn Bhd” result per management instruction. |
 | 6 | MK Curtain | B | Official MK Curtain source confirms “MK Curtain TPK Park Puchong”, 11 Jalan TPK 2/8; broad Maps lookup surfaced another Puchong branch instead | Existing TPK map link retained. Reconcile exact Google Place ID manually before any Maps edit. |
 | 7 | Baagus | A | `ChIJu-7UPZ9LzDERfCFZb5kahiY` | Good. Located-within suggestion remains part of pilot. |
 | 8 | Total Tools | A | `ChIJDeX1WcBLzDER-YF-qaAIDGU` | Good. |
@@ -64,10 +65,9 @@ This does not alter any Google Business Profile. It only makes TPK Park's own en
 
 ### Priority 1 — entity reconciliation, no edits yet
 1. Kuche + BaTH / Total Home DIY — decide which of the two valid adjoining-unit entities is the primary visitor-facing Maps destination.
-2. Signature — verify whether the “Signature Space Sdn Bhd” entity should remain separate from the primary Signature Kinrara brand listing.
-3. DC Moto — determine whether a TPK-specific GBP exists; broad Maps discovery currently points to Kajang.
-4. Fadzil Enterprise — distinguish the TPK branch from other Puchong results.
-5. Jaecoo — audit completeness/category/name because the location is correct but the public entity is thin.
+2. DC Moto — determine whether a TPK-specific GBP exists; broad Maps discovery currently points to Kajang.
+3. Fadzil Enterprise — distinguish the TPK branch from other Puchong results.
+4. Jaecoo — audit completeness/category/name because the location is correct but the public entity is thin.
 
 ### Priority 2 — resolve exact Google Place IDs
 MK Curtain TPK Park Puchong, Premio Door Puchong, Choose Interior, Jon Detailing, Toyokar, Yummy Nyonya Kitchen and Forsee Lens/Eyepoint Technology.

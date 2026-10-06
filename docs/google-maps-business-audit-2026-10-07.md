@@ -10,6 +10,7 @@ Scope: the 34 businesses currently shown in the public TPK Park directory. This 
 - **KBO primary visitor-facing Maps identity:** use **Total Home DIY Online Stock at 39G, Jalan TPK 2/8** as the primary Google Maps destination. The adjoining KBO/brand address remains valid, but 39G is the preferred map entity for TPK Park links.
 - **Current-operation confirmation:** DC Moto, Fadzil Enterprise, Premio Door, Choose Interior, Jon Detailing, Toyokar, Yummy Nyonya Kitchen and Forsee Lens are all confirmed current at TPK Park as of 7 October 2026.
 - **Jaecoo public-facing name:** use **Jaecoo Puchong Kinrara Service Centre** for the TPK Park business entity. The generic public Google result can be reviewed later for completeness/name alignment.
+- **Fadzil Enterprise relocation:** management confirms **Jalan Serindit 3 was the former address before Fadzil Enterprise moved to TPK Park**. The current location is 3, Jalan TPK 1/3. Google Maps and the brand website still showing Jalan Serindit 3 are stale location data, not a second current branch.
 - Do not rename businesses or alter legitimate addresses merely to force a TPK Park association.
 - The current Located-within pilot remains under review. Do not resubmit duplicate Maps edits while an earlier suggestion is pending.
 
@@ -47,7 +48,7 @@ Scope: the 34 businesses currently shown in the public TPK Park directory. This 
 | 22 | Jon Detailing | A | Current Puchong destination resolves to Google-style Place ID `ChIJxwp1ZmxKzDERodc0zzgPgF8` at 71 Jalan TPK 2/8 | Exact Google Maps link added to the TPK Park business entity. The public phone shown by that destination differs from the older TPK profile contact, so phone reconciliation remains separate and no phone change is made. |
 | 23 | Jaecoo Puchong Kinrara Service Centre | A | `ChIJ0ZhVQABLzDERAQ3I4-qM20Q` at 4 Jalan TPK 1/4 | Correct location. TPK Park's own entity now uses the management-confirmed public-facing name. The generic Google result remains a later profile-completeness/name-alignment candidate, not an address correction. |
 | 24 | Toyokar | B | First-party Toyokar site confirms 7 Jalan TPK 1/3 and supplies a map; structured business lookup did not expose a clean exact entity in this audit | Confirmed current at TPK Park. Keep the existing map source; resolve Place ID later. |
-| 25 | Fadzil Enterprise | B | Public web evidence confirms 3 Jalan TPK 1/3, while broad business lookup tends to surface another Puchong address | Confirmed current at TPK Park. Reconcile branch/entity naming and exact Place ID; do not overwrite a legitimate second location. |
+| 25 | Fadzil Enterprise | B | Current location: 3 Jalan TPK 1/3. Google Maps Place ID `ChIJk5RtBjtLzDERQKmx-S41mac` still points to the former 12 Jalan Serindit 3 address; the brand website is stale on location as well | Confirmed current at TPK Park. Treat this as a **moved-business/location correction** issue, not a second branch. Keep TPK Park’s directions pointed to the current address until Google updates the listing. |
 | 26 | m.o.t.d | A | `ChIJbzHZliFLzDERsrHcGIHgcyI` | Good. Google showing 47100 is acceptable under the legacy/new-postcode rule. |
 | 27 | Jazmina Bistro | A | `ChIJk2_ErpBLzDERD_a6YPzLc3s` at 23 Jalan TPK 2/8 | Correct TPK entity confirmed. Same-name restaurants elsewhere are separate. |
 | 28 | Nasi Lemak Daun Pisang Nuarina | A | `ChIJS8B4uThLzDER1OmG327zN2M` | Good. |
@@ -67,7 +68,7 @@ This does not alter any Google Business Profile. It only makes TPK Park's own en
 ## Priority queue
 
 ### Priority 1 — entity reconciliation, no edits yet
-1. Fadzil Enterprise — distinguish the confirmed-current TPK branch from the separate/competing Puchong result at Jalan Serindit 3; the brand's official website currently foregrounds the Serindit address while third-party map-derived data also reflects the TPK address.
+1. Fadzil Enterprise — correct the stale Google Maps location from the former Jalan Serindit 3 address to the current 3 Jalan TPK 1/3 address when an authorised Maps/GBP editing path is available. The existing Google Place ID is `ChIJk5RtBjtLzDERQKmx-S41mac`.
 2. Jaecoo Puchong Kinrara Service Centre — audit profile completeness/category/name alignment because the location is correct but the public Google entity is thin.
 
 ### Priority 2 — resolve exact Google Place IDs

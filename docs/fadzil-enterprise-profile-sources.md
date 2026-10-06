@@ -6,7 +6,7 @@ Checked 17 September 2026. Scope: Fadzil Enterprise Sdn Bhd / Fadzil Recond at T
 
 - TPK Park management identifies **Fadzil Enterprise** as a current Automotive tenant focused on **Sales**.
 - A recent third-party Puchong listing records **Fadzil Enterprise Sdn Bhd Puchong** at `3, Jalan TPK 1/3, Taman Perindustrian Kinrara, 47100 Puchong, Selangor` with public phone `+60 19 213 8444`.
-- Fadzil Recond’s official website still displays the earlier Puchong address at `12, Jalan Serindit 3, Bandar Puchong Jaya, 47100 Puchong`. The TPK Park page therefore states the current TPK address while explicitly noting that the brand website has not yet caught up and tells visitors to confirm before a time-sensitive trip.
+- TPK Park management confirmed on **7 October 2026** that `12, Jalan Serindit 3, Bandar Puchong Jaya` is Fadzil Enterprise’s **former address before moving to TPK Park**. The current location is **3, Jalan TPK 1/3, Taman Perindustrian Kinrara**. Fadzil Recond’s official website and the current Google Business/Maps listing still display the former Jalan Serindit 3 address, so those public sources are stale on location.
 
 ## Business scope
 
@@ -20,7 +20,7 @@ Checked 17 September 2026. Scope: Fadzil Enterprise Sdn Bhd / Fadzil Recond at T
 - Recent Puchong listing: `+60 19 213 8444`.
 - Fadzil Recond official website WhatsApp CTA resolves to `+60 12 853 3618`.
 - The official website publishes showroom hours of Monday–Saturday `9:30am–6:30pm` and Sunday `11:00am–5:00pm`.
-- Because the official website still displays the previous Puchong address, the TPK Park page qualifies these as Fadzil Recond’s published hours and asks visitors to confirm them for the new TPK Park location.
+- Because the official website still displays the former Puchong Jaya address, the TPK Park page treats its published hours as brand-published hours and asks visitors to confirm them for the current TPK Park location.
 
 ## Photography
 

@@ -12,6 +12,7 @@ export const gaHingBusiness = {
   name: "Ga Hing Puchong",
   url: website,
   telephone: "+60380809119",
+  hasMap: "https://www.google.com/maps/search/?api=1&query=Ga+Hing+Puchong&query_place_id=ChIJJ-priddLzDERurhcRa--pDE",
   image,
   address: {
     "@type": "PostalAddress",

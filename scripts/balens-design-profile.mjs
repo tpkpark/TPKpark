@@ -14,6 +14,7 @@ export const balensDesignBusiness = {
   name: "Balens Design",
   url: website,
   telephone: "+60173388535",
+  hasMap: "https://www.google.com/maps/search/?api=1&query=Balens+Design+Build&query_place_id=ChIJt-3Ta4VLzDERpSft_IMFuG8",
   address: {
     "@type": "PostalAddress",
     streetAddress: "25-1, Jalan TPK 2/8, Taman Perindustrian Kinrara",

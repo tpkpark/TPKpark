@@ -15,6 +15,7 @@ export const builtopBusiness = {
   legalName: "Builtop Group Sdn. Bhd.",
   url: website,
   telephone: "+601126838848",
+  hasMap: "https://www.google.com/maps/search/?api=1&query=BUILTOP&query_place_id=ChIJTVxIoAtMzDERLlnDSj482ns",
   address: {
     "@type": "PostalAddress",
     streetAddress: "13-1, Jalan TPK 2/8, Taman Perindustrian Kinrara",

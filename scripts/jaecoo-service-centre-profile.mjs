@@ -1,7 +1,7 @@
 // Verified branch details and photo provenance: docs/jaecoo-service-centre-profile-sources.md.
 const dealerLocator = "https://omodajaecoo.com.my/dealer-locator";
 const whatsapp = "https://wa.me/60193988817";
-const directions = "https://www.google.com/maps/search/?api=1&query=Jaecoo+Service+Centre+Apple+Autotech+4+Jalan+TPK+1%2F4+Puchong";
+const directions = "https://www.google.com/maps/search/?api=1&query=Jaecoo+Puchong+Kinrara+Service+Centre+4+Jalan+TPK+1%2F4+Puchong&query_place_id=ChIJ0ZhVQABLzDERAQ3I4-qM20Q";
 const waze = "https://www.waze.com/ul?q=Jaecoo%20Service%20Centre%20Apple%20Autotech%204%20Jalan%20TPK%201%2F4%20Puchong&navigate=yes";
 const image = "https://www.tpkpark.com/assets/images/jaecoo-technical-diagnostics-1280.webp";
 const imageSource = { label: "OMODA & JAECOO Malaysia", url: "https://www.omodajaecoo.com.my/news-events/inaugural-omoda-i-jaecoo-technical-skills-competition-spotlights-excellence-and-competitive-spirit" };
@@ -10,7 +10,8 @@ const address = "4, Jalan TPK 1/4, Taman Perindustrian Kinrara, Seksyen 1, 47180
 export const jaecooServiceCentreBusiness = {
   "@type": "AutoRepair",
   "@id": "https://www.tpkpark.com/automotive/jaecoo-service-centre/#business",
-  name: "Jaecoo Service Centre — Puchong Kinrara",
+  name: "Jaecoo Puchong Kinrara Service Centre",
+  alternateName: "Jaecoo Service Centre — Puchong Kinrara",
   legalName: "Apple Autotech Sdn Bhd",
   url: dealerLocator, telephone: "+60193988817", hasMap: directions,
   address: {

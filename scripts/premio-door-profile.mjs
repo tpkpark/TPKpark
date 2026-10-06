@@ -2,7 +2,7 @@
 const website = "https://premiodoor.com.my/";
 const locations = "https://premiodoor.com.my/location.php";
 const collections = "https://premiodoor.com.my/productSeries.php";
-const directions = "https://www.google.com/maps/dir/?api=1&destination=Premio+Safety+Door+Puchong%2C+25-G%2C+Jalan+TPK+2%2F8%2C+47180+Puchong%2C+Selangor";
+const directions = "https://www.google.com/maps/search/?api=1&query=Premio+Safety+Door+Puchong&query_place_id=ChIJsfqf4qRLzDERICrDG1t1Dbw";
 const image = "https://www.tpkpark.com/assets/images/premio-door-puchong-1000.webp";
 const imageSource = { label: "Premio Safety Door", url: locations };
 const address = "25-G, Jalan TPK 2/8, Seksyen 2, Taman Perindustrian Kinrara, 47180 Puchong, Selangor";
@@ -14,6 +14,7 @@ export const premioDoorBusiness = {
   alternateName: "Premio Door",
   url: website,
   telephone: "+60165255100",
+  hasMap: directions,
   image,
   address: {
     "@type": "PostalAddress",

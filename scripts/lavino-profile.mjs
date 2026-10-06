@@ -5,6 +5,7 @@ export const lavinoBusiness = {
   name: "Lavino Puchong",
   url: "https://www.lavino.com.my/",
   telephone: "+60163391601",
+  hasMap: "https://www.google.com/maps/search/?api=1&query=Lavino+Puchong&query_place_id=ChIJ-UmXrFBLzDERLRSUYQXuCqA",
   address: {
     "@type": "PostalAddress",
     streetAddress: "6, Jalan TPK 2/2, Taman Perindustrian Kinrara",

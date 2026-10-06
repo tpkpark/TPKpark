@@ -13,6 +13,13 @@ Audit date: 3 October 2026. Public business information and the authorised manag
 
 The separate TPK Park Sdn. Bhd. office entry at 2 Jalan TPK 1/4 requires verification. It was not changed or merged with the destination. Listing a business within the park does not assert that TPK Park Sdn. Bhd. owns or manages that business or every property in the area.
 
+## Follow-up status
+
+**6 October 2026 public check:** TPK Park's public Maps panel showed **Signature Kinrara** and **MOTD** under **At this place**. BAAGUS was not visibly associated there at that check. The contribution history showed the Signature Located within suggestion as **Not accepted**, while the MOTD and BAAGUS suggestions remained **Pending**. Because the public parent-place association can surface independently of the contribution-history label, do not resubmit duplicate edits while another suggestion is pending. The mall-style **Directory** tab was still absent.
+
+**7 October 2026 website reinforcement:** the existing business-to-park `containedInPlace` schema remains on the business guides. The directory structured data is strengthened in the next release so the Taman Perindustrian Kinrara Place also declares the listed business entities through `containsPlace`, and each directory ListItem points to the corresponding business entity. This is semantic reinforcement only; it does not claim that Google Maps will create a Located in relationship or Directory tab.
+
+A review checkpoint is already scheduled for **13 October 2026** to re-check the public parent-place associations, pending contribution outcomes and Directory eligibility before expanding the Maps-edit pilot.
 ## Contact discrepancy resolved
 
 The owner confirmed on 3 October 2026 that Signature Kinrara uses **010-913 3198** (**+60 10 913 3198** internationally), matching its public Google listing. TPK Park's EN/MS/ZH profile contacts, click-to-call links, structured data and phone-click attribution are aligned to this confirmed number. The [national showroom directory](https://signature.my/locate-a-showroom/) still showed a different number when checked earlier; it is an external source and was not edited.

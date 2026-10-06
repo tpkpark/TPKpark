@@ -45,7 +45,7 @@ export const fadzilEnterpriseProfiles = {
         { number: "02", title: "Understand the import background", text: "Fadzil Enterprise appears on MITI’s Open AP list for passenger cars, while Fadzil Recond describes itself as a direct importer of reconditioned vehicles. Ask the sales team to explain the individual vehicle’s import, auction and registration records where relevant." },
         { number: "03", title: "Review the full purchase package", text: "Before committing, confirm the final vehicle price, financing assumptions, registration, warranty terms, insurance and any optional items in writing. Current promotions and stock-specific terms should be checked directly with the sales team." }
       ] },
-      { type: "businessVisit", kicker: "Plan your visit", title: "Find Fadzil Enterprise in TPK Park Seksyen 1.", text: "The current TPK Park listing places Fadzil Enterprise at No. 3, Jalan TPK 1/3. A recent third-party Puchong listing also records this Taman Perindustrian Kinrara address. Fadzil Recond’s own website still shows its earlier Puchong Jaya address, so confirm the destination directly while public listings are being updated.", addressLabel: "TPK Park sales address", address,
+      { type: "businessVisit", kicker: "Plan your visit", title: "Find Fadzil Enterprise in TPK Park Seksyen 1.", text: "Fadzil Enterprise’s current sales location is No. 3, Jalan TPK 1/3 in TPK Park. The business previously operated at Jalan Serindit 3 in Bandar Puchong Jaya; Fadzil Recond’s own website and Google listing still show that former address and have not yet caught up with the move.", addressLabel: "TPK Park sales address", address,
         contacts: [
           { label: "Puchong sales enquiries", value: "+60 19 213 8444", url: "tel:+60192138444" },
           { label: "Fadzil Recond WhatsApp", value: "+60 12 853 3618", url: whatsapp }
@@ -54,7 +54,7 @@ export const fadzilEnterpriseProfiles = {
           { label: "Monday–Saturday", value: "9.30am–6.30pm — published by Fadzil Recond; confirm for the TPK Park location" },
           { label: "Sunday", value: "11am–5pm — published by Fadzil Recond; confirm for the TPK Park location" }
         ],
-        note: "The brand website still carries an older Puchong address. Confirm the TPK Park location, opening hours, vehicle availability and sales appointment before a time-sensitive visit.",
+        note: "The brand website and Google listing still carry the former Jalan Serindit 3 address. Use the TPK Park address above for the current location, and confirm opening hours, vehicle availability and any sales appointment before a time-sensitive visit.",
         links: [
           { label: "Find Fadzil Enterprise on Google Maps", url: directions },
           { label: "Directions on Waze", url: waze },
@@ -62,7 +62,7 @@ export const fadzilEnterpriseProfiles = {
         ]
       }
     ],
-    cta: { title: "Check the current vehicles before you go.", text: "Contact the Fadzil Enterprise sales team to confirm the TPK Park location, available vehicles and a suitable viewing time.", button: "WhatsApp Fadzil Recond", url: whatsapp }
+    cta: { title: "Check the current vehicles before you go.", text: "Contact the Fadzil Enterprise sales team to confirm available vehicles, opening hours and a suitable viewing time at the TPK Park location.", button: "WhatsApp Fadzil Recond", url: whatsapp }
   },
   ms: {
     parentRoute: "automotive",
@@ -82,7 +82,7 @@ export const fadzilEnterpriseProfiles = {
         { number: "02", title: "Fahami latar belakang import", text: "Fadzil Enterprise tersenarai dalam senarai Open AP MITI bagi kereta penumpang, manakala Fadzil Recond menyatakan dirinya sebagai pengimport terus kenderaan recond. Minta pasukan jualan menerangkan rekod import, lelongan dan pendaftaran bagi kenderaan berkenaan apabila relevan." },
         { number: "03", title: "Semak pakej pembelian penuh", text: "Sebelum membuat komitmen, sahkan harga akhir kenderaan, andaian pembiayaan, pendaftaran, terma waranti, insurans dan item pilihan secara bertulis. Promosi semasa dan terma khusus stok hendaklah disahkan terus dengan pasukan jualan." }
       ] },
-      { type: "businessVisit", kicker: "Rancang kunjungan", title: "Cari Fadzil Enterprise di TPK Park Seksyen 1.", text: "Penyenaraian TPK Park semasa meletakkan Fadzil Enterprise di No. 3, Jalan TPK 1/3. Satu penyenaraian Puchong pihak ketiga yang terkini turut merekodkan alamat Taman Perindustrian Kinrara ini. Laman Fadzil Recond sendiri masih memaparkan alamat Puchong Jaya yang lebih lama, jadi sahkan destinasi terus sementara penyenaraian awam dikemas kini.", addressLabel: "Alamat jualan TPK Park", address,
+      { type: "businessVisit", kicker: "Rancang kunjungan", title: "Cari Fadzil Enterprise di TPK Park Seksyen 1.", text: "Lokasi jualan semasa Fadzil Enterprise ialah di No. 3, Jalan TPK 1/3 dalam TPK Park. Perniagaan ini sebelum ini beroperasi di Jalan Serindit 3, Bandar Puchong Jaya; laman Fadzil Recond sendiri dan penyenaraian Google masih memaparkan alamat lama itu dan belum dikemas kini selepas perpindahan.", addressLabel: "Alamat jualan TPK Park", address,
         contacts: [
           { label: "Pertanyaan jualan Puchong", value: "+60 19 213 8444", url: "tel:+60192138444" },
           { label: "WhatsApp Fadzil Recond", value: "+60 12 853 3618", url: whatsapp }
@@ -99,7 +99,7 @@ export const fadzilEnterpriseProfiles = {
         ]
       }
     ],
-    cta: { title: "Semak kenderaan semasa sebelum berkunjung.", text: "Hubungi pasukan jualan Fadzil Enterprise untuk mengesahkan lokasi TPK Park, kenderaan yang tersedia dan masa lawatan yang sesuai.", button: "WhatsApp Fadzil Recond", url: whatsapp }
+    cta: { title: "Semak kenderaan semasa sebelum berkunjung.", text: "Hubungi pasukan jualan Fadzil Enterprise untuk mengesahkan kenderaan yang tersedia, waktu operasi dan masa lawatan yang sesuai di lokasi TPK Park.", button: "WhatsApp Fadzil Recond", url: whatsapp }
   },
   zh: {
     parentRoute: "automotive",
@@ -136,6 +136,6 @@ export const fadzilEnterpriseProfiles = {
         ]
       }
     ],
-    cta: { title: "出发前先确认目前可看的车辆。", text: "联系Fadzil Enterprise销售团队，确认TPK Park地点、目前库存及合适的看车时间。", button: "WhatsApp联系Fadzil Recond", url: whatsapp }
+    cta: { title: "出发前先确认目前可看的车辆。", text: "联系Fadzil Enterprise销售团队，确认TPK Park现址的车辆库存、营业时间及合适的看车时间。", button: "WhatsApp联系Fadzil Recond", url: whatsapp }
   }
 };

@@ -14,6 +14,7 @@ export const vHausLivingBusiness = {
   alternateName: "V-Haus Living Puchong",
   url: website,
   telephone: "+60127086389",
+  hasMap: "https://www.google.com/maps/search/?api=1&query=V+Haus+Living+Puchong&query_place_id=ChIJMQkYNwRLzDERBsQsScqAOqA",
   image: "https://www.tpkpark.com/assets/images/home-living-1120.webp",
   address: {
     "@type": "PostalAddress",

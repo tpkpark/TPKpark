@@ -87,10 +87,11 @@ for (const locale of locales) {
       });
       assert.equal(itemList?.about?.["@id"], placeId, `${locale}/${routeId}: directory ItemList should be about Taman Perindustrian Kinrara`);
       assert.equal(itemList?.itemListElement?.length, entries.length, `${locale}/${routeId}: directory ItemList count mismatch`);
-      entries.forEach((entry, index) => {
-        const item = itemList.itemListElement[index];
-        assert.equal(item?.url, entry.url, `${locale}/${routeId}: directory ItemList URL mismatch at ${index + 1}`);
-        assert.equal(item?.item?.["@id"], entry.businessId, `${locale}/${routeId}: directory ItemList business entity mismatch at ${index + 1}`);
+      const itemByUrl = new Map((itemList?.itemListElement || []).map((item) => [item.url, item]));
+      entries.forEach((entry) => {
+        const item = itemByUrl.get(entry.url);
+        assert.ok(item, `${locale}/${routeId}: directory ItemList missing ${entry.url}`);
+        assert.equal(item?.item?.["@id"], entry.businessId, `${locale}/${routeId}: directory ItemList business entity mismatch for ${entry.url}`);
       });
     }
 

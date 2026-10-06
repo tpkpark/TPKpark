@@ -7,6 +7,7 @@ const root = process.cwd();
 const locales = Object.keys(localeConfig);
 const pillarRoutes = ["homeLiving", "automotive", "lifestyle"];
 const enhancementDate = "2026-09-17";
+const directoryContainmentDate = "2026-10-07";
 const placeId = `${origin}/#taman-perindustrian-kinrara`;
 
 function absolute(locale, routeId) {
@@ -70,6 +71,30 @@ for (const locale of locales) {
       assert.equal(webpage.mainEntity?.["@id"], businessId, `${locale}/${routeId}: business is not the main entity`);
     }
 
+    if (routeId === "businessDirectory") {
+      const entries = businessRouteIds(locale).map((businessRouteId) => ({
+        routeId: businessRouteId,
+        url: absolute(locale, businessRouteId),
+        businessId: site[locale].pages[businessRouteId].business["@id"]
+      }));
+      const expectedBusinessIds = entries.map((entry) => entry.businessId);
+      const listId = `${url}#businesses`;
+      const itemList = graph.find((node) => node?.["@id"] === listId);
+
+      assert.equal(place.containsPlace?.length, expectedBusinessIds.length, `${locale}/${routeId}: Place containsPlace count mismatch`);
+      expectedBusinessIds.forEach((businessId) => {
+        assert.ok(ids(place.containsPlace).includes(businessId), `${locale}/${routeId}: Place missing contained business ${businessId}`);
+      });
+      assert.equal(itemList?.about?.["@id"], placeId, `${locale}/${routeId}: directory ItemList should be about Taman Perindustrian Kinrara`);
+      assert.equal(itemList?.itemListElement?.length, entries.length, `${locale}/${routeId}: directory ItemList count mismatch`);
+      const itemByUrl = new Map((itemList?.itemListElement || []).map((item) => [item.url, item]));
+      entries.forEach((entry) => {
+        const item = itemByUrl.get(entry.url);
+        assert.ok(item, `${locale}/${routeId}: directory ItemList missing ${entry.url}`);
+        assert.equal(item?.item?.["@id"], entry.businessId, `${locale}/${routeId}: directory ItemList business entity mismatch for ${entry.url}`);
+      });
+    }
+
     if (pillarRoutes.includes(routeId)) {
       const items = directoryItems(locale, routeId);
       const listId = `${url}#business-directory`;
@@ -101,6 +126,12 @@ for (const locale of locales) {
     const lastmod = block.match(/<lastmod>([^<]+)<\/lastmod>/)?.[1];
     assert.ok(lastmod && lastmod >= enhancementDate, `${locale}/${routeId}: sitemap lastmod should reflect the entity SEO pass`);
   }
+
+  const directoryUrl = absolute(locale, "businessDirectory");
+  const directoryBlock = sitemapBlocks.find((entry) => entry.includes(`<loc>${directoryUrl}</loc>`));
+  assert.ok(directoryBlock, `${locale}/businessDirectory: sitemap entry missing`);
+  const directoryLastmod = directoryBlock.match(/<lastmod>([^<]+)<\/lastmod>/)?.[1];
+  assert.ok(directoryLastmod && directoryLastmod >= directoryContainmentDate, `${locale}/businessDirectory: sitemap lastmod should reflect the directory containment update`);
 }
 
-console.log("Entity SEO validation passed for all locales, pillar directories and brand pages.");
+console.log("Entity SEO validation passed for all locales, pillar directories, the business directory and brand pages.");

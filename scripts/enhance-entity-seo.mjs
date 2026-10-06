@@ -6,6 +6,7 @@ const root = process.cwd();
 const locales = Object.keys(localeConfig);
 const pillarRoutes = ["homeLiving", "automotive", "lifestyle"];
 const enhancementDate = "2026-09-17";
+const directoryContainmentDate = "2026-10-07";
 const placeId = `${origin}/#taman-perindustrian-kinrara`;
 const websiteId = `${origin}/#website`;
 
@@ -98,6 +99,25 @@ async function enhancePage(locale, routeId) {
     business.mainEntityOfPage = locales.map((language) => ({ "@id": `${absolute(language, routeId)}#webpage` }));
   }
 
+  if (routeId === "businessDirectory") {
+    const entries = businessRouteIds(locale).map((businessRouteId) => ({
+      routeId: businessRouteId,
+      url: absolute(locale, businessRouteId),
+      businessId: site[locale].pages[businessRouteId].business["@id"]
+    }));
+    const byUrl = new Map(entries.map((entry) => [entry.url, entry.businessId]));
+    place.containsPlace = entries.map((entry) => ({ "@id": entry.businessId }));
+
+    const listId = `${url}#businesses`;
+    const itemList = graph.find((node) => node?.["@id"] === listId);
+    if (!itemList) throw new Error(`${locale}/${routeId}: business directory ItemList not found`);
+    itemList.about = { "@id": placeId };
+    itemList.itemListElement = (itemList.itemListElement || []).map((item) => {
+      const businessId = byUrl.get(item.url);
+      return businessId ? { ...item, item: { "@id": businessId } } : item;
+    });
+  }
+
   if (pillarRoutes.includes(routeId)) {
     const items = directoryItems(locale, routeId);
     const listId = `${url}#business-directory`;
@@ -137,24 +157,27 @@ async function enhanceSitemap() {
   const file = join(root, "sitemap.xml");
   let sitemap = await readFile(file, "utf8");
   const targetUrls = new Set();
+  const directoryUrls = new Set();
 
   for (const locale of locales) {
     for (const routeId of [...pillarRoutes, ...businessRouteIds(locale)]) {
       targetUrls.add(absolute(locale, routeId));
     }
+    directoryUrls.add(absolute(locale, "businessDirectory"));
   }
 
   sitemap = sitemap.replace(/<url>[\s\S]*?<\/url>/g, (block) => {
     const loc = block.match(/<loc>([^<]+)<\/loc>/)?.[1];
-    if (!loc || !targetUrls.has(loc)) return block;
+    if (!loc || (!targetUrls.has(loc) && !directoryUrls.has(loc))) return block;
 
+    const desiredDate = directoryUrls.has(loc) ? directoryContainmentDate : enhancementDate;
     const lastmodMatch = block.match(/<lastmod>([^<]+)<\/lastmod>/);
     if (lastmodMatch) {
-      const nextDate = maxDate(lastmodMatch[1], enhancementDate);
+      const nextDate = maxDate(lastmodMatch[1], desiredDate);
       return block.replace(lastmodMatch[0], `<lastmod>${nextDate}</lastmod>`);
     }
 
-    return block.replace(/(<loc>[^<]+<\/loc>)/, `$1\n    <lastmod>${enhancementDate}</lastmod>`);
+    return block.replace(/(<loc>[^<]+<\/loc>)/, `$1\n    <lastmod>${desiredDate}</lastmod>`);
   });
 
   await writeFile(file, sitemap);
@@ -167,4 +190,4 @@ for (const locale of locales) {
 }
 
 await enhanceSitemap();
-console.log(`Enhanced TPK Park entity SEO across ${locales.length * routeIds.length} generated pages.`);
+console.log(`Enhanced TPK Park entity SEO and directory place containment across ${locales.length * routeIds.length} generated pages.`);

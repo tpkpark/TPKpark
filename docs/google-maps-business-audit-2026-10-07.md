@@ -1,0 +1,85 @@
+# TPK Park Google Maps business audit — 7 October 2026
+
+Scope: the 34 businesses currently shown in the public TPK Park directory. This is a discovery/entity audit, not an instruction to change a Google Business Profile. Public Google Maps/business-search results were compared with the TPK Park directory and, where needed, first-party/authoritative business sources.
+
+## Operating assumptions confirmed by management
+
+- **47100 and 47180 are both acceptable for Taman Perindustrian Kinrara.** 47100 is the earlier postcode and 47180 the newer postcode. Do not flag either postcode by itself as an address error.
+- **Kuche + BaTH / KBO occupies multiple adjoining shoplots.** Both the 39G and 41 Jalan TPK 2/8 addresses can be legitimate. Do not treat those two numbers as a contradiction without checking the exact business entity/use.
+- Do not rename businesses or alter legitimate addresses merely to force a TPK Park association.
+- The current Located-within pilot remains under review. Do not resubmit duplicate Maps edits while an earlier suggestion is pending.
+
+## Status key
+
+- **A — Exact TPK Maps entity confirmed:** name/location clearly resolves to the TPK business.
+- **B — Presence confirmed; Maps entity needs reconciliation:** strong address/business evidence exists, but the current public Maps lookup did not cleanly resolve the intended TPK entity.
+- **C — Multiple/parallel entities:** more than one plausible public entity exists at the same/adjoining location; verify intended public-facing entity before changing anything.
+
+## Audit table
+
+| # | Business | Status | Google Place ID / finding | Action |
+|---:|---|:---:|---|---|
+| 1 | Lavino | A | `ChIJ-UmXrFBLzDERLRSUYQXuCqA` | Exact Maps link added to TPK business entity. |
+| 2 | Ga Hing | A | `ChIJJ-priddLzDERurhcRa--pDE` | Exact Maps link added. |
+| 3 | Kuche + BaTH | C | 39G company-style entity `ChIJYc4kaEdLzDER458Isaliopc`; 41 brand-style entity `ChIJl1C0aUdLzDER9dRIncdPe7I` | Both adjoining addresses are valid per management. Decide later which entity should be the primary visitor-facing map destination; no correction now. |
+| 4 | Jubin BMS | A | `ChIJg88GMU9LzDERtcFfcQ5vUro` | Exact Maps link added. |
+| 5 | Signature | C | Primary brand listing `ChIJ064-IBBLzDERIhzF0seZOD0`; parallel “Signature Space Sdn Bhd” entity `ChIJJeABGQBLzDERCp5Db6DCnos` at the same address | Keep primary brand listing. Verify whether the company-name entity has a legitimate separate purpose before considering any merge/report. |
+| 6 | MK Curtain | B | Official MK Curtain source confirms “MK Curtain TPK Park Puchong”, 11 Jalan TPK 2/8; broad Maps lookup surfaced another Puchong branch instead | Existing TPK map link retained. Reconcile exact Google Place ID manually before any Maps edit. |
+| 7 | Baagus | A | `ChIJu-7UPZ9LzDERfCFZb5kahiY` | Good. Located-within suggestion remains part of pilot. |
+| 8 | Total Tools | A | `ChIJDeX1WcBLzDER-YF-qaAIDGU` | Good. |
+| 9 | V Haus Living | A | `ChIJMQkYNwRLzDERBsQsScqAOqA` | Exact Maps link added. |
+| 10 | Balens Design | A | `ChIJt-3Ta4VLzDERpSft_IMFuG8` | Exact Maps link added. |
+| 11 | BUILTOP | A | `ChIJTVxIoAtMzDERLlnDSj482ns` | Exact Maps link added. |
+| 12 | Premio Door | B | Official Premio source confirms 25-G Jalan TPK 2/8; current structured Maps lookup did not return the TPK showroom | Do not create a new listing yet. Verify existing Google entity by direct Maps inspection. |
+| 13 | Choose Interior | B | TPK directory/source evidence confirms 21-1 Jalan TPK 2/8; current structured Maps lookup did not cleanly resolve it | Retain existing map destination; verify exact Place ID before any change. |
+| 14 | KLOT | A | `ChIJOwqRSQBLzDERhubVIp7iH2g` | Exact Maps link added. |
+| 15 | DC Moto | B | Broad Maps lookup resolves a Kajang DC Moto installer, not the TPK 49G Jalan TPK 2/8 location | Strong discoverability/reconciliation candidate. Verify whether a separate TPK GBP exists before creating or editing anything. |
+| 16 | Fagolli | A | `ChIJQfJE_FxLzDERGXL0kv7JJSc` | Exact Maps link added. |
+| 17 | Perodua 3S Kinrara | A | `ChIJD7J4rj9LzDERKCmaHPwAdfQ` | Good. 47100/47180 variation is not treated as an error. |
+| 18 | Mazda Kinrara | A | `ChIJa71OK0dLzDERNovRExbTVJI` | Good. |
+| 19 | Kia 4S Service | A | `ChIJfQJirF1LzDER06-dKJwILw0` | Good. 47100/47180 variation is not treated as an error. |
+| 20 | Techtrics Auto | A | `ChIJp5g3m0dLzDERVVlZdx8ZtTA` | Good. |
+| 21 | Techtra Automotive Academy | A | `ChIJWw6MShNLzDERhKns89Ds4m8` | Good. |
+| 22 | Jon Detailing | B | TPK/Jon public sources support 71 Jalan TPK 2/8; structured Maps lookup did not surface the intended entity | Existing map link retained; resolve exact Place ID in direct Maps before any edit. |
+| 23 | Jaecoo Service Centre | A | `ChIJ0ZhVQABLzDERAQ3I4-qM20Q` at 4 Jalan TPK 1/4 | Correct location, but public entity is thin/generic (“Jaecoo”, no reviews in the current structured result). Candidate for profile-completeness review, not an address correction. |
+| 24 | Toyokar | B | First-party Toyokar site confirms 7 Jalan TPK 1/3 and supplies a map; structured business lookup did not expose a clean exact entity in this audit | Keep existing map source; resolve Place ID later. |
+| 25 | Fadzil Enterprise | B | Public web evidence confirms 3 Jalan TPK 1/3, while broad business lookup tends to surface another Puchong address | Reconcile branch/entity naming and exact Place ID; do not overwrite a legitimate second location. |
+| 26 | m.o.t.d | A | `ChIJbzHZliFLzDERsrHcGIHgcyI` | Good. Google showing 47100 is acceptable under the legacy/new-postcode rule. |
+| 27 | Jazmina Bistro | A | `ChIJk2_ErpBLzDERD_a6YPzLc3s` at 23 Jalan TPK 2/8 | Correct TPK entity confirmed. Same-name restaurants elsewhere are separate. |
+| 28 | Nasi Lemak Daun Pisang Nuarina | A | `ChIJS8B4uThLzDER1OmG327zN2M` | Good. |
+| 29 | Yummy Nyonya Kitchen | B | Address evidence supports 43G Jalan TPK 2/8; structured local search returned a similarly named business elsewhere | Verify exact Google Place ID and avoid confusing it with “Kueh Nyonya Kitchen”. |
+| 30 | Optimum Swim School | A | `ChIJ1XiPLEdLzDER-U3WYmrZsdI` | Good. |
+| 31 | Aces Gymnastics Academy | A | `ChIJGTa-2l-zzTEROuSOVRTdLYM` | Good. |
+| 32 | Forsee Lens / Eyepoint Technology | B | First-party Forsee site confirms 71 Jalan TPK 2/8; structured Maps lookup did not surface the intended entity | Verify whether the public listing is under “Forsee Lens”, “Eyepoint Technology”, or both. |
+| 33 | 99 Speedmart 3116 Taman Perindustrian Kinrara | A | `ChIJxUFi-XdLzDER3RV5RcDFcwg` | Good. |
+| 34 | Happivilles | A | `ChIJJbJTXUdLzDERpZ_XjTg35lo` | Good. |
+
+## Immediate safe website work completed
+
+Exact Google Maps entity links were added to the business structured data for eight previously under-linked, clearly resolved businesses: **Lavino, Ga Hing, Jubin BMS, V Haus Living, Balens Design, BUILTOP, KLOT and Fagolli**. Their public directory cards can now expose exact Google Maps destinations after build/deployment.
+
+This does not alter any Google Business Profile. It only makes TPK Park's own entity graph and visitor links more precise.
+
+## Priority queue
+
+### Priority 1 — entity reconciliation, no edits yet
+1. Kuche + BaTH / Total Home DIY — decide which of the two valid adjoining-unit entities is the primary visitor-facing Maps destination.
+2. Signature — verify whether the “Signature Space Sdn Bhd” entity should remain separate from the primary Signature Kinrara brand listing.
+3. DC Moto — determine whether a TPK-specific GBP exists; broad Maps discovery currently points to Kajang.
+4. Fadzil Enterprise — distinguish the TPK branch from other Puchong results.
+5. Jaecoo — audit completeness/category/name because the location is correct but the public entity is thin.
+
+### Priority 2 — resolve exact Google Place IDs
+MK Curtain TPK Park Puchong, Premio Door Puchong, Choose Interior, Jon Detailing, Toyokar, Yummy Nyonya Kitchen and Forsee Lens/Eyepoint Technology.
+
+### Priority 3 — next Located-within candidates
+Do not submit yet. After the 13 October parent-place checkpoint, choose 3–5 businesses from the clean **A** group with strong first-party evidence and stable public Maps entities.
+
+## Sources used in this pass
+
+- TPK Park public business directory (34-business source list).
+- Google public business/local-search results and Place IDs where returned.
+- First-party/authoritative sources including Signature, BAAGUS, Jubin BMS, V Haus Living, Techtra, Mazda Malaysia, Perodua Kinrara, Jaecoo Puchong Kinrara, Toyokar, Premio, MK Curtain and Forsee Lens.
+- MBSJ food-premises record used to corroborate Jazmina Bistro at 23G Jalan TPK 2/8.
+
+This audit intentionally avoids treating Google ranking/order as proof of ownership, tenancy or business status.

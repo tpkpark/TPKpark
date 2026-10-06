@@ -14,6 +14,7 @@ export const klotBusiness = {
   legalName: "KLOT Resources (M) Sdn. Bhd.",
   url: website,
   telephone: "+60183403828",
+  hasMap: "https://www.google.com/maps/search/?api=1&query=KLOT+Resources&query_place_id=ChIJOwqRSQBLzDERhubVIp7iH2g",
   address: {
     "@type": "PostalAddress",
     streetAddress: "23-1, Jalan TPK 2/8, Taman Perindustrian Kinrara, Seksyen 2",

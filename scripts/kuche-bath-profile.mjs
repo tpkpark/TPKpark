@@ -1,7 +1,7 @@
 // Public branch details and image provenance: docs/kuche-bath-profile-sources.md.
 const website = "https://kbomy.com/";
 const contact = "https://kbomy.com/contact-us/";
-const directions = "https://maps.app.goo.gl/GVQyy6omJkKiJu7VA";
+const directions = "https://www.google.com/maps/search/?api=1&query=Total+Home+DIY+Online+Stock+Kuche+Bath+Outlet&query_place_id=ChIJYc4kaEdLzDER458Isaliopc";
 const image = "https://www.tpkpark.com/assets/images/kuche-bath-puchong-1440.webp";
 const imageSource = { label: "KBO", url: website };
 const address = "39G, Jalan TPK 2/8, Taman Perindustrian Kinrara, 47180 Puchong, Selangor";
@@ -10,9 +10,10 @@ export const kucheBathBusiness = {
   "@type": "HomeGoodsStore",
   "@id": "https://www.tpkpark.com/home-living/kuche-bath/#store",
   name: "Kuche + BaTH (KBO Puchong)",
-  alternateName: ["KBO Puchong", "Kuche Bath Outlet Puchong"],
+  alternateName: ["KBO Puchong", "Kuche Bath Outlet Puchong", "Total Home DIY Online Stock"],
   url: website,
   telephone: "+60380791268",
+  hasMap: directions,
   image,
   address: {
     "@type": "PostalAddress",

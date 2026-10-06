@@ -16,6 +16,7 @@ export const dcMotoBusiness = {
   legalName: "Intelligent Network Sdn Bhd",
   url: website,
   telephone: "+601156279623",
+  hasMap: directions,
   contactPoint: { "@type": "ContactPoint", contactType: "WhatsApp enquiries", telephone: "+601156279623", url: whatsapp },
   address: {
     "@type": "PostalAddress",

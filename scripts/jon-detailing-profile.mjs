@@ -1,6 +1,6 @@
 // Verified contact details and photo provenance: docs/jon-detailing-profile-sources.md.
 const facebook = "https://www.facebook.com/jondetailing/";
-const directions = "https://www.google.com/maps/search/?api=1&query=Jon+Detailing+71+Jalan+TPK+2%2F8+Puchong";
+const directions = "https://www.google.com/maps/search/?api=1&query=Jon+Detailing+Puchong&query_place_id=ChIJxwp1ZmxKzDERodc0zzgPgF8";
 const waze = "https://www.waze.com/live-map/directions/my/selangor/puchong/jon-detailing?to=place.ChIJxwp1ZmxKzDERodc0zzgPgF8";
 const image = "https://www.tpkpark.com/assets/images/jon-detailing-car-care-1086.webp";
 const imageSource = { label: "Jon Detailing", url: "https://www.facebook.com/photo/?fbid=1905956784132823&set=pcb.1905956880799480" };
@@ -10,7 +10,7 @@ export const jonDetailingBusiness = {
   "@type": "AutomotiveBusiness",
   "@id": "https://www.tpkpark.com/automotive/jon-detailing/#business",
   name: "Jon Detailing",
-  url: facebook, telephone: "+60126844034", image, hasMap: waze,
+  url: facebook, telephone: "+60126844034", image, hasMap: directions,
   address: {
     "@type": "PostalAddress",
     streetAddress: "71, Jalan TPK 2/8, Taman Perindustrian Kinrara",

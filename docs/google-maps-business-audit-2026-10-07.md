@@ -34,17 +34,17 @@ Scope: the 34 businesses currently shown in the public TPK Park directory. This 
 | 9 | V Haus Living | A | `ChIJMQkYNwRLzDERBsQsScqAOqA` | Exact Maps link added. |
 | 10 | Balens Design | A | `ChIJt-3Ta4VLzDERpSft_IMFuG8` | Exact Maps link added. |
 | 11 | BUILTOP | A | `ChIJTVxIoAtMzDERLlnDSj482ns` | Exact Maps link added. |
-| 12 | Premio Door | B | Official Premio source confirms 25-G Jalan TPK 2/8; current structured Maps lookup did not return the TPK showroom | Confirmed current at TPK Park. Do not create a new listing yet; verify the existing Google entity by direct Maps inspection. |
+| 12 | Premio Door | A | Official Puchong destination resolves to Google-style Place ID `ChIJsfqf4qRLzDERICrDG1t1Dbw` at 25-G Jalan TPK 2/8 | Exact Google Maps link added to the TPK Park business entity. Confirmed current at TPK Park. |
 | 13 | Choose Interior | B | TPK directory/source evidence confirms 21-1 Jalan TPK 2/8; current structured Maps lookup did not cleanly resolve it | Confirmed current at TPK Park. Retain the existing map destination; verify exact Place ID before any change. |
 | 14 | KLOT | A | `ChIJOwqRSQBLzDERhubVIp7iH2g` | Exact Maps link added. |
-| 15 | DC Moto | B | Broad Maps lookup resolves a Kajang DC Moto installer, not the TPK 49G Jalan TPK 2/8 location | Confirmed current at TPK Park. Strong discoverability/reconciliation candidate; verify whether a separate TPK GBP exists before creating or editing anything. |
+| 15 | DC Moto | A | DCMOTO’s official contact source confirms its Experience & Service Center at 49G Jalan TPK 2/8 and publishes an exact Google Maps destination | Exact owned-source Maps destination is now exposed through the TPK Park business schema. Broad search may still surface the Kajang installer, so discovery ranking remains a separate issue. |
 | 16 | Fagolli | A | `ChIJQfJE_FxLzDERGXL0kv7JJSc` | Exact Maps link added. |
 | 17 | Perodua 3S Kinrara | A | `ChIJD7J4rj9LzDERKCmaHPwAdfQ` | Good. 47100/47180 variation is not treated as an error. |
 | 18 | Mazda Kinrara | A | `ChIJa71OK0dLzDERNovRExbTVJI` | Good. |
 | 19 | Kia 4S Service | A | `ChIJfQJirF1LzDER06-dKJwILw0` | Good. 47100/47180 variation is not treated as an error. |
 | 20 | Techtrics Auto | A | `ChIJp5g3m0dLzDERVVlZdx8ZtTA` | Good. |
 | 21 | Techtra Automotive Academy | A | `ChIJWw6MShNLzDERhKns89Ds4m8` | Good. |
-| 22 | Jon Detailing | B | TPK/Jon public sources support 71 Jalan TPK 2/8; structured Maps lookup did not surface the intended entity | Confirmed current at TPK Park. Existing map link retained; resolve exact Place ID in direct Maps before any edit. |
+| 22 | Jon Detailing | A | Current Puchong destination resolves to Google-style Place ID `ChIJxwp1ZmxKzDERodc0zzgPgF8` at 71 Jalan TPK 2/8 | Exact Google Maps link added to the TPK Park business entity. The public phone shown by that destination differs from the older TPK profile contact, so phone reconciliation remains separate and no phone change is made. |
 | 23 | Jaecoo Puchong Kinrara Service Centre | A | `ChIJ0ZhVQABLzDERAQ3I4-qM20Q` at 4 Jalan TPK 1/4 | Correct location. TPK Park's own entity now uses the management-confirmed public-facing name. The generic Google result remains a later profile-completeness/name-alignment candidate, not an address correction. |
 | 24 | Toyokar | B | First-party Toyokar site confirms 7 Jalan TPK 1/3 and supplies a map; structured business lookup did not expose a clean exact entity in this audit | Confirmed current at TPK Park. Keep the existing map source; resolve Place ID later. |
 | 25 | Fadzil Enterprise | B | Public web evidence confirms 3 Jalan TPK 1/3, while broad business lookup tends to surface another Puchong address | Confirmed current at TPK Park. Reconcile branch/entity naming and exact Place ID; do not overwrite a legitimate second location. |
@@ -67,12 +67,11 @@ This does not alter any Google Business Profile. It only makes TPK Park's own en
 ## Priority queue
 
 ### Priority 1 — entity reconciliation, no edits yet
-1. DC Moto — determine whether a TPK-specific GBP exists; broad Maps discovery currently points to Kajang.
-2. Fadzil Enterprise — distinguish the TPK branch from other Puchong results.
-3. Jaecoo Puchong Kinrara Service Centre — audit profile completeness/category/name alignment because the location is correct but the public Google entity is thin.
+1. Fadzil Enterprise — distinguish the confirmed-current TPK branch from the separate/competing Puchong result at Jalan Serindit 3; the brand's official website currently foregrounds the Serindit address while third-party map-derived data also reflects the TPK address.
+2. Jaecoo Puchong Kinrara Service Centre — audit profile completeness/category/name alignment because the location is correct but the public Google entity is thin.
 
 ### Priority 2 — resolve exact Google Place IDs
-MK Curtain TPK Park Puchong, Premio Door Puchong, Choose Interior, Jon Detailing, Toyokar, Yummy Nyonya Kitchen and Forsee Lens/Eyepoint Technology.
+MK Curtain TPK Park Puchong, Choose Interior, Toyokar, Yummy Nyonya Kitchen and Forsee Lens/Eyepoint Technology.
 
 ### Priority 3 — next Located-within candidates
 Do not submit yet. After the 13 October parent-place checkpoint, choose 3–5 businesses from the clean **A** group with strong first-party evidence and stable public Maps entities.

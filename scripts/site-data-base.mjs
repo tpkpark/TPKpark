@@ -241,7 +241,7 @@ const septemberSeoRoutes = new Set(["home", "homeLiving", "automotive", "lifesty
 export const jadeExhibitionLastModified = "2026-09-13";
 const routeLastModifiedOverrides = {
   news: "2026-09-11",
-  home: "2026-09-15",
+  home: "2026-10-07",
   about: "2026-09-15",
   homeLiving: "2026-09-16",
   lavino: "2026-10-07",
@@ -845,6 +845,7 @@ const enPages = {
         { q: "What does TPK Park refer to?", a: "TPK Park is a common reference to Taman Perindustrian Kinrara in Puchong, Selangor, along the Puchong–Bukit Jalil corridor." },
         { q: "What can I find at TPK Park?", a: "The business mix includes Home & Living showrooms, automotive sales and services, dining, fitness, family activities, daily essentials and professional services." },
         { q: "Are all businesses open at the same time?", a: "No. Each tenant sets its own operating hours. Check with the business you plan to visit before travelling." },
+        { q: "Can I reach TPK Park by on-call public transport?", a: "Yes. A DRT Pickup Point – Taman Perindustrian Kinrara is located in front of Jazmina Bistro at Ground Floor, 23 Jalan TPK 2/8. It is an on-call demand-responsive transport stop. Check the current DRT app or service for live booking availability and operating details before travelling." },
         { q: "Does TPK Park offer space for lease?", a: "Yes. Commercial and industrial spaces may become available. Contact the management team for current options; published availability can change." },
         { q: "How do I contact management?", a: "Call +60 3 8076 5200 or email info@tpkpark.com during management-office hours." }
       ] }
@@ -1196,6 +1197,7 @@ const msPages = {
         { q: "Apakah maksud TPK Park?", a: "TPK Park ialah sebutan umum bagi Taman Perindustrian Kinrara di Puchong, Selangor, di koridor Puchong–Bukit Jalil." },
         { q: "Apakah yang terdapat di TPK Park?", a: "Campuran perniagaan merangkumi bilik pameran Home & Living, jualan dan servis automotif, makanan, kecergasan, aktiviti keluarga, keperluan harian dan perkhidmatan profesional." },
         { q: "Adakah semua perniagaan dibuka pada waktu yang sama?", a: "Tidak. Setiap penyewa menetapkan waktu operasinya sendiri. Semak dengan perniagaan berkenaan sebelum berkunjung." },
+        { q: "Bolehkah saya ke TPK Park menggunakan pengangkutan awam atas permintaan?", a: "Ya. DRT Pickup Point – Taman Perindustrian Kinrara terletak di hadapan Jazmina Bistro di tingkat bawah, 23 Jalan TPK 2/8. Ia ialah hentian pengangkutan responsif permintaan yang ditempah apabila diperlukan. Semak aplikasi atau perkhidmatan DRT semasa untuk ketersediaan tempahan dan butiran operasi sebelum perjalanan." },
         { q: "Adakah ruang untuk disewa?", a: "Ya. Ruang komersial dan perindustrian mungkin tersedia dari semasa ke semasa. Hubungi pengurusan untuk pilihan terkini." },
         { q: "Bagaimana menghubungi pengurusan?", a: "Hubungi +60 3 8076 5200 atau e-mel info@tpkpark.com pada waktu pejabat pengurusan." }
       ] }
@@ -1516,6 +1518,7 @@ const zhPages = {
         { q: "TPK Park指的是哪里？", a: "TPK Park是雪兰莪州蒲种Taman Perindustrian Kinrara（金銮工业园）的通称，位于蒲种—武吉加里尔走廊。" },
         { q: "TPK Park有哪些商家？", a: "园内业态包括家居生活展厅、汽车销售与维修、餐饮、运动、亲子活动、日常所需及专业服务。" },
         { q: "所有商家的营业时间相同吗？", a: "不同。各租户自行决定营业时间，出发前请直接向相关商家确认。" },
+        { q: "可以使用预约式公共交通前往TPK Park吗？", a: "可以。DRT Pickup Point – Taman Perindustrian Kinrara设在23 Jalan TPK 2/8底层、Jazmina Bistro前方，是按需预约的DRT交通停靠点。出发前请通过当前DRT应用或服务确认即时预约供应及运营资料。" },
         { q: "是否有单位出租？", a: "部分商业与工业空间会不定时开放租赁。请联系管理团队了解最新选择。" },
         { q: "如何联系管理处？", a: "请在管理处办公时间致电+60 3 8076 5200或电邮info@tpkpark.com。" }
       ] }

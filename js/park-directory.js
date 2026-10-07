@@ -18,7 +18,7 @@ function renderDetail(){
  if(!selected){box.append(element('p',c.select));return;}
  const x=byId.get(selected),heading=element('div','','park-detail-heading');
  const close=element('button',c.close);close.type='button';close.onclick=()=>{select(null,true);root.querySelector(`[data-select="${x.id}"]`).focus();};
- heading.append(element('h3',x.name),close);box.append(heading,element('p',x.category,'park-detail-category'),element('address',x.address),element('p',x.description),element('p',x.premises?.length?c.approximate:c.status,'park-location-status'));
+ heading.append(element('h3',x.name),close);box.append(heading,element('p',x.category,'park-detail-category'),element('address',x.address),element('p',x.description),element('p',(x.premises?.length||x.buildingIds?.length)?c.approximate:c.status,'park-location-status'));
  if(x.premises?.length){
   const floorNames={en:{ground:'Ground floor',first:'First floor'},ms:{ground:'Tingkat bawah',first:'Tingkat satu'},zh:{ground:'底层',first:'一楼'}};
   const blockLabel={en:'Block',ms:'Blok',zh:'座'}[payload.locale];

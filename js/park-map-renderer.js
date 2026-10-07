@@ -4,9 +4,9 @@ const loadLeaflet=()=>new Promise((resolve,reject)=>{
  const js=document.createElement('script');js.src='/assets/map/leaflet/leaflet.js';js.onload=()=>resolve(window.L);js.onerror=reject;document.head.append(js);
 });
 export async function createMap(canvas,{copy:c,entries,onSelect}){
- const [L,response,shopResponse]=await Promise.all([loadLeaflet(),fetch('/assets/map/context.geojson'),fetch('/assets/map/shop-premises.geojson')]);
- if(!response.ok||!shopResponse.ok)throw new Error('Map data unavailable');
- const context=await response.json(),shops=await shopResponse.json();
+ const [L,response,shopResponse,buildingResponse]=await Promise.all([loadLeaflet(),fetch('/assets/map/context.geojson'),fetch('/assets/map/shop-premises.geojson'),fetch('/assets/map/building-premises.geojson')]);
+ if(!response.ok||!shopResponse.ok||!buildingResponse.ok)throw new Error('Map data unavailable');
+ const context=await response.json(),shops=await shopResponse.json(),buildings=await buildingResponse.json();
  const map=L.map(canvas,{scrollWheelZoom:false,attributionControl:true,zoomControl:false,minZoom:15,maxZoom:21,zoomSnap:0.25});
  L.control.zoom({zoomInTitle:c.zoomIn,zoomOutTitle:c.zoomOut}).addTo(map);
  L.control.scale({imperial:false,position:'bottomleft'}).addTo(map);
@@ -42,12 +42,16 @@ export async function createMap(canvas,{copy:c,entries,onSelect}){
  function refreshShops(){shopLayer.setStyle(style);numberLabels.clearLayers();if(map.getZoom()<18)return;
   for(const [number,layer] of shopLayers){const el=document.createElement('span');el.textContent=number;L.marker(layer.getBounds().getCenter(),{interactive:false,icon:L.divIcon({className:'park-unit-number',html:el,iconSize:[24,18],iconAnchor:[12,9]})}).addTo(numberLabels);}
  }
+ const buildingLayers=new Map();
+ const buildingOccupants=id=>entries.filter(e=>visible.has(e.id)&&e.buildingIds?.includes(id));
+ function buildingStyle(f){const on=active?.buildingIds?.includes(f.properties.id),populated=buildingOccupants(f.properties.id).length;return {color:on?'#a86d26':'#173e31',weight:on?3:1,fillColor:on?'#d5a965':'#456e55',fillOpacity:on?.9:populated?.65:.2,dashArray:'3 2'};}
+ const buildingLayer=L.geoJSON(buildings,{style:buildingStyle,onEachFeature:(f,layer)=>{buildingLayers.set(f.properties.id,layer);layer.bindTooltip(String(f.properties.number),{permanent:false,direction:'center'});layer.on('add',()=>layer.getElement()?.setAttribute('data-building-id',f.properties.id));layer.bindPopup(()=>{const box=document.createElement('div');box.className='park-unit-popup';const h=document.createElement('strong');h.textContent=`${f.properties.number}, ${f.properties.street}`;box.append(h);const note=document.createElement('p');note.textContent=c.approximate;box.append(note);for(const e of buildingOccupants(f.properties.id)){const b=document.createElement('button');b.type='button';b.dataset.mapBusiness=e.id;b.textContent=e.name;b.onclick=()=>{map.closePopup();onSelect(e.id);};box.append(b);}return box;});}}).addTo(map);
  map.on('zoomend',refreshShops);
- function select(entry){active=entry;activeStreet=entry?.street||'';highlight.clearLayers();refreshShops();if(!entry)return reset();
-  const units=entry.premises?.map(p=>shopLayers.get(p.number)).filter(Boolean)||[];
+ function select(entry){active=entry;activeStreet=entry?.street||'';highlight.clearLayers();refreshShops();buildingLayer.setStyle(buildingStyle);if(!entry)return reset();
+  const units=[...(entry.premises?.map(p=>shopLayers.get(p.number))||[]),...(entry.buildingIds?.map(id=>buildingLayers.get(id))||[])].filter(Boolean);
   if(units.length){const b=L.latLngBounds([]);units.forEach(l=>b.extend(l.getBounds()));map.fitBounds(b.pad(.5),{padding:[60,60],maxZoom:19,animate:false});return;}
   const matched=streetRoads.filter(f=>f.properties.name===entry.street);if(!matched.length)return reset();highlight.addData({type:'FeatureCollection',features:matched});map.fitBounds(highlight.getBounds().pad(.20),{padding:[45,45],maxZoom:18,animate:false});
  }
  reset();refreshLabels();refreshShops();
- return {select,reset,filter(ids){visible=new Set(ids);map.closePopup();refreshShops();},resize(){map.invalidateSize({animate:false});},destroy(){map.remove();}};
+ return {select,reset,filter(ids){visible=new Set(ids);map.closePopup();refreshShops();buildingLayer.setStyle(buildingStyle);},resize(){map.invalidateSize({animate:false});},destroy(){map.remove();}};
 }

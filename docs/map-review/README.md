@@ -82,3 +82,14 @@ All 29 unit footprints are approximate, including the Block C bend. The 20 confi
 Visitor flow: directory selection → embedded public premises mapping → self-hosted geometry → approximate footprint → business/floor chooser → guide or directions. No runtime database credentials are used. Local build, 11 map tests, browser selection/shared-floor/filter/history/fallback checks and five viewport widths pass. `layout-qa.json` records the added checks. Physical phones, Safari and field entrance positions remain unverified. The full site validator's existing baseline failures remain documented above.
 
 Review [desktop](forsee-desktop.webp) and [mobile](forsee-mobile.webp) Forsee screenshots and the Vercel preview before production approval. Production belongs to Shung Yen's Vercel; a preview hostname containing an older account slug does not establish current ownership. No merge or production deployment is made in this step.
+
+
+## Non-shoplot review — 7 October 2026
+
+Added four approximate historical building footprints on Jalan TPK 2/2: No.2 Optimum Swim School, No.4 Ga Hing, No.6 Lavino and Total Tools (shared chooser), No.8 Mazda. Address order is visible on management's annotated DYM TPK2 layout; rectangles come from the full architectural site plan, using the same OSM alignment. These are archival building outlines, not verified current extensions, property boundaries or entrances. The private annotated source contains commercial data and is not published.
+
+25 of 34 featured businesses now have a premises-level depiction: 20 shoplot businesses plus five frontage businesses. Nine remain street-level: Jubin BMS, Perodua, Kia, Techtrics Auto, Techtra Academy, Jon Detailing, Jaecoo, Toyokar and Fadzil. DRT remains street-level with its owner-confirmed Jazmina frontage description. Further factory plans found did not yet establish sufficient address-to-outline evidence for these nine; do not infer numbered factory order from unrelated lot numbers.
+
+Validation: build, 12 map tests and building-qa.json checks pass, including shared Lavino/Total Tools selection. Preview images: [desktop](building-desktop.webp), [mobile](building-mobile.webp).
+
+Hosting inspection: the connector returned deployment-not-found for both www.tpkpark.com and the observed preview deployment ID on 7 October. Earlier scoped project access was forbidden. This does not establish domain ownership; browser inspection of the signed-in Vercel dashboard is required before release. No DNS, project transfer or production change was made.

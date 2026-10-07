@@ -47,3 +47,9 @@ test('approximate shop geometry covers the same 29 numbered premises with explic
  for(const f of data.features){assert.equal(f.properties.precision,'plan-derived-approximate');assert.equal(f.properties.entranceVerified,false);const ring=f.geometry.coordinates[0];assert.deepEqual(ring[0],ring.at(-1));assert.ok(ring.every(([lng,lat])=>lng>101.637&&lng<101.639&&lat>3.046&&lat<3.05));}
  assert.ok(data.alignment.controlResidualRMSEMetres<5);assert.match(data.alignment.warning,/not absolute/);
 });
+
+test('frontage buildings preserve shared No.6 and independently identified addresses',()=>{
+ const data=JSON.parse(readFileSync('assets/map/building-premises.geojson','utf8'));assert.deepEqual(data.features.map(f=>f.properties.number),[2,4,6,8]);
+ const entries=mapEntries(site.en),get=id=>entries.find(e=>e.id===id);assert.deepEqual(get('lavino').buildingIds,get('totalTools').buildingIds);assert.deepEqual(get('optimumSwimSchool').buildingIds,['tpk-2-2-2']);assert.deepEqual(get('mazdaKinrara').buildingIds,['tpk-2-2-8']);assert.deepEqual(get('peroduaKinrara').buildingIds,[]);
+ for(const f of data.features){assert.equal(f.properties.entranceVerified,false);assert.equal(f.properties.precision,'plan-derived-approximate');}
+});

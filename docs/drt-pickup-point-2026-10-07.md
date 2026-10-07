@@ -9,6 +9,7 @@ Verified: 7 October 2026.
 - Google Maps address: **Ground Floor, 23, Jalan TPK 2/8, Taman Perindustrian Kinrara, 47180 Puchong, Selangor**.
 - Google classifies it as a **Transportation service**.
 - TPK Park management confirmed on 7 October 2026 that this is the correct physical pickup location: **the on-call transport stop in front of Jazmina Bistro**.
+- Management reconfirmed the physical pickup location on 7 October 2026 and requested the public status label **Exact position** (Malay: **Kedudukan tepat**; Chinese: **准确位置**). This confirms the described pickup location outside Jazmina Bistro; no GPS coordinate or map geometry is inferred from that confirmation.
 - Treat it as an **external visitor-access / transport POI**, not a tenant, business-directory entry or property managed by TPK Park.
 
 ## Public-use boundary

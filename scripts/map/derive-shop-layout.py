@@ -31,6 +31,17 @@ for block,edges,start in [('A',A,1),('B',B,25),('C',C,43)]:
   corners=[[r,top(r)],[l,top(l)],[l,top(l)+43],[r,top(r)+43]]
   ring=[xy(p) for p in corners];ring.append(ring[0]);n=start+2*i
   features.append(dict(type='Feature',properties=dict(id=f'tpk-2-8-{n}',number=n,block=block,bay=i+1,precision='plan-derived-approximate',source='Archival architectural site plan + OSM road-centre controls; address sequence checked against management register',entranceVerified=False),geometry=dict(type='Polygon',coordinates=[ring])))
+# Owner-requested visual alignment (2026-10-07): keep B/C between access roads.
+# These are cartographic corrections to approximate outlines, not measured boundaries.
+block_adjustments={"B":{"latitudeOrigin":3.04763495,"northScale":0.961,"northShiftMetres":8.901},"C":{"latitudeOrigin":3.04699225,"northScale":0.903,"northShiftMetres":4.571}}
+for feature in features:
+ adjustment=block_adjustments.get(feature['properties']['block'])
+ if adjustment:
+  origin=adjustment['latitudeOrigin']
+  feature['geometry']['coordinates']=[[[lng,round(origin+(lat-origin)*adjustment['northScale']+adjustment['northShiftMetres']/111320,7)] for lng,lat in feature['geometry']['coordinates'][0]]]
+  feature['properties']['source']+='; owner-requested road-clearance adjustment (2026-10-07)'
 out=dict(type='FeatureCollection',description='Approximate shop premises for visitor orientation. Not cadastral boundaries or entrance coordinates.',licence='Contains OSM-derived alignment; Open Database Licence (ODbL) 1.0',alignment=dict(method='affine least-squares; five road-centre controls',controlResidualRMSEMetres=round(rmse,1),controlCount=5,warning='Residual is alignment fit only, not absolute positional accuracy. Archival-plan and OSM errors remain.'),features=features)
+out['alignment']['blockAdjustments']=block_adjustments
+out['alignment']['adjustmentNote']='B/C adjusted within mapped access roads with approximately 4m centreline clearance. Road widths and premises boundaries remain unverified.'
 Path('assets/map/shop-premises.geojson').write_text(json.dumps(out,separators=(',',':'))+'\n')
 print(out['alignment'])

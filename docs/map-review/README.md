@@ -4,7 +4,7 @@
 
 This is a **street-orientation prototype**, not the complete Phase 1 pin map. All 34 canonical businesses and one separate DRT POI are accounted for. Exact reusable coordinates are missing for all 35, so no business pins are plotted. Selecting a business highlights its recorded street, explicitly labelled as street-level orientation. Do not merge/publish as the completed interactive business map.
 
-Owner input needed to complete the geographic layer: an annotated management site/lot plan showing current occupants and entrances, with permission to use it, or independently collected coordinates. A screenshot copied from Google Maps is not a substitute for reusable source geometry. No new GBP edits or Maps suggestions were made.
+Update 7 October: the existing TPK Ops Hub architectural-plan archive and address-to-bay register have now been recovered; no fresh plan upload is needed. The 29-shoplot / 58-floor mapping is available. Geographic alignment and current entrance positions remain to be established. A screenshot copied from Google Maps is not a substitute for reusable source geometry. No new GBP edits or Maps suggestions were made.
 
 The original detailed brief remains authoritative: `TPK_Park_Interactive_Map_Work_Mode_Prompt.md` (7 October). The acceptance gates for exact pins, collisions and precise POI placement remain open. Phase 2 illustrated layout is deferred.
 
@@ -59,3 +59,18 @@ Isolated branch `codex/tpk-interactive-map`; draft PR only. Owner-confirmed host
 - Full result: [browser-qa.json](browser-qa.json).
 - GitHub/Vercel reports the draft branch build Ready. The hosted preview redirects to Vercel sign-in, so this session's interaction verification used the local build. Hosted rendered interactions remain unverified.
 - Map-only initial raw transfer is approximately 237 KB (geometry + Leaflet + renderer/CSS), roughly 237 MB at 1,000 cold openings and 2.37 GB at 10,000 before compression and caching, excluding the rest of the page. Verify actual compressed bytes after deployment; this is a bandwidth estimate, not a bill.
+
+
+## Architectural source recovery — 7 October 2026
+
+Recovered all three management-held architectural PDFs, five pages each, and checked the site-plan and ground-floor sheets visually against the current Ops Hub `04 Leasable Area Master` address/block/bay/floor fields. Block A contains 12 bays at odd addresses 1–23; B contains 9 bays at 25–41; C contains 8 bays at 43–57. The current register contains all 58 ground/first-floor records with High address-to-bay confidence. This confidence is about the mapping, not surveyed latitude/longitude.
+
+The detailed drawings abbreviate repeated typical bays with drawing breaks. Never treat the displayed compressed span as the complete physical width. The full site plan preserves the block sequence and Block C bend. Private originals, full database rows, legal tenant names and commercial terms are not copied into this public repository.
+
+`scripts/shop-premises.mjs` records the 29 premises and a visitor-facing subset matching 19 existing featured businesses to their known block/unit/floor. The map details now display this block/floor information. Shared premises remain separate occupants; adjoining premises do not increase business counts. Geographic coordinates remain null pending alignment; these records enable a plan-based layout without invented GPS points.
+
+Examples: MOTD at 1G/3G; V Haus at 1-1/3-1/5G/5-1; BAAGUS at 7G; Signature at 9G; MK Curtain at 11G and Aces at 11-1; Jazmina at 23G and KLOT at 23-1; Premio at 25G and Balens at 25-1; preferred KBO destination at 39G; Nuarina at 41G; Yummy Nyonya at 43G and Fagolli at 43-1; DC Moto at 49G.
+
+Forsee's current visitor address requires owner reconciliation between the public directory and internal record; it has intentionally not been moved. DRT's frontage relationship to Jazmina at Block A No.23 is established, but no exact pickup coordinate is claimed.
+
+Next geographic task: georeference the full site plan against reusable road control points and distinguish plan-derived approximate building positions from field-verified entrances. Do not export the technical source drawings as the public map.

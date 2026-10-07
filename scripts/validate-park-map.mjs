@@ -26,3 +26,15 @@ test('no Google coordinate extraction, visitor geolocation or external map reque
  const code=readFileSync('js/park-map-renderer.js','utf8');assert.doesNotMatch(code,/getCurrentPosition|watchPosition|tileLayer|maps\.google/);
  const markup=readFileSync('directory/index.html','utf8');assert.match(markup,/park-map-data/);assert.doesNotMatch(markup,/<script[^>]+src="[^\"]*leaflet/);assert.match(markup,/canonical[^>]+https:\/\/www.tpkpark.com\/directory\//);
 });
+const {shopBlocks,shopPremises,premisesForBusiness,businessPremises}=await import('./shop-premises.mjs');
+test('29 shoplots recover the 12/9/8 bay sequence without creating coordinates',()=>{
+ assert.deepEqual(shopBlocks.map(x=>x.bays),[12,9,8]);assert.equal(shopPremises.length,29);assert.equal(new Set(shopPremises.map(x=>x.number)).size,29);
+ assert.deepEqual(shopPremises.map(x=>x.number),Array.from({length:29},(_,i)=>1+2*i));assert.ok(shopPremises.every(x=>x.coordinates===null));
+});
+test('floor-specific premises distinguish neighbours and retain preferred KBO destination',()=>{
+ assert.equal(premisesForBusiness('jazminaBistro')[0].bay,12);assert.equal(premisesForBusiness('klot')[0].floor,'first');
+ assert.equal(premisesForBusiness('premioDoor')[0].block,'B');assert.equal(premisesForBusiness('balensDesign')[0].number,25);
+ assert.equal(premisesForBusiness('kucheBath')[0].number,39);assert.equal(premisesForBusiness('dcMoto')[0].bay,4);
+ assert.equal(premisesForBusiness('vHausLiving').length,4);assert.deepEqual(premisesForBusiness('forseeLens'),[]);
+ for(const id of Object.keys(businessPremises))assert.ok(mapEntries(site.en).some(x=>x.id===id));
+});

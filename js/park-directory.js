@@ -19,6 +19,11 @@ function renderDetail(){
  const x=byId.get(selected),heading=element('div','','park-detail-heading');
  const close=element('button',c.close);close.type='button';close.onclick=()=>{select(null,true);root.querySelector(`[data-select="${x.id}"]`).focus();};
  heading.append(element('h3',x.name),close);box.append(heading,element('p',x.category,'park-detail-category'),element('address',x.address),element('p',x.description),element('p',c.status,'park-location-status'));
+ if(x.premises?.length){
+  const floorNames={en:{ground:'Ground floor',first:'First floor'},ms:{ground:'Tingkat bawah',first:'Tingkat satu'},zh:{ground:'底层',first:'一楼'}};
+  const blockLabel={en:'Block',ms:'Blok',zh:'座'}[payload.locale];
+  box.append(element('p',x.premises.map(p=>`${blockLabel} ${p.block} · ${p.number}${p.floor==='ground'?'G':'-1'} · ${floorNames[payload.locale][p.floor]}`).join(' / '),'park-premises'));
+ }
  const links=element('div','','business-directory-actions');
  if(x.guide){const a=element('a',payload.guideLabel);a.href=x.guide;links.append(a);}
  if(x.map){const a=element('a',x.addressFallback?c.addressMap:c.directions);a.href=x.map;a.target='_blank';a.rel='noopener noreferrer';if(x.destination)a.dataset.directoryDestination=x.destination;links.append(a);}

@@ -1,3 +1,4 @@
+import {premisesForBusiness} from './shop-premises.mjs';
 import { directoryEntries, directoryClusters, directoryCopy } from './business-directory.mjs';
 
 export const mapCopy = {
@@ -13,7 +14,7 @@ export function mapEntries(data) {
  return directoryEntries(data).map(entry => {
   const page=data.pages[entry.route];
   const street=entry.address.match(/Jalan TPK \d\/\d+/i)?.[0] || '';
-  return {...entry, id:entry.route, kind:'business', name:entry.route==='jaecooServiceCentre'?'Jaecoo Puchong Kinrara Service Centre':entry.name, street, section:street.match(/TPK (\d)/)?.[1]||null, aliases:aliases[entry.route]||'', description:page.description, coordinates:null, status:'unlocated', precision:'street-address', pointType:null, floor:null, verifiedAt:null, source: null, licence:null, ...locationOverrides[entry.route], addressFallback:addressFallback.has(entry.route)};
+  return {...entry, premises:premisesForBusiness(entry.route), id:entry.route, kind:'business', name:entry.route==='jaecooServiceCentre'?'Jaecoo Puchong Kinrara Service Centre':entry.name, street, section:street.match(/TPK (\d)/)?.[1]||null, aliases:aliases[entry.route]||'', description:page.description, coordinates:null, status:'unlocated', precision:'street-address', pointType:null, floor:null, verifiedAt:null, source: null, licence:null, ...locationOverrides[entry.route], addressFallback:addressFallback.has(entry.route)};
  });
 }
 export function transportEntry(locale) {
@@ -28,7 +29,7 @@ export function renderParkMap(locale,data,{escapeHtml:e,routePath,link}) {
  <h2>${x.route?link(locale,x.route,x.name):e(x.name)}</h2><p class="business-directory-category">${e(x.category)}</p><address>${e(x.address)}</address>
  <button class="park-select" type="button" data-select="${x.id}" aria-pressed="false" hidden>${e(c.street)} <span aria-hidden="true">↗</span><span class="visually-hidden"> · ${e(x.name)}</span></button>
  <div class="business-directory-actions">${x.route?link(locale,x.route,d.guide):''}${x.map?`<a href="${e(x.map)}" target="_blank" rel="noopener noreferrer"${x.route?` data-directory-destination="${routePath('en',x.route)}"`:''}>${e(x.addressFallback?c.addressMap:c.directions)}<span class="visually-hidden"> · ${e(x.name)} (${e(data.external)})</span></a>`:''}</div></article>`).join('');
- const publicData={locale,copy:c,entries:entries.map(x=>({id:x.id,kind:x.kind,cluster:x.cluster,name:x.name,category:x.category,address:x.address,street:x.street,description:x.description,coordinates:x.coordinates,status:x.status,precision:x.precision,map:x.map,addressFallback:!!x.addressFallback,guide:x.route?routePath(locale,x.route):null,destination:x.route?routePath('en',x.route):null})),guideLabel:d.guide};
+ const publicData={locale,copy:c,entries:entries.map(x=>({id:x.id,kind:x.kind,cluster:x.cluster,name:x.name,category:x.category,address:x.address,street:x.street,premises:x.premises||[],description:x.description,coordinates:x.coordinates,status:x.status,precision:x.precision,map:x.map,addressFallback:!!x.addressFallback,guide:x.route?routePath(locale,x.route):null,destination:x.route?routePath('en',x.route):null})),guideLabel:d.guide};
  return `<section class="section business-directory-section park-directory" data-business-directory id="explore"><div class="shell">
  <link rel="stylesheet" href="/css/park-map.css">
  <div class="park-heading"><div><p class="eyebrow">TPK PARK · PUCHONG</p><h2>${e(c.title)}</h2><p>${e(c.lead)}</p></div><button class="button" data-map-open hidden>${e(c.open)} <span aria-hidden="true">↗</span></button></div>

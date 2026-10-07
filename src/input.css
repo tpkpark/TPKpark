@@ -112,8 +112,8 @@ button, input, select, textarea { font: inherit; }
 .brand { display: inline-flex; align-items: center; gap: 11px; text-decoration: none; font-weight: 800; letter-spacing: -.03em; }
 .brand-logo { width: 76px; height: auto; flex: 0 0 auto; object-fit: contain; }
 .brand-logo-reverse { filter: brightness(0) invert(1); }
-.desktop-nav { margin-left: auto; display: flex; align-items: center; gap: 20px; font-size: 13px; font-weight: 650; }
-.desktop-nav a { text-decoration: none; position: relative; }
+.desktop-nav { margin-left: auto; display: flex; align-items: center; gap: clamp(12px, 1.4vw, 20px); font-size: 13px; font-weight: 650; }
+.desktop-nav a { text-decoration: none; position: relative; white-space: nowrap; }
 .desktop-nav a[aria-current="page"]::after, .desktop-nav a:hover::after { content: ""; position: absolute; left: 0; right: 0; bottom: -9px; height: 2px; background: var(--gold); }
 .locale-nav { display: flex; align-items: center; gap: 2px; padding: 4px; border: 1px solid var(--line); border-radius: 999px; background: rgba(255, 254, 249, .82); box-shadow: 0 4px 18px rgba(13, 42, 33, .08); font-size: 13px; font-weight: 700; line-height: 1; white-space: nowrap; }
 .locale-symbol { padding: 0 8px; border-right: 1px solid var(--line); color: var(--forest); font-size: 11px; font-weight: 850; letter-spacing: -.04em; }

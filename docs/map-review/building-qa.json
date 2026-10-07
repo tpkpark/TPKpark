@@ -1,0 +1,17 @@
+{
+  "errors": [],
+  "passed": [
+    "29 approximate polygons",
+    "shared premises chooser Jazmina/KLOT",
+    "map click updates URL and first-floor detail",
+    "filtered occupants excluded from popup",
+    "Forsee53G",
+    "shop-data failure preserves directory",
+    "four frontage footprints",
+    "Lavino/Total Tools shared footprint chooser"
+  ],
+  "notTested": [
+    "surveyed entrance accuracy",
+    "physical Android and iOS Safari"
+  ]
+}

@@ -49,6 +49,7 @@ export const routeLastModified = {
   ...base.routeLastModified,
   home: "2026-10-03",
   businessDirectory: "2026-10-07",
+  forseeLens: "2026-10-07",
   baagus: "2026-10-03",
   signature: "2026-10-03",
   homeLiving: "2026-10-03",

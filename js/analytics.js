@@ -226,6 +226,16 @@
     if (action === "answer" || action === "error") pendingAssistantQuestionCategory = "";
   });
 
+  document.addEventListener("tpk:map", event => {
+    const action = event.detail?.action;
+    const target = event.detail?.target;
+    const ids = new Set([...document.querySelectorAll("[data-directory-entry]")].map(x => x.dataset.id));
+    const filters = new Set(["all", "homeLiving", "automotive", "lifestyle", "food", "transport-on", "transport-off"]);
+    if (action === "open" && target === "directory" || action === "filter" && filters.has(target) || action === "select" && ids.has(target)) {
+      record("map_" + action, {}, target);
+    }
+  });
+
   const knownSpaces = ["shop-showroom", "detached-building", "semi-detached", "terrace-waitlist"];
   const pagePath = /^\/(?:ms\/|zh\/)?(?:directory|about|home-living(?:\/(?:lavino|ga-hing|kuche-bath|jubin-bms|v-haus-living|balens-design|builtop|premio-door|klot|dc-moto|fagolli|total-tools|baagus|mk-curtain|signature|choose-interior))?|automotive(?:\/(?:perodua-3s-kinrara|mazda-kinrara|kia-4s-service|techtrics-auto|techtra-automotive-academy|jon-detailing|jaecoo-service-centre|toyokar|fadzil-enterprise))?|lifestyle(?:\/(?:motd|jazmina-bistro|nasi-lemak-nuarina|yummy-nyonya-kitchen|optimum-swim-school|aces-gymnastic-academy|forsee-lens|99-speedmart|happivilles))?|leasing(?:\/(?:shop-showroom|detached-building|semi-detached))?|news(?:\/china-press-motd-food-music-feature)?|milestones|wong-shung-yen(?:\/public-record)?|contact)?\/?$/;
   const socialHosts = { "www.facebook.com": "facebook", "www.instagram.com": "instagram", "www.tiktok.com": "tiktok", "www.xiaohongshu.com": "xiaohongshu", "www.rednote.com": "xiaohongshu" };

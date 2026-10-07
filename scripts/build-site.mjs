@@ -22,6 +22,7 @@ import { enquiryCopy } from "./enquiry-config.mjs";
 import { askTpkCopy, starterQuestions } from "./ask-tpk-copy.mjs";
 import { assistantEnabled } from "../lib/assistant.mjs";
 import { propertyCatalog } from "../lib/assistant-rich.mjs";
+import { renderParkMap, mapCopy } from "./park-map.mjs";
 import { directoryClusters, directoryCopy, directoryEntries } from "./business-directory.mjs";
 import { parkMaps } from "./park-maps.mjs";
 
@@ -205,26 +206,7 @@ function renderDirectory(locale, block) {
 }
 
 function renderBusinessDirectory(locale) {
-  const data = site[locale];
-  const copy = directoryCopy[locale];
-  const entries = directoryEntries(data);
-  const cards = entries.map(entry => `<article class="business-directory-card" data-directory-entry data-cluster="${entry.cluster}" data-search="${escapeHtml([entry.name, entry.category, data.nav[entry.cluster], entry.address, data.pages[entry.route].business?.name || ""].join(" "))}">
-    <p class="business-directory-cluster">${escapeHtml(data.nav[entry.cluster])}</p><h2>${link(locale, entry.route, entry.name)}</h2>
-    <p class="business-directory-category">${escapeHtml(entry.category)}</p>
-    ${entry.address ? `<address>${escapeHtml(entry.address)}</address>` : ""}
-    <div class="business-directory-actions">${link(locale, entry.route, copy.guide)}${entry.map ? `<a href="${escapeHtml(entry.map)}" target="_blank" rel="noopener noreferrer" data-directory-destination="${routePath("en", entry.route)}">${escapeHtml(copy.map)}<span class="visually-hidden"> · ${escapeHtml(entry.name)} (${escapeHtml(data.external)})</span></a>` : ""}</div>
-  </article>`).join("");
-  return `<section class="section business-directory-section" data-business-directory><div class="shell">
-    <p class="business-directory-note">${escapeHtml(copy.note)}</p>
-    <div class="business-directory-controls" data-directory-controls hidden>
-      <label for="directory-search">${escapeHtml(copy.search)}<input id="directory-search" type="search" data-directory-search placeholder="${escapeHtml(copy.placeholder)}" autocomplete="off"></label>
-      <label for="directory-cluster">${escapeHtml(copy.cluster)}<select id="directory-cluster" data-directory-cluster><option value="">${escapeHtml(copy.all)}</option>${directoryClusters.map(cluster => `<option value="${cluster}">${escapeHtml(data.nav[cluster])}</option>`).join("")}</select></label>
-      <button type="button" data-directory-reset>${escapeHtml(copy.reset)}</button>
-    </div>
-    <p class="business-directory-count" role="status" aria-live="polite"><span data-directory-count>${entries.length}</span> ${escapeHtml(copy.results)}</p>
-    <p data-directory-empty hidden>${escapeHtml(copy.empty)}</p>
-    <div class="business-directory-grid">${cards}</div>
-  </div></section><script defer src="/js/business-directory.js"></script>`;
+  return renderParkMap(locale, site[locale], {escapeHtml, routePath, link});
 }
 
 function renderBusinessVisit(locale, block, page) {
@@ -232,7 +214,9 @@ function renderBusinessVisit(locale, block, page) {
   const contacts = block.contacts || [{ label: block.phoneLabel, value: block.phoneDisplay, url: phoneHref }];
   const contactRows = contacts.map(item => `<p>${escapeHtml(item.label)}: <a href="${escapeHtml(item.url)}">${escapeHtml(item.value)}</a></p>`).join("");
   const hoursRows = (block.hours || []).map(item => `<p><strong>${escapeHtml(item.label)}</strong><br>${escapeHtml(item.value)}</p>`).join("");
-  const actions = block.links.map(item => `<a class="text-link" href="${escapeHtml(item.route ? routePath(locale, item.route) : item.url)}">${escapeHtml(item.label)} <span aria-hidden="true">${item.route ? "→" : "↗"}</span></a>`).join("");
+  const directoryEntry = directoryEntries(site[locale]).find(entry => site[locale].pages[entry.route] === page);
+  const mapLink = directoryEntry ? `<a class="text-link" href="${routePath(locale, "businessDirectory")}#place=${directoryEntry.route}">${escapeHtml(mapCopy[locale].pin)} →</a>` : "";
+  const actions = mapLink + block.links.map(item => `<a class="text-link" href="${escapeHtml(item.route ? routePath(locale, item.route) : item.url)}">${escapeHtml(item.label)} <span aria-hidden="true">${item.route ? "→" : "↗"}</span></a>`).join("");
   return `<section class="section"><div class="shell">${sectionHeader(block)}<div class="business-visit">
     <div><h3>${escapeHtml(block.addressLabel)}</h3><address>${escapeHtml(block.address)}</address>${contactRows}${hoursRows}</div>
     <div><div class="business-actions">${actions}</div><p class="business-note">${escapeHtml(block.note)}</p></div>

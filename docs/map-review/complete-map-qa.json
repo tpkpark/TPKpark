@@ -1,0 +1,22 @@
+{
+  "errors": [],
+  "passed": [
+    "29 approximate polygons",
+    "shared premises chooser Jazmina/KLOT",
+    "map click updates URL and first-floor detail",
+    "filtered occupants excluded from popup",
+    "Forsee53G",
+    "shop-data failure preserves directory",
+    "fourteen archival building or premises outlines",
+    "Fadzil and Toyokar selection and addresses in EN MS ZH",
+    "Jaecoo plot click and address detail",
+    "unconfirmed candidates excluded",
+    "both Techtrics premises select the same business",
+    "six newly mapped businesses select correctly",
+    "Lavino/Total Tools shared footprint chooser"
+  ],
+  "notTested": [
+    "surveyed entrance accuracy",
+    "physical Android and iOS Safari"
+  ]
+}

@@ -26,4 +26,4 @@ section1=runpy.run_path('scripts/map/derive-section1-layout.py')
 features.extend(section1['features'])
 Path('assets/map/building-premises.geojson').write_text(json.dumps(dict(type='FeatureCollection',description='Approximate archival buildings and premises areas. Current extensions, surveyed boundaries and visitor entrances unverified.',section1Alignment=section1['alignment'],licence='OSM-derived alignment: Open Database Licence (ODbL) 1.0',features=features),separators=(',',':'))+'\n')
 
-Path('docs/map-review/section1-candidates.geojson').write_text(json.dumps(dict(type='FeatureCollection',description='Review only: two unconfirmed address-to-plot assignments. Excluded from visitor map.',features=section1['candidates']),indent=2)+'\n')
+Path('docs/map-review/section1-candidates.geojson').write_text(json.dumps(dict(type='FeatureCollection',description='No outstanding candidates. Owner confirmed A=Fadzil and B=Toyokar on 2026-10-07; both are now in visitor map data.',features=section1['candidates']),indent=2)+'\n')

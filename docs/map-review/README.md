@@ -2,7 +2,7 @@
 
 ## Status and release gate
 
-This preview depicts approximate premises for **32 of 34 businesses**: 20 shoplot businesses and 12 businesses across archival building or premises outlines. Two businesses (Toyokar and Fadzil) retain street-level orientation. All 34 businesses and the separate DRT POI remain searchable. No surveyed entrance coordinates are asserted. Review is still required before production publication.
+This preview depicts approximate premises for **all 34 featured businesses**: 20 shoplot businesses and 14 businesses across archival building or premises outlines. All three Section 1 assignments are confirmed by the owner. DRT remains a separate street-level POI with the confirmed Jazmina frontage description. Premises matching is complete; surveyed entrance coordinates are not asserted. Production publication remains a separate step.
 
 Update 7 October: the existing TPK Ops Hub architectural-plan archive and address-to-bay register have now been recovered; no fresh plan upload is needed. The 29-shoplot / 58-floor mapping is available. Geographic alignment and current entrance positions remain to be established. A screenshot copied from Google Maps is not a substitute for reusable source geometry. No new GBP edits or Maps suggestions were made.
 
@@ -135,3 +135,10 @@ Review diagram: [Section 1 location confirmation](section1-confirmation.png). Ca
 Validation: build and 14 map tests pass. Browser checks pass for Jaecoo selection, address display, candidate exclusion, desktop/mobile layouts and existing map flows. Images: [Jaecoo desktop](jaecoo-desktop.webp), [Jaecoo mobile](jaecoo-mobile.webp). No production publish.
 
 Owner confirmation received 7 October: Jaecoo is No.4 Jalan TPK 1/4, next to the TPK Park Management Office at No.2. The supplied screenshot corroborates that adjacency; no Google imagery or geometry was copied into map assets. Office is shown as a review-diagram reference only.
+
+
+## Final two premises confirmed — 7 October 2026
+
+The owner explicitly confirmed review A as Fadzil and review B as Toyokar, with a supporting screenshot. Fadzil is assigned to No.3 Jalan TPK 1/3, the northern detached premises; Toyokar to No.7, the southern detached premises. These are now visitor-map assignments, superseding the earlier candidate-only notes above. The geometries retain the independently traced archival premises areas and seven-junction OSM alignment; no Google imagery or geometry is redistributed. Owner confirmation establishes which premises, not surveyed boundary/entrance accuracy.
+
+All 34 featured businesses now have premises depictions. The separate DRT POI remains street-level. The review diagram now shows confirmed locations and the candidate register is empty. Build, 14 map tests and browser checks verify Fadzil/Toyokar selection, correct address display, multilingual data and the existing shared-premises flows. No production merge or publish in this step.

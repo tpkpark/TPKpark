@@ -1,4 +1,4 @@
-"""Section 1 plot alignment; candidate assignments stay outside visitor map data."""
+"""Section 1 plot alignment with owner-confirmed address assignments."""
 import numpy as np
 # Pixel controls in the 893x1263 combined site-plan review render.
 controls=[
@@ -19,8 +19,9 @@ def feature(id,number,street,points,source,confirmed):
 # The annotated No.4 layout points to the second plot west of the main entrance.
 # Trace the corresponding whole plot in the combined plan; do not call it a roof outline.
 features=[feature('tpk-1-4-4',4,'Jalan TPK 1/4',[[330,188],[355,187],[355,237],[330,238]],'Owner-confirmed No.4 next to management office No.2 (2026-10-07); annotated management layout + combined site plan + seven OSM junction controls',True)]
-# Unlabelled parcels: inferred ordering only. Review data, never visitor-map assignments.
-candidates=[
- feature('candidate-fadzil',3,'Jalan TPK 1/3',[[90,391],[134,393],[125,485],[82,482]],'Candidate northern detached plot; address-to-plot assignment requires owner confirmation',False),
- feature('candidate-toyokar',7,'Jalan TPK 1/3',[[73,581],[116,584],[105,674],[62,671]],'Candidate southern detached plot; address-to-plot assignment requires owner confirmation',False),
-]
+# Owner explicitly confirmed review A=Fadzil and B=Toyokar on 2026-10-07.
+features.extend([
+ feature('tpk-1-3-3',3,'Jalan TPK 1/3',[[90,391],[134,393],[125,485],[82,482]],'Owner-confirmed review plot A: Fadzil, No.3 (2026-10-07); combined site plan + seven OSM junction controls',True),
+ feature('tpk-1-3-7',7,'Jalan TPK 1/3',[[73,581],[116,584],[105,674],[62,671]],'Owner-confirmed review plot B: Toyokar, No.7 (2026-10-07); combined site plan + seven OSM junction controls',True),
+])
+candidates=[]

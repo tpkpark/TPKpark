@@ -54,23 +54,24 @@ test('frontage buildings preserve shared No.6 and independently identified addre
  for(const f of data.features){assert.equal(f.properties.entranceVerified,false);assert.equal(f.properties.precision,'plan-derived-approximate');}
 });
 
- test('factory locations retain adjoining units and leave unsupported outlines unassigned',()=>{
+ test('factory locations retain adjoining units and cover all featured businesses',()=>{
  const data=JSON.parse(readFileSync('assets/map/building-premises.geojson','utf8'));
  const entries=mapEntries(site.en),get=id=>entries.find(e=>e.id===id);
- assert.equal(data.features.length,12);assert.equal(new Set(data.features.map(f=>f.properties.id)).size,12);
+ assert.equal(data.features.length,14);assert.equal(new Set(data.features.map(f=>f.properties.id)).size,14);
  assert.deepEqual(get('techtricsAuto').buildingIds,['tpk-2-8-61','tpk-2-8-63']);
  assert.deepEqual(get('jonDetailing').buildingIds,['tpk-2-8-71']);
  assert.deepEqual(get('jubinBms').buildingIds,['tpk-2-3-7']);
- for(const id of ['toyokar','fadzilEnterprise'])assert.deepEqual(get(id).buildingIds,[]);
+ assert.deepEqual(get('toyokar').buildingIds,['tpk-1-3-7']);assert.deepEqual(get('fadzilEnterprise').buildingIds,['tpk-1-3-3']);
  for(const entry of entries)for(const id of entry.buildingIds)assert.ok(data.features.some(f=>f.properties.id===id));
- assert.equal(entries.filter(e=>e.premises.length||e.buildingIds.length).length,32);
+ assert.equal(entries.filter(e=>e.premises.length||e.buildingIds.length).length,34);
  for(const f of data.features)assert.deepEqual(f.geometry.coordinates[0][0],f.geometry.coordinates[0].at(-1));
  });
 
-test('Jaecoo uses its confirmed plot; candidate Section 1 assignments stay out of visitor data',()=>{
+test('Section 1 uses confirmed premises assignments without unconfirmed candidates',()=>{
  const data=JSON.parse(readFileSync('assets/map/building-premises.geojson','utf8'));
  const f=data.features.find(f=>f.properties.id==='tpk-1-4-4');assert.equal(f.properties.street,'Jalan TPK 1/4');assert.equal(f.properties.geometryRole,'premises-area');assert.equal(f.properties.addressMatchConfirmed,true);
  assert.ok(!data.features.some(f=>f.properties.id.startsWith('candidate-')));
  assert.deepEqual(mapEntries(site.en).find(e=>e.id==='jaecooServiceCentre').buildingIds,['tpk-1-4-4']);
+ for(const id of ['tpk-1-3-3','tpk-1-3-7']){const f=data.features.find(f=>f.properties.id===id);assert.equal(f.properties.addressMatchConfirmed,true);assert.equal(f.properties.entranceVerified,false);}
  assert.equal(data.section1Alignment.controlCount,7);assert.match(data.section1Alignment.warning,/not absolute/);
 });

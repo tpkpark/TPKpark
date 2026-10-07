@@ -45,7 +45,7 @@ async function showMap(){
 function showList(){view='list';root.classList.remove('map-active');$('[data-map-panel]').hidden=true;for(const b of root.querySelectorAll('[data-view]'))b.setAttribute('aria-pressed',String(b.dataset.view===view));}
 function update(){
  const terms=normalise(search.value).split(/\s+/).filter(Boolean);let business=0,poi=0;
- for(const card of cards){const isPoi=card.dataset.kind==='poi';const match=(isPoi?transport.checked:(!cluster.value||card.dataset.cluster===cluster.value||(cluster.value==='food'&&card.dataset.food==='true')))&&terms.every(t=>normalise(card.dataset.search).includes(t));card.hidden=!match;if(match){isPoi?poi++:business++;}}
+ for(const card of cards){const isPoi=card.dataset.kind==='poi';const match=(isPoi?transport.checked:(!cluster.value||card.dataset.cluster===cluster.value))&&terms.every(t=>normalise(card.dataset.search).includes(t));card.hidden=!match;if(match){isPoi?poi++:business++;}}
  $('[data-directory-count]').textContent=String(business);$('[data-poi-count]').textContent=String(poi);$('[data-directory-empty]').hidden=business+poi!==0;
  if(selected&&!visibleIds().includes(selected))select(null,true);
  mapModule?.filter(visibleIds());

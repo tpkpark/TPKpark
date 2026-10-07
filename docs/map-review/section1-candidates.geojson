@@ -1,0 +1,86 @@
+{
+  "type": "FeatureCollection",
+  "description": "Review only: two unconfirmed address-to-plot assignments. Excluded from visitor map.",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "candidate-fadzil",
+        "number": 3,
+        "street": "Jalan TPK 1/3",
+        "precision": "plan-derived-approximate",
+        "geometryRole": "premises-area",
+        "entranceVerified": false,
+        "addressMatchConfirmed": false,
+        "source": "Candidate northern detached plot; address-to-plot assignment requires owner confirmation"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              101.6336152,
+              3.0479181
+            ],
+            [
+              101.6338956,
+              3.047893
+            ],
+            [
+              101.6338296,
+              3.0473305
+            ],
+            [
+              101.6335557,
+              3.0473614
+            ],
+            [
+              101.6336152,
+              3.0479181
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "candidate-toyokar",
+        "number": 7,
+        "street": "Jalan TPK 1/3",
+        "precision": "plan-derived-approximate",
+        "geometryRole": "premises-area",
+        "entranceVerified": false,
+        "addressMatchConfirmed": false,
+        "source": "Candidate southern detached plot; address-to-plot assignment requires owner confirmation"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              101.6334891,
+              3.046756
+            ],
+            [
+              101.633763,
+              3.0467251
+            ],
+            [
+              101.6336845,
+              3.0461755
+            ],
+            [
+              101.6334106,
+              3.0462064
+            ],
+            [
+              101.6334891,
+              3.046756
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

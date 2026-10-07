@@ -22,4 +22,8 @@ features=[]
 for n,street,points,evidence in traces:
  ring=[xy(p) for p in points+[points[0]]]
  features.append(dict(type='Feature',properties=dict(id=f'tpk-{street.replace("/","-")}-{n}',number=n,street=f'Jalan TPK {street}',precision='plan-derived-approximate',entranceVerified=False,source=f'Archival architectural site plan; {evidence}; OSM alignment'),geometry=dict(type='Polygon',coordinates=[ring])))
-Path('assets/map/building-premises.geojson').write_text(json.dumps(dict(type='FeatureCollection',description='Approximate archival building footprints. Current extensions and visitor entrances unverified.',licence='OSM-derived alignment: Open Database Licence (ODbL) 1.0',features=features),separators=(',',':'))+'\n')
+section1=runpy.run_path('scripts/map/derive-section1-layout.py')
+features.extend(section1['features'])
+Path('assets/map/building-premises.geojson').write_text(json.dumps(dict(type='FeatureCollection',description='Approximate archival buildings and premises areas. Current extensions, surveyed boundaries and visitor entrances unverified.',section1Alignment=section1['alignment'],licence='OSM-derived alignment: Open Database Licence (ODbL) 1.0',features=features),separators=(',',':'))+'\n')
+
+Path('docs/map-review/section1-candidates.geojson').write_text(json.dumps(dict(type='FeatureCollection',description='Review only: two unconfirmed address-to-plot assignments. Excluded from visitor map.',features=section1['candidates']),indent=2)+'\n')

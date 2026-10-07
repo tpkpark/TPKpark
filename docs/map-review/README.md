@@ -2,7 +2,7 @@
 
 ## Status and release gate
 
-This preview depicts approximate premises for **31 of 34 businesses**: 20 shoplot businesses and 11 businesses across archival building footprints. Three businesses (Jaecoo, Toyokar and Fadzil) retain street-level orientation. All 34 businesses and the separate DRT POI remain searchable. No surveyed entrance coordinates are asserted. Review is still required before production publication.
+This preview depicts approximate premises for **32 of 34 businesses**: 20 shoplot businesses and 12 businesses across archival building or premises outlines. Two businesses (Toyokar and Fadzil) retain street-level orientation. All 34 businesses and the separate DRT POI remain searchable. No surveyed entrance coordinates are asserted. Review is still required before production publication.
 
 Update 7 October: the existing TPK Ops Hub architectural-plan archive and address-to-bay register have now been recovered; no fresh plan upload is needed. The 29-shoplot / 58-floor mapping is available. Geographic alignment and current entrance positions remain to be established. A screenshot copied from Google Maps is not a substitute for reusable source geometry. No new GBP edits or Maps suggestions were made.
 
@@ -117,3 +117,21 @@ Ops Hub tenant/premises links were last marked verified on 10 August 2026. This 
 Hosting: the current verified assignment is in ../vercel-hosting.md; that later browser inspection supersedes earlier owner-assignment statements in this chronological review log. No production deployment is authorized by this data update.
 
 Validation for this update: build and 13 map tests pass. Browser checks pass for all six new selections, both Techtrics outlines, the existing shared occupant choosers and data-failure fallback. Desktop/mobile screenshots: [desktop](factory-desktop.webp), [mobile](factory-mobile.webp). Results: factory-qa.json.
+
+
+## Section 1 geographic matching — 7 October 2026
+
+Jaecoo is now assigned to No.4 Jalan TPK 1/4. Management's annotated No.4 layout points to the second plot west of the main park entrance. The corresponding plot is traced in the combined layout and aligned independently to seven OSM Section 1 road junctions. Control-fit residual is 1.8 m, not a measure of absolute accuracy. This geometry is a whole premises area, explicitly labelled `geometryRole=premises-area`, rather than a current roof footprint or visitor gate. The current dealer locator also corroborates the address: https://omodajaecoo.com.my/dealer-locator.
+
+32 of 34 businesses now have approximate premises depictions. The remaining two have review candidates only:
+
+- A: Fadzil, No.3 Jalan TPK 1/3, northern detached plot on the western side near the road bend.
+- B: Toyokar, No.7 Jalan TPK 1/3, southern detached plot on the western side, south of the 1/5 junction.
+
+The unlabelled three-plot arrangement, confirmed addresses and title sequence suggest these assignments, but do not prove them. An older Sakan Auto listing places the former No.3 occupant near the northern candidate; it is corroborating context only, not reusable map geometry or confirmation of Fadzil's current entrance. No third-party coordinates were copied into map assets. Toyokar's official website confirms No.7, but its embedded map centre is not a verified pin. The archived No.7 correspondence reports a missing approved plan; the recovered No.3 drawing is an internal floor plan. Neither supplies the missing plot labels.
+
+Review diagram: [Section 1 location confirmation](section1-confirmation.png). Candidate data lives only in docs/map-review/section1-candidates.geojson and is excluded from visitor data. Owner confirmation of A/B is required before assigning them. No fresh address lookup or contract update is required from the owner.
+
+Validation: build and 14 map tests pass. Browser checks pass for Jaecoo selection, address display, candidate exclusion, desktop/mobile layouts and existing map flows. Images: [Jaecoo desktop](jaecoo-desktop.webp), [Jaecoo mobile](jaecoo-mobile.webp). No production publish.
+
+Owner confirmation received 7 October: Jaecoo is No.4 Jalan TPK 1/4, next to the TPK Park Management Office at No.2. The supplied screenshot corroborates that adjacency; no Google imagery or geometry was copied into map assets. Office is shown as a review-diagram reference only.

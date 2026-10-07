@@ -2,7 +2,7 @@ export const directoryClusters = ["homeLiving", "automotive", "lifestyle"];
 
 export const directoryCopy = {
   en: {
-    nav: "Find a business", title: "Find your next stop.", eyebrow: "Business directory",
+    nav: "Directory & Map", title: "Find your next stop.", eyebrow: "Business directory",
     description: "Find Home & Living showrooms, automotive businesses, dining and lifestyle services at TPK Park, Taman Perindustrian Kinrara, Puchong.",
     lead: "Explore businesses across TPK Park’s three clusters. Search by name or service, then open a business guide to plan your visit.",
     search: "Search businesses", placeholder: "Business name, service or street", cluster: "Choose a cluster", all: "All clusters",
@@ -11,7 +11,7 @@ export const directoryCopy = {
     cta: { title: "Make more of your visit.", text: "Explore the clusters and plan a few stops around Taman Perindustrian Kinrara.", button: "Explore Home & Living", route: "homeLiving" }
   },
   ms: {
-    nav: "Cari perniagaan", title: "Cari persinggahan seterusnya.", eyebrow: "Direktori perniagaan",
+    nav: "Direktori & Peta", title: "Cari persinggahan seterusnya.", eyebrow: "Direktori perniagaan",
     description: "Cari bilik pameran Home & Living, perniagaan automotif, tempat makan dan perkhidmatan gaya hidup di TPK Park, Taman Perindustrian Kinrara, Puchong.",
     lead: "Terokai perniagaan dalam tiga kluster TPK Park. Cari mengikut nama atau perkhidmatan, kemudian buka panduan perniagaan untuk merancang lawatan.",
     search: "Cari perniagaan", placeholder: "Nama perniagaan, perkhidmatan atau jalan", cluster: "Pilih kluster", all: "Semua kluster",
@@ -20,7 +20,7 @@ export const directoryCopy = {
     cta: { title: "Lengkapkan lawatan anda.", text: "Terokai kluster dan rancang beberapa persinggahan di Taman Perindustrian Kinrara.", button: "Terokai Home & Living", route: "homeLiving" }
   },
   zh: {
-    nav: "查找商家", title: "找到下一站。", eyebrow: "商家目录",
+    nav: "商家目录与地图", title: "找到下一站。", eyebrow: "商家目录",
     description: "查找蒲种TPK Park金銮工业园的家居展厅、汽车服务、餐饮与生活品味商家，查看商家指南并规划到访行程。",
     lead: "浏览TPK Park三大业态的商家。按名称或服务搜索，再打开商家指南，安排您的到访行程。",
     search: "搜索商家", placeholder: "商家名称、服务或街道", cluster: "选择业态", all: "所有业态",

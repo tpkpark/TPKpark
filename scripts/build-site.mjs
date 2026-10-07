@@ -88,7 +88,8 @@ function header(locale, routeId) {
   const t = site[locale];
   const activeRoute = t.pages[routeId].parentRoute || routeId;
   const nav = primaryNav.map((id) => `<a href="${routePath(locale, id)}"${id === activeRoute ? ' aria-current="page"' : ""}>${escapeHtml(t.nav[id])}</a>`).join("");
-  const mobileNav = routeIds.filter((id) => !t.pages[id].parentRoute).map((id) => `<a href="${routePath(locale, id)}"${id === activeRoute ? ' aria-current="page"' : ""}>${escapeHtml(t.nav[id])}</a>`).join("");
+  const mobileRoutes = ["home", ...primaryNav, ...routeIds.filter((id) => id !== "home" && !primaryNav.includes(id) && !t.pages[id].parentRoute)];
+  const mobileNav = mobileRoutes.map((id) => `<a href="${routePath(locale, id)}"${id === activeRoute ? ' aria-current="page"' : ""}>${escapeHtml(t.nav[id])}</a>`).join("");
   return `<header class="site-header">
     <div class="header-inner">
       <a class="brand" href="${routePath(locale, "home")}" aria-label="TPK Park ${t.nav.home}">

@@ -256,5 +256,5 @@ site.en.pages.home = {
 
 installDirectory(site, seoTitles);
 
-export const primaryNav = base.primaryNav;
+export const primaryNav = ["businessDirectory", ...base.primaryNav];
 export const socialLinks = base.socialLinks;

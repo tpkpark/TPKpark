@@ -18,7 +18,7 @@ function renderDetail(){
  if(!selected){box.append(element('p',c.select));return;}
  const x=byId.get(selected),heading=element('div','','park-detail-heading');
  const close=element('button',c.close);close.type='button';close.onclick=()=>{select(null,true);root.querySelector(`[data-select="${x.id}"]`).focus();};
- heading.append(element('h3',x.name),close);box.append(heading,element('p',x.category,'park-detail-category'),element('address',x.address),element('p',x.description),element('p',c.status,'park-location-status'));
+ heading.append(element('h3',x.name),close);box.append(heading,element('p',x.category,'park-detail-category'),element('address',x.address),element('p',x.description),element('p',x.premises?.length?c.approximate:c.status,'park-location-status'));
  if(x.premises?.length){
   const floorNames={en:{ground:'Ground floor',first:'First floor'},ms:{ground:'Tingkat bawah',first:'Tingkat satu'},zh:{ground:'底层',first:'一楼'}};
   const blockLabel={en:'Block',ms:'Blok',zh:'座'}[payload.locale];
@@ -39,7 +39,7 @@ function select(id,push=false){
 async function showMap(){
  view='map';root.classList.add('map-active');$('[data-map-panel]').hidden=false;
  for(const b of root.querySelectorAll('[data-view]'))b.setAttribute('aria-pressed',String(b.dataset.view===view));
- if(!loading){emit('open','directory');loading=import('./park-map-renderer.js').then(async module=>{mapModule=await module.createMap($('[data-map-canvas]'),payload);mapModule.filter(visibleIds());mapModule.select(selected?byId.get(selected):null);}).catch(()=>{$('[data-map-error]').hidden=false;});}
+ if(!loading){emit('open','directory');loading=import('./park-map-renderer.js').then(async module=>{mapModule=await module.createMap($('[data-map-canvas]'),{...payload,onSelect:id=>{select(id,true);emit('select',id);$('[data-map-detail]').focus({preventScroll:true});}});mapModule.filter(visibleIds());mapModule.select(selected?byId.get(selected):null);}).catch(()=>{$('[data-map-error]').hidden=false;});}
  await loading;mapModule?.resize();
 }
 function showList(){view='list';root.classList.remove('map-active');$('[data-map-panel]').hidden=true;for(const b of root.querySelectorAll('[data-view]'))b.setAttribute('aria-pressed',String(b.dataset.view===view));}

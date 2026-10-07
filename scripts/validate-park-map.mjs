@@ -39,3 +39,11 @@ test('floor-specific premises distinguish neighbours and retain preferred KBO de
  assert.equal(premisesForBusiness('vHausLiving').length,4);assert.equal(premisesForBusiness('forseeLens')[0].number,53);assert.equal(premisesForBusiness('forseeLens')[0].block,'C');assert.equal(premisesForBusiness('forseeLens')[0].bay,6);assert.equal(premisesForBusiness('forseeLens')[0].floor,'ground');
  for(const id of Object.keys(businessPremises))assert.ok(mapEntries(site.en).some(x=>x.id===id));
 });
+
+test('approximate shop geometry covers the same 29 numbered premises with explicit uncertainty',()=>{
+ const data=JSON.parse(readFileSync('assets/map/shop-premises.geojson','utf8'));
+ assert.equal(data.features.length,29);assert.match(data.licence,/ODbL/);
+ assert.deepEqual(data.features.map(f=>f.properties.number),shopPremises.map(p=>p.number));
+ for(const f of data.features){assert.equal(f.properties.precision,'plan-derived-approximate');assert.equal(f.properties.entranceVerified,false);const ring=f.geometry.coordinates[0];assert.deepEqual(ring[0],ring.at(-1));assert.ok(ring.every(([lng,lat])=>lng>101.637&&lng<101.639&&lat>3.046&&lat<3.05));}
+ assert.ok(data.alignment.controlResidualRMSEMetres<5);assert.match(data.alignment.warning,/not absolute/);
+});

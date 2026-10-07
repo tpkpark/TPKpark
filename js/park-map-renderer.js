@@ -3,11 +3,11 @@ const loadLeaflet=()=>new Promise((resolve,reject)=>{
  const css=document.createElement('link');css.rel='stylesheet';css.href='/assets/map/leaflet/leaflet.css';document.head.append(css);
  const js=document.createElement('script');js.src='/assets/map/leaflet/leaflet.js';js.onload=()=>resolve(window.L);js.onerror=reject;document.head.append(js);
 });
-export async function createMap(canvas,{copy:c,entries}){
- const [L,response]=await Promise.all([loadLeaflet(),fetch('/assets/map/context.geojson')]);
- if(!response.ok)throw new Error('Map data unavailable');
- const context=await response.json();
- const map=L.map(canvas,{scrollWheelZoom:false,attributionControl:true,zoomControl:false,minZoom:15,maxZoom:19,zoomSnap:0.25});
+export async function createMap(canvas,{copy:c,entries,onSelect}){
+ const [L,response,shopResponse]=await Promise.all([loadLeaflet(),fetch('/assets/map/context.geojson'),fetch('/assets/map/shop-premises.geojson')]);
+ if(!response.ok||!shopResponse.ok)throw new Error('Map data unavailable');
+ const context=await response.json(),shops=await shopResponse.json();
+ const map=L.map(canvas,{scrollWheelZoom:false,attributionControl:true,zoomControl:false,minZoom:15,maxZoom:21,zoomSnap:0.25});
  L.control.zoom({zoomInTitle:c.zoomIn,zoomOutTitle:c.zoomOut}).addTo(map);
  L.control.scale({imperial:false,position:'bottomleft'}).addTo(map);
  map.attributionControl.setPrefix(false);map.attributionControl.addAttribution('© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a> · ODbL');
@@ -27,9 +27,27 @@ export async function createMap(canvas,{copy:c,entries}){
  }
  map.on('zoomend moveend resize',refreshLabels);
  function reset(){map.fitBounds(bounds,{padding:[24,24],animate:false});}
- // No business coordinates are currently independently verified. No road-centroid pins.
- // Exact pins must be implemented and tested once approved location records exist.
- function select(entry){activeStreet=entry?.street||'';highlight.clearLayers();if(!entry)return reset();const matched=streetRoads.filter(f=>f.properties.name===entry.street);if(!matched.length)return reset();highlight.addData({type:'FeatureCollection',features:matched});map.fitBounds(highlight.getBounds().pad(.20),{padding:[45,45],maxZoom:18,animate:false});}
- reset();refreshLabels();
- return {select,reset,filter(){},resize(){map.invalidateSize({animate:false});},destroy(){map.remove();}};
+ // Whole approximate premises, never asserted entrance pins. Co-located floors
+ // share a footprint and a chooser instead of displacing markers.
+ let visible=new Set(entries.map(x=>x.id)),active=null;
+ const shopLayers=new Map(),numberLabels=L.layerGroup().addTo(map);
+ const occupants=number=>entries.filter(e=>visible.has(e.id)&&e.premises?.some(p=>p.number===number));
+ function selectedUnit(number){return active?.premises?.some(p=>p.number===number);}
+ function style(feature){const populated=occupants(feature.properties.number).length>0,on=selectedUnit(feature.properties.number);return {color:on?'#a86d26':populated?'#173e31':'#89958a',weight:on?3:1,fillColor:on?'#d5a965':populated?'#456e55':'#cbd2c7',fillOpacity:on?.9:populated?.65:.3,dashArray:'3 2'};}
+ function popup(feature){const {number,block}=feature.properties,box=document.createElement('div');box.className='park-unit-popup';const h=document.createElement('strong');h.textContent=`${c.block} ${block} · ${number}`;box.append(h);const note=document.createElement('p');note.textContent=c.approximate;box.append(note);const list=occupants(number);
+  if(!list.length){const p=document.createElement('p');p.textContent=c.noOccupants;box.append(p);}
+  for(const e of list){const button=document.createElement('button');button.type='button';button.dataset.mapBusiness=e.id;button.textContent=e.name+' · '+e.premises.filter(p=>p.number===number).map(p=>c[p.floor]).join(' / ');button.onclick=()=>{map.closePopup();onSelect(e.id);};box.append(button);}return box;
+ }
+ const shopLayer=L.geoJSON(shops,{style,onEachFeature:(f,layer)=>{shopLayers.set(f.properties.number,layer);layer.on('add',()=>layer.getElement()?.setAttribute('data-shop-number',f.properties.number));layer.bindPopup(()=>popup(f));}}).addTo(map);
+ function refreshShops(){shopLayer.setStyle(style);numberLabels.clearLayers();if(map.getZoom()<18)return;
+  for(const [number,layer] of shopLayers){const el=document.createElement('span');el.textContent=number;L.marker(layer.getBounds().getCenter(),{interactive:false,icon:L.divIcon({className:'park-unit-number',html:el,iconSize:[24,18],iconAnchor:[12,9]})}).addTo(numberLabels);}
+ }
+ map.on('zoomend',refreshShops);
+ function select(entry){active=entry;activeStreet=entry?.street||'';highlight.clearLayers();refreshShops();if(!entry)return reset();
+  const units=entry.premises?.map(p=>shopLayers.get(p.number)).filter(Boolean)||[];
+  if(units.length){const b=L.latLngBounds([]);units.forEach(l=>b.extend(l.getBounds()));map.fitBounds(b.pad(.5),{padding:[60,60],maxZoom:19,animate:false});return;}
+  const matched=streetRoads.filter(f=>f.properties.name===entry.street);if(!matched.length)return reset();highlight.addData({type:'FeatureCollection',features:matched});map.fitBounds(highlight.getBounds().pad(.20),{padding:[45,45],maxZoom:18,animate:false});
+ }
+ reset();refreshLabels();refreshShops();
+ return {select,reset,filter(ids){visible=new Set(ids);map.closePopup();refreshShops();},resize(){map.invalidateSize({animate:false});},destroy(){map.remove();}};
 }

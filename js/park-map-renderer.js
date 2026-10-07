@@ -39,6 +39,27 @@ export async function createMap(canvas,{copy:c,entries,officeIcon,onSelect}){
   if(visible.has(officeEntry.id)){if(!map.hasLayer(officeLayer))officeLayer.addTo(map);}else if(map.hasLayer(officeLayer))map.removeLayer(officeLayer);
   const el=officeLayer.getElement();if(el){el.classList.toggle('is-selected',active?.id===officeEntry.id);el.setAttribute('data-map-office','true');el.setAttribute('aria-label',officeEntry.name);el.setAttribute('aria-pressed',String(active?.id===officeEntry.id));}
  }
+ // Management confirmed the pickup outside Shop 23. Anchor its symbol to
+ // the road-facing edge of the existing plan geometry, not the whole street.
+ const pickupEntry=entries.find(e=>e.id==='drt-pickup');
+ const pickupShop=shops.features.find(f=>f.properties.number===pickupEntry?.frontage?.shopNumber);
+ let pickupLayer=null;
+ if(pickupShop){
+  const ring=pickupShop.geometry.coordinates[0],edge=pickupEntry.frontage.edge;
+  const a=ring[edge],b=ring[(edge+1)%(ring.length-1)];
+  const lat=(a[1]+b[1])/2,frontLng=(a[0]+b[0])/2;
+  // Shop 23 fronts west onto Jalan TPK 2/8; place the symbol in its forecourt.
+  const lng=frontLng-pickupEntry.frontage.offsetMetres/(111320*Math.cos(lat*Math.PI/180));
+  const label=document.createElement('span');label.textContent='DRT';
+  pickupLayer=L.marker([lat,lng],{title:pickupEntry.address,alt:pickupEntry.name,keyboard:true,zIndexOffset:500,icon:L.divIcon({className:'park-drt-icon',html:label,iconSize:[38,28],iconAnchor:[19,14]})}).on('click',()=>onSelect(pickupEntry.id));
+  const tooltip=document.createElement('span');tooltip.textContent=pickupEntry.address;
+  pickupLayer.bindTooltip(tooltip,{direction:'top',offset:[0,-16]});
+ }
+ function refreshPickup(){
+  if(!pickupLayer)return;
+  if(visible.has(pickupEntry.id)){if(!map.hasLayer(pickupLayer))pickupLayer.addTo(map);}else if(map.hasLayer(pickupLayer))map.removeLayer(pickupLayer);
+  const el=pickupLayer.getElement();if(el){el.classList.toggle('is-selected',active?.id===pickupEntry.id);el.setAttribute('data-map-drt','true');el.setAttribute('aria-label',pickupEntry.name+' · '+pickupEntry.address);el.setAttribute('aria-pressed',String(active?.id===pickupEntry.id));}
+ }
  const shopLayers=new Map(),numberLabels=L.layerGroup().addTo(map);
  const occupants=number=>entries.filter(e=>visible.has(e.id)&&e.premises?.some(p=>p.number===number));
  function selectedUnit(number){return active?.premises?.some(p=>p.number===number);}
@@ -56,12 +77,13 @@ export async function createMap(canvas,{copy:c,entries,officeIcon,onSelect}){
  function buildingStyle(f){const on=active?.buildingIds?.includes(f.properties.id),populated=buildingOccupants(f.properties.id).length;return {color:on?'#a86d26':'#173e31',weight:on?3:1,fillColor:on?'#d5a965':'#456e55',fillOpacity:on?.9:populated?.65:.2,dashArray:'3 2'};}
  const buildingLayer=L.geoJSON(buildings,{style:buildingStyle,onEachFeature:(f,layer)=>{buildingLayers.set(f.properties.id,layer);layer.bindTooltip(String(f.properties.number),{permanent:false,direction:'center'});layer.on('add',()=>layer.getElement()?.setAttribute('data-building-id',f.properties.id));layer.bindPopup(()=>{const box=document.createElement('div');box.className='park-unit-popup';const h=document.createElement('strong');h.textContent=`${f.properties.number}, ${f.properties.street}`;box.append(h);for(const e of buildingOccupants(f.properties.id)){const b=document.createElement('button');b.type='button';b.dataset.mapBusiness=e.id;b.textContent=e.name;b.onclick=()=>{map.closePopup();onSelect(e.id);};box.append(b);}return box;});}}).addTo(map);
  map.on('zoomend',refreshShops);
- function select(entry){active=entry;activeStreet=entry?.street||'';highlight.clearLayers();refreshShops();refreshOffice();buildingLayer.setStyle(buildingStyle);if(!entry)return reset();
+ function select(entry){active=entry;activeStreet=entry?.street||'';highlight.clearLayers();refreshShops();refreshOffice();refreshPickup();buildingLayer.setStyle(buildingStyle);if(!entry)return reset();
+  if(entry.id===pickupEntry?.id&&pickupLayer){map.setView(pickupLayer.getLatLng(),19,{animate:false});return;}
   if(entry.id===officeEntry?.id){map.setView([entry.coordinates[1],entry.coordinates[0]],19,{animate:false});return;}
   const units=[...(entry.premises?.map(p=>shopLayers.get(p.number))||[]),...(entry.buildingIds?.map(id=>buildingLayers.get(id))||[])].filter(Boolean);
   if(units.length){const b=L.latLngBounds([]);units.forEach(l=>b.extend(l.getBounds()));map.fitBounds(b.pad(.5),{padding:[60,60],maxZoom:19,animate:false});return;}
   const matched=streetRoads.filter(f=>f.properties.name===entry.street);if(!matched.length)return reset();highlight.addData({type:'FeatureCollection',features:matched});map.fitBounds(highlight.getBounds().pad(.20),{padding:[45,45],maxZoom:18,animate:false});
  }
- reset();refreshLabels();refreshShops();refreshOffice();
- return {select,reset,filter(ids){visible=new Set(ids);map.closePopup();refreshShops();refreshOffice();buildingLayer.setStyle(buildingStyle);},resize(){map.invalidateSize({animate:false});},destroy(){map.remove();}};
+ reset();refreshLabels();refreshShops();refreshOffice();refreshPickup();
+ return {select,reset,filter(ids){visible=new Set(ids);map.closePopup();refreshShops();refreshOffice();refreshPickup();buildingLayer.setStyle(buildingStyle);},resize(){map.invalidateSize({animate:false});},destroy(){map.remove();}};
 }

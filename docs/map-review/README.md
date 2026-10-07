@@ -46,4 +46,16 @@ Generate the current register with:
 
 ## Rollback and deployment
 
-Isolated branch `codex/tpk-interactive-map`; draft PR only. Owner corrected hosting on 7 October 2026: tpkpark.com is hosted under Shung Yen’s Vercel account. An older GitHub commit status links to `lawrencew7729-4682s-projects/tpkpark-site`; treat that as historical, not current hosting authority. The connector currently exposes only the study workspace and content portal and rejects access to tpkpark-site. Confirm the current project/domain linkage under Shung Yen before deploying. A branch push may trigger existing preview integrations; none are production release authority. No production merge/deploy is authorised by this draft. Rollback after a later approved release: revert the map PR through the same review pipeline, or restore the preceding production deployment with authorised Vercel access. No database migration or DNS reversal is needed.
+Isolated branch `codex/tpk-interactive-map`; draft PR only. Owner-confirmed hosting rule (7 October 2026): only tristar.tpkpark.com is hosted under Lawrence’s Vercel account. tpkpark.com and every other subdomain are hosted under Shung Yen’s Vercel account. An older GitHub commit status links to `lawrencew7729-4682s-projects/tpkpark-site`; treat that as historical, not current hosting authority. The connector currently exposes only the study workspace and content portal and rejects access to tpkpark-site. Confirm the current project/domain linkage under Shung Yen before deploying. A branch push may trigger existing preview integrations; none are production release authority. No production merge/deploy is authorised by this draft. Rollback after a later approved release: revert the map PR through the same review pipeline, or restore the preceding production deployment with authorised Vercel access. No database migration or DNS reversal is needed.
+
+## QA evidence
+
+- Production build passed.
+- 8 map tests and 44 analytics tests passed.
+- Legacy site validation: 104 diagnostics on both untouched base and feature; no new diagnostics. Failures include earlier metadata/contact/sitemap assumptions. Full `npm test` therefore remains red and is not represented as passing.
+- Chromium 153, Linux headless: lazy loading, alias search, category/count sync, transport toggle, empty state, selection/detail, language links, Fadzil address fallback, browser back/forward, invalid IDs, EN/MS/ZH interaction, JavaScript-disabled list and map-data failure fallback passed with no page errors.
+- Viewports 360×800, 390×844, 768×1024, 844×390 and 1440×1000: no horizontal overflow. Road-label collision suppression was added after visual review.
+- Screenshots: [desktop](desktop.png), [mobile](mobile.png). Test environment lacks Chinese fonts; Chinese text/state was checked, but Chinese typography on a real device remains a visual release check. Physical Android, Safari and a complete WCAG audit were not performed.
+- Full result: [browser-qa.json](browser-qa.json).
+- GitHub/Vercel reports the draft branch build Ready. The hosted preview redirects to Vercel sign-in, so this session's interaction verification used the local build. Hosted rendered interactions remain unverified.
+- Map-only initial raw transfer is approximately 237 KB (geometry + Leaflet + renderer/CSS), roughly 237 MB at 1,000 cold openings and 2.37 GB at 10,000 before compression and caching, excluding the rest of the page. Verify actual compressed bytes after deployment; this is a bandwidth estimate, not a bill.

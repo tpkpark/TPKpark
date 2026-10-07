@@ -17,12 +17,19 @@ export async function createMap(canvas,{copy:c,entries}){
  const bounds=L.geoJSON({type:'FeatureCollection',features:streetRoads}).getBounds().pad(.10);
  map.setMaxBounds(bounds.pad(.6));
  const highlight=L.geoJSON(null,{interactive:false,style:{color:'#a86d26',weight:7,opacity:.9}}).addTo(map);
- const labels=L.layerGroup().addTo(map);const seen=new Set();
- for(const road of streetRoads){const name=road.properties.name;if(seen.has(name))continue;seen.add(name);const coords=road.geometry.coordinates;const mid=coords[Math.floor(coords.length/2)];const text=document.createElement('span');text.textContent=name.replace('Jalan ','');L.marker([mid[1],mid[0]],{interactive:false,icon:L.divIcon({className:'park-road-label',html:text,iconSize:[95,20],iconAnchor:[47,10]})}).addTo(labels);}
+ const labels=L.layerGroup().addTo(map);let activeStreet='';
+ const labelRoads=[...new Map(streetRoads.map(x=>[x.properties.name,x])).values()];
+ function refreshLabels(){
+  labels.clearLayers();const placed=[];
+  const priority=new Set(['Jalan TPK 1/3','Jalan TPK 1/4','Jalan TPK 2/2','Jalan TPK 2/3','Jalan TPK 2/8']);
+  const ordered=[...labelRoads].sort((a,b)=>Number(b.properties.name===activeStreet)-Number(a.properties.name===activeStreet)||Number(priority.has(b.properties.name))-Number(priority.has(a.properties.name)));
+  for(const road of ordered){const name=road.properties.name;const coords=road.geometry.coordinates;const mid=coords[Math.floor(coords.length/2)];const ll=[mid[1],mid[0]],pixel=map.latLngToContainerPoint(ll);if(placed.some(p=>Math.abs(p.x-pixel.x)<64&&Math.abs(p.y-pixel.y)<23))continue;placed.push(pixel);const text=document.createElement('span');text.textContent=name.replace('Jalan ','');L.marker(ll,{interactive:false,icon:L.divIcon({className:'park-road-label',html:text,iconSize:[70,20],iconAnchor:[35,10]})}).addTo(labels);}
+ }
+ map.on('zoomend moveend resize',refreshLabels);
  function reset(){map.fitBounds(bounds,{padding:[24,24],animate:false});}
  // No business coordinates are currently independently verified. No road-centroid pins.
  // Exact pins must be implemented and tested once approved location records exist.
- function select(entry){highlight.clearLayers();if(!entry)return reset();const matched=streetRoads.filter(f=>f.properties.name===entry.street);if(!matched.length)return reset();highlight.addData({type:'FeatureCollection',features:matched});map.fitBounds(highlight.getBounds().pad(.20),{padding:[45,45],maxZoom:18,animate:false});}
- reset();
+ function select(entry){activeStreet=entry?.street||'';highlight.clearLayers();if(!entry)return reset();const matched=streetRoads.filter(f=>f.properties.name===entry.street);if(!matched.length)return reset();highlight.addData({type:'FeatureCollection',features:matched});map.fitBounds(highlight.getBounds().pad(.20),{padding:[45,45],maxZoom:18,animate:false});}
+ reset();refreshLabels();
  return {select,reset,filter(){},resize(){map.invalidateSize({animate:false});},destroy(){map.remove();}};
 }

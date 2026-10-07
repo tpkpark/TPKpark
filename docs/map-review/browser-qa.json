@@ -1,0 +1,47 @@
+{
+  "browser": "Chromium 153 (headless Linux, emulated viewports; not physical Android/iOS)",
+  "errors": [],
+  "overflow": [
+    {
+      "width": 360,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "width": 844,
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "overflow": false
+    }
+  ],
+  "passed": [
+    "lazy load",
+    "KBO alias",
+    "filters and counts",
+    "transport toggle",
+    "empty state",
+    "selection and detail",
+    "language link preserves selection",
+    "Fadzil current address fallback",
+    "history back/forward",
+    "unknown selection",
+    "EN/MS/ZH",
+    "no-JS list and links",
+    "map-data failure fallback"
+  ],
+  "notTested": [
+    "iOS Safari",
+    "physical Android",
+    "exact pins and overlap interactions (no verified coordinates)",
+    "full WCAG audit"
+  ]
+}

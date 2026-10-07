@@ -3,7 +3,7 @@ const loadLeaflet=()=>new Promise((resolve,reject)=>{
  const css=document.createElement('link');css.rel='stylesheet';css.href='/assets/map/leaflet/leaflet.css';document.head.append(css);
  const js=document.createElement('script');js.src='/assets/map/leaflet/leaflet.js';js.onload=()=>resolve(window.L);js.onerror=reject;document.head.append(js);
 });
-export async function createMap(canvas,{copy:c,entries,onSelect}){
+export async function createMap(canvas,{copy:c,entries,officeIcon,onSelect}){
  const [L,response,shopResponse,buildingResponse]=await Promise.all([loadLeaflet(),fetch('/assets/map/context.geojson'),fetch('/assets/map/shop-premises.geojson'),fetch('/assets/map/building-premises.geojson')]);
  if(!response.ok||!shopResponse.ok||!buildingResponse.ok)throw new Error('Map data unavailable');
  const context=await response.json(),shops=await shopResponse.json(),buildings=await buildingResponse.json();
@@ -30,6 +30,15 @@ export async function createMap(canvas,{copy:c,entries,onSelect}){
  // Whole approximate premises, never asserted entrance pins. Co-located floors
  // share a footprint and a chooser instead of displacing markers.
  let visible=new Set(entries.map(x=>x.id)),active=null;
+ // This icon marks an approximate premises centre, never a verified entrance.
+ const officeEntry=entries.find(e=>e.id==='tpk-management-office');
+ const officeLayer=officeEntry?L.marker([officeEntry.coordinates[1],officeEntry.coordinates[0]],{title:officeEntry.name,alt:officeEntry.name,keyboard:true,icon:L.divIcon({className:'park-office-icon',html:officeIcon,iconSize:[32,32],iconAnchor:[16,16]})}).on('click',()=>onSelect(officeEntry.id)):null;
+ if(officeLayer){const label=document.createElement('span');label.textContent=officeEntry.name;officeLayer.bindTooltip(label,{direction:'top',offset:[0,-18]});}
+ function refreshOffice(){
+  if(!officeLayer)return;
+  if(visible.has(officeEntry.id)){if(!map.hasLayer(officeLayer))officeLayer.addTo(map);}else if(map.hasLayer(officeLayer))map.removeLayer(officeLayer);
+  const el=officeLayer.getElement();if(el){el.classList.toggle('is-selected',active?.id===officeEntry.id);el.setAttribute('data-map-office','true');el.setAttribute('aria-label',officeEntry.name);el.setAttribute('aria-pressed',String(active?.id===officeEntry.id));}
+ }
  const shopLayers=new Map(),numberLabels=L.layerGroup().addTo(map);
  const occupants=number=>entries.filter(e=>visible.has(e.id)&&e.premises?.some(p=>p.number===number));
  function selectedUnit(number){return active?.premises?.some(p=>p.number===number);}
@@ -47,11 +56,12 @@ export async function createMap(canvas,{copy:c,entries,onSelect}){
  function buildingStyle(f){const on=active?.buildingIds?.includes(f.properties.id),populated=buildingOccupants(f.properties.id).length;return {color:on?'#a86d26':'#173e31',weight:on?3:1,fillColor:on?'#d5a965':'#456e55',fillOpacity:on?.9:populated?.65:.2,dashArray:'3 2'};}
  const buildingLayer=L.geoJSON(buildings,{style:buildingStyle,onEachFeature:(f,layer)=>{buildingLayers.set(f.properties.id,layer);layer.bindTooltip(String(f.properties.number),{permanent:false,direction:'center'});layer.on('add',()=>layer.getElement()?.setAttribute('data-building-id',f.properties.id));layer.bindPopup(()=>{const box=document.createElement('div');box.className='park-unit-popup';const h=document.createElement('strong');h.textContent=`${f.properties.number}, ${f.properties.street}`;box.append(h);const note=document.createElement('p');note.textContent=c.approximate;box.append(note);for(const e of buildingOccupants(f.properties.id)){const b=document.createElement('button');b.type='button';b.dataset.mapBusiness=e.id;b.textContent=e.name;b.onclick=()=>{map.closePopup();onSelect(e.id);};box.append(b);}return box;});}}).addTo(map);
  map.on('zoomend',refreshShops);
- function select(entry){active=entry;activeStreet=entry?.street||'';highlight.clearLayers();refreshShops();buildingLayer.setStyle(buildingStyle);if(!entry)return reset();
+ function select(entry){active=entry;activeStreet=entry?.street||'';highlight.clearLayers();refreshShops();refreshOffice();buildingLayer.setStyle(buildingStyle);if(!entry)return reset();
+  if(entry.id===officeEntry?.id){map.setView([entry.coordinates[1],entry.coordinates[0]],19,{animate:false});return;}
   const units=[...(entry.premises?.map(p=>shopLayers.get(p.number))||[]),...(entry.buildingIds?.map(id=>buildingLayers.get(id))||[])].filter(Boolean);
   if(units.length){const b=L.latLngBounds([]);units.forEach(l=>b.extend(l.getBounds()));map.fitBounds(b.pad(.5),{padding:[60,60],maxZoom:19,animate:false});return;}
   const matched=streetRoads.filter(f=>f.properties.name===entry.street);if(!matched.length)return reset();highlight.addData({type:'FeatureCollection',features:matched});map.fitBounds(highlight.getBounds().pad(.20),{padding:[45,45],maxZoom:18,animate:false});
  }
- reset();refreshLabels();refreshShops();
- return {select,reset,filter(ids){visible=new Set(ids);map.closePopup();refreshShops();buildingLayer.setStyle(buildingStyle);},resize(){map.invalidateSize({animate:false});},destroy(){map.remove();}};
+ reset();refreshLabels();refreshShops();refreshOffice();
+ return {select,reset,filter(ids){visible=new Set(ids);map.closePopup();refreshShops();refreshOffice();buildingLayer.setStyle(buildingStyle);},resize(){map.invalidateSize({animate:false});},destroy(){map.remove();}};
 }

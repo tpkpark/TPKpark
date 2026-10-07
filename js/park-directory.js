@@ -4,7 +4,7 @@ const {entries,copy:c}=payload;
 const byId=new Map(entries.map(x=>[x.id,x]));
 const $=s=>root.querySelector(s);
 const cards=[...root.querySelectorAll('[data-directory-entry]')];
-const search=$('[data-directory-search]'),cluster=$('[data-directory-cluster]'),transport=$('[data-transport]');
+const search=$('[data-directory-search]'),cluster=$('[data-directory-cluster]'),transport=$('[data-transport]'),office=$('[data-office]');
 const normalise=x=>x.normalize('NFKC').toLocaleLowerCase().trim();
 let selected=null,view='list',mapModule=null,loading=null;
 const emit=(action,target)=>document.dispatchEvent(new CustomEvent('tpk:map',{detail:{action,target}}));
@@ -18,14 +18,14 @@ function renderDetail(){
  if(!selected){box.append(element('p',c.select));return;}
  const x=byId.get(selected),heading=element('div','','park-detail-heading');
  const close=element('button',c.close);close.type='button';close.onclick=()=>{select(null,true);root.querySelector(`[data-select="${x.id}"]`).focus();};
- heading.append(element('h3',x.name),close);box.append(heading,element('p',x.category,'park-detail-category'),element('address',x.address),element('p',x.description),element('p',(x.premises?.length||x.buildingIds?.length)?c.approximate:c.status,'park-location-status'));
+ heading.append(element('h3',x.name),close);box.append(heading,element('p',x.category,'park-detail-category'),element('address',x.address),element('p',x.description),element('p',x.locationNote||((x.premises?.length||x.buildingIds?.length)?c.approximate:c.status),'park-location-status'));
  if(x.premises?.length){
   const floorNames={en:{ground:'Ground floor',first:'First floor'},ms:{ground:'Tingkat bawah',first:'Tingkat satu'},zh:{ground:'底层',first:'一楼'}};
   const blockLabel={en:'Block',ms:'Blok',zh:'座'}[payload.locale];
   box.append(element('p',x.premises.map(p=>`${blockLabel} ${p.block} · ${p.number}${p.floor==='ground'?'G':'-1'} · ${floorNames[payload.locale][p.floor]}`).join(' / '),'park-premises'));
  }
  const links=element('div','','business-directory-actions');
- if(x.guide){const a=element('a',payload.guideLabel);a.href=x.guide;links.append(a);}
+ if(x.guide){const a=element('a',x.guideLabel||payload.guideLabel);a.href=x.guide;links.append(a);}
  if(x.map){const a=element('a',x.addressFallback?c.addressMap:c.directions);a.href=x.map;a.target='_blank';a.rel='noopener noreferrer';if(x.destination)a.dataset.directoryDestination=x.destination;links.append(a);}
  const share=element('button',c.share);share.type='button';share.onclick=async()=>{try{await navigator.clipboard.writeText(location.href);share.textContent=c.copied;}catch{share.textContent=c.copyFail;}};
  links.append(share);box.append(links);
@@ -44,21 +44,22 @@ async function showMap(){
 }
 function showList(){view='list';root.classList.remove('map-active');$('[data-map-panel]').hidden=true;for(const b of root.querySelectorAll('[data-view]'))b.setAttribute('aria-pressed',String(b.dataset.view===view));}
 function update(){
- const terms=normalise(search.value).split(/\s+/).filter(Boolean);let business=0,poi=0;
- for(const card of cards){const isPoi=card.dataset.kind==='poi';const match=(isPoi?transport.checked:(!cluster.value||card.dataset.cluster===cluster.value))&&terms.every(t=>normalise(card.dataset.search).includes(t));card.hidden=!match;if(match){isPoi?poi++:business++;}}
- $('[data-directory-count]').textContent=String(business);$('[data-poi-count]').textContent=String(poi);$('[data-directory-empty]').hidden=business+poi!==0;
+ const terms=normalise(search.value).split(/\s+/).filter(Boolean);let business=0,poi=0,offices=0;
+ for(const card of cards){const isPoi=card.dataset.kind==='poi';const match=(isPoi?(card.dataset.cluster==='management'?office.checked:transport.checked):(!cluster.value||card.dataset.cluster===cluster.value))&&terms.every(t=>normalise(card.dataset.search).includes(t));card.hidden=!match;if(match){isPoi?(card.dataset.cluster==='management'?offices++:poi++):business++;}}
+ $('[data-directory-count]').textContent=String(business);$('[data-poi-count]').textContent=String(poi);$('[data-office-count]').textContent=String(offices);$('[data-directory-empty]').hidden=business+poi+offices!==0;
  if(selected&&!visibleIds().includes(selected))select(null,true);
  mapModule?.filter(visibleIds());
 }
 search.addEventListener('input',update);
 cluster.addEventListener('change',()=>{update();emit('filter',cluster.value||'all');});
+office.addEventListener('change',()=>{update();emit('filter',office.checked?'office-on':'office-off');});
 transport.addEventListener('change',()=>{update();emit('filter',transport.checked?'transport-on':'transport-off');});
-$('[data-directory-reset]').onclick=()=>{search.value='';cluster.value='';transport.checked=true;select(null,true);update();mapModule?.reset();search.focus();};
+$('[data-directory-reset]').onclick=()=>{search.value='';cluster.value='';transport.checked=true;office.checked=true;select(null,true);update();mapModule?.reset();search.focus();};
 root.querySelectorAll('[data-select]').forEach(b=>{b.hidden=false;b.onclick=async()=>{select(b.dataset.select,true);emit('select',b.dataset.select);await showMap();$('[data-map-detail]').focus({preventScroll:true});if(matchMedia('(max-width: 760px)').matches)$('[data-map-detail]').scrollIntoView({behavior:'instant',block:'nearest'});};});
 $('[data-map-open]').hidden=false;$('[data-map-open]').onclick=showMap;
 root.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>b.dataset.view==='map'?showMap():showList());
 $('[data-map-reset]').onclick=()=>mapModule?.reset();
 $('[data-directory-controls]').hidden=false;$('[data-map-toolbar]').hidden=false;
-window.addEventListener('popstate',()=>{search.value='';cluster.value='';transport.checked=true;update();select(selectionFromURL());if(selected)showMap();});
+window.addEventListener('popstate',()=>{search.value='';cluster.value='';transport.checked=true;office.checked=true;update();select(selectionFromURL());if(selected)showMap();});
 window.addEventListener('hashchange',()=>{select(selectionFromURL());if(selected)showMap();});
 update();select(selectionFromURL());if(selected)showMap();

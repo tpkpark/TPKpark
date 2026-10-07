@@ -67,10 +67,10 @@ Recovered all three management-held architectural PDFs, five pages each, and che
 
 The detailed drawings abbreviate repeated typical bays with drawing breaks. Never treat the displayed compressed span as the complete physical width. The full site plan preserves the block sequence and Block C bend. Private originals, full database rows, legal tenant names and commercial terms are not copied into this public repository.
 
-`scripts/shop-premises.mjs` records the 29 premises and a visitor-facing subset matching 19 existing featured businesses to their known block/unit/floor. The map details now display this block/floor information. Shared premises remain separate occupants; adjoining premises do not increase business counts. Geographic coordinates remain null pending alignment; these records enable a plan-based layout without invented GPS points.
+`scripts/shop-premises.mjs` records the 29 premises and a visitor-facing subset matching 20 existing featured businesses to their known block/unit/floor. The map details now display this block/floor information. Shared premises remain separate occupants; adjoining premises do not increase business counts. Geographic coordinates remain null pending alignment; these records enable a plan-based layout without invented GPS points.
 
 Examples: MOTD at 1G/3G; V Haus at 1-1/3-1/5G/5-1; BAAGUS at 7G; Signature at 9G; MK Curtain at 11G and Aces at 11-1; Jazmina at 23G and KLOT at 23-1; Premio at 25G and Balens at 25-1; preferred KBO destination at 39G; Nuarina at 41G; Yummy Nyonya at 43G and Fagolli at 43-1; DC Moto at 49G.
 
-Forsee's current visitor address requires owner reconciliation between the public directory and internal record; it has intentionally not been moved. DRT's frontage relationship to Jazmina at Block A No.23 is established, but no exact pickup coordinate is claimed.
+On 7 October 2026, the owner confirmed that Forsee Lens visitors should go to 53G, Jalan TPK 2/8 (Block C, bay 6, ground floor), consistent with the Ops Hub premises record. The three language guides, structured address and address-search directions now use 53G. This confirms the visitor destination, not a relocation of the entire laboratory or company. DRT's frontage relationship to Jazmina at Block A No.23 is established, but no exact pickup coordinate is claimed.
 
 Next geographic task: georeference the full site plan against reusable road control points and distinguish plan-derived approximate building positions from field-verified entrances. Do not export the technical source drawings as the public map.

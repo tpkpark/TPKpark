@@ -18,6 +18,6 @@ export const businessPremises = {
  builtop:[[13,'first']],speedmart99:[[19,'ground'],[21,'ground']],chooseInterior:[[21,'first']],jazminaBistro:[[23,'ground']],klot:[[23,'first']],
  premioDoor:[[25,'ground']],balensDesign:[[25,'first']],happivilles:[[31,'first']],
  kucheBath:[[39,'ground']], // Preferred visitor destination. Do not turn lease extent into multiple businesses.
- nuarina:[[41,'ground']],yummyNyonya:[[43,'ground']],fagolli:[[43,'first']],dcMoto:[[49,'ground']]
+ nuarina:[[41,'ground']],yummyNyonya:[[43,'ground']],fagolli:[[43,'first']],dcMoto:[[49,'ground']],forseeLens:[[53,'ground']]
 };
 export function premisesForBusiness(id){return (businessPremises[id]||[]).map(([number,floor])=>({...shopPremises.find(x=>x.number===number),floor}));}

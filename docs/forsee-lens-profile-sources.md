@@ -1,6 +1,12 @@
 # Forsee Lens guide sources
 
-Checked 16 September 2026. Scope: Forsee Lens / Forsee Vision Care at Taman Perindustrian Kinrara, Puchong.
+## Visitor destination correction — 7 October 2026
+
+The owner explicitly confirmed: “visitors shoud go to 53G for Forsee Lens”. Use **53G, Jalan TPK 2/8, Taman Perindustrian Kinrara, 47180 Puchong, Selangor** for visitor information and address-search directions. Ops Hub and the architectural address sequence place this at Block C, bay 6, ground floor. This supersedes the No. 71 navigation references in the historical review below; it does not establish relocation of the laboratory or parent company. Existing contact details remain unchanged. No Google Business Profile edits were made.
+
+## Historical source review
+
+Historical public-source review: 16 September 2026. Scope: Forsee Lens / Forsee Vision Care at Taman Perindustrian Kinrara, Puchong.
 
 ## Business identity and location
 
@@ -40,5 +46,5 @@ Checked 16 September 2026. Scope: Forsee Lens / Forsee Vision Care at Taman Peri
 ## Integration and privacy
 
 - Add the guide to all three Lifestyle directories, localised SEO titles, canonical/hreflang links, sitemap and LocalBusiness schema.
-- Ask TPK Park may identify Forsee Lens, the No. 71 Jalan TPK 2/8 location, the official phone/email/WhatsApp contacts and the published lens-lab/product scope, but should not invent opening hours, retail services, prices, medical outcomes or prescription advice.
+- Ask TPK Park may identify Forsee Lens, the owner-confirmed 53G Jalan TPK 2/8 visitor destination, the official phone/email/WhatsApp contacts and the published lens-lab/product scope, but should not invent opening hours, retail services, prices, medical outcomes or prescription advice.
 - Analytics may measure route navigation, language switching, fixed outbound destinations, directions and Forsee contact actions. Phone numbers, email addresses, WhatsApp parameters, map queries, URL query strings/fragments and visitor-entered data must not be stored in analytics payloads.

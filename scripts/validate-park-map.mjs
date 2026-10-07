@@ -12,6 +12,7 @@ for(const locale of ['en','ms','zh']){
  });
  test(`${locale}: relocation and approved destinations preserved`,()=>{
  const entries=mapEntries(site[locale]),get=id=>entries.find(x=>x.id===id);
+ assert.match(get('forseeLens').address,/53G/);assert.match(get('forseeLens').map,/53G/);assert.doesNotMatch(get('forseeLens').map,/\b71\b/);
  assert.match(get('kucheBath').map,/ChIJYc4kaEdLzDER458Isaliopc/);assert.match(get('kucheBath').address,/39G/);
  assert.doesNotMatch(get('fadzilEnterprise').map,/Serindit|ChIJk5RtBjtLzDERQKmx-S41mac/i);assert.match(get('fadzilEnterprise').map,/TPK/);assert.equal(get('fadzilEnterprise').addressFallback,true);
  assert.match(get('jaecooServiceCentre').name,/Puchong Kinrara/);assert.ok(!entries.some(x=>x.name==='Signature Space Sdn Bhd'));
@@ -35,6 +36,6 @@ test('floor-specific premises distinguish neighbours and retain preferred KBO de
  assert.equal(premisesForBusiness('jazminaBistro')[0].bay,12);assert.equal(premisesForBusiness('klot')[0].floor,'first');
  assert.equal(premisesForBusiness('premioDoor')[0].block,'B');assert.equal(premisesForBusiness('balensDesign')[0].number,25);
  assert.equal(premisesForBusiness('kucheBath')[0].number,39);assert.equal(premisesForBusiness('dcMoto')[0].bay,4);
- assert.equal(premisesForBusiness('vHausLiving').length,4);assert.deepEqual(premisesForBusiness('forseeLens'),[]);
+ assert.equal(premisesForBusiness('vHausLiving').length,4);assert.equal(premisesForBusiness('forseeLens')[0].number,53);assert.equal(premisesForBusiness('forseeLens')[0].block,'C');assert.equal(premisesForBusiness('forseeLens')[0].bay,6);assert.equal(premisesForBusiness('forseeLens')[0].floor,'ground');
  for(const id of Object.keys(businessPremises))assert.ok(mapEntries(site.en).some(x=>x.id===id));
 });

@@ -4,7 +4,14 @@ import {readFileSync} from 'node:fs';
 import {site} from './site-data.mjs';
 import {directoryEntries} from './business-directory.mjs';
 import {mapEntries,transportEntry} from './park-map.mjs';
+import {managementOfficeEntry} from './management-office.mjs';
 for(const locale of ['en','ms','zh']){
+ test(`${locale}: office stays separate, approximate and linked to company contact`,()=>{
+ const office=managementOfficeEntry(locale);assert.equal(office.kind,'poi');assert.equal(office.cluster,'management');assert.match(office.name,/TPK Park Sdn\. Bhd\./);assert.match(office.address,/^2, Jalan TPK 1\/4/);assert.equal(office.contactRoute,'contact');assert.equal(office.entranceVerified,false);assert.equal(office.precision,'plan-derived-approximate');
+ assert.equal(mapEntries(site[locale]).length,34);assert.ok(!mapEntries(site[locale]).some(x=>x.id===office.id));
+ const path=locale==='en'?'directory/index.html':`${locale}/directory/index.html`;const html=readFileSync(path,'utf8');const payload=JSON.parse(html.match(/<script type="application\/json" id="park-map-data">(.*?)<\/script>/s)[1]);assert.equal(payload.entries.length,36);assert.equal(payload.entries.filter(x=>x.kind==='business').length,34);assert.equal(payload.entries.filter(x=>x.kind==='poi').length,2);assert.match(payload.entries.find(x=>x.id===office.id).guide,/\/contact\/$/);assert.match(payload.officeIcon,/<svg/);
+ const jaecoo=JSON.parse(readFileSync('assets/map/building-premises.geojson','utf8')).features.find(x=>x.properties.id==='tpk-1-4-4');assert.ok(office.coordinates[0]>Math.max(...jaecoo.geometry.coordinates[0].map(p=>p[0])));assert.ok(office.coordinates[1]>3.0488&&office.coordinates[1]<3.0491);
+ });
  test(`${locale}: every business represented once; transport remains separate`,()=>{
  const entries=mapEntries(site[locale]);assert.equal(entries.length,directoryEntries(site[locale]).length);assert.equal(new Set(entries.map(x=>x.id)).size,entries.length);
  for(const x of entries){assert.ok(x.street);assert.equal(x.status,'unlocated');assert.equal(x.coordinates,null);assert.equal(x.kind,'business');}

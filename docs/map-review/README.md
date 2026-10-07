@@ -142,3 +142,11 @@ Owner confirmation received 7 October: Jaecoo is No.4 Jalan TPK 1/4, next to the
 The owner explicitly confirmed review A as Fadzil and review B as Toyokar, with a supporting screenshot. Fadzil is assigned to No.3 Jalan TPK 1/3, the northern detached premises; Toyokar to No.7, the southern detached premises. These are now visitor-map assignments, superseding the earlier candidate-only notes above. The geometries retain the independently traced archival premises areas and seven-junction OSM alignment; no Google imagery or geometry is redistributed. Owner confirmation establishes which premises, not surveyed boundary/entrance accuracy.
 
 All 34 featured businesses now have premises depictions. The separate DRT POI remains street-level. The review diagram now shows confirmed locations and the candidate register is empty. Build, 14 map tests and browser checks verify Fadzil/Toyokar selection, correct address display, multilingual data and the existing shared-premises flows. No production merge or publish in this step.
+
+## Company office POI — 7 October 2026
+
+Added **TPK Park Sdn. Bhd. (Management Office)** at 2, Jalan TPK 1/4 as a separate company-office POI. Scope is enquiries about properties owned or managed by the company, not management of the entire industrial park. EN/MS/ZH labels, descriptions and contact links are provided; no opening hours or walk-in availability is asserted.
+
+A muted blue office pictogram distinguishes the office from business premises and the transport point. It represents an approximate premises centre at combined-plan pixel [370,213], transformed with the existing seven Section 1 road controls to [101.635417,3.0489299] (longitude, latitude), east of Jaecoo No.4. It is not an entrance pin. The office has its own visibility toggle and count; the 34-business total is unchanged. Coordinates and source are recorded in `scripts/management-office.mjs`.
+
+Validation: build and 17 map tests passed. Browser checks passed in EN/MS/ZH for office selection, blue pictogram, correct address, contact link, independent office/transport toggles, search, reset and shared selection links. Mobile layout checked at 390px; no horizontal overflow or page errors.

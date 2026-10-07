@@ -2,7 +2,7 @@
 
 ## Status and release gate
 
-This is a **street-orientation prototype**, not the complete Phase 1 pin map. All 34 canonical businesses and one separate DRT POI are accounted for. Exact reusable coordinates are missing for all 35, so no business pins are plotted. Selecting a business highlights its recorded street, explicitly labelled as street-level orientation. Do not merge/publish as the completed interactive business map.
+This preview depicts approximate premises for **31 of 34 businesses**: 20 shoplot businesses and 11 businesses across archival building footprints. Three businesses (Jaecoo, Toyokar and Fadzil) retain street-level orientation. All 34 businesses and the separate DRT POI remain searchable. No surveyed entrance coordinates are asserted. Review is still required before production publication.
 
 Update 7 October: the existing TPK Ops Hub architectural-plan archive and address-to-bay register have now been recovered; no fresh plan upload is needed. The 29-shoplot / 58-floor mapping is available. Geographic alignment and current entrance positions remain to be established. A screenshot copied from Google Maps is not a substitute for reusable source geometry. No new GBP edits or Maps suggestions were made.
 
@@ -93,3 +93,27 @@ Added four approximate historical building footprints on Jalan TPK 2/2: No.2 Opt
 Validation: build, 12 map tests and building-qa.json checks pass, including shared Lavino/Total Tools selection. Preview images: [desktop](building-desktop.webp), [mobile](building-mobile.webp).
 
 Hosting inspection: the connector returned deployment-not-found for both www.tpkpark.com and the observed preview deployment ID on 7 October. Earlier scoped project access was forbidden. This does not establish domain ownership; browser inspection of the signed-in Vercel dashboard is required before release. No DNS, project transfer or production change was made.
+
+
+## Factory address-to-outline reconciliation — 7 October 2026
+
+Six more businesses now have approximate archival building depictions. The existing affine alignment is unchanged. The factory row extends beyond the road-control area, so its positional uncertainty may be greater than the control-fit residual suggests.
+
+| Business | Visitor address | Drawing evidence |
+| --- | --- | --- |
+| Jubin BMS | 7, Jalan TPK 2/3 | Annotated DYM site layout identifies No.7; the address-specific tenancy floor plan corroborates the detached premises |
+| Perodua Kinrara | 8, Jalan TPK 2/3 | Annotated DYM layout identifies No.8 on the opposite side of 2/3; Ops Hub corroborates the premises address |
+| Kia 4S Service | 59, Jalan TPK 2/8 | Annotated site layout in the No.59 tenancy folder explicitly labels Nos.59–77 |
+| Techtrics Auto | 61 and 63, Jalan TPK 2/8 | Same annotated layout; retain two independent outlines for the same business |
+| Techtra Academy | 65, Jalan TPK 2/8 | Same annotated layout |
+| Jon Detailing | 71, Jalan TPK 2/8 | Same annotated layout; distinct from Forsee's visitor destination at 53G |
+
+The annotated tenancy layout resolves the site-plan workshop indices 1–10 to street numbers 59–77. Traces use the full architectural drawing, not the reduced annotated drawing. Original plans and private tenancy records are not redistributed. Public source labels describe the evidence without publishing contract, rent or personal data.
+
+Remaining three: No.4 Jalan TPK 1/4 is indicated on an annotated Jaecoo premises layout, but no sufficiently checked geographic footprint has been derived. Fadzil's No.3 Jalan TPK 1/3 approval letter confirms the address and title reference but contains no location drawing. The Toyokar folder's sewerage drawing is an internal services schematic, not a geographical location plan. Keep all three at street level until their geographical outlines are resolved.
+
+Ops Hub tenant/premises links were last marked verified on 10 August 2026. This reconciliation is address-to-drawing evidence, not a fresh confirmation of occupancy or renewal. Current extensions, vehicle gates and pedestrian entrances remain unverified. Forsee visitor routing stays at 53G. DRT stays at its previously recorded Jazmina frontage description.
+
+Hosting: the current verified assignment is in ../vercel-hosting.md; that later browser inspection supersedes earlier owner-assignment statements in this chronological review log. No production deployment is authorized by this data update.
+
+Validation for this update: build and 13 map tests pass. Browser checks pass for all six new selections, both Techtrics outlines, the existing shared occupant choosers and data-failure fallback. Desktop/mobile screenshots: [desktop](factory-desktop.webp), [mobile](factory-mobile.webp). Results: factory-qa.json.

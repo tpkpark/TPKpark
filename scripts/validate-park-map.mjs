@@ -49,7 +49,20 @@ test('approximate shop geometry covers the same 29 numbered premises with explic
 });
 
 test('frontage buildings preserve shared No.6 and independently identified addresses',()=>{
- const data=JSON.parse(readFileSync('assets/map/building-premises.geojson','utf8'));assert.deepEqual(data.features.map(f=>f.properties.number),[2,4,6,8]);
- const entries=mapEntries(site.en),get=id=>entries.find(e=>e.id===id);assert.deepEqual(get('lavino').buildingIds,get('totalTools').buildingIds);assert.deepEqual(get('optimumSwimSchool').buildingIds,['tpk-2-2-2']);assert.deepEqual(get('mazdaKinrara').buildingIds,['tpk-2-2-8']);assert.deepEqual(get('peroduaKinrara').buildingIds,[]);
+ const data=JSON.parse(readFileSync('assets/map/building-premises.geojson','utf8'));assert.deepEqual(data.features.filter(f=>f.properties.street==='Jalan TPK 2/2').map(f=>f.properties.number),[2,4,6,8]);
+ const entries=mapEntries(site.en),get=id=>entries.find(e=>e.id===id);assert.deepEqual(get('lavino').buildingIds,get('totalTools').buildingIds);assert.deepEqual(get('optimumSwimSchool').buildingIds,['tpk-2-2-2']);assert.deepEqual(get('mazdaKinrara').buildingIds,['tpk-2-2-8']);assert.deepEqual(get('peroduaKinrara').buildingIds,['tpk-2-3-8']);
  for(const f of data.features){assert.equal(f.properties.entranceVerified,false);assert.equal(f.properties.precision,'plan-derived-approximate');}
 });
+
+ test('factory locations retain adjoining units and leave unsupported outlines unassigned',()=>{
+ const data=JSON.parse(readFileSync('assets/map/building-premises.geojson','utf8'));
+ const entries=mapEntries(site.en),get=id=>entries.find(e=>e.id===id);
+ assert.equal(data.features.length,11);assert.equal(new Set(data.features.map(f=>f.properties.id)).size,11);
+ assert.deepEqual(get('techtricsAuto').buildingIds,['tpk-2-8-61','tpk-2-8-63']);
+ assert.deepEqual(get('jonDetailing').buildingIds,['tpk-2-8-71']);
+ assert.deepEqual(get('jubinBms').buildingIds,['tpk-2-3-7']);
+ for(const id of ['jaecooServiceCentre','toyokar','fadzilEnterprise'])assert.deepEqual(get(id).buildingIds,[]);
+ for(const entry of entries)for(const id of entry.buildingIds)assert.ok(data.features.some(f=>f.properties.id===id));
+ assert.equal(entries.filter(e=>e.premises.length||e.buildingIds.length).length,31);
+ for(const f of data.features)assert.deepEqual(f.geometry.coordinates[0][0],f.geometry.coordinates[0].at(-1));
+ });

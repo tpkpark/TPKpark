@@ -47,7 +47,7 @@ export const seoTitles = {
 export const jadeExhibitionLastModified = base.jadeExhibitionLastModified;
 export const routeLastModified = {
   ...base.routeLastModified,
-  home: "2026-10-03",
+  home: "2026-10-07",
   businessDirectory: "2026-10-07",
   forseeLens: "2026-10-07",
   baagus: "2026-10-03",

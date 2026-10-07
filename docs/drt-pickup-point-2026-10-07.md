@@ -13,9 +13,14 @@ Verified: 7 October 2026.
 
 ## Public-use boundary
 
-The TPK Park website may state that an on-call DRT pickup point exists in front of Jazmina Bistro at 23 Jalan TPK 2/8 and advise visitors to check the current DRT app/service before travelling.
+The user approved publishing Trek Rides' official pricing and BK5 connection information on 7 October 2026.
 
-Do not publish fixed operating hours or fare from Google Maps alone. Google currently shows 06:00–23:30 daily, while Trek's current Puchong-zone page publishes 06:00–22:00 daily and RM2.00. Because those operational details conflict, use live-app/service guidance rather than asserting a schedule or fare on TPK Park's site.
+- Official zone page: https://trekrides.com/trek-rides/ — Puchong zone, RM2 fare, daily 06:00–22:00; coverage includes LRT Bandar Kinrara 5.
+- Official pricing FAQ: https://trekrides.com/faqs/ — RM2 per ride in the Puchong zone.
+- Booking instructions: https://trekrides.com/how-it-works/ — book through the Trek Rides app, which supplies the virtual pickup point and vehicle ETA.
+- The FAQ also contains explicitly labelled pilot-phase hours of 07:00–21:00. Use the zone-specific service page for published hours.
+- Attribute fare and hours to Trek Rides and advise visitors to confirm the available trip, fare, pickup/drop-off points and ETA in the app. BK5 is within the advertised coverage; this is not evidence of a fixed route, timetable or guaranteed direct journey.
+- The Google Maps hours correction from 06:00–23:30 to 06:00–22:00 was submitted on 7 October 2026 and awaits Google's review.
 
 ## Strategic value
 

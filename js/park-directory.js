@@ -26,6 +26,7 @@ function renderDetail(){
   box.append(element('p',x.premises.map(p=>`${blockLabel} ${p.block} · ${p.number}${p.floor==='ground'?'G':'-1'} · ${floorNames[payload.locale][p.floor]}`).join(' / '),'park-premises'));
  }
  const links=element('div','','business-directory-actions');
+ if(x.website){const a=element('a',x.websiteLabel);a.href=x.website;a.target='_blank';a.rel='noopener noreferrer';links.append(a);}
  if(x.guide){const a=element('a',x.guideLabel||payload.guideLabel);a.href=x.guide;links.append(a);}
  if(x.map){const a=element('a',x.addressFallback?c.addressMap:c.directions);a.href=x.map;a.target='_blank';a.rel='noopener noreferrer';if(x.destination)a.dataset.directoryDestination=x.destination;links.append(a);}
  const share=element('button',c.share);share.type='button';share.onclick=async()=>{try{await navigator.clipboard.writeText(location.href);share.textContent=c.copied;}catch{share.textContent=c.copyFail;}};
